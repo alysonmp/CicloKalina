@@ -44,43 +44,48 @@ public class ControlPrincipal {
         SessionFactory sf = HibernateUtil.getSessionFactory();
         this.session = sf.openSession();
         
-        Transaction tx = session.beginTransaction();
+        Criteria cr = this.session.createCriteria(ModelFluidos.class);
+        List results = cr.list();
         
-        session.save(new ModelFluidos(1, "Agua"));
-        session.save(new ModelFluidos(2, "Toluene (C7H8)"));
-        session.save(new ModelFluidos(3, "Ethylbenzene (C8H10)"));
-        session.save(new ModelFluidos(4, "Propylbenzene (C9H12)"));
-        session.save(new ModelFluidos(5, "Dimetylbenzene(C8H10)"));
-        session.save(new ModelFluidos(6, "Octamethyltrisiloxane (MDM)"));
-        session.save(new ModelFluidos(7, "Decamethyltetrasiloxane (MD2M)"));
-        session.save(new ModelFluidos(8, "Dodecamethylpentasiloxane (MD3M)"));
-        session.save(new ModelFluidos(9, "Dodecamethylcyclohexasiloxane (D6)"));
-        session.save(new ModelFluidos(10, "Isobutano"));
-        session.save(new ModelFluidos(11, "Isopentano"));
-        session.save(new ModelFluidos(12, "n-Butano"));
-        session.save(new ModelFluidos(13, "n-Pentano"));
-        session.save(new ModelFluidos(14, "R-134a (1,1,1,2-Tetrafluoroethane)"));
-        session.save(new ModelFluidos(15, "R-290 (PROPANE)"));
-        session.save(new ModelFluidos(16, "R-142b (1,1-Difluoro-1-chloroethane)"));
-        session.save(new ModelFluidos(17, "R-1270 (1-Propene)"));
-        session.save(new ModelFluidos(18, "R-40  (Clorometano)"));
-        session.save(new ModelFluidos(19, "Hexamethyldisiloxane, (MM)"));
-        session.save(new ModelFluidos(20, "Tetradecamethylhexasiloxane (MD4M)"));
-        session.save(new ModelFluidos(21, "Octamethylcyclotetrasiloxane (D4)"));
-        session.save(new ModelFluidos(22, "Decamethylcyclopentasiloxane (D5)"));
-        session.save(new ModelFluidos(23, "Trichlorofluoromethane (R11)"));
-        session.save(new ModelFluidos(24, "Dichlorodifluoromethane (R12)"));
-        session.save(new ModelFluidos(25, "1,3-Dichloro-1,1,2,2,3,3-hexafluoropropane (R216ca)"));
-        session.save(new ModelFluidos(26, "1,2-Dichlorotetrafluoroethane (R114)"));
-        session.save(new ModelFluidos(27, "1,1-Dichloro-1-fluoroethane (R141b)"));
-        session.save(new ModelFluidos(28, "1,1-Difluoroethane (R152a)"));
-        session.save(new ModelFluidos(29, "1-Chloro-1,1-difluoroethane (R142b)"));
-        session.save(new ModelFluidos(30, "n-Hexane"));
-        session.save(new ModelFluidos(31, "n-Heptane"));
-        session.save(new ModelFluidos(32, "n-octane"));
-        session.save(new ModelFluidos(33, "Chlorodifluoromethane (R22)"));
-        
-        tx.commit();
+        if(results.isEmpty()){
+            Transaction tx = session.beginTransaction();
+
+            session.save(new ModelFluidos(1, "Agua"));
+            session.save(new ModelFluidos(2, "Toluene (C7H8)"));
+            session.save(new ModelFluidos(3, "Ethylbenzene (C8H10)"));
+            session.save(new ModelFluidos(4, "Propylbenzene (C9H12)"));
+            session.save(new ModelFluidos(5, "Dimetylbenzene(C8H10)"));
+            session.save(new ModelFluidos(6, "Octamethyltrisiloxane (MDM)"));
+            session.save(new ModelFluidos(7, "Decamethyltetrasiloxane (MD2M)"));
+            session.save(new ModelFluidos(8, "Dodecamethylpentasiloxane (MD3M)"));
+            session.save(new ModelFluidos(9, "Dodecamethylcyclohexasiloxane (D6)"));
+            session.save(new ModelFluidos(10, "Isobutano"));
+            session.save(new ModelFluidos(11, "Isopentano"));
+            session.save(new ModelFluidos(12, "n-Butano"));
+            session.save(new ModelFluidos(13, "n-Pentano"));
+            session.save(new ModelFluidos(14, "R-134a (1,1,1,2-Tetrafluoroethane)"));
+            session.save(new ModelFluidos(15, "R-290 (PROPANE)"));
+            session.save(new ModelFluidos(16, "R-142b (1,1-Difluoro-1-chloroethane)"));
+            session.save(new ModelFluidos(17, "R-1270 (1-Propene)"));
+            session.save(new ModelFluidos(18, "R-40  (Clorometano)"));
+            session.save(new ModelFluidos(19, "Hexamethyldisiloxane, (MM)"));
+            session.save(new ModelFluidos(20, "Tetradecamethylhexasiloxane (MD4M)"));
+            session.save(new ModelFluidos(21, "Octamethylcyclotetrasiloxane (D4)"));
+            session.save(new ModelFluidos(22, "Decamethylcyclopentasiloxane (D5)"));
+            session.save(new ModelFluidos(23, "Trichlorofluoromethane (R11)"));
+            session.save(new ModelFluidos(24, "Dichlorodifluoromethane (R12)"));
+            session.save(new ModelFluidos(25, "1,3-Dichloro-1,1,2,2,3,3-hexafluoropropane (R216ca)"));
+            session.save(new ModelFluidos(26, "1,2-Dichlorotetrafluoroethane (R114)"));
+            session.save(new ModelFluidos(27, "1,1-Dichloro-1-fluoroethane (R141b)"));
+            session.save(new ModelFluidos(28, "1,1-Difluoroethane (R152a)"));
+            session.save(new ModelFluidos(29, "1-Chloro-1,1-difluoroethane (R142b)"));
+            session.save(new ModelFluidos(30, "n-Hexane"));
+            session.save(new ModelFluidos(31, "n-Heptane"));
+            session.save(new ModelFluidos(32, "n-octane"));
+            session.save(new ModelFluidos(33, "Chlorodifluoromethane (R22)"));
+
+            tx.commit();
+        }
         
         viewPrincipal = new ViewPrincipal(this);
     }
@@ -193,6 +198,7 @@ public class ControlPrincipal {
     public List getFluidos(){
         SessionFactory sf = HibernateUtil.getSessionFactory();
         this.session = sf.openSession();
+        
         Criteria cr = this.session.createCriteria(ModelFluidos.class);
         cr.setProjection(Projections.property("nome"));
         
