@@ -5,6 +5,8 @@
  */
 package Control.Ciclo2;
 
+import org.hibernate.Session;
+
 /**
  *
  * @author alysonmp
@@ -12,11 +14,17 @@ package Control.Ciclo2;
 public class ControlSeparadorRankine {
     
     double x, yi, H3, H2, H1, VF, T3, T2;
+    private Session session;
     
-    public ControlSeparadorRankine(double P1, double T1, double zi, double Pref, double Tref){
+    public ControlSeparadorRankine(double P1, double T1, double zi, double Pref, double Tref, Session session){
+        this.session = session;
+        
         T2 = T1;
         T3 = T1;
         
+        ControlCompequi compequi = new ControlCompequi(P1, T1, session);
+        
+        ControlH_Sistemamix h_sistemamix = new ControlH_Sistemamix(T3, P1, Pref, Tref, compequi.getX(), compequi, session);
         
     }
     

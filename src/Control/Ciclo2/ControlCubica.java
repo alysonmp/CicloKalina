@@ -44,6 +44,9 @@ public class ControlCubica {
         this.x3 = x3;
     }
 
+    public ControlCubica() {
+    }
+    
     public void solve(double a,
             double b,
             double c,
