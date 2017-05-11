@@ -5,65 +5,50 @@
  */
 package Control.Ciclo2;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author alysonmp
  */
 public class ControlCompequi {
     
-    private double zi, Dzi, zj;
-    private int erro;
+    private double zi, Dzi, zj, teste, x, yi;
+    private double erro;
     
-    public ControlCompequi(double x, double yi){
+    public ControlCompequi(double P, double T){
        
         zi = 0.5;
         erro = 1;
         Dzi = 0.25;
         
+        ControlConequi conequi = new ControlConequi();
         while(erro > 0.0001){
             zj = 1-zi;
+            conequi.realizaCalculo(T, P, zi);
             
+            teste = conequi.get(ki*zi)+(kj*zj);
+            erro = Math.abs((1-teste)/1);
+            if(erro > 0.0001 & teste < 1){
+                zi = zi+Dzi;
+                Dzi = Dzi/2;
+            }else{ 
+                if(erro > 0.0001 & teste > 1){
+                    zi = zi-Dzi;
+                    Dzi = Dzi/2;
+                }
+            }
+            
+            if(zj < 0.000001){
+                JOptionPane.showMessageDialog(null, "Liquido subenfriado");
+            }
+            
+            if(zi<0.000001){
+                JOptionPane.showMessageDialog(null, "Vapor superaquecido");
+            }
         }
+        
+        x = zi;
+        yi = conequi.getKi()*zi;
     }
 }
-
-function [x, yi]=compequi(P, T);
-
-
-zi=0.5;
-
-erro=1;
-Dzi=0.25;
-
-while erro>0.0001;
-    zj=1-zi;
-    [Ki, Kj]=conequi(T, P, zi);
-    teste=(Ki*zi)+(Kj*zj);
-    erro= abs((1-teste)/1);
-    if erro>0.0001 & teste<1;
-        zi=zi+Dzi;
-        Dzi=Dzi/2;
-        %if Dzi<0.005;
-%                 Dzi=0.0047953543;
-%             end
-        else if erro>0.0001 & teste>1;
-                zi=zi-Dzi;
-                Dzi=Dzi/2;
-%                 if Dzi<0.005;
-%                     Dzi=0.00393845211111;
-%                 end
-            end
-    end
-    if zj<0.000001
-        disp('Liquido subenfriado')
-        kljlskfdjjklsf*lksfadfsdajk
-    end
-    if zi<0.000001
-        disp('Vapor supÈraquecido')
-        kljlskfdjjklsf*lksfadfsdajk
-    end
-    
-end
-x=zi;
-yi=Ki*zi;
-end
