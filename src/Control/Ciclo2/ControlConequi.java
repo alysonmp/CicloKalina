@@ -5,6 +5,8 @@
  */
 package Control.Ciclo2;
 
+import org.hibernate.Session;
+
 /**
  *
  * @author alysonmp
@@ -14,11 +16,14 @@ public class ControlConequi {
     private double ki, kj;
     private ControlFugmix fugmix;
     
-    public ControlConequi(){
+    private Session session;
+    
+    public ControlConequi(Session session){
+        this.session = session;
     }
     
     public void realizaCalculo(double T, double P, double zi){
-        fugmix = new ControlFugmix(T, P, zi);
+        fugmix = new ControlFugmix(T, P, zi, this.session);
         
         ki = fugmix.getPhil_i()/fugmix.getPhiv_i();
         kj = fugmix.getPhil_j()/fugmix.getPhiv_j();

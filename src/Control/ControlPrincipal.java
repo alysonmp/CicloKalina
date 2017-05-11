@@ -7,6 +7,7 @@ package Control;
 
 import Model.Ciclo2.ModelBomba;
 import Model.Ciclo2.ModelFluidos;
+import Model.ModelConstantesMat;
 import Util.HibernateUtil;
 import View.Condensador.ViewCondensadorImage;
 import View.Evaporador.ViewEvaporadorImage;
@@ -46,7 +47,6 @@ public class ControlPrincipal {
         
         Criteria cr = this.session.createCriteria(ModelFluidos.class);
         List results = cr.list();
-        
         if(results.isEmpty()){
             Transaction tx = session.beginTransaction();
 
@@ -84,6 +84,49 @@ public class ControlPrincipal {
             session.save(new ModelFluidos(32, "n-octane"));
             session.save(new ModelFluidos(33, "Chlorodifluoromethane (R22)"));
 
+            tx.commit();
+        }
+        
+        cr = this.session.createCriteria(ModelFluidos.class);
+        results = cr.list();
+        if(results.isEmpty()){
+            Transaction tx = session.beginTransaction();
+            
+            double[][] valores = null;
+            
+            valores[0][0] = 90.483;
+            valores[0][1] = -4669.7;
+            valores[0][2] = -11.607;
+            valores[0][3] = 0.017194;
+            valores[0][4] = 1.0;
+            session.save(new ModelConstantesMat("C1", valores));
+            
+            valores = null;
+            valores[0][0] = 73.649;
+            valores[0][1] = -7258.2;
+            valores[0][2] = -7.3037;
+            valores[0][3] = 4.1653E-6;
+            valores[0][4] = 2.0;
+            session.save(new ModelConstantesMat("C2", valores));
+
+            valores = null;
+            valores[0][0] = 33.60134;
+            valores[0][1] = -0.002145;
+            valores[0][2] = -3.999E-6;
+            valores[0][3] = 4.752E-8;
+            valores[0][4] = -3.533E-11;
+            valores[0][5] = 0.0;
+            valores[0][6] = 0.0;
+            
+            valores[1][0] = 33.573;
+            valores[1][1] = -0.012581;
+            valores[1][2] = 8.8906E-5;
+            valores[1][3] = -7.1783E-8;
+            valores[1][4] = 1.8569E-11;
+            valores[1][5] = 0.0;
+            valores[1][6] = 0.0;
+            session.save(new ModelConstantesMat("cc", valores));
+            
             tx.commit();
         }
         

@@ -10,7 +10,7 @@ public class ControlZetamix {
     
     private double ter1, ter2, ter3, ter4, Z1m, Z2m;
 
-    public ControlZetamix(int A, double B, double C) {
+    public ControlZetamix(double A, double B, double C) {
 
         ter1 = 1;
         ter2 = (C-1);
@@ -115,5 +115,21 @@ public class ControlZetamix {
 
     public void setZv(double Zv) {
         this.Zv = Zv;
+    }
+
+    public double getZ1m() {
+        return Z1m;
+    }
+
+    public void setZ1m(double Z1m) {
+        this.Z1m = Z1m;
+    }
+
+    public double getZ2m() {
+        return Z2m;
+    }
+
+    public void setZ2m(double Z2m) {
+        this.Z2m = Z2m;
     }
 }

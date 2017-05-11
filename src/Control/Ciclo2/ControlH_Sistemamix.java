@@ -5,16 +5,30 @@
  */
 package Control.Ciclo2;
 
+import org.hibernate.Session;
+
 /**
  *
  * @author alysonmp
  */
 public class ControlH_Sistemamix {
     
-    private double zj;
+    private double zj, HDrefLj, HDrefVj, HDrefLi, HDrefVi;
+    private Session session;
     
-    public ControlH_Sistemamix(double T3, double P1, double Pref, double Tref, double zi){
+    public ControlH_Sistemamix(double T, double P, double Pref, double Tref, double zi, ControlCompequi compequi, Session session){
+        this.session = session;
         zj = 1-zi;
+        
+        ControlH_Dep hdep = new ControlH_Dep(Tref, Pref, 0, this.session);
+        HDrefLj = hdep.getHDL();
+        HDrefVj = hdep.getHDV();
+        
+        hdep = new ControlH_Dep(Tref, Pref, 1, this.session);
+        HDrefLi = hdep.getHDL();
+        HDrefVi = hdep.getHDV();
+        
+        ControlH_ideal_Gas_Mix hideal = new ControlH_ideal_Gas_Mix(T, Tref, zi, this.session);
     }
     
 }

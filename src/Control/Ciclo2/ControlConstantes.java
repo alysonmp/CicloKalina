@@ -5,9 +5,6 @@
  */
 package Control.Ciclo2;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  *
  * @author alysonmp
