@@ -5,6 +5,7 @@
  */
 package Model.Ciclo2;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -16,7 +17,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "Fluidos")
-public class ModelFluidos {
+public class ModelFluidos implements Serializable {
     @Id
     private int cod;
     
