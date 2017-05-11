@@ -18,6 +18,8 @@ public class ControlSeparadorRankine {
         T3 = T1;
         
         ControlCompequi compequi = new ControlCompequi(P1, T1);
+        
+        
     }
     
 }

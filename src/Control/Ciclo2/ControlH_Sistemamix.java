@@ -11,10 +11,10 @@ package Control.Ciclo2;
  */
 public class ControlH_Sistemamix {
     
-    private double zj = 1-zi;
+    private double zj;
     
     public ControlH_Sistemamix(double T3, double P1, double Pref, double Tref, double zi){
-        
+        zj = 1-zi;
     }
     
 }
