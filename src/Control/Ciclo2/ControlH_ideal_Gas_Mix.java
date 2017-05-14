@@ -46,5 +46,12 @@ public class ControlH_ideal_Gas_Mix {
         
         Higmix = (zi*Higi)+(zj*Higj);
     }
-    
+
+    public double getHigmix() {
+        return Higmix;
+    }
+
+    public void setHigmix(double Higmix) {
+        this.Higmix = Higmix;
+    }
 }

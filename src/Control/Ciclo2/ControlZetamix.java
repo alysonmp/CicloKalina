@@ -14,7 +14,9 @@ public class ControlZetamix {
 
         ter1 = 1;
         ter2 = (C-1);
+        //ter3=((-2*B*C)-(B^2)-B-C+A);
         ter3 = (-2*B*C)-(Math.pow(B, 2)-B-C+A);
+        //ter4=((B^2)*C)+(B*C)-(A*B);
         ter4 = (Math.pow(B, 2)*C)+(B*C)-(A*B);
 
         cubica = new ControlCubica();

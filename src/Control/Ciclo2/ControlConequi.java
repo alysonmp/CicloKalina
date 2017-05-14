@@ -25,7 +25,9 @@ public class ControlConequi {
     public void realizaCalculo(double T, double P, double zi){
         fugmix = new ControlFugmix(T, P, zi, this.session);
         
+        //Ki=phil_i/phiv_i;
         ki = fugmix.getPhil_i()/fugmix.getPhiv_i();
+        //Kj=phil_j/phiv_j;
         kj = fugmix.getPhil_j()/fugmix.getPhiv_j();
     }
     
