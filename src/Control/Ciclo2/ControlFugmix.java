@@ -37,6 +37,7 @@ public class ControlFugmix {
         vml = zetamix.getZ1m()*constantes.getR()*T/P;
         vmv = zetamix.getZ1m()*constantes.getR()*T/P;
         
+        //ap_1=((-2)*((zi^2*ai)+(zj^2*aj)+(zi*zj*((ai*aj)^0.5)*(1-kij))+(zj*zi*((aj*ai)^0.5)*(1-kji))));
         ap_1 = ((-2)*((Math.pow(zi,2)*constantes.getai())+(Math.pow(constantesMix.getzj(), 2)*constantes.getaj())+(zi*constantesMix.getzj()*(Math.pow(constantes.getai()*constantes.getaj(), 0.5))*(1-constantesMix.getKij()))+(constantesMix.getzj()*zi*(Math.pow(constantes.getaj()*constantes.getai(), 0.5))*(1-constantesMix.getKji()))));
         //ap_2=((-3)*((zi^2*zj*((ai*aj)^0.5)*(kij-kji))+(zj^2*zi*((aj*ai)^0.5)*(kji-kij))));
         ap_2 = ((-3)*((Math.pow(zi,2)*constantesMix.getzj()*((Math.pow((constantes.getai()*constantes.getaj()),0.5))*(constantesMix.getKij()-constantesMix.getKji()))+(Math.pow(constantesMix.getzj(), 2)*zi*(Math.pow(constantes.getaj()*constantes.getai(),0.5))*(constantesMix.getKji()-constantesMix.getKij())))));

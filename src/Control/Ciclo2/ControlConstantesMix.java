@@ -24,20 +24,31 @@ public class ControlConstantesMix {
         
         constantes = new ControlConstantes(T, P);
         
+        //aij= (1-kij+((kij-kji)*zi))*((ai*aj)^0.5);
         aij = (1-kij+((kij-kji)*zi))*Math.pow((constantes.getai()*constantes.getaj()), 0.5);
+        //aji= (1-kji+((kji-kij)*zj))*((ai*aj)^0.5);
         aji = (1-kji+((kji-kij)*zj))*Math.pow((constantes.getai()*constantes.getaj()), 0.5);
         
+        //am=(zi^2*ai)+(zi*zj*aij)+(zj*zi*aji)+(zj^2*aj);
         am = (Math.pow(zi, 2)*constantes.getai() + (zi*zj*aij) + (zj*zi*aji) + (Math.pow(zj, 2)*constantes.getaj()));
+        //bm=(zi*bi)+(zj*bj);
         bm = (zi*constantes.getbi())+(zj*constantes.getbj());
+        //cm=(zi*ci)+(zj*cj);
         cm = (zi*constantes.getci())+(zj*constantes.getcj());
         
+        //Am=(am*P)/((R*T)^2);
         Am = (am*P)/Math.pow(constantes.getR()*T, 2);
+        //Bm=bm*P/(R*T);
         Bm = bm*P/(constantes.getR()*T);
+        //Cm=cm*P/(R*T);
         Cm = cm*P/(constantes.getR()*T);
         
+        //Nm=((bm*cm)+(((bm+cm)/2)^2))^0.5;
         Nm = (Math.pow((bm*cm)+Math.pow((bm+cm)/2, 2), 0.5));
-        Mm=(((bm+cm)/2)-Nm)*(P/(constantes.getR()*T)) ;
-        Qm=(((bm+cm)/2)+Nm)*P/(constantes.getR()*T) ;
+        //Mm=(((bm+cm)/2)-Nm)*(P/(R*T));
+        Mm = (((bm+cm)/2)-Nm)*(P/(constantes.getR()*T));
+        //Qm=(((bm+cm)/2)+Nm)*P/(R*T);
+        Qm = (((bm+cm)/2)+Nm)*P/(constantes.getR()*T);
     } 
 
     public double getKij() {

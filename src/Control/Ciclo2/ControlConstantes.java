@@ -29,20 +29,32 @@ public class ControlConstantes {
         Fi = 0.627090;
         
         Omegabi = 0.069606085208489;
+        //Omegaai=(3*Zci^2)+((3*(1-2*Zci))*Omegabi)+(Omegabi^2)+1-(3*Zci);
         Omegaai = (3*Math.pow(Zci, 2)) + ((3*(1-2*Zci))*Omegabi) + (Math.pow(Omegabi, 2)+1-(3*Zci));
+        //Omegaci=1-(3*Zci);
         Omegaci = 1 - (3*Zci);
         
+        //ai=Omegaai*(R^2*Tci^2/Pci)*(1+(Fi*(1-(Tri^0.5))))^2;
         ai = Omegaai* Math.pow(((Math.pow(R, 2)*Math.pow(Tci, 2))/Pci) * (1+(Fi*(1-(Math.pow(Tri, 0.5))))), 2);
+        //alfai=(1+(Fi*(1-(Tri^0.5))))^2;
         alfai = Math.pow((1+(Fi*(1-(Math.pow(Tri, 0.5))))), 2);
+        //bi=Omegabi*(R*Tci/Pci);
         bi = Omegabi * ((R*Tci)/Pci);
+        //ci=Omegaci*(R*Tci/Pci);
         ci = Omegaci * ((R*Tci)/Pci);
         
+        //Ai=(ai*P)/((R*T)^2);
         Ai = (ai*P)/(Math.pow(R*T, 2));
+        //Bi=bi*P/(R*T) ;
         Bi = bi*P/(R*T);
+        //Ci=ci*P/(R*T) ;
         Ci = ci*P/(R*T);
         
+        //Ni=((bi*ci)+(((bi+ci)/2)^2))^0.5;
         Ni = Math.pow((bi*ci)+Math.pow((bi+ci)/2, 2), 0.5);
+        //Mi=(((bi+ci)/2)-Ni)*(P/(R*T)) ;
         Mi = (((bi+ci)/2)-Ni) * P/(R*T);
+        //Qi=(((bi+ci)/2)+Ni)*P/(R*T) ;
         Qi = (((bi+ci)/2)+Ni) * P/(R*T);
         
         //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -57,20 +69,32 @@ public class ControlConstantes {
         Fj = 0.689803; 
         
         Omegabj = 0.065284433256334;
+        //Omegaaj=(3*Zcj^2)+((3*(1-2*Zcj))*Omegabj)+(Omegabj^2)+1-(3*Zcj);
         Omegaaj = (3*Math.pow(Zcj, 2) + ((3*(1-2*Zcj))*Omegabj) + Math.pow(Omegabj, 2) + 1-(3*Zcj));
+        //Omegacj=1-(3*Zcj);
         Omegacj = 1-(3*Zcj);
         
+        //aj=Omegaaj*(R^2*Tcj^2/Pcj)*(1+(Fj*(1-(Trj^0.5))))^2;
         aj = Omegaaj * Math.pow(((Math.pow(R, 2)*Math.pow(Tcj, 2))/Pcj) * (1+(Fj*(1-(Math.pow(Trj, 0.5))))), 2);
+        //alfaj=(1+(Fj*(1-(Trj^0.5))))^2;
         alfaj = Math.pow((1+(Fj*(1-(Math.pow(Trj, 0.5))))), 2);
+        //bj=Omegabj*(R*Tcj/Pcj);
         bj = Omegabj*(R*Tcj/Pcj);
+        //cj=Omegacj*(R*Tcj/Pcj);
         cj = Omegacj*(R*Tcj/Pcj);
         
+        //Aj=(aj*P)/((R*T)^2);
         Aj = (aj*P)/(Math.pow(R*T, 2)); 
+        //Bj=bj*P/(R*T);
         Bj=bj*P/(R*T);
+        //Cj=cj*P/(R*T);
         Cj=cj*P/(R*T);
         
+        //Nj=((bj*cj)+((bj+cj)/2)^2)^.5 ;
         Nj = Math.pow((bj*cj)+Math.pow((bj+cj)/2, 2), 0.5);
+        //Mj=(((bj+cj)/2)-Nj)*(P/(R*T)) ;
         Mj=(((bj+cj)/2)-Nj)*(P/(R*T)) ;
+        //Qj=(((bj+cj)/2)+Nj)*P/(R*T) ;
         Qj=(((bj+cj)/2)+Nj)*P/(R*T) ;
         
         //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  

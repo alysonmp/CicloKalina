@@ -62,6 +62,7 @@ public class ControlH_Dep {
             a = constantes.getai();
         }
         
+        //da_dT=Omegaa*(R^2*Tc/Pc)*(-F*(alfa^0.5)/(Tr^0.5));
         da_dT=Omegaa*(Math.pow(constantes.getR(), 2)*Tc/Pc)*(-F*(Math.pow(alfa, 0.5))/(Math.pow(Tr,0.5)));
         
         ControlPdeVapor pVapor = new ControlPdeVapor(T, x, this.session);
@@ -80,10 +81,13 @@ public class ControlH_Dep {
         }else{
             if(dif >= 0.0001 & Ps2 > P){
                 HDL=0;
+                //HDV=(R*T*(Zv-1)-((T*da_dT)-a)*((1/(2*N))*(log((Zv+M)/(Zv+Q)))))*100000;
                 HDV=(constantes.getR()*T*(zetamix.getZv()-1)-((T*da_dT)-a)*((1/(2*N))*(Math.log((zetamix.getZv()+M)/(zetamix.getZv()+Q)))))*100000;
             }else{
                 if(dif<0.0001){
+                    //HDL=(R*T*(Zl-1)-((T*da_dT)-a)*((1/(2*N))*(log((Zl+M)/(Zl+Q)))))*100000;
                     HDL=(constantes.getR()*T*(zetamix.getZl()-1)-((T*da_dT)-a)*((1/(2*N))*(Math.log((zetamix.getZl()+M)/(zetamix.getZl()+Q)))))*100000;
+                    //HDV=(R*T*(Zv-1)-((T*da_dT)-a)*((1/(2*N))*(log((Zv+M)/(Zv+Q)))))*100000;
                     HDV=(constantes.getR()*T*(zetamix.getZv()-1)-((T*da_dT)-a)*((1/(2*N))*(Math.log((zetamix.getZv()+M)/(zetamix.getZv()+Q)))))*100000;
                 }
             }

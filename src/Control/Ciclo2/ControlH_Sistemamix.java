@@ -13,10 +13,10 @@ import org.hibernate.Session;
  */
 public class ControlH_Sistemamix {
     
-    private double zj, HDrefLj, HDrefVj, HDrefLi, HDrefVi;
+    private double zj, HDrefLj, HDrefVj, HDrefLi, HDrefVi, HL, HV;
     private Session session;
     
-    public ControlH_Sistemamix(double T, double P, double Pref, double Tref, double zi, ControlCompequi compequi, Session session){
+    public ControlH_Sistemamix(double T, double P, double Pref, double Tref, double zi, Session session){
         this.session = session;
         zj = 1-zi;
         
@@ -29,24 +29,28 @@ public class ControlH_Sistemamix {
         HDrefVi = hdep.getHDV();
         
         ControlH_ideal_Gas_Mix hideal = new ControlH_ideal_Gas_Mix(T, Tref, zi, this.session);
+        
+        ControlH_Depmix depmix = new ControlH_Depmix(T, P, zi);
+        
+        //HL=-(zi*HDrefLi+zj*HDrefLj)+Higmix+HDL;
+        HL = -(zi*HDrefLi+zj*HDrefLj)+hideal.getHigmix()+depmix.getHDL();
+        //HV=-(zi*HDrefLi+zj*HDrefLj)+Higmix+HDV;
+        HV = -(zi*HDrefLi+zj*HDrefLj)+hideal.getHigmix()+depmix.getHDV();
+    }   
+
+    public double getHL() {
+        return HL;
     }
-    
+
+    public void setHL(double HL) {
+        this.HL = HL;
+    }
+
+    public double getHV() {
+        return HV;
+    }
+
+    public void setHV(double HV) {
+        this.HV = HV;
+    }
 }
-
-function [HL, HV] = H_sistemamix(T, P, Pref, Tref, zi) 
-zj=1-zi;
-[HDL, HDV] = H_Dep(Tref, Pref, 0);
-HDrefLj=HDL;
-HDrefVj=HDV;
-
-[HDL, HDV] = H_Dep(Tref, Pref, 1);
-HDrefLi=HDL;
-HDrefVi=HDV;
- 
-[Higmix] = H_Ideal_gas_mix(T, Tref, zi);
-
-[HDL, HDV] = H_Depmix(T, P, zi);
-
- HL=-(zi*HDrefLi+zj*HDrefLj)+Higmix+HDL;
- HV=-(zi*HDrefLi+zj*HDrefLj)+Higmix+HDV;
-end

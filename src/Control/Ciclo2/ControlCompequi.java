@@ -69,4 +69,12 @@ public class ControlCompequi {
     public void setConequi(ControlConequi conequi) {
         this.conequi = conequi;
     }
+
+    public double getYi() {
+        return yi;
+    }
+
+    public void setYi(double yi) {
+        this.yi = yi;
+    }
 }
