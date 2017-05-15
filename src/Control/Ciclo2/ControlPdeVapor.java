@@ -34,6 +34,7 @@ public class ControlPdeVapor {
         ModelConstantesMat constantesMat = (ModelConstantesMat)results.get(0); 
         double[][] valores = constantesMat.getValores();
         
+        //Psi=(exp(C1(1)+(C1(2)/T)+(C1(3)*log(T))+(C1(4)*(T^C1(5)))))/100000; %bar
         Psi = (Math.exp(valores[0][0]) + (valores[0][1]/T) + (valores[0][2]*Math.log(T)) + (valores[0][3]*(Math.pow(T, valores[0][4]))))/100000;
         
         //UTILIZA A SEGUNDA LINHA BUSCADA, VARIÁVEL C2
@@ -41,6 +42,7 @@ public class ControlPdeVapor {
         constantesMat = (ModelConstantesMat)results.get(1); 
         valores = constantesMat.getValores();
         
+        //Psj=(exp(C2(1)+(C2(2)/T)+(C2(3)*log(T))+(C2(4)*(T^C2(5)))))/100000; %bar
         Psj = (Math.exp(valores[0][0]) + (valores[0][1]/T) + (valores[0][2]*Math.log(T)) + (valores[0][3]*(Math.pow(T, valores[0][4]))))/100000;
         
         if(x==0){

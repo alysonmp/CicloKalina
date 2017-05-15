@@ -63,7 +63,7 @@ public class ControlFug {
         fil = Math.exp(zetamix.getZl()-1-(Math.log(zetamix.getZl()-B) + (a/(2*constantes.getR()*T*N)) * Math.log((zetamix.getZl()+M)/(zetamix.getZl()+Q))));
                 
         //fiv=exp(Zv-1-(log(Zv-B))+(a/(2*R*T*N))*(log((Zv+M)/(Zv+Q))));
-        fil = Math.exp(zetamix.getZv()-1-(Math.log(zetamix.getZv()-B) + (a/(2*constantes.getR()*T*N)) * Math.log((zetamix.getZv()+M)/(zetamix.getZv()+Q))));
+        fiv = Math.exp(zetamix.getZv()-1-(Math.log(zetamix.getZv()-B) + (a/(2*constantes.getR()*T*N)) * Math.log((zetamix.getZv()+M)/(zetamix.getZv()+Q))));
     }
 
     public double getFil() {

@@ -13,7 +13,7 @@ import org.hibernate.Session;
  */
 public class ControlSeparadorRankine {
     
-    double x, yi, H3, H2, H1, VF, T3, T2;
+    double x, yi, H3, H2, H1, T3, T2;
     private Session session;
     
     public ControlSeparadorRankine(double P1, double T1, double zi, double Pref, double Tref, Session session){
@@ -24,23 +24,13 @@ public class ControlSeparadorRankine {
         
         ControlCompequi compequi = new ControlCompequi(P1, T1, session);
         
-        ControlH_Sistemamix h_sistemamix = new ControlH_Sistemamix(T3, P1, Pref, Tref, compequi.getX(), compequi, session);
+        ControlH_Sistemamix h_sistemamix = new ControlH_Sistemamix(T3, P1, Pref, Tref, compequi.getX(), session);
+        H3 = h_sistemamix.getHL();
+        ControlH_Sistemamix h_sistemamix2 = new ControlH_Sistemamix(T2, P1, Pref, Tref, compequi.getYi(), session);
+        H2 = h_sistemamix2.getHV();
         
-    }
-    
+        ControlFlash flash = new ControlFlash(P1, T1, zi, session);
+        
+        H1 = (flash.getVF()*H2)+((1-flash.getVF())*H3);
+    }   
 }
-
-function [x, yi, H3, H2, H1, VF, T3, T2] = separador(P1, T1, zi, Pref, Tref)
-
-T2=T1;
-T3=T1;
-
-[x, yi]=compequi(P1, T1);
-
-[HL3, HV3] = H_sistemamix(T3, P1, Pref, Tref, x);
-H3=HL3;
-[HL2, HV2] = H_sistemamix(T2, P1, Pref, Tref, yi);
-H2=HV2;
-[VF] = flash(P1, T1, zi);
-
-H1=(VF*H2)+((1-VF)*H3);
