@@ -61,5 +61,4 @@ public class ControlFlash {
     public void setVF(double VF) {
         this.VF = VF;
     }
-   
 }

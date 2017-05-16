@@ -35,7 +35,7 @@ public class ControlPdeVapor {
         double[][] valores = constantesMat.getValores();
         
         //Psi=(exp(C1(1)+(C1(2)/T)+(C1(3)*log(T))+(C1(4)*(T^C1(5)))))/100000; %bar
-        Psi = (Math.exp(valores[0][0]) + (valores[0][1]/T) + (valores[0][2]*Math.log(T)) + (valores[0][3]*(Math.pow(T, valores[0][4]))))/100000;
+        Psi = (Math.exp(valores[0][0] + (valores[0][1]/T) + (valores[0][2]*Math.log(T)) + (valores[0][3]*(Math.pow(T, valores[0][4])))))/100000;
         
         //UTILIZA A SEGUNDA LINHA BUSCADA, VARIÁVEL C2
         results = cr.list();
@@ -43,7 +43,7 @@ public class ControlPdeVapor {
         valores = constantesMat.getValores();
         
         //Psj=(exp(C2(1)+(C2(2)/T)+(C2(3)*log(T))+(C2(4)*(T^C2(5)))))/100000; %bar
-        Psj = (Math.exp(valores[0][0]) + (valores[0][1]/T) + (valores[0][2]*Math.log(T)) + (valores[0][3]*(Math.pow(T, valores[0][4]))))/100000;
+        Psj = (Math.exp(valores[0][0] + (valores[0][1]/T) + (valores[0][2]*Math.log(T)) + (valores[0][3]*(Math.pow(T, valores[0][4])))))/100000;
         
         if(x==0){
             P = Psj;
@@ -61,6 +61,7 @@ public class ControlPdeVapor {
             DP = P*1/100;
             
             while(erro >= 0.00001){
+                fug = new ControlFug(T, Pest, x);
                 erro = Math.abs(fug.getFil()-fug.getFiv());
                 burbuja = fug.getFil()-fug.getFiv();
                 if(erro > 0.00001 && burbuja < 0){
@@ -76,6 +77,7 @@ public class ControlPdeVapor {
                         DP=0.00219332541;
                     }
                 }
+                //System.out.println("while");
             }
             
             if(x==0){

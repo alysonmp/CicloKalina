@@ -11,14 +11,14 @@ public class ControlZetamix {
     private double ter1, ter2, ter3, ter4, Z1m, Z2m;
 
     public ControlZetamix(double A, double B, double C) {
-
+                System.out.println("zetamix"+A+""+ B+""+ C);
         ter1 = 1;
         ter2 = (C-1);
         //ter3=((-2*B*C)-(B^2)-B-C+A);
-        ter3 = (-2*B*C)-(Math.pow(B, 2)-B-C+A);
+        ter3 = (-2*B*C)-Math.pow(B, 2)-B-C+A;
         //ter4=((B^2)*C)+(B*C)-(A*B);
         ter4 = (Math.pow(B, 2)*C)+(B*C)-(A*B);
-
+        
         cubica = new ControlCubica();
         cubica.solve(ter1, ter2, ter3, ter4);
 
@@ -43,9 +43,9 @@ public class ControlZetamix {
                 Z2m = x3;
             }
         }else{
-            if(x1 > x2 && x1 > x3 && !Double.isNaN(x1)){
+            if((!Double.isNaN(x1) && Double.isNaN(x2) && Double.isNaN(x3)) || (!Double.isNaN(x1) && !Double.isNaN(x2) && Double.isNaN(x3) && x1 > x2) || (x1 > x2 && x1 > x3 && !Double.isNaN(x1))){
                 Z1m = x1;
-            }else if(x2 > x3 && !Double.isNaN(x2)){
+            }else if((!Double.isNaN(x2) && Double.isNaN(x3)) || (x2 > x3 && !Double.isNaN(x2))){
                 Z1m = x2;
             }else if(!Double.isNaN(x3)){
                 Z1m = x3;
@@ -53,9 +53,9 @@ public class ControlZetamix {
                 Z1m = getMax(x1+"", x2+"", x3+"");
             }
             
-            if(x1 < x2 && x1 < x3 && !Double.isNaN(x1)){
+            if((!Double.isNaN(x1) && Double.isNaN(x2) && Double.isNaN(x3)) || (!Double.isNaN(x1) && !Double.isNaN(x2) && Double.isNaN(x3) && x1 < x2) || (x1 < x2 && x1 < x3 && !Double.isNaN(x1))){
                 Z2m = x1;
-            }else if(x2 < x3 && !Double.isNaN(x2)){
+            }else if((!Double.isNaN(x2) && Double.isNaN(x3)) || (x2 < x3 && !Double.isNaN(x2))){
                 Z2m = x2;
             }else if(!Double.isNaN(x3)){
                 Z2m = x3;
@@ -68,9 +68,9 @@ public class ControlZetamix {
     }
     
     public double getMax(String x1, String x2, String x3){
-        String[] x1_ = x1.split("i");
-        String[] x2_ = x2.split("i");
-        String[] x3_ = x3.split("i");
+        String[] x1_ = x1.split(" ");
+        String[] x2_ = x2.split(" ");
+        String[] x3_ = x3.split(" ");
         
         double x1d = Double.parseDouble(x1_[0]);
         double x2d = Double.parseDouble(x2_[0]);
@@ -86,9 +86,9 @@ public class ControlZetamix {
     }
     
     public double getMin(String x1, String x2, String x3){
-        String[] x1_ = x1.split("i");
-        String[] x2_ = x2.split("i");
-        String[] x3_ = x3.split("i");
+        String[] x1_ = x1.split(" ");
+        String[] x2_ = x2.split(" ");
+        String[] x3_ = x3.split(" ");
         
         double x1d = Double.parseDouble(x1_[0]);
         double x2d = Double.parseDouble(x2_[0]);

@@ -40,7 +40,7 @@ public class ControlS_Dep {
             alfa = constantes.getAlfaj();   
             a = constantes.getaj();
         }else{
-            ControlZeta zeta = new ControlZeta(constantes.getAi(), constantes.getBi(), constantes.getCi());
+            zeta = new ControlZeta(constantes.getAi(), constantes.getBi(), constantes.getCi());
             Pc = constantes.getPci();
             Tc = constantes.getTci();
             Tr = constantes.getTri();

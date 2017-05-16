@@ -52,6 +52,23 @@ public class ControlCubica {
             double c,
             double d) {
 
+        
+        
+        /*PolynomialFunction p = new PolynomialFunction(new double[]{a, b, c, d});
+        LaguerreSolver solver = new LaguerreSolver();
+        
+        try {
+            Complex[] com = solver.solveAll(new double[]{a, b, c, d}, 0);
+            for(int i = 0; i < com.length; i++){
+                System.out.println(com[i].getReal());
+                System.out.println(com[i].getImaginary());
+            }
+        } catch (ConvergenceException ex) {
+            Logger.getLogger(ControlCubica.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (FunctionEvaluationException ex) {
+            Logger.getLogger(ControlCubica.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
+        
         // Verify preconditions.
         if (a == 0.0) {
             JOptionPane.showMessageDialog(null, "nao e cubica");

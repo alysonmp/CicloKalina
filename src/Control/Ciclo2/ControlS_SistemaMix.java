@@ -23,8 +23,8 @@ public class ControlS_SistemaMix {
         SDrefVj = sdep1.getSDV();
         
         ControlS_Dep sdep2 = new ControlS_Dep(Tref, Pref, 1, session);
-        SDrefLi = sdep1.getSDL();
-        SDrefVi = sdep1.getSDV();
+        SDrefLi = sdep2.getSDL();
+        SDrefVi = sdep2.getSDV();
         
         ControlS_Ideal_Gas_Mix sideal = new ControlS_Ideal_Gas_Mix(T, Tref, zi, P, Pref, session);
         
