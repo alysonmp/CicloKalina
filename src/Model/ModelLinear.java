@@ -8,6 +8,7 @@ package Model;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -20,24 +21,24 @@ import javax.persistence.Table;
 public class ModelLinear implements Serializable{
     
     @Id
+    @GeneratedValue
     private int cod;
     
     @Column
-    private double[][] lin;
+    private double[] lin;
 
     public ModelLinear() {
     }
 
-    public ModelLinear(int cod, double[][] lin) {
-        this.cod = cod;
+    public ModelLinear(double[] lin) {
         this.lin = lin;
     }
 
-    public double[][] getLin() {
+    public double[] getLin() {
         return lin;
     }
 
-    public void setLin(double[][] lin) {
+    public void setLin(double[] lin) {
         this.lin = lin;
     }
 
