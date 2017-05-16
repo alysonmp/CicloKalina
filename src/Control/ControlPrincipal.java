@@ -5,6 +5,18 @@
  */
 package Control;
 
+import Control.Ciclo2.ControlCompequi;
+import Control.Ciclo2.ControlConequi;
+import Control.Ciclo2.ControlConstantes;
+import Control.Ciclo2.ControlConstantesMix;
+import Control.Ciclo2.ControlCubica;
+import Control.Ciclo2.ControlDadT_Mix;
+import Control.Ciclo2.ControlFugmix;
+import Control.Ciclo2.ControlH_Dep;
+import Control.Ciclo2.ControlH_Depmix;
+import Control.Ciclo2.ControlH_Sistemamix;
+import Control.Ciclo2.ControlH_ideal_Gas_Mix;
+import Control.Ciclo2.ControlZetamix;
 import Model.Ciclo2.ModelBomba;
 import Model.Ciclo2.ModelFluidos;
 import Model.ModelConstantesMat;
@@ -41,6 +53,7 @@ public class ControlPrincipal {
     private ArrayList<JPanel> panel_usado = new ArrayList();
     Session session;
     
+    @SuppressWarnings("empty-statement")
     public ControlPrincipal(){
         SessionFactory sf = HibernateUtil.getSessionFactory();
         this.session = sf.openSession();
@@ -87,45 +100,20 @@ public class ControlPrincipal {
             tx.commit();
         }
         
-        cr = this.session.createCriteria(ModelFluidos.class);
+        cr = this.session.createCriteria(ModelConstantesMat.class);
         results = cr.list();
         if(results.isEmpty()){
             Transaction tx = session.beginTransaction();
             
-            double[][] valores = null;
+            double[][] valoresC1 = {{90.483, -4669.7, -11.607, 0.017194, 1.0}};
+            session.save(new ModelConstantesMat("C1", valoresC1));
             
-            valores[0][0] = 90.483;
-            valores[0][1] = -4669.7;
-            valores[0][2] = -11.607;
-            valores[0][3] = 0.017194;
-            valores[0][4] = 1.0;
-            session.save(new ModelConstantesMat("C1", valores));
-            
-            valores = null;
-            valores[0][0] = 73.649;
-            valores[0][1] = -7258.2;
-            valores[0][2] = -7.3037;
-            valores[0][3] = 4.1653E-6;
-            valores[0][4] = 2.0;
-            session.save(new ModelConstantesMat("C2", valores));
+            double[][] valoresC2 = {{73.649, -7258.2, -7.3037, 4.1653E-6, 2.0}};
+            session.save(new ModelConstantesMat("C2", valoresC2));
 
-            valores = null;
-            valores[0][0] = 33.60134;
-            valores[0][1] = -0.002145;
-            valores[0][2] = -3.999E-6;
-            valores[0][3] = 4.752E-8;
-            valores[0][4] = -3.533E-11;
-            valores[0][5] = 0.0;
-            valores[0][6] = 0.0;
-            
-            valores[1][0] = 33.573;
-            valores[1][1] = -0.012581;
-            valores[1][2] = 8.8906E-5;
-            valores[1][3] = -7.1783E-8;
-            valores[1][4] = 1.8569E-11;
-            valores[1][5] = 0.0;
-            valores[1][6] = 0.0;
-            session.save(new ModelConstantesMat("cc", valores));
+            double[][] valoresCC = {{33.60134, -0.002145, -3.999E-6, 4.752E-8, -3.533E-11, 0.0, 0.0}, 
+                                    {33.573, -0.012581, 8.8906E-5, -7.1783E-8, 1.8569E-11, 0.0, 0.0}};
+            session.save(new ModelConstantesMat("cc", valoresCC));
             
             tx.commit();
         }
@@ -178,6 +166,9 @@ public class ControlPrincipal {
     
     //FUNÇÃO QUE CRIA O DESENHO DO SEGUNDO CICLO E INDICA OS LOCAIS DOS JPANELS INSERIDOS
     public void criaCiclo2(){
+        ControlH_Sistemamix c = new ControlH_Sistemamix(300, 5, 1, 400, 1, session);
+        //System.exit(0);
+        
         viewPrincipal.getPainelCiclos().removeAll();
         viewPrincipal.getTabbedPanel().removeAll();
         panel_usado.clear();

@@ -16,14 +16,14 @@ public class ControlH_Dep {
     private double Pc, Tc, Tr, Pr, F, Omegab, Omegaa, Omegac, A, B, C, N, M, Q, 
                    alfa ,a, da_dT, Ps2, dif, HDL, HDV;
     private Session session;
-    private ControlZetamix zetamix;
+    private ControlZeta zetamix;
     
     public ControlH_Dep(double T, double P, double x, Session session){
         this.session = session;
         ControlConstantes constantes = new ControlConstantes(T, P);
         
         if(x == 0){
-            zetamix = new ControlZetamix(constantes.getAj(), constantes.getBj(), constantes.getCj());
+            zetamix = new ControlZeta(constantes.getAj(), constantes.getBj(), constantes.getCj());
             
             Pc = constantes.getPcj();
             Tc = constantes.getTcj();
@@ -42,7 +42,7 @@ public class ControlH_Dep {
             alfa = constantes.getAlfaj();   
             a = constantes.getaj();
         }else{
-            zetamix = new ControlZetamix(constantes.getAi(), constantes.getBi(), constantes.getCi());
+            zetamix = new ControlZeta(constantes.getAi(), constantes.getBi(), constantes.getCi());
            
             Pc = constantes.getPci();
             Tc = constantes.getTci();
