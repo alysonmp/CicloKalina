@@ -35,6 +35,7 @@ public class ControlConstantes {
         Omegaci = 1 - (3*Zci);
         
         //ai=Omegaai*(R^2*Tci^2/Pci)*(1+(Fi*(1-(Tri^0.5))))^2;
+
         ai = Omegaai* ((Math.pow(R, 2)*Math.pow(Tci, 2))/Pci) * Math.pow((1+(Fi*(1-(Math.pow(Tri, 0.5))))), 2);
         //alfai=(1+(Fi*(1-(Tri^0.5))))^2;
         alfai = Math.pow((1+(Fi*(1-(Math.pow(Tri, 0.5))))), 2);
@@ -75,6 +76,7 @@ public class ControlConstantes {
         Omegacj = 1-(3*Zcj);
         
         //aj=Omegaaj*(R^2*Tcj^2/Pcj)*(1+(Fj*(1-(Trj^0.5))))^2;
+
         aj = Omegaaj * ((Math.pow(R, 2)*Math.pow(Tcj, 2))/Pcj) * Math.pow((1+(Fj*(1-(Math.pow(Trj, 0.5))))), 2);
         //alfaj=(1+(Fj*(1-(Trj^0.5))))^2;
         alfaj = Math.pow((1+(Fj*(1-(Math.pow(Trj, 0.5))))), 2);
