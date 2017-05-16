@@ -11,11 +11,22 @@ import Control.Ciclo2.ControlConstantes;
 import Control.Ciclo2.ControlConstantesMix;
 import Control.Ciclo2.ControlCubica;
 import Control.Ciclo2.ControlDadT_Mix;
+import Control.Ciclo2.ControlFug;
 import Control.Ciclo2.ControlFugmix;
 import Control.Ciclo2.ControlH_Dep;
 import Control.Ciclo2.ControlH_Depmix;
 import Control.Ciclo2.ControlH_Sistemamix;
 import Control.Ciclo2.ControlH_ideal_Gas_Mix;
+import Control.Ciclo2.ControlIsoentropiaTurbina;
+import Control.Ciclo2.ControlPdeVapor;
+import Control.Ciclo2.ControlS_Dep;
+import Control.Ciclo2.ControlS_Depmix;
+import Control.Ciclo2.ControlS_Ideal_Gas_Mix;
+import Control.Ciclo2.ControlS_SistemaMix;
+import Control.Ciclo2.ControlSeparadorRankine;
+import Control.Ciclo2.ControlTBolha;
+import Control.Ciclo2.ControlT_Ref;
+import Control.Ciclo2.ControlTorvalho;
 import Control.Ciclo2.ControlZetamix;
 import Model.Ciclo2.ModelBomba;
 import Model.Ciclo2.ModelFluidos;
@@ -113,7 +124,7 @@ public class ControlPrincipal {
 
             double[][] valoresCC = {{33.60134, -0.002145, -3.999E-6, 4.752E-8, -3.533E-11, 0.0, 0.0}, 
                                     {33.573, -0.012581, 8.8906E-5, -7.1783E-8, 1.8569E-11, 0.0, 0.0}};
-            session.save(new ModelConstantesMat("cc", valoresCC));
+            session.save(new ModelConstantesMat("CC", valoresCC));
             
             tx.commit();
         }
@@ -166,7 +177,7 @@ public class ControlPrincipal {
     
     //FUNÇÃO QUE CRIA O DESENHO DO SEGUNDO CICLO E INDICA OS LOCAIS DOS JPANELS INSERIDOS
     public void criaCiclo2(){
-        ControlH_Sistemamix c = new ControlH_Sistemamix(300, 5, 1, 400, 1, session);
+        //ControlSeparadorRankine c = new ControlSeparadorRankine(45, 500, 0.2, 20, 300, session);
         //System.exit(0);
         
         viewPrincipal.getPainelCiclos().removeAll();

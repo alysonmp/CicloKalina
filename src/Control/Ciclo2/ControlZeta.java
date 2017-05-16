@@ -43,9 +43,9 @@ public class ControlZeta {
                 Z2m = x3;
             }
         }else{
-            if(x1 > x2 && x1 > x3 && !Double.isNaN(x1)){
+            if((!Double.isNaN(x1) && Double.isNaN(x2) && Double.isNaN(x3)) || (!Double.isNaN(x1) && !Double.isNaN(x2) && Double.isNaN(x3) && x1 > x2) || (x1 > x2 && x1 > x3 && !Double.isNaN(x1))){
                 Z1m = x1;
-            }else if(x2 > x3 && !Double.isNaN(x2)){
+            }else if((!Double.isNaN(x2) && Double.isNaN(x3)) || (x2 > x3 && !Double.isNaN(x2))){
                 Z1m = x2;
             }else if(!Double.isNaN(x3)){
                 Z1m = x3;
@@ -53,9 +53,9 @@ public class ControlZeta {
                 Z1m = 0;
             }
             
-            if(x1 < x2 && x1 < x3 && !Double.isNaN(x1)){
+            if((!Double.isNaN(x1) && Double.isNaN(x2) && Double.isNaN(x3)) || (!Double.isNaN(x1) && !Double.isNaN(x2) && Double.isNaN(x3) && x1 < x2) || (x1 < x2 && x1 < x3 && !Double.isNaN(x1))){
                 Z2m = x1;
-            }else if(x2 < x3 && !Double.isNaN(x2)){
+            }else if((!Double.isNaN(x2) && Double.isNaN(x3)) || (x2 < x3 && !Double.isNaN(x2))){
                 Z2m = x2;
             }else if(!Double.isNaN(x3)){
                 Z2m = x3;

@@ -5,7 +5,8 @@
  */
 package Control.Ciclo2;
 
-import org.apache.commons.math.complex.Complex;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.hibernate.Session;
 
 /**
@@ -28,6 +29,7 @@ public class ControlFugmix {
         
         constantesMix = new ControlConstantesMix(T, P, zi);
         constantes = constantesMix.getConstantes();
+        System.out.println("fugmix"+constantesMix.getAm()+""+ constantesMix.getBm()+""+ constantesMix.getCm());
         zetamix = new ControlZetamix(constantesMix.getAm(), constantesMix.getBm(), constantesMix.getCm());
         
         bpi = constantes.getbi()-constantesMix.getbm();
@@ -80,12 +82,12 @@ public class ControlFugmix {
     
         //F1v_j=((vmv/(QQ*DD_v))*(bm^2+cm^2+(6*bm*cm)+(bpj*bm)+(3*bpj*cm)+(3*bm*cpj)+(cm*cpj)))+((1/(QQ*DD_v))*((bpj*cm^2)+(bm^2*cpj)-(bm*bpj*cm)-(bm*cm*cpj)))+((D1_v/QQ)* ((bm*bpj)+(3*bm*cpj)-(bm^2)+(3*bpj*cm)+(cm*cpj)-(cm^2)-(6*bm*cm)));
         F1v_j = ((vmv/(QQ*DD_v))*(Math.pow(constantesMix.getbm(), 2)+Math.pow(constantesMix.getcm(),2)+(6*constantesMix.getbm()*constantesMix.getcm())+(bpj*constantesMix.getbm())+(3*bpj*constantesMix.getcm())+(3*constantesMix.getbm()*cpj)+(constantesMix.getcm()*cpj)))
-                + ((1/(QQ*DD_v))*((bpi*Math.pow(constantesMix.getcm(), 2))+(Math.pow(constantesMix.getbm(),2)*cpj)-(constantesMix.getbm()*bpj*constantesMix.getcm())-(constantesMix.getbm()*constantesMix.getcm()*cpj)))
+                + ((1/(QQ*DD_v))*((bpj*Math.pow(constantesMix.getcm(), 2))+(Math.pow(constantesMix.getbm(),2)*cpj)-(constantesMix.getbm()*bpj*constantesMix.getcm())-(constantesMix.getbm()*constantesMix.getcm()*cpj)))
                 + ((D1_v/QQ)* ((constantesMix.getbm()*bpj)+(3*constantesMix.getbm()*cpj)-(Math.pow(constantesMix.getbm(),2))+(3*bpj*constantesMix.getcm())+(constantesMix.getcm()*cpj)-(Math.pow(constantesMix.getcm(),2))-(6*constantesMix.getbm()*constantesMix.getcm())));
         
         //F1l_j=((vml/(QQ*DD_l))*(bm^2+cm^2+(6*bm*cm)+(bpj*bm)+(3*bpj*cm)+(3*bm*cpj)+(cm*cpj)))+((1/(QQ*DD_l))*((bpj*cm^2)+(bm^2*cpj)-(bm*bpj*cm)-(bm*cm*cpj)))+((D1_l/QQ)* ((bm*bpj)+(3*bm*cpj)-(bm^2)+(3*bpj*cm)+(cm*cpj)-(cm^2)-(6*bm*cm)));
         F1l_j = ((vml/(QQ*DD_l))*(Math.pow(constantesMix.getbm(), 2)+Math.pow(constantesMix.getcm(),2)+(6*constantesMix.getbm()*constantesMix.getcm())+(bpj*constantesMix.getbm())+(3*bpj*constantesMix.getcm())+(3*constantesMix.getbm()*cpj)+(constantesMix.getcm()*cpj)))
-                + ((1/(QQ*DD_l))*((bpi*Math.pow(constantesMix.getcm(), 2))+(Math.pow(constantesMix.getbm(),2)*cpj)-(constantesMix.getbm()*bpj*constantesMix.getcm())-(constantesMix.getbm()*constantesMix.getcm()*cpj)))
+                + ((1/(QQ*DD_l))*((bpj*Math.pow(constantesMix.getcm(), 2))+(Math.pow(constantesMix.getbm(),2)*cpj)-(constantesMix.getbm()*bpj*constantesMix.getcm())-(constantesMix.getbm()*constantesMix.getcm()*cpj)))
                 + ((D1_l/QQ)* ((constantesMix.getbm()*bpj)+(3*constantesMix.getbm()*cpj)-(Math.pow(constantesMix.getbm(),2))+(3*bpj*constantesMix.getcm())+(constantesMix.getcm()*cpj)-(Math.pow(constantesMix.getcm(),2))-(6*constantesMix.getbm()*constantesMix.getcm())));
         
         

@@ -22,7 +22,7 @@ public class ControlT_Ref {
             Te = 647.1-206; //%K
             erro = 1;
             DT = 80;
-            while(erro > 0.000){
+            while(erro > 0.0001){
                 ControlPdeVapor pdevapor = new ControlPdeVapor(Te, x, session);
                 burbuja = pdevapor.getPsj()-P;
                 erro = Math.abs((pdevapor.getPsj()-P)/pdevapor.getPsj());

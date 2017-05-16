@@ -1,13 +1,6 @@
 package Control.Ciclo2;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import org.apache.commons.math.ConvergenceException;
-import org.apache.commons.math.FunctionEvaluationException;
-import org.apache.commons.math.analysis.polynomials.PolynomialFunction;
-import org.apache.commons.math.analysis.solvers.LaguerreSolver;
-import org.apache.commons.math.complex.Complex;
 
 public class ControlCubica {
 
