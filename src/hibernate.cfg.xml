@@ -58,5 +58,6 @@ Contributor(s):
     <mapping class="Model.Ciclo2.ModelFluidos"/>
     <mapping class="Model.ModelConstantesMat"/>
     <mapping class="Model.ModelLinear"/>
+    <mapping class="Model.ModelQfpso"/>
   </session-factory>
 </hibernate-configuration>
