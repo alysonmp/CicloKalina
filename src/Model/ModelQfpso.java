@@ -5,7 +5,6 @@
  */
 package Model;
 
-import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,31 +15,30 @@ import javax.persistence.Table;
  *
  * @author leonardo
  */
-
 @Entity
-@Table(name = "Linear")
-public class ModelLinear implements Serializable{
+@Table(name = "Qfpso")
+public class ModelQfpso {
     
     @Id
     @GeneratedValue
     private int cod;
     
     @Column
-    private double[] lin;
+    private double[] Qfpso;
 
-    public ModelLinear() {
+    public ModelQfpso() {
+    }        
+    
+    public ModelQfpso(double[] Qfpso){
+        this.Qfpso = Qfpso;
     }
 
-    public ModelLinear(double[] lin) {
-        this.lin = lin;
+    public double[] getQfpso() {
+        return Qfpso;
     }
 
-    public double[] getLin() {
-        return lin;
-    }
-
-    public void setLin(double[] lin) {
-        this.lin = lin;
+    public void setQfpso(double[] Qfpso) {
+        this.Qfpso = Qfpso;
     }
 
     public int getCod() {

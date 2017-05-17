@@ -5,6 +5,7 @@
  */
 package Control;
 
+import Control.Ciclo2.ControlCalor;
 import Control.Ciclo2.ControlCompequi;
 import Control.Ciclo2.ControlConequi;
 import Control.Ciclo2.ControlConstantes;
@@ -33,6 +34,7 @@ import Model.Ciclo2.ModelBomba;
 import Model.Ciclo2.ModelFluidos;
 import Model.ModelConstantesMat;
 import Model.ModelLinear;
+import Model.ModelQfpso;
 import Util.HibernateUtil;
 import View.Condensador.ViewCondensadorImage;
 import View.Evaporador.ViewEvaporadorImage;
@@ -147,6 +149,20 @@ public class ControlPrincipal {
             tx.commit();
         }
         
+        cr = this.session.createCriteria(ModelQfpso.class);
+        results = cr.list();
+        if(results.isEmpty()){
+            Transaction tx = session.beginTransaction();
+            
+            session.save(new ModelQfpso(new double[]{-5.0989335E-5, 66.250549, -0.024244439, 1.4359252E-5, -3.1287299E-9, 2.7938016E-10, 3.1938551E-11, -8.6058944E-13, 1.0138024E-14, -5.7854786E-17, 1.3108388E-19, 0.0}));
+            session.save(new ModelQfpso(new double[]{-7.6520373E-5, 68.996718, -0.015276822, 4.4519632E-5, 3.2384275E-7, -9.5543181E-9, 3.1876871E-10, -5.3692223E-12, 5.1514164E-14, -2.6095697E-16, 5.4962813E-19, 0.0}));
+            session.save(new ModelQfpso(new double[]{7.875352E-5, -0.04698885, 77.569376, 7.5518527E-4, -3.6218838, -4.6157586E-6, 0.05773998, 8.645757E-9, -3.5076036E-4, 3.2457331E-12, 6.9448062E-7, 0.0}));
+            session.save(new ModelQfpso(new double[]{-0.0025970942, 99.279743, 0.12007259, 8.0406572E-4, -1.1669656E-5, 4.9266436E-7, -1.169747E-8, 1.6715254E-10, -1.5243562E-12, 7.6811009E-15, -1.5862785E-17, 0.0}));
+            session.save(new ModelQfpso(new double[]{1.5353958, 162.37375, 0.11646613, -0.0086520143, 1.3170876E-4, 5.772981E-6, -3.037534E-7, 6.0681698E-9, -6.2711257E-11, 3.3117369E-13, -7.0587574E-16, 0.0}));
+  
+            tx.commit();
+        }
+        
         viewPrincipal = new ViewPrincipal(this);
     }
     
@@ -194,7 +210,7 @@ public class ControlPrincipal {
     }
     
     //FUNÇÃO QUE CRIA O DESENHO DO SEGUNDO CICLO E INDICA OS LOCAIS DOS JPANELS INSERIDOS
-    public void criaCiclo2(){                
+    public void criaCiclo2(){        
         //ControlSeparadorRankine c = new ControlSeparadorRankine(45, 500, 0.2, 20, 300, session);
         //System.exit(0);
         
