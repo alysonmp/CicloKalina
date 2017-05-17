@@ -25,12 +25,14 @@ import Control.Ciclo2.ControlS_Ideal_Gas_Mix;
 import Control.Ciclo2.ControlS_SistemaMix;
 import Control.Ciclo2.ControlSeparadorRankine;
 import Control.Ciclo2.ControlTBolha;
+import Control.Ciclo2.ControlTSaida;
 import Control.Ciclo2.ControlT_Ref;
 import Control.Ciclo2.ControlTorvalho;
 import Control.Ciclo2.ControlZetamix;
 import Model.Ciclo2.ModelBomba;
 import Model.Ciclo2.ModelFluidos;
 import Model.ModelConstantesMat;
+import Model.ModelLinear;
 import Util.HibernateUtil;
 import View.Condensador.ViewCondensadorImage;
 import View.Evaporador.ViewEvaporadorImage;
@@ -129,6 +131,22 @@ public class ControlPrincipal {
             tx.commit();
         }
         
+        
+        cr = this.session.createCriteria(ModelLinear.class);
+        results = cr.list();
+        if(results.isEmpty()){
+            Transaction tx = session.beginTransaction();
+
+            session.save(new ModelLinear(new double[]{142.2, -0.01509422,-8.3348292E-8,-2.3243455E-13,6.5603658E-17,-3.4487625E-20,2.0808293E-23,-5.8664246E-27,9.1463375E-31,-7.446578E-35,2.4885769E-39}));
+            session.save(new ModelLinear(new double[]{143.90002, -0.014493643, -4.6103987E-8, 1.3981357E-12, 2.3993308E-16, -9.8949381E-21, 1.6261678E-24, 0.0, 0.0, 0.0, 0.0}));
+            session.save(new ModelLinear(new double[]{145.2, -5.6111011E-4, -0.094364859, 1.0896055E-7,2.3103997E-5, -7.4868329E-12, -2.5130974E-9, 1.9128073E-16, 1.2643961E-13, -7.5492826E-22, -2.4248126E-18}));
+            session.save(new ModelLinear(new double[]{135.20007, -0.01007358, 1.2520524E-7, 2.5722111E-12, 4.3171784E-17, -3.9207826E-20, 1.2906424E-24, 0.0, 0.0, 0.0, 0.0}));
+            session.save(new ModelLinear(new double[]{159.7099, -0.0061700647, 5.3500968E-8, -3.4218675E-11, 9.9938341E-15, -1.6897954E-18, 1.6983127E-22, -9.9200576E-27, 3.0981733E-31, -3.9847803E-36, 0.0}));
+            session.save(new ModelLinear(new double[]{-4501439.8, 384.02683, 3.2531763E10, -0.020762985, -1.3089914E14, 6.9584129E-7, 2.0965934E17, -1.3226177E-11, 9.2327351E19, 1.0920871E-16, 0.0}));
+            
+            tx.commit();
+        }
+        
         viewPrincipal = new ViewPrincipal(this);
     }
     
@@ -176,7 +194,7 @@ public class ControlPrincipal {
     }
     
     //FUNÇÃO QUE CRIA O DESENHO DO SEGUNDO CICLO E INDICA OS LOCAIS DOS JPANELS INSERIDOS
-    public void criaCiclo2(){
+    public void criaCiclo2(){                
         //ControlSeparadorRankine c = new ControlSeparadorRankine(45, 500, 0.2, 20, 300, session);
         //System.exit(0);
         

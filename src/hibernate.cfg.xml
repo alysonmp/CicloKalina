@@ -57,5 +57,6 @@ Contributor(s):
     <mapping class="Model.Ciclo2.ModelTurbina"/>
     <mapping class="Model.Ciclo2.ModelFluidos"/>
     <mapping class="Model.ModelConstantesMat"/>
+    <mapping class="Model.ModelLinear"/>
   </session-factory>
 </hibernate-configuration>
