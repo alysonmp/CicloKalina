@@ -11,7 +11,6 @@ public class ControlZetamix {
     private double ter1, ter2, ter3, ter4, Z1m, Z2m;
 
     public ControlZetamix(double A, double B, double C) {
-                System.out.println("zetamix"+A+""+ B+""+ C);
         ter1 = 1;
         ter2 = (C-1);
         //ter3=((-2*B*C)-(B^2)-B-C+A);
