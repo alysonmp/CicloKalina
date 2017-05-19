@@ -6,6 +6,7 @@
 package View.Evaporador;
 
 import Control.ControlPrincipal;
+import ControlEvaporador.ControlEvaporadorPanelRankine;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -72,10 +73,10 @@ public class ViewEvaporadorImage extends JPanel{
                 }else{
                     //CASO O CICLO SEJA O SEGUNDO CHAMA A CLASSE VIEWEVAPORADORPANELKCS
                     if(ciclo == 2){
-                        ViewEvaporadorPanelRankine viewEvaporadorPanel = new ViewEvaporadorPanelRankine();
-                        viewEvaporadorPanel.setPreferredSize(new Dimension(x, y));
-                        ViewEvaporadorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().addTab("Evaporador", null, viewEvaporadorPanel);
-                        ViewEvaporadorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().setSelectedComponent(viewEvaporadorPanel);
+                        ControlEvaporadorPanelRankine controlEvaporadorPanel = new ControlEvaporadorPanelRankine(ViewEvaporadorImage.this.ctrlPrincipal);
+                        controlEvaporadorPanel.getViewEvaporadorPanel().setPreferredSize(new Dimension(x, y));
+                        ViewEvaporadorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().addTab("Evaporador", null, controlEvaporadorPanel.getViewEvaporadorPanel());
+                        ViewEvaporadorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().setSelectedComponent(controlEvaporadorPanel.getViewEvaporadorPanel());
                         ViewEvaporadorImage.this.setBorder(BorderFactory.createLineBorder(Color.black, 2));
                     }
                 }

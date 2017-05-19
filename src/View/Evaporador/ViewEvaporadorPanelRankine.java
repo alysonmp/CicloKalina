@@ -5,12 +5,17 @@
  */
 package View.Evaporador;
 
+import ControlEvaporador.ControlEvaporadorPanelRankine;
+import Util.DropdownComboBox;
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.util.ArrayList;
 import javax.swing.BorderFactory;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -36,13 +41,15 @@ public class ViewEvaporadorPanelRankine extends JPanel{
     //TEXTFIELDS
     private JTextField fieldMassa = new JTextField(10);
     
-    private JTextField fieldTempEntr = new JTextField(10);
-    private JTextField fieldPressaoEntr = new JTextField(10);
+    private DropdownComboBox fieldTempEntr = new DropdownComboBox(new Double[]{});
     
-    private JTextField fieldTempSai = new JTextField(10);
-    private JTextField fieldPressaoSai = new JTextField(10);
+    private DropdownComboBox fieldPressaoEntr = new DropdownComboBox(new Double[]{});
     
-    private JTextField fieldDelta = new JTextField(10);
+    private DropdownComboBox fieldTempSai = new DropdownComboBox(new Double[]{});
+    
+    private DropdownComboBox fieldPressaoSai = new DropdownComboBox(new Double[]{});
+    
+    private DropdownComboBox fieldDelta = new DropdownComboBox(new Double[]{});
     
     //COMBOBOX
     private String[] massas = {"kg/s", "kg/m", "kg/h", "lb/s", "lb/m", "lb/h"};
@@ -60,7 +67,7 @@ public class ViewEvaporadorPanelRankine extends JPanel{
     private JPanel painelEntrada;
     private JPanel painelSaida;
     
-    public ViewEvaporadorPanelRankine(){
+    public ViewEvaporadorPanelRankine(ControlEvaporadorPanelRankine controlEvaporadorPanel){
         painelDados = new JPanel(new GridBagLayout());
         painelEntrada = new JPanel(new GridBagLayout());
         painelSaida = new JPanel(new GridBagLayout());
@@ -73,6 +80,111 @@ public class ViewEvaporadorPanelRankine extends JPanel{
         //this.setBorder(BorderFactory.createLineBorder(Color.black, 1));
         
         GridBagConstraints g = new GridBagConstraints();
+        
+        ArrayList<Double> aux = controlEvaporadorPanel.getValuesTempEntr();        
+        DefaultComboBoxModel model = new DefaultComboBoxModel(aux.toArray());
+        fieldTempEntr.setModel(model);
+        
+        
+        fieldTempEntr.getEditor().getEditorComponent().addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent fe) {
+                fieldTempEntr.showPopup();
+                fieldTempEntr.getEditor().selectAll();
+            }
+            @Override
+            public void focusLost(FocusEvent fe) {
+                controlEvaporadorPanel.saveTempEntr();
+                
+                ArrayList<Double> aux = controlEvaporadorPanel.getValuesTempEntr();
+                DefaultComboBoxModel model = new DefaultComboBoxModel(aux.toArray());
+                fieldTempEntr.setModel(model);
+            }
+        });
+        
+        aux = controlEvaporadorPanel.getValuesTempSai();        
+        model = new DefaultComboBoxModel(aux.toArray());
+        fieldTempSai.setModel(model);
+        
+        fieldTempSai.getEditor().getEditorComponent().addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent fe) {
+                fieldTempSai.showPopup();
+                fieldTempSai.getEditor().selectAll();
+            }
+
+            @Override
+            public void focusLost(FocusEvent fe) {
+                controlEvaporadorPanel.saveTempSai();
+                
+                ArrayList<Double> aux = controlEvaporadorPanel.getValuesTempSai();
+                DefaultComboBoxModel model = new DefaultComboBoxModel(aux.toArray());
+                fieldTempSai.setModel(model);
+            }
+        });
+        
+        aux = controlEvaporadorPanel.getValuesPressaoEntr();        
+        model = new DefaultComboBoxModel(aux.toArray());
+        fieldPressaoEntr.setModel(model);
+        
+        fieldPressaoEntr.getEditor().getEditorComponent().addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent fe) {
+                fieldPressaoEntr.showPopup();
+                fieldPressaoEntr.getEditor().selectAll();
+            }
+
+            @Override
+            public void focusLost(FocusEvent fe) {
+                controlEvaporadorPanel.savePressaoEntr();
+                
+                ArrayList<Double> aux = controlEvaporadorPanel.getValuesPressaoEntr();
+                DefaultComboBoxModel model = new DefaultComboBoxModel(aux.toArray());
+                fieldPressaoEntr.setModel(model);
+            }
+        });
+        
+        aux = controlEvaporadorPanel.getValuesPressaoSai();        
+        model = new DefaultComboBoxModel(aux.toArray());
+        fieldPressaoSai.setModel(model);
+        
+        fieldPressaoSai.getEditor().getEditorComponent().addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent fe) {
+                fieldPressaoSai.showPopup();
+                fieldPressaoSai.getEditor().selectAll();
+            }
+
+            @Override
+            public void focusLost(FocusEvent fe) {
+                controlEvaporadorPanel.savePressaoSai();
+                
+                ArrayList<Double> aux = controlEvaporadorPanel.getValuesPressaoSai();
+                DefaultComboBoxModel model = new DefaultComboBoxModel(aux.toArray());
+                fieldPressaoSai.setModel(model);
+            }
+        });
+        
+        aux = controlEvaporadorPanel.getValuesDeltaPressao();        
+        model = new DefaultComboBoxModel(aux.toArray());
+        fieldDelta.setModel(model);
+        
+        fieldDelta.getEditor().getEditorComponent().addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent fe) {
+                fieldDelta.showPopup();
+                fieldDelta.getEditor().selectAll();
+            }
+
+            @Override
+            public void focusLost(FocusEvent fe) {
+                controlEvaporadorPanel.saveDeltaPressao();
+                
+                ArrayList<Double> aux = controlEvaporadorPanel.getValuesDeltaPressao();
+                DefaultComboBoxModel model = new DefaultComboBoxModel(aux.toArray());
+                fieldDelta.setModel(model);
+            }
+        });
         
         //INSERINDOS OS ELEMENTOS NO JPANEL DE ENTRADA
         g.gridx = 0;
@@ -199,6 +311,7 @@ public class ViewEvaporadorPanelRankine extends JPanel{
         g.fill = GridBagConstraints.HORIZONTAL;
         g.anchor = GridBagConstraints.PAGE_START;
         this.add(painelDados, g);
+        
     }
 
     public JTextField getFieldMassa() {
@@ -209,43 +322,43 @@ public class ViewEvaporadorPanelRankine extends JPanel{
         this.fieldMassa = fieldMassa;
     }
 
-    public JTextField getFieldTempEntr() {
+    public DropdownComboBox getFieldTempEntr() {
         return fieldTempEntr;
     }
 
-    public void setFieldTempEntr(JTextField fieldTempEntr) {
+    public void setFieldTempEntr(JTextField DropdownComboBox) {
         this.fieldTempEntr = fieldTempEntr;
     }
 
-    public JTextField getFieldPressaoEntr() {
+    public DropdownComboBox getFieldPressaoEntr() {
         return fieldPressaoEntr;
     }
 
-    public void setFieldPressaoEntr(JTextField fieldPressaoEntr) {
+    public void setFieldPressaoEntr(DropdownComboBox fieldPressaoEntr) {
         this.fieldPressaoEntr = fieldPressaoEntr;
     }
 
-    public JTextField getFieldTempSai() {
+    public DropdownComboBox getFieldTempSai() {
         return fieldTempSai;
     }
 
-    public void setFieldTempSai(JTextField fieldTempSai) {
+    public void setFieldTempSai(DropdownComboBox fieldTempSai) {
         this.fieldTempSai = fieldTempSai;
     }
 
-    public JTextField getFieldPressaoSai() {
+    public DropdownComboBox getFieldPressaoSai() {
         return fieldPressaoSai;
     }
 
-    public void setFieldPressaoSai(JTextField fieldPressaoSai) {
+    public void setFieldPressaoSai(DropdownComboBox fieldPressaoSai) {
         this.fieldPressaoSai = fieldPressaoSai;
     }
 
-    public JTextField getFieldDelta() {
+    public DropdownComboBox getFieldDelta() {
         return fieldDelta;
     }
 
-    public void setFieldDelta(JTextField fieldDelta) {
+    public void setFieldDelta(DropdownComboBox fieldDelta) {
         this.fieldDelta = fieldDelta;
     }
 
