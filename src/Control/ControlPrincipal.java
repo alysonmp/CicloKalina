@@ -5,32 +5,12 @@
  */
 package Control;
 
-import Control.Ciclo2.ControlCalor;
-import Control.Ciclo2.ControlCompequi;
-import Control.Ciclo2.ControlConequi;
-import Control.Ciclo2.ControlConstantes;
-import Control.Ciclo2.ControlConstantesMix;
-import Control.Ciclo2.ControlCubica;
-import Control.Ciclo2.ControlDadT_Mix;
-import Control.Ciclo2.ControlFug;
-import Control.Ciclo2.ControlFugmix;
-import Control.Ciclo2.ControlH_Dep;
-import Control.Ciclo2.ControlH_Depmix;
-import Control.Ciclo2.ControlH_Sistemamix;
-import Control.Ciclo2.ControlH_ideal_Gas_Mix;
-import Control.Ciclo2.ControlIsoentropiaTurbina;
-import Control.Ciclo2.ControlPdeVapor;
-import Control.Ciclo2.ControlS_Dep;
-import Control.Ciclo2.ControlS_Depmix;
-import Control.Ciclo2.ControlS_Ideal_Gas_Mix;
-import Control.Ciclo2.ControlS_SistemaMix;
-import Control.Ciclo2.ControlSeparadorRankine;
-import Control.Ciclo2.ControlTBolha;
+import Control.Ciclo2.ControlH_Ideal_Gas;
+import Control.Ciclo2.ControlH_Sistema;
+import Control.Ciclo2.ControlPBolha;
+import Control.Ciclo2.ControlPorvalho;
+import Control.Ciclo2.ControlS_Sistema;
 import Control.Ciclo2.ControlTSaida;
-import Control.Ciclo2.ControlT_Ref;
-import Control.Ciclo2.ControlTorvalho;
-import Control.Ciclo2.ControlZetamix;
-import Model.Ciclo2.ModelBomba;
 import Model.Ciclo2.ModelFluidos;
 import Model.ModelConstantesMat;
 import Model.ModelLinear;
@@ -211,7 +191,7 @@ public class ControlPrincipal {
     
     //FUNÇÃO QUE CRIA O DESENHO DO SEGUNDO CICLO E INDICA OS LOCAIS DOS JPANELS INSERIDOS
     public void criaCiclo2(){        
-        //ControlSeparadorRankine c = new ControlSeparadorRankine(45, 500, 0.2, 20, 300, session);
+        ControlS_Sistema c = new ControlS_Sistema(500, 45, 20, 200, 0.2, session);
         //System.exit(0);
         
         viewPrincipal.getPainelCiclos().removeAll();
