@@ -5,11 +5,16 @@
  */
 package View.Condensador;
 
+import Control.Condensador.ControlCondensadorPanelRankine;
+import Util.DropdownComboBox;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -35,7 +40,8 @@ public class ViewCondensadorPanelRankine extends JPanel{
     private JLabel labelDelta = new JLabel("Delta de Pressão: ");
     
     //TEXTFIELDS
-    private JTextField fieldMassa = new JTextField(10);
+    private String[] valores = {"1", "2", "3", "4", "5"};
+    private DropdownComboBox fieldMassa = new DropdownComboBox(valores);
     
     private JTextField fieldTempEntr = new JTextField(10);
     private JTextField fieldPressaoEntr = new JTextField(10);
@@ -64,7 +70,10 @@ public class ViewCondensadorPanelRankine extends JPanel{
     private JPanel painelEntrada;
     private JPanel painelSaida;
     
-    public ViewCondensadorPanelRankine(){
+    ControlCondensadorPanelRankine ctrlCondensador;
+    
+    public ViewCondensadorPanelRankine(ControlCondensadorPanelRankine ctrlCondensador){
+        this.ctrlCondensador = ctrlCondensador;
         
         //INICIALIZANDO OS JPANELS
         painelDados = new JPanel(new GridBagLayout());
@@ -223,13 +232,29 @@ public class ViewCondensadorPanelRankine extends JPanel{
         g.fill = GridBagConstraints.HORIZONTAL;
         g.anchor = GridBagConstraints.PAGE_START;
         this.add(painelDados, g);
+        
+        //fieldMassa.setEditable(true);
+        //fieldMassa.removeAll();
+        fieldMassa.getEditor().getEditorComponent().addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                //fieldMassa.setBackground(Color.white);
+                fieldMassa.showPopup();
+                fieldMassa.getEditor().selectAll();
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                ctrlCondensador.atualizaMassa();
+            }
+        });
     }
 
-    public JTextField getFieldMassa() {
+    public DropdownComboBox getFieldMassa() {
         return fieldMassa;
     }
 
-    public void setFieldMassa(JTextField fieldMassa) {
+    public void setFieldMassa(DropdownComboBox fieldMassa) {
         this.fieldMassa = fieldMassa;
     }
 

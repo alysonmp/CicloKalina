@@ -29,7 +29,6 @@ public class ControlFugmix {
         
         constantesMix = new ControlConstantesMix(T, P, zi);
         constantes = constantesMix.getConstantes();
-        System.out.println("fugmix"+constantesMix.getAm()+""+ constantesMix.getBm()+""+ constantesMix.getCm());
         zetamix = new ControlZetamix(constantesMix.getAm(), constantesMix.getBm(), constantesMix.getCm());
         
         bpi = constantes.getbi()-constantesMix.getbm();

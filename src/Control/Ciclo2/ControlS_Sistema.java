@@ -27,7 +27,7 @@ public class ControlS_Sistema {
         SDL = Sdep.getSDL();
         SDV = Sdep.getSDV();
         
-        SL = SDrefL+Sig+SDL;
+        SL = -SDrefL+Sig+SDL;
         SV = -SDrefL+Sig+SDV;
     }
 }

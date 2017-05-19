@@ -5,6 +5,7 @@
  */
 package View.Condensador;
 
+import Control.Condensador.ControlCondensadorPanelRankine;
 import Control.ControlPrincipal;
 import java.awt.Color;
 import java.awt.Component;
@@ -69,10 +70,10 @@ public class ViewCondensadorImage extends JPanel{
                 }else{
                     //CASO O CICLO SEJA O SEGUNDO CHAMA A CLASSE VIEWCONDENSADORPANELKCS
                     if(ciclo == 2){
-                        ViewCondensadorPanelRankine viewCondensadorPanel = new ViewCondensadorPanelRankine();
-                        viewCondensadorPanel.setPreferredSize(new Dimension(x, y));
-                        ViewCondensadorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().addTab("Condensador", null, viewCondensadorPanel);
-                        ViewCondensadorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().setSelectedComponent(viewCondensadorPanel);
+                        ControlCondensadorPanelRankine viewCondensador = new ControlCondensadorPanelRankine(ViewCondensadorImage.this.ctrlPrincipal.getSession());
+                        viewCondensador.getViewCondensador().setPreferredSize(new Dimension(x, y));
+                        ViewCondensadorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().addTab("Condensador", null, viewCondensador.getViewCondensador());
+                        ViewCondensadorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().setSelectedComponent(viewCondensador.getViewCondensador());
                         ViewCondensadorImage.this.setBorder(BorderFactory.createLineBorder(Color.black, 2));
                     }
                 }

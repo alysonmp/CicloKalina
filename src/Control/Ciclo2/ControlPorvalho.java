@@ -33,6 +33,7 @@ public class ControlPorvalho {
         Pe = P;
         
         while(erro > 0.00001){
+            System.out.println("while");
             ControlConequi conequi = new ControlConequi(session);
             conequi.realizaCalculo(T, Pe, zi);
             
