@@ -6,13 +6,13 @@
 package View.Regenerador;
 
 import Control.ControlPrincipal;
+import ControlRegenerador.ControlRegeneradorPanelRankine;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -65,10 +65,10 @@ public class ViewRegeneradorImage extends JPanel{
                 }else{
                     //CASO O CICLO SEJA O SEGUNDO CHAMA A CLASSE VIEWTURBINAPANELKCS
                     if(ciclo == 2){
-                        ViewRegeneradorPanelRankine viewRegeneradorPanel = new ViewRegeneradorPanelRankine();
-                        viewRegeneradorPanel.setPreferredSize(new Dimension(x, y));
-                        ViewRegeneradorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().addTab("Regenerador", null, viewRegeneradorPanel);
-                        ViewRegeneradorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().setSelectedComponent(viewRegeneradorPanel);
+                        ControlRegeneradorPanelRankine controlRegeneradorPanel = new ControlRegeneradorPanelRankine(ViewRegeneradorImage.this.ctrlPrincipal);
+                        controlRegeneradorPanel.getViewRegeneradorPanel().setPreferredSize(new Dimension(x, y));
+                        ViewRegeneradorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().addTab("Regenerador", null, controlRegeneradorPanel.getViewRegeneradorPanel());
+                        ViewRegeneradorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().setSelectedComponent(controlRegeneradorPanel.getViewRegeneradorPanel());
                         ViewRegeneradorImage.this.setBorder(BorderFactory.createLineBorder(Color.black, 2));
                     }
                 }
