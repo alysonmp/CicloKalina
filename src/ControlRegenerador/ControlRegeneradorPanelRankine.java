@@ -56,14 +56,22 @@ public class ControlRegeneradorPanelRankine {
         if(value == null)
             return;
         
-        Transaction tx = this.session.beginTransaction();
         Criteria cr = this.session.createCriteria(ModelRegenerador.class);
         List results = cr.list();
+        ModelRegenerador regenerador = null;
+
+        if(!results.isEmpty()){
+            regenerador = (ModelRegenerador)results.get(0);
+            if(value == regenerador.getTemperaturaEntr()){
+                return;
+            }
+        }
         
-        ModelRegenerador evaporador = null;
+        Transaction tx = this.session.beginTransaction();
+        
         if(results.size() < 5){
-            evaporador = new ModelRegenerador();
-            session.save(evaporador);
+            regenerador = new ModelRegenerador();
+            session.save(regenerador);
         }
                 
         for(int i=results.size()-1; i>0; i--){
@@ -74,9 +82,9 @@ public class ControlRegeneradorPanelRankine {
         }
         
         if(!results.isEmpty())
-            evaporador = (ModelRegenerador)results.get(0);
-        evaporador.setTemperaturaEntr(value);
-        session.saveOrUpdate(evaporador);
+            regenerador = (ModelRegenerador)results.get(0);
+        regenerador.setTemperaturaEntr(value);
+        session.saveOrUpdate(regenerador);
 
         tx.commit();
     }
@@ -113,15 +121,23 @@ public class ControlRegeneradorPanelRankine {
         
         if(value == null)
             return;
-        
-        Transaction tx = this.session.beginTransaction();
+       
         Criteria cr = this.session.createCriteria(ModelRegenerador.class);
         List results = cr.list();
+        ModelRegenerador regenerador = null;
+
+        if(!results.isEmpty()){
+            regenerador = (ModelRegenerador)results.get(0);
+            if(value == regenerador.getTemperaturaSai()){
+                return;
+            }
+        }
         
-        ModelRegenerador evaporador = null;
+        Transaction tx = this.session.beginTransaction();
+
         if(results.size() < 5){
-            evaporador = new ModelRegenerador();
-            session.save(evaporador);
+            regenerador = new ModelRegenerador();
+            session.save(regenerador);
         }
                 
         for(int i=results.size()-1; i>0; i--){
@@ -132,9 +148,9 @@ public class ControlRegeneradorPanelRankine {
         }
         
         if(!results.isEmpty())
-            evaporador = (ModelRegenerador)results.get(0);
-        evaporador.setTemperaturaSai(value);
-        session.saveOrUpdate(evaporador);
+            regenerador = (ModelRegenerador)results.get(0);
+        regenerador.setTemperaturaSai(value);
+        session.saveOrUpdate(regenerador);
 
         tx.commit();
     }
@@ -170,15 +186,22 @@ public class ControlRegeneradorPanelRankine {
         
         if(value == null)
             return;
-        
-        Transaction tx = this.session.beginTransaction();
         Criteria cr = this.session.createCriteria(ModelRegenerador.class);
         List results = cr.list();
+        ModelRegenerador regenerador = null;
+
+        if(!results.isEmpty()){
+            regenerador = (ModelRegenerador)results.get(0);
+            if(value == regenerador.getPressaoEntr()){
+                return;
+            }
+        }
         
-        ModelRegenerador evaporador = null;
+        Transaction tx = this.session.beginTransaction();
+
         if(results.size() < 5){
-            evaporador = new ModelRegenerador();
-            session.save(evaporador);
+            regenerador = new ModelRegenerador();
+            session.save(regenerador);
         }
                 
         for(int i=results.size()-1; i>0; i--){
@@ -189,9 +212,9 @@ public class ControlRegeneradorPanelRankine {
         }
         
         if(!results.isEmpty())
-            evaporador = (ModelRegenerador)results.get(0);
-        evaporador.setPressaoEntr(value);
-        session.saveOrUpdate(evaporador);
+            regenerador = (ModelRegenerador)results.get(0);
+        regenerador.setPressaoEntr(value);
+        session.saveOrUpdate(regenerador);
 
         tx.commit();
     }
@@ -228,14 +251,22 @@ public class ControlRegeneradorPanelRankine {
         if(value == null)
             return;
         
-        Transaction tx = this.session.beginTransaction();
         Criteria cr = this.session.createCriteria(ModelRegenerador.class);
         List results = cr.list();
+        ModelRegenerador regenerador = null;
+
+        if(!results.isEmpty()){
+            regenerador = (ModelRegenerador)results.get(0);
+            if(value == regenerador.getPressaoSai()){
+                return;
+            }
+        }
         
-        ModelRegenerador evaporador = null;
+        Transaction tx = this.session.beginTransaction();
+
         if(results.size() < 5){
-            evaporador = new ModelRegenerador();
-            session.save(evaporador);
+            regenerador = new ModelRegenerador();
+            session.save(regenerador);
         }
                 
         for(int i=results.size()-1; i>0; i--){
@@ -246,9 +277,9 @@ public class ControlRegeneradorPanelRankine {
         }
         
         if(!results.isEmpty())
-            evaporador = (ModelRegenerador)results.get(0);
-        evaporador.setPressaoSai(value);
-        session.saveOrUpdate(evaporador);
+            regenerador = (ModelRegenerador)results.get(0);
+        regenerador.setPressaoSai(value);
+        session.saveOrUpdate(regenerador);
 
         tx.commit();
     }
@@ -285,14 +316,22 @@ public class ControlRegeneradorPanelRankine {
         if(value == null)
             return;
         
-        Transaction tx = this.session.beginTransaction();
         Criteria cr = this.session.createCriteria(ModelRegenerador.class);
         List results = cr.list();
+        ModelRegenerador regenerador = null;
+
+        if(!results.isEmpty()){
+            regenerador = (ModelRegenerador)results.get(0);
+            if(value == regenerador.getDelaPressao()){
+                return;
+            }
+        }
         
-        ModelRegenerador evaporador = null;
+        Transaction tx = this.session.beginTransaction();
+
         if(results.size() < 5){
-            evaporador = new ModelRegenerador();
-            session.save(evaporador);
+            regenerador = new ModelRegenerador();
+            session.save(regenerador);
         }
                 
         for(int i=results.size()-1; i>0; i--){
@@ -303,9 +342,9 @@ public class ControlRegeneradorPanelRankine {
         }
         
         if(!results.isEmpty())
-            evaporador = (ModelRegenerador)results.get(0);
-        evaporador.setDelaPressao(value);
-        session.saveOrUpdate(evaporador);
+            regenerador = (ModelRegenerador)results.get(0);
+        regenerador.setDelaPressao(value);
+        session.saveOrUpdate(regenerador);
 
         tx.commit();
     }
@@ -342,14 +381,22 @@ public class ControlRegeneradorPanelRankine {
         if(value == null)
             return;
         
-        Transaction tx = this.session.beginTransaction();
         Criteria cr = this.session.createCriteria(ModelRegenerador.class);
         List results = cr.list();
+        ModelRegenerador regenerador = null;
+
+        if(!results.isEmpty()){
+            regenerador = (ModelRegenerador)results.get(0);
+            if(value == regenerador.getEfetividade()){
+                return;
+            }
+        }
         
-        ModelRegenerador evaporador = null;
+        Transaction tx = this.session.beginTransaction();
+
         if(results.size() < 5){
-            evaporador = new ModelRegenerador();
-            session.save(evaporador);
+            regenerador = new ModelRegenerador();
+            session.save(regenerador);
         }
                 
         for(int i=results.size()-1; i>0; i--){
@@ -360,9 +407,9 @@ public class ControlRegeneradorPanelRankine {
         }
         
         if(!results.isEmpty())
-            evaporador = (ModelRegenerador)results.get(0);
-        evaporador.setEfetividade(value);
-        session.saveOrUpdate(evaporador);
+            regenerador = (ModelRegenerador)results.get(0);
+        regenerador.setEfetividade(value);
+        session.saveOrUpdate(regenerador);
 
         tx.commit();
     }

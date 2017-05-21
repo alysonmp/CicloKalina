@@ -57,11 +57,20 @@ public class ControlEvaporadorPanelRankine {
         if(value == null)
             return;
         
-        Transaction tx = this.session.beginTransaction();
         Criteria cr = this.session.createCriteria(ModelEvaporador.class);
         List results = cr.list();
-        
         ModelEvaporador evaporador = null;
+
+        if(!results.isEmpty()){
+            evaporador = (ModelEvaporador)results.get(0);
+            if(value == evaporador.getTemperaturaEntr()){
+                return;
+            }
+        }
+        
+        Transaction tx = this.session.beginTransaction();
+
+        
         if(results.size() < 5){
             evaporador = new ModelEvaporador();
             session.save(evaporador);
@@ -115,11 +124,19 @@ public class ControlEvaporadorPanelRankine {
         if(value == null)
             return;
         
-        Transaction tx = this.session.beginTransaction();
         Criteria cr = this.session.createCriteria(ModelEvaporador.class);
         List results = cr.list();
-        
         ModelEvaporador evaporador = null;
+
+        if(!results.isEmpty()){
+            evaporador = (ModelEvaporador)results.get(0);
+            if(value == evaporador.getTemperaturaSai()){
+                return;
+            }
+        }
+        
+        Transaction tx = this.session.beginTransaction();
+        
         if(results.size() < 5){
             evaporador = new ModelEvaporador();
             session.save(evaporador);
@@ -172,11 +189,19 @@ public class ControlEvaporadorPanelRankine {
         if(value == null)
             return;
         
-        Transaction tx = this.session.beginTransaction();
         Criteria cr = this.session.createCriteria(ModelEvaporador.class);
         List results = cr.list();
-        
         ModelEvaporador evaporador = null;
+
+        if(!results.isEmpty()){
+            evaporador = (ModelEvaporador)results.get(0);
+            if(value == evaporador.getPressaoEntr()){
+                return;
+            }
+        }
+        
+        Transaction tx = this.session.beginTransaction();
+
         if(results.size() < 5){
             evaporador = new ModelEvaporador();
             session.save(evaporador);
@@ -229,11 +254,19 @@ public class ControlEvaporadorPanelRankine {
         if(value == null)
             return;
         
-        Transaction tx = this.session.beginTransaction();
         Criteria cr = this.session.createCriteria(ModelEvaporador.class);
         List results = cr.list();
-        
         ModelEvaporador evaporador = null;
+
+        if(!results.isEmpty()){
+            evaporador = (ModelEvaporador)results.get(0);
+            if(value == evaporador.getPressaoSai()){
+                return;
+            }
+        }
+        
+        Transaction tx = this.session.beginTransaction();
+        
         if(results.size() < 5){
             evaporador = new ModelEvaporador();
             session.save(evaporador);
@@ -286,11 +319,19 @@ public class ControlEvaporadorPanelRankine {
         if(value == null)
             return;
         
-        Transaction tx = this.session.beginTransaction();
         Criteria cr = this.session.createCriteria(ModelEvaporador.class);
         List results = cr.list();
-        
         ModelEvaporador evaporador = null;
+
+        if(!results.isEmpty()){
+            evaporador = (ModelEvaporador)results.get(0);
+            if(value == evaporador.getDeltaPressao()){
+                return;
+            }
+        }
+        
+        Transaction tx = this.session.beginTransaction();
+
         if(results.size() < 5){
             evaporador = new ModelEvaporador();
             session.save(evaporador);
