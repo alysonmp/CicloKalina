@@ -13,6 +13,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
@@ -28,15 +30,15 @@ import javax.swing.JTextField;
 public class ViewEvaporadorPanelRankine extends JPanel{
     
     //LABELS 
-    private JLabel labelMassa = new JLabel("Massa (m): ");
+    private final JLabel labelMassa = new JLabel("Massa (m): ");
     
-    private JLabel labelTempEntr = new JLabel("Temperatura: ");
-    private JLabel labelPressaoEntr = new JLabel("Pressão: ");
+    private final JLabel labelTempEntr = new JLabel("Temperatura: ");
+    private final JLabel labelPressaoEntr = new JLabel("Pressão: ");
     
-    private JLabel labelTempSai = new JLabel("Temperatura: ");
-    private JLabel labelPressaoSai = new JLabel("Pressão: ");
+    private final JLabel labelTempSai = new JLabel("Temperatura: ");
+    private final JLabel labelPressaoSai = new JLabel("Pressão: ");
     
-    private JLabel labelDelta = new JLabel("Delta de Pressão: ");
+    private final JLabel labelDelta = new JLabel("Delta de Pressão: ");
     
     //TEXTFIELDS
     private JTextField fieldMassa = new JTextField(10);
@@ -52,14 +54,14 @@ public class ViewEvaporadorPanelRankine extends JPanel{
     private DropdownComboBox fieldDelta = new DropdownComboBox(new Double[]{});
     
     //COMBOBOX
-    private String[] massas = {"kg/s", "kg/m", "kg/h", "lb/s", "lb/m", "lb/h"};
+    private final String[] massas = {"kg/s", "kg/m", "kg/h", "lb/s", "lb/m", "lb/h"};
     private JComboBox<String> comboMassa = new JComboBox<>(massas);
     
-    private String[] temps = {"°C", "°F", "K"};
+    private final String[] temps = {"°C", "°F", "K"};
     private JComboBox<String> comboTempEntr = new JComboBox<>(temps);
     private JComboBox<String> comboTempSai = new JComboBox<>(temps);
     
-    private String[] pressoes = {"atm", "kPa", "bar"};
+    private final String[] pressoes = {"atm", "kPa", "bar"};
     private JComboBox<String> comboPressaoEntr = new JComboBox<>(pressoes);
     private JComboBox<String> comboPressaoSai = new JComboBox<>(pressoes);
     
@@ -91,6 +93,20 @@ public class ViewEvaporadorPanelRankine extends JPanel{
             public void focusGained(FocusEvent fe) {
                 fieldTempEntr.showPopup();
                 fieldTempEntr.getEditor().selectAll();
+                fieldTempEntr.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent ke) {
+                    }
+
+                    @Override
+                    public void keyPressed(KeyEvent ke) {
+                        fieldTempEntr.setPopupVisible(false);
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent ke) {
+                    }
+                });
             }
             @Override
             public void focusLost(FocusEvent fe) {
@@ -111,6 +127,20 @@ public class ViewEvaporadorPanelRankine extends JPanel{
             public void focusGained(FocusEvent fe) {
                 fieldTempSai.showPopup();
                 fieldTempSai.getEditor().selectAll();
+                fieldTempSai.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent ke) {
+                    }
+
+                    @Override
+                    public void keyPressed(KeyEvent ke) {
+                        fieldTempSai.setPopupVisible(false);
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent ke) {
+                    }
+                });
             }
 
             @Override
@@ -132,6 +162,20 @@ public class ViewEvaporadorPanelRankine extends JPanel{
             public void focusGained(FocusEvent fe) {
                 fieldPressaoEntr.showPopup();
                 fieldPressaoEntr.getEditor().selectAll();
+                fieldPressaoEntr.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent ke) {
+                    }
+
+                    @Override
+                    public void keyPressed(KeyEvent ke) {
+                        fieldPressaoEntr.setPopupVisible(false);
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent ke) {
+                    }
+                });
             }
 
             @Override
@@ -153,6 +197,20 @@ public class ViewEvaporadorPanelRankine extends JPanel{
             public void focusGained(FocusEvent fe) {
                 fieldPressaoSai.showPopup();
                 fieldPressaoSai.getEditor().selectAll();
+                fieldPressaoSai.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent ke) {
+                    }
+
+                    @Override
+                    public void keyPressed(KeyEvent ke) {
+                        fieldPressaoSai.setPopupVisible(false);
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent ke) {
+                    }
+                });
             }
 
             @Override
@@ -174,6 +232,20 @@ public class ViewEvaporadorPanelRankine extends JPanel{
             public void focusGained(FocusEvent fe) {
                 fieldDelta.showPopup();
                 fieldDelta.getEditor().selectAll();
+                fieldDelta.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent ke) {
+                    }
+
+                    @Override
+                    public void keyPressed(KeyEvent ke) {
+                        fieldDelta.setPopupVisible(false);
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent ke) {
+                    }
+                });
             }
 
             @Override
@@ -326,7 +398,7 @@ public class ViewEvaporadorPanelRankine extends JPanel{
         return fieldTempEntr;
     }
 
-    public void setFieldTempEntr(JTextField DropdownComboBox) {
+    public void setFieldTempEntr(DropdownComboBox fieldTempEntr) {
         this.fieldTempEntr = fieldTempEntr;
     }
 
