@@ -15,13 +15,10 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.Vector;
 import javax.swing.BorderFactory;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 /**
  *
@@ -106,7 +103,7 @@ public class ViewEvaporadorPanelRankine extends JPanel{
             }
             @Override
             public void focusLost(FocusEvent fe) {
-                controlEvaporadorPanel.saveTempEntr();
+                controlEvaporadorPanel.atualizaTempEntrada();
             }
         });
         
@@ -134,7 +131,7 @@ public class ViewEvaporadorPanelRankine extends JPanel{
 
             @Override
             public void focusLost(FocusEvent fe) {
-                controlEvaporadorPanel.saveTempSai();
+                controlEvaporadorPanel.atualizaTempSaida();
 
             }
         });
@@ -163,7 +160,7 @@ public class ViewEvaporadorPanelRankine extends JPanel{
 
             @Override
             public void focusLost(FocusEvent fe) {
-                controlEvaporadorPanel.savePressaoEntr();
+                controlEvaporadorPanel.atualizaPressaoEntrada();
                 
             }
         });
@@ -191,7 +188,7 @@ public class ViewEvaporadorPanelRankine extends JPanel{
 
             @Override
             public void focusLost(FocusEvent fe) {
-                controlEvaporadorPanel.savePressaoSai();
+                controlEvaporadorPanel.atualizaPressaoSaida();
                 
             }
         });
@@ -220,7 +217,7 @@ public class ViewEvaporadorPanelRankine extends JPanel{
 
             @Override
             public void focusLost(FocusEvent fe) {
-                controlEvaporadorPanel.saveDeltaPressao();
+                controlEvaporadorPanel.atualizaDeltaPressao();
             }
         });
         

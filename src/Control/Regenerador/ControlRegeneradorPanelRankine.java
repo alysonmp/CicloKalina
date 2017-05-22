@@ -8,9 +8,7 @@ package Control.Regenerador;
 import Control.ControlPrincipal;
 import Model.Ciclo2.ModelMassa;
 import Model.Ciclo2.ModelRegenerador;
-import Model.Ciclo2.ModelRegenerador;
 import View.Regenerador.ViewRegeneradorPanelRankine;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -21,7 +19,6 @@ import javax.swing.JOptionPane;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.Projections;
 
 /**
  *
@@ -114,7 +111,7 @@ public class ControlRegeneradorPanelRankine {
     }
     
         //Salva no banco de dados os 5 valores mais recentes da temperatura de entrada
-    public void saveTempEntr(){ 
+    public void atualizaTempEntrada(){ 
         Double value = null;
         try{          
             value = (Double) viewRegeneradorPanel.getFieldTempEntr().getSelectedItem();
@@ -128,19 +125,14 @@ public class ControlRegeneradorPanelRankine {
             }
         }
         
-        if(value == null)
-            return;
-        
         Criteria cr = this.session.createCriteria(ModelRegenerador.class);
         List results = cr.list();
         ModelRegenerador regenerador = null;
 
-        if(!results.isEmpty()){
-            for(int i=0;i<results.size();i++){
-                ModelRegenerador ev = (ModelRegenerador)results.get(i);
-                if(Objects.equals(value, ev.getTemperaturaEntr())){
-                    return;
-                }
+        for(int i=0;i<results.size();i++){
+            ModelRegenerador ev = (ModelRegenerador)results.get(i);
+            if(Objects.equals(value, ev.getTemperaturaEntr())){
+                return;
             }
         }
         
@@ -172,7 +164,7 @@ public class ControlRegeneradorPanelRankine {
         tx.commit();        
     }
     
-    public void saveTempSai(){ 
+    public void atualizaTempSaida(){ 
         Double value = null;
         try{          
             value = (Double) viewRegeneradorPanel.getFieldTempSai().getSelectedItem();
@@ -186,19 +178,14 @@ public class ControlRegeneradorPanelRankine {
             }
         }
         
-        if(value == null)
-            return;
-        
         Criteria cr = this.session.createCriteria(ModelRegenerador.class);
         List results = cr.list();
         ModelRegenerador regenerador = null;
 
-        if(!results.isEmpty()){
-            for(int i=0;i<results.size();i++){
-                ModelRegenerador ev = (ModelRegenerador)results.get(i);
-                if(Objects.equals(value, ev.getTemperaturaSai())){
-                    return;
-                }
+        for(int i=0;i<results.size();i++){
+            ModelRegenerador ev = (ModelRegenerador)results.get(i);
+            if(Objects.equals(value, ev.getTemperaturaSai())){
+                return;
             }
         }
         
@@ -230,7 +217,7 @@ public class ControlRegeneradorPanelRankine {
         tx.commit();        
     }
     
-    public void savePressaoEntr(){ 
+    public void atualizaPressaoEntrada(){ 
         Double value = null;
         try{          
             value = (Double) viewRegeneradorPanel.getFieldPressaoEntr().getSelectedItem();
@@ -244,19 +231,14 @@ public class ControlRegeneradorPanelRankine {
             }
         }
         
-        if(value == null)
-            return;
-        
         Criteria cr = this.session.createCriteria(ModelRegenerador.class);
         List results = cr.list();
         ModelRegenerador regenerador = null;
 
-        if(!results.isEmpty()){
-            for(int i=0;i<results.size();i++){
-                ModelRegenerador ev = (ModelRegenerador)results.get(i);
-                if(Objects.equals(value, ev.getPressaoEntr())){
-                    return;
-                }
+        for(int i=0;i<results.size();i++){
+            ModelRegenerador ev = (ModelRegenerador)results.get(i);
+            if(Objects.equals(value, ev.getPressaoEntr())){
+                return;
             }
         }
         
@@ -288,8 +270,7 @@ public class ControlRegeneradorPanelRankine {
         tx.commit();        
     }
     
-    public void savePressaoSai(){ 
-        
+    public void atualizaPressaoSaida(){  
         Double value = null;
         try{          
             value = (Double) viewRegeneradorPanel.getFieldPressaoSai().getSelectedItem();
@@ -302,20 +283,15 @@ public class ControlRegeneradorPanelRankine {
                 return;
             }
         }
-        
-        if(value == null)
-            return;
-        
+
         Criteria cr = this.session.createCriteria(ModelRegenerador.class);
         List results = cr.list();
         ModelRegenerador regenerador = null;
 
-        if(!results.isEmpty()){
-            for(int i=0;i<results.size();i++){
-                ModelRegenerador ev = (ModelRegenerador)results.get(i);
-                if(Objects.equals(value, ev.getPressaoSai())){
-                    return;
-                }
+        for(int i=0;i<results.size();i++){
+            ModelRegenerador ev = (ModelRegenerador)results.get(i);
+            if(Objects.equals(value, ev.getPressaoSai())){
+                return;
             }
         }
         
@@ -347,7 +323,7 @@ public class ControlRegeneradorPanelRankine {
         tx.commit();        
     }
       
-    public void saveDeltaPressao(){       
+    public void atualizaDeltaPressao(){       
         Double value = null;
         try{          
             value = (Double) viewRegeneradorPanel.getFieldDelta().getSelectedItem();
@@ -361,19 +337,14 @@ public class ControlRegeneradorPanelRankine {
             }
         }
         
-        if(value == null)
-            return;
-        
         Criteria cr = this.session.createCriteria(ModelRegenerador.class);
         List results = cr.list();
         ModelRegenerador regenerador = null;
 
-        if(!results.isEmpty()){
-            for(int i=0;i<results.size();i++){
-                ModelRegenerador ev = (ModelRegenerador)results.get(i);
-                if(Objects.equals(value, ev.getDelaPressao())){
-                    return;
-                }
+        for(int i=0;i<results.size();i++){
+            ModelRegenerador ev = (ModelRegenerador)results.get(i);
+            if(Objects.equals(value, ev.getDelaPressao())){
+                return;
             }
         }
         
@@ -405,7 +376,7 @@ public class ControlRegeneradorPanelRankine {
         tx.commit();        
     }
     
-    public void saveEfetv(){    
+    public void atualizaEfetividade(){    
         Double value = null;
         try{          
             value = (Double) viewRegeneradorPanel.getFieldEfetiv().getSelectedItem();
@@ -419,19 +390,14 @@ public class ControlRegeneradorPanelRankine {
             }
         }
         
-        if(value == null)
-            return;
-        
         Criteria cr = this.session.createCriteria(ModelRegenerador.class);
         List results = cr.list();
         ModelRegenerador regenerador = null;
 
-        if(!results.isEmpty()){
-            for(int i=0;i<results.size();i++){
-                ModelRegenerador ev = (ModelRegenerador)results.get(i);
-                if(Objects.equals(value, ev.getEfetividade())){
-                    return;
-                }
+        for(int i=0;i<results.size();i++){
+            ModelRegenerador ev = (ModelRegenerador)results.get(i);
+            if(Objects.equals(value, ev.getEfetividade())){
+                return;
             }
         }
         

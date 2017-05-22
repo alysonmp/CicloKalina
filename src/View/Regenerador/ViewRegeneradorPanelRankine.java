@@ -105,7 +105,7 @@ public class ViewRegeneradorPanelRankine extends JPanel{
             }
             @Override
             public void focusLost(FocusEvent fe) {
-                controlRegeneradorPanel.saveTempEntr();
+                controlRegeneradorPanel.atualizaTempEntrada();
             }
         });
         
@@ -133,7 +133,7 @@ public class ViewRegeneradorPanelRankine extends JPanel{
 
             @Override
             public void focusLost(FocusEvent fe) {
-                controlRegeneradorPanel.saveTempSai();
+                controlRegeneradorPanel.atualizaTempSaida();
 
             }
         });
@@ -162,7 +162,7 @@ public class ViewRegeneradorPanelRankine extends JPanel{
 
             @Override
             public void focusLost(FocusEvent fe) {
-                controlRegeneradorPanel.savePressaoEntr();
+                controlRegeneradorPanel.atualizaPressaoEntrada();
                 
             }
         });
@@ -190,7 +190,7 @@ public class ViewRegeneradorPanelRankine extends JPanel{
 
             @Override
             public void focusLost(FocusEvent fe) {
-                controlRegeneradorPanel.savePressaoSai();
+                controlRegeneradorPanel.atualizaPressaoSaida();
                 
             }
         });
@@ -219,7 +219,7 @@ public class ViewRegeneradorPanelRankine extends JPanel{
 
             @Override
             public void focusLost(FocusEvent fe) {
-                controlRegeneradorPanel.saveDeltaPressao();
+                controlRegeneradorPanel.atualizaDeltaPressao();
             }
         });
         
@@ -246,7 +246,7 @@ public class ViewRegeneradorPanelRankine extends JPanel{
 
             @Override
             public void focusLost(FocusEvent fe) {
-                controlRegeneradorPanel.saveEfetv();
+                controlRegeneradorPanel.atualizaEfetividade();
             }
         });
         

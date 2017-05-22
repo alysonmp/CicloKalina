@@ -109,8 +109,7 @@ public class ControlEvaporadorPanelRankine {
         atualizaComboBox(valores, combo);
     }
     
-    //Salva no banco de dados os 5 valores mais recentes da temperatura de entrada
-    public void saveTempEntr(){ 
+    public void atualizaTempEntrada(){ 
         Double value = null;
         try{          
             value = (Double) viewEvaporadorPanel.getFieldTempEntr().getSelectedItem();
@@ -124,19 +123,14 @@ public class ControlEvaporadorPanelRankine {
             }
         }
         
-        if(value == null)
-            return;
-        
         Criteria cr = this.session.createCriteria(ModelEvaporador.class);
         List results = cr.list();
         ModelEvaporador evaporador = null;
 
-        if(!results.isEmpty()){
-            for(int i=0;i<results.size();i++){
-                ModelEvaporador ev = (ModelEvaporador)results.get(i);
-                if(Objects.equals(value, ev.getTemperaturaEntr())){
-                    return;
-                }
+        for(int i=0;i<results.size();i++){
+            ModelEvaporador ev = (ModelEvaporador)results.get(i);
+            if(Objects.equals(value, ev.getTemperaturaEntr())){
+                return;
             }
         }
         
@@ -168,7 +162,7 @@ public class ControlEvaporadorPanelRankine {
         tx.commit();        
     }
     
-    public void saveTempSai(){ 
+    public void atualizaTempSaida(){ 
         Double value = null;
         try{          
             value = (Double) viewEvaporadorPanel.getFieldTempSai().getSelectedItem();
@@ -182,19 +176,14 @@ public class ControlEvaporadorPanelRankine {
             }
         }
         
-        if(value == null)
-            return;
-        
         Criteria cr = this.session.createCriteria(ModelEvaporador.class);
         List results = cr.list();
         ModelEvaporador evaporador = null;
 
-        if(!results.isEmpty()){
-            for(int i=0;i<results.size();i++){
-                ModelEvaporador ev = (ModelEvaporador)results.get(i);
-                if(Objects.equals(value, ev.getTemperaturaSai())){
-                    return;
-                }
+        for(int i=0;i<results.size();i++){
+            ModelEvaporador ev = (ModelEvaporador)results.get(i);
+            if(Objects.equals(value, ev.getTemperaturaSai())){
+                return;
             }
         }
         
@@ -226,7 +215,7 @@ public class ControlEvaporadorPanelRankine {
         tx.commit();        
     }
     
-    public void savePressaoEntr(){ 
+    public void atualizaPressaoEntrada(){ 
         Double value = null;
         try{          
             value = (Double) viewEvaporadorPanel.getFieldPressaoEntr().getSelectedItem();
@@ -239,21 +228,15 @@ public class ControlEvaporadorPanelRankine {
                 return;
             }
         }
-        
-        if(value == null)
-            return;
-        
-        
+
         Criteria cr = this.session.createCriteria(ModelEvaporador.class);
         List results = cr.list();
         ModelEvaporador evaporador = null;
 
-        if(!results.isEmpty()){
-            for(int i=0;i<results.size();i++){
-                ModelEvaporador ev = (ModelEvaporador)results.get(i);
-                if(Objects.equals(value, ev.getPressaoEntr())){
-                    return;
-                }
+        for(int i=0;i<results.size();i++){
+            ModelEvaporador ev = (ModelEvaporador)results.get(i);
+            if(Objects.equals(value, ev.getPressaoEntr())){
+                return;
             }
         }
         
@@ -285,8 +268,7 @@ public class ControlEvaporadorPanelRankine {
         tx.commit();        
     }
     
-    public void savePressaoSai(){ 
-        
+    public void atualizaPressaoSaida(){ 
         Double value = null;
         try{          
             value = (Double) viewEvaporadorPanel.getFieldPressaoSai().getSelectedItem();
@@ -299,20 +281,15 @@ public class ControlEvaporadorPanelRankine {
                 return;
             }
         }
-        
-        if(value == null)
-            return;
-        
+
         Criteria cr = this.session.createCriteria(ModelEvaporador.class);
         List results = cr.list();
         ModelEvaporador evaporador = null;
 
-        if(!results.isEmpty()){
-            for(int i=0;i<results.size();i++){
-                ModelEvaporador ev = (ModelEvaporador)results.get(i);
-                if(Objects.equals(value, ev.getPressaoSai())){
-                    return;
-                }
+        for(int i=0;i<results.size();i++){
+            ModelEvaporador ev = (ModelEvaporador)results.get(i);
+            if(Objects.equals(value, ev.getPressaoSai())){
+                return;
             }
         }
         
@@ -344,8 +321,7 @@ public class ControlEvaporadorPanelRankine {
         tx.commit();        
     }
       
-    public void saveDeltaPressao(){ 
-        
+    public void atualizaDeltaPressao(){ 
         Double value = null;
         try{          
             value = (Double) viewEvaporadorPanel.getFieldDelta().getSelectedItem();
@@ -359,19 +335,14 @@ public class ControlEvaporadorPanelRankine {
             }
         }
         
-        if(value == null)
-            return;
-        
         Criteria cr = this.session.createCriteria(ModelEvaporador.class);
         List results = cr.list();
         ModelEvaporador evaporador = null;
 
-        if(!results.isEmpty()){
-            for(int i=0;i<results.size();i++){
-                ModelEvaporador ev = (ModelEvaporador)results.get(i);
-                if(Objects.equals(value, ev.getDeltaPressao())){
-                    return;
-                }
+        for(int i=0;i<results.size();i++){
+            ModelEvaporador ev = (ModelEvaporador)results.get(i);
+            if(Objects.equals(value, ev.getDeltaPressao())){
+                return;
             }
         }
         

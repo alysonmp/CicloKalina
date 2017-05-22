@@ -109,7 +109,7 @@ public class ViewTurbinaPanelRankine extends JPanel{
             }
             @Override
             public void focusLost(FocusEvent fe) {
-                controlTurbinaPanel.saveTempEntr();
+                controlTurbinaPanel.atualizaTempEntrada();
             }
         });
         
@@ -137,7 +137,7 @@ public class ViewTurbinaPanelRankine extends JPanel{
 
             @Override
             public void focusLost(FocusEvent fe) {
-                controlTurbinaPanel.saveTempSai();
+                controlTurbinaPanel.atualizaTempSaida();
 
             }
         });
@@ -166,7 +166,7 @@ public class ViewTurbinaPanelRankine extends JPanel{
 
             @Override
             public void focusLost(FocusEvent fe) {
-                controlTurbinaPanel.savePressaoEntr();
+                controlTurbinaPanel.atualizaPressaoEntrada();
                 
             }
         });
@@ -194,7 +194,7 @@ public class ViewTurbinaPanelRankine extends JPanel{
 
             @Override
             public void focusLost(FocusEvent fe) {
-                controlTurbinaPanel.savePressaoSai();
+                controlTurbinaPanel.atualizaPressaoSaida();
                 
             }
         });
@@ -222,7 +222,7 @@ public class ViewTurbinaPanelRankine extends JPanel{
 
             @Override
             public void focusLost(FocusEvent fe) {
-                controlTurbinaPanel.saveEfici();
+                controlTurbinaPanel.atualizaEficiencia();
             }
         });
         

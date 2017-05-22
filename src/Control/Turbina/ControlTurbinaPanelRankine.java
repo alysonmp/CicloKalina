@@ -8,7 +8,6 @@ package Control.Turbina;
 import Control.ControlPrincipal;
 import Model.Ciclo2.ModelMassa;
 import Model.Ciclo2.ModelTurbina;
-import View.Evaporador.ViewEvaporadorPanelRankine;
 import View.Turbina.ViewTurbinaPanelRankine;
 import java.util.Collections;
 import java.util.List;
@@ -110,7 +109,7 @@ public class ControlTurbinaPanelRankine {
     }
     
     //Salva no banco de dados os 5 valores mais recentes da temperatura de entrada
-    public void saveTempEntr(){ 
+    public void atualizaTempEntrada(){ 
         Double value = null;
         try{          
             value = (Double) viewTurbinaPanel.getFieldTempEntr().getSelectedItem();
@@ -124,21 +123,14 @@ public class ControlTurbinaPanelRankine {
             }
         }
         
-        if(value == null)
-            return;
-        
-        
-        
         Criteria cr = this.session.createCriteria(ModelTurbina.class);
         List results = cr.list();
         ModelTurbina turbina = null;
 
-        if(!results.isEmpty()){
-            for(int i=0;i<results.size();i++){
-                ModelTurbina ev = (ModelTurbina)results.get(i);
-                if(Objects.equals(value, ev.getTemperaturaEntr())){
-                    return;
-                }
+        for(int i=0;i<results.size();i++){
+            ModelTurbina ev = (ModelTurbina)results.get(i);
+            if(Objects.equals(value, ev.getTemperaturaEntr())){
+                return;
             }
         }
         
@@ -170,7 +162,7 @@ public class ControlTurbinaPanelRankine {
         tx.commit();        
     }
     
-    public void saveTempSai(){ 
+    public void atualizaTempSaida(){ 
         Double value = null;
         try{          
             value = (Double) viewTurbinaPanel.getFieldTempSai().getSelectedItem();
@@ -183,20 +175,15 @@ public class ControlTurbinaPanelRankine {
                 return;
             }
         }
-        
-        if(value == null)
-            return;
-        
+
         Criteria cr = this.session.createCriteria(ModelTurbina.class);
         List results = cr.list();
         ModelTurbina turbina = null;
 
-        if(!results.isEmpty()){
-            for(int i=0;i<results.size();i++){
-                ModelTurbina ev = (ModelTurbina)results.get(i);
-                if(Objects.equals(value, ev.getTemperaturaSai())){
-                    return;
-                }
+        for(int i=0;i<results.size();i++){
+            ModelTurbina ev = (ModelTurbina)results.get(i);
+            if(Objects.equals(value, ev.getTemperaturaSai())){
+                return;
             }
         }
         
@@ -228,7 +215,7 @@ public class ControlTurbinaPanelRankine {
         tx.commit();        
     }
     
-    public void savePressaoEntr(){ 
+    public void atualizaPressaoEntrada(){ 
         Double value = null;
         try{          
             value = (Double) viewTurbinaPanel.getFieldPressaoEntr().getSelectedItem();
@@ -242,20 +229,14 @@ public class ControlTurbinaPanelRankine {
             }
         }
         
-        if(value == null)
-            return;
-        
-        
         Criteria cr = this.session.createCriteria(ModelTurbina.class);
         List results = cr.list();
         ModelTurbina turbina = null;
 
-        if(!results.isEmpty()){
-            for(int i=0;i<results.size();i++){
-                ModelTurbina ev = (ModelTurbina)results.get(i);
-                if(Objects.equals(value, ev.getPressaoEntr())){
-                    return;
-                }
+        for(int i=0;i<results.size();i++){
+            ModelTurbina ev = (ModelTurbina)results.get(i);
+            if(Objects.equals(value, ev.getPressaoEntr())){
+                return;
             }
         }
         
@@ -287,8 +268,7 @@ public class ControlTurbinaPanelRankine {
         tx.commit();        
     }
     
-    public void savePressaoSai(){ 
-        
+    public void atualizaPressaoSaida(){ 
         Double value = null;
         try{          
             value = (Double) viewTurbinaPanel.getFieldPressaoSai().getSelectedItem();
@@ -301,20 +281,15 @@ public class ControlTurbinaPanelRankine {
                 return;
             }
         }
-        
-        if(value == null)
-            return;
-        
+
         Criteria cr = this.session.createCriteria(ModelTurbina.class);
         List results = cr.list();
         ModelTurbina turbina = null;
 
-        if(!results.isEmpty()){
-            for(int i=0;i<results.size();i++){
-                ModelTurbina ev = (ModelTurbina)results.get(i);
-                if(Objects.equals(value, ev.getPressaoSai())){
-                    return;
-                }
+        for(int i=0;i<results.size();i++){
+            ModelTurbina ev = (ModelTurbina)results.get(i);
+            if(Objects.equals(value, ev.getTemperaturaSai())){
+                return;
             }
         }
         
@@ -346,7 +321,7 @@ public class ControlTurbinaPanelRankine {
         tx.commit();        
     }
     
-    public void saveEfici(){    
+    public void atualizaEficiencia(){    
         Double value = null;
         try{          
             value = (Double) viewTurbinaPanel.getFieldEfici().getSelectedItem();
@@ -360,19 +335,14 @@ public class ControlTurbinaPanelRankine {
             }
         }
         
-        if(value == null)
-            return;
-        
         Criteria cr = this.session.createCriteria(ModelTurbina.class);
         List results = cr.list();
         ModelTurbina regenerador = null;
 
-        if(!results.isEmpty()){
-            for(int i=0;i<results.size();i++){
-                ModelTurbina ev = (ModelTurbina)results.get(i);
-                if(Objects.equals(value, ev.getEficiencia())){
-                    return;
-                }
+        for(int i=0;i<results.size();i++){
+            ModelTurbina ev = (ModelTurbina)results.get(i);
+            if(Objects.equals(value, ev.getEficiencia())){
+                return;
             }
         }
         
