@@ -70,6 +70,7 @@ public class ViewRegeneradorImage extends JPanel{
                         ViewRegeneradorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().addTab("Regenerador", null, controlRegeneradorPanel.getViewRegeneradorPanel());
                         ViewRegeneradorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().setSelectedComponent(controlRegeneradorPanel.getViewRegeneradorPanel());
                         ViewRegeneradorImage.this.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+                        controlRegeneradorPanel.getValuesComboBox();
                     }
                 }
             }

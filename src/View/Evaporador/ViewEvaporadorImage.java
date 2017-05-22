@@ -78,6 +78,7 @@ public class ViewEvaporadorImage extends JPanel{
                         ViewEvaporadorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().addTab("Evaporador", null, controlEvaporadorPanel.getViewEvaporadorPanel());
                         ViewEvaporadorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().setSelectedComponent(controlEvaporadorPanel.getViewEvaporadorPanel());
                         ViewEvaporadorImage.this.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+                        controlEvaporadorPanel.getValuesComboBox();
                     }
                 }
             }

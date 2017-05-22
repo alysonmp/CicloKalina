@@ -6,6 +6,7 @@
 package View.Turbina;
 
 import Control.ControlPrincipal;
+import ControlTurbina.ControlTurbinaPanelRankine;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -68,11 +69,12 @@ public class ViewTurbinaImage extends JPanel{
                 }else{
                     //CASO O CICLO SEJA O SEGUNDO CHAMA A CLASSE VIEWTURBINAPANELKCS
                     if(ciclo == 2){
-                        ViewTurbinaPanelRankine viewTurbinaPanel = new ViewTurbinaPanelRankine(ViewTurbinaImage.this.ctrlPrincipal);
-                        viewTurbinaPanel.setPreferredSize(new Dimension(x, y));
-                        ViewTurbinaImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().addTab("Turbina", null, viewTurbinaPanel);
-                        ViewTurbinaImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().setSelectedComponent(viewTurbinaPanel);
+                        ControlTurbinaPanelRankine controlTurbinaPanel = new ControlTurbinaPanelRankine(ViewTurbinaImage.this.ctrlPrincipal);
+                        controlTurbinaPanel.getViewTurbinaPanel().setPreferredSize(new Dimension(x, y));
+                        ViewTurbinaImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().addTab("Turbina", null, controlTurbinaPanel.getViewTurbinaPanel());
+                        ViewTurbinaImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().setSelectedComponent(controlTurbinaPanel.getViewTurbinaPanel());
                         ViewTurbinaImage.this.setBorder(BorderFactory.createLineBorder(Color.black, 2)); 
+                        controlTurbinaPanel.getValuesComboBox();
                     }
                 }
             }

@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ControlEvaporador;
+package ControlTurbina;
 
 import Control.ControlPrincipal;
-import Model.Ciclo2.ModelEvaporador;
 import Model.Ciclo2.ModelMassa;
+import Model.Ciclo2.ModelTurbina;
 import View.Evaporador.ViewEvaporadorPanelRankine;
+import View.Turbina.ViewTurbinaPanelRankine;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -19,19 +20,19 @@ import javax.swing.JOptionPane;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
 /**
  *
  * @author leonardo
  */
-public class ControlEvaporadorPanelRankine {
-
-    private ViewEvaporadorPanelRankine viewEvaporadorPanel;
+public class ControlTurbinaPanelRankine {
+    private ViewTurbinaPanelRankine viewTurbinaPanel;
     
     private Session session;
-        
-    public ControlEvaporadorPanelRankine(ControlPrincipal ctrlPrincipal) {
+
+    public ControlTurbinaPanelRankine(ControlPrincipal ctrlPrincipal) {
         this.session = ctrlPrincipal.getSession();
-        viewEvaporadorPanel = new ViewEvaporadorPanelRankine(this);
+        viewTurbinaPanel = new ViewTurbinaPanelRankine(ctrlPrincipal,this);
     }
     
     public void atualizaComboBox(Vector valor,JComboBox combo){
@@ -47,21 +48,20 @@ public class ControlEvaporadorPanelRankine {
         
         for(int i = 0; i < results.size(); i++){
             ModelMassa m = (ModelMassa)results.get(i);
-            this.viewEvaporadorPanel.getFieldMassa().addItem(m.getMassa());
+            this.viewTurbinaPanel.getFieldMassa().addItem(m.getMassa());
         }
         
-        cr = this.session.createCriteria(ModelEvaporador.class);
+        cr = this.session.createCriteria(ModelTurbina.class);
         results = cr.list();
         
         for(int i=0;i<results.size();i++){
-            ModelEvaporador evaporador = (ModelEvaporador)results.get(i);
-            this.viewEvaporadorPanel.getFieldTempEntr().addItem(evaporador.getTemperaturaEntr());
-            this.viewEvaporadorPanel.getFieldTempSai().addItem(evaporador.getTemperaturaSai());
-            this.viewEvaporadorPanel.getFieldPressaoEntr().addItem(evaporador.getPressaoEntr());
-            this.viewEvaporadorPanel.getFieldPressaoSai().addItem(evaporador.getPressaoSai());
-            this.viewEvaporadorPanel.getFieldDelta().addItem(evaporador.getDeltaPressao());
+            ModelTurbina turbina = (ModelTurbina)results.get(i);
+            this.viewTurbinaPanel.getFieldTempEntr().addItem(turbina.getTemperaturaEntr());
+            this.viewTurbinaPanel.getFieldTempSai().addItem(turbina.getTemperaturaSai());
+            this.viewTurbinaPanel.getFieldPressaoEntr().addItem(turbina.getPressaoEntr());
+            this.viewTurbinaPanel.getFieldPressaoSai().addItem(turbina.getPressaoSai());
+            this.viewTurbinaPanel.getFieldEfici().addItem(turbina.getEficiencia());
         }
-        
     }
     
     public void atualizaMassa(){
@@ -70,10 +70,10 @@ public class ControlEvaporadorPanelRankine {
         Criteria cr = this.session.createCriteria(ModelMassa.class);
         List result = cr.list();
         
-        DefaultComboBoxModel model = (DefaultComboBoxModel)this.viewEvaporadorPanel.getFieldMassa().getModel();
+        DefaultComboBoxModel model = (DefaultComboBoxModel)this.viewTurbinaPanel.getFieldMassa().getModel();
         
         for(int i = 0; i < result.size()-1; i++){
-            if(Objects.equals(((ModelMassa)result.get(i)).getMassa(), Double.parseDouble(this.viewEvaporadorPanel.getFieldMassa().getSelectedItem().toString()))){
+            if(Objects.equals(((ModelMassa)result.get(i)).getMassa(), Double.parseDouble(this.viewTurbinaPanel.getFieldMassa().getSelectedItem().toString()))){
                 return;
             }
         }
@@ -81,7 +81,7 @@ public class ControlEvaporadorPanelRankine {
         Transaction tx = session.beginTransaction();
         
         if(result.size() < 5){
-            ModelMassa m1 = new ModelMassa(Double.parseDouble(""+this.viewEvaporadorPanel.getFieldMassa().getEditor().getItem()));
+            ModelMassa m1 = new ModelMassa(Double.parseDouble(""+this.viewTurbinaPanel.getFieldMassa().getEditor().getItem()));
             this.session.saveOrUpdate(m1);
             
             valores.add(m1.getMassa()+"");
@@ -97,7 +97,7 @@ public class ControlEvaporadorPanelRankine {
             }
 
             ModelMassa m1 = (ModelMassa) result.get(0);
-            m1.setMassa(Double.parseDouble(this.viewEvaporadorPanel.getFieldMassa().getEditor().getItem().toString()));
+            m1.setMassa(Double.parseDouble(this.viewTurbinaPanel.getFieldMassa().getEditor().getItem().toString()));
             
             this.session.saveOrUpdate(m1);
             valores.add(m1.getMassa()+"");
@@ -105,7 +105,7 @@ public class ControlEvaporadorPanelRankine {
         
         tx.commit();
         
-        JComboBox combo = viewEvaporadorPanel.getFieldMassa();
+        JComboBox combo = viewTurbinaPanel.getFieldMassa();
         atualizaComboBox(valores, combo);
     }
     
@@ -113,9 +113,9 @@ public class ControlEvaporadorPanelRankine {
     public void saveTempEntr(){ 
         Double value = null;
         try{          
-            value = (Double) viewEvaporadorPanel.getFieldTempEntr().getSelectedItem();
+            value = (Double) viewTurbinaPanel.getFieldTempEntr().getSelectedItem();
         }catch(ClassCastException e){
-            String text = (String)viewEvaporadorPanel.getFieldTempEntr().getSelectedItem();
+            String text = (String)viewTurbinaPanel.getFieldTempEntr().getSelectedItem();
             try{
                 value = Double.valueOf(text);
             }catch(NumberFormatException e2){
@@ -127,13 +127,15 @@ public class ControlEvaporadorPanelRankine {
         if(value == null)
             return;
         
-        Criteria cr = this.session.createCriteria(ModelEvaporador.class);
+        
+        
+        Criteria cr = this.session.createCriteria(ModelTurbina.class);
         List results = cr.list();
-        ModelEvaporador evaporador = null;
+        ModelTurbina turbina = null;
 
         if(!results.isEmpty()){
             for(int i=0;i<results.size();i++){
-                ModelEvaporador ev = (ModelEvaporador)results.get(i);
+                ModelTurbina ev = (ModelTurbina)results.get(i);
                 if(Objects.equals(value, ev.getTemperaturaEntr())){
                     return;
                 }
@@ -144,25 +146,25 @@ public class ControlEvaporadorPanelRankine {
         Vector<Double> tempEntr = new Vector<>();
         
         if(results.size() < 5){
-            evaporador = new ModelEvaporador();
-            session.save(evaporador);
+            turbina = new ModelTurbina();
+            session.save(turbina);
         }
          
         for(int i=results.size()-1; i>0; i--){
-            ModelEvaporador lineDown = (ModelEvaporador)results.get(i);
-            ModelEvaporador lineUp = (ModelEvaporador)results.get(i-1);
+            ModelTurbina lineDown = (ModelTurbina)results.get(i);
+            ModelTurbina lineUp = (ModelTurbina)results.get(i-1);
             lineDown.setTemperaturaEntr(lineUp.getTemperaturaEntr());
             session.saveOrUpdate(lineDown);
             tempEntr.add(lineDown.getTemperaturaEntr());
         }
         
         if(!results.isEmpty())
-            evaporador = (ModelEvaporador)results.get(0);
+            turbina = (ModelTurbina)results.get(0);
         tempEntr.add(value);
-        evaporador.setTemperaturaEntr(value);
-        session.saveOrUpdate(evaporador);
+        turbina.setTemperaturaEntr(value);
+        session.saveOrUpdate(turbina);
         
-        JComboBox combo = viewEvaporadorPanel.getFieldTempEntr();
+        JComboBox combo = viewTurbinaPanel.getFieldTempEntr();
         atualizaComboBox(tempEntr, combo);
         
         tx.commit();        
@@ -171,9 +173,9 @@ public class ControlEvaporadorPanelRankine {
     public void saveTempSai(){ 
         Double value = null;
         try{          
-            value = (Double) viewEvaporadorPanel.getFieldTempSai().getSelectedItem();
+            value = (Double) viewTurbinaPanel.getFieldTempSai().getSelectedItem();
         }catch(ClassCastException e){
-            String text = (String)viewEvaporadorPanel.getFieldTempSai().getSelectedItem();
+            String text = (String)viewTurbinaPanel.getFieldTempSai().getSelectedItem();
             try{
                 value = Double.valueOf(text);
             }catch(NumberFormatException e2){
@@ -185,13 +187,13 @@ public class ControlEvaporadorPanelRankine {
         if(value == null)
             return;
         
-        Criteria cr = this.session.createCriteria(ModelEvaporador.class);
+        Criteria cr = this.session.createCriteria(ModelTurbina.class);
         List results = cr.list();
-        ModelEvaporador evaporador = null;
+        ModelTurbina turbina = null;
 
         if(!results.isEmpty()){
             for(int i=0;i<results.size();i++){
-                ModelEvaporador ev = (ModelEvaporador)results.get(i);
+                ModelTurbina ev = (ModelTurbina)results.get(i);
                 if(Objects.equals(value, ev.getTemperaturaSai())){
                     return;
                 }
@@ -202,25 +204,25 @@ public class ControlEvaporadorPanelRankine {
         Vector<Double> tempSai= new Vector<>();
         
         if(results.size() < 5){
-            evaporador = new ModelEvaporador();
-            session.save(evaporador);
+            turbina = new ModelTurbina();
+            session.save(turbina);
         }
          
         for(int i=results.size()-1; i>0; i--){
-            ModelEvaporador lineDown = (ModelEvaporador)results.get(i);
-            ModelEvaporador lineUp = (ModelEvaporador)results.get(i-1);
+            ModelTurbina lineDown = (ModelTurbina)results.get(i);
+            ModelTurbina lineUp = (ModelTurbina)results.get(i-1);
             lineDown.setTemperaturaSai(lineUp.getTemperaturaSai());
             session.saveOrUpdate(lineDown);
             tempSai.add(lineDown.getTemperaturaSai());
         }
         
         if(!results.isEmpty())
-            evaporador = (ModelEvaporador)results.get(0);
+            turbina = (ModelTurbina)results.get(0);
         tempSai.add(value);
-        evaporador.setTemperaturaSai(value);
-        session.saveOrUpdate(evaporador);
+        turbina.setTemperaturaSai(value);
+        session.saveOrUpdate(turbina);
         
-        JComboBox combo = viewEvaporadorPanel.getFieldTempSai();
+        JComboBox combo = viewTurbinaPanel.getFieldTempSai();
         atualizaComboBox(tempSai, combo);
         
         tx.commit();        
@@ -229,9 +231,9 @@ public class ControlEvaporadorPanelRankine {
     public void savePressaoEntr(){ 
         Double value = null;
         try{          
-            value = (Double) viewEvaporadorPanel.getFieldPressaoEntr().getSelectedItem();
+            value = (Double) viewTurbinaPanel.getFieldPressaoEntr().getSelectedItem();
         }catch(ClassCastException e){
-            String text = (String)viewEvaporadorPanel.getFieldPressaoEntr().getSelectedItem();
+            String text = (String)viewTurbinaPanel.getFieldPressaoEntr().getSelectedItem();
             try{
                 value = Double.valueOf(text);
             }catch(NumberFormatException e2){
@@ -244,13 +246,13 @@ public class ControlEvaporadorPanelRankine {
             return;
         
         
-        Criteria cr = this.session.createCriteria(ModelEvaporador.class);
+        Criteria cr = this.session.createCriteria(ModelTurbina.class);
         List results = cr.list();
-        ModelEvaporador evaporador = null;
+        ModelTurbina turbina = null;
 
         if(!results.isEmpty()){
             for(int i=0;i<results.size();i++){
-                ModelEvaporador ev = (ModelEvaporador)results.get(i);
+                ModelTurbina ev = (ModelTurbina)results.get(i);
                 if(Objects.equals(value, ev.getPressaoEntr())){
                     return;
                 }
@@ -261,25 +263,25 @@ public class ControlEvaporadorPanelRankine {
         Vector<Double> pressaoEntr= new Vector<>();
     
         if(results.size() < 5){
-            evaporador = new ModelEvaporador();
-            session.save(evaporador);
+            turbina = new ModelTurbina();
+            session.save(turbina);
         }
                 
         for(int i=results.size()-1; i>0; i--){
-            ModelEvaporador lineDown = (ModelEvaporador)results.get(i);
-            ModelEvaporador lineUp = (ModelEvaporador)results.get(i-1);
+            ModelTurbina lineDown = (ModelTurbina)results.get(i);
+            ModelTurbina lineUp = (ModelTurbina)results.get(i-1);
             lineDown.setPressaoEntr(lineUp.getPressaoEntr());
             session.saveOrUpdate(lineDown);
             pressaoEntr.add(lineDown.getPressaoEntr());
         }
         
         if(!results.isEmpty())
-            evaporador = (ModelEvaporador)results.get(0);
+            turbina = (ModelTurbina)results.get(0);
         pressaoEntr.add(value);
-        evaporador.setPressaoEntr(value);
-        session.saveOrUpdate(evaporador);
+        turbina.setPressaoEntr(value);
+        session.saveOrUpdate(turbina);
         
-        JComboBox combo = viewEvaporadorPanel.getFieldPressaoEntr();
+        JComboBox combo = viewTurbinaPanel.getFieldPressaoEntr();
         atualizaComboBox(pressaoEntr, combo);
         
         tx.commit();        
@@ -289,9 +291,9 @@ public class ControlEvaporadorPanelRankine {
         
         Double value = null;
         try{          
-            value = (Double) viewEvaporadorPanel.getFieldPressaoSai().getSelectedItem();
+            value = (Double) viewTurbinaPanel.getFieldPressaoSai().getSelectedItem();
         }catch(ClassCastException e){
-            String text = (String)viewEvaporadorPanel.getFieldPressaoSai().getSelectedItem();
+            String text = (String)viewTurbinaPanel.getFieldPressaoSai().getSelectedItem();
             try{
                 value = Double.valueOf(text);
             }catch(NumberFormatException e2){
@@ -303,13 +305,13 @@ public class ControlEvaporadorPanelRankine {
         if(value == null)
             return;
         
-        Criteria cr = this.session.createCriteria(ModelEvaporador.class);
+        Criteria cr = this.session.createCriteria(ModelTurbina.class);
         List results = cr.list();
-        ModelEvaporador evaporador = null;
+        ModelTurbina turbina = null;
 
         if(!results.isEmpty()){
             for(int i=0;i<results.size();i++){
-                ModelEvaporador ev = (ModelEvaporador)results.get(i);
+                ModelTurbina ev = (ModelTurbina)results.get(i);
                 if(Objects.equals(value, ev.getPressaoSai())){
                     return;
                 }
@@ -320,37 +322,36 @@ public class ControlEvaporadorPanelRankine {
         Vector<Double> pressaoSai= new Vector<>();
 
         if(results.size() < 5){
-            evaporador = new ModelEvaporador();
-            session.save(evaporador);
+            turbina = new ModelTurbina();
+            session.save(turbina);
         }
         
         for(int i=results.size()-1; i>0; i--){
-            ModelEvaporador lineDown = (ModelEvaporador)results.get(i);
-            ModelEvaporador lineUp = (ModelEvaporador)results.get(i-1);
+            ModelTurbina lineDown = (ModelTurbina)results.get(i);
+            ModelTurbina lineUp = (ModelTurbina)results.get(i-1);
             lineDown.setPressaoSai(lineUp.getPressaoSai());
             session.saveOrUpdate(lineDown);
             pressaoSai.add(lineDown.getPressaoSai());
         }
         
         if(!results.isEmpty())
-            evaporador = (ModelEvaporador)results.get(0);
+            turbina = (ModelTurbina)results.get(0);
         pressaoSai.add(value);
-        evaporador.setPressaoSai(value);
-        session.saveOrUpdate(evaporador);
+        turbina.setPressaoSai(value);
+        session.saveOrUpdate(turbina);
         
-        JComboBox combo = viewEvaporadorPanel.getFieldPressaoSai();
+        JComboBox combo = viewTurbinaPanel.getFieldPressaoSai();
         atualizaComboBox(pressaoSai, combo);
         
         tx.commit();        
     }
-      
-    public void saveDeltaPressao(){ 
-        
+    
+    public void saveEfici(){    
         Double value = null;
         try{          
-            value = (Double) viewEvaporadorPanel.getFieldDelta().getSelectedItem();
+            value = (Double) viewTurbinaPanel.getFieldEfici().getSelectedItem();
         }catch(ClassCastException e){
-            String text = (String)viewEvaporadorPanel.getFieldDelta().getSelectedItem();
+            String text = (String) viewTurbinaPanel.getFieldEfici().getSelectedItem();
             try{
                 value = Double.valueOf(text);
             }catch(NumberFormatException e2){
@@ -362,53 +363,54 @@ public class ControlEvaporadorPanelRankine {
         if(value == null)
             return;
         
-        Criteria cr = this.session.createCriteria(ModelEvaporador.class);
+        Criteria cr = this.session.createCriteria(ModelTurbina.class);
         List results = cr.list();
-        ModelEvaporador evaporador = null;
+        ModelTurbina regenerador = null;
 
         if(!results.isEmpty()){
             for(int i=0;i<results.size();i++){
-                ModelEvaporador ev = (ModelEvaporador)results.get(i);
-                if(Objects.equals(value, ev.getDeltaPressao())){
+                ModelTurbina ev = (ModelTurbina)results.get(i);
+                if(Objects.equals(value, ev.getEficiencia())){
                     return;
                 }
             }
         }
         
         Transaction tx = this.session.beginTransaction();
-        Vector<Double> deltaPressao= new Vector<>();
+        Vector<Double> efetv = new Vector<>();
 
         if(results.size() < 5){
-            evaporador = new ModelEvaporador();
-            session.save(evaporador);
+            regenerador = new ModelTurbina();
+            session.save(regenerador);
         }
          
         for(int i=results.size()-1; i>0; i--){
-            ModelEvaporador lineDown = (ModelEvaporador)results.get(i);
-            ModelEvaporador lineUp = (ModelEvaporador)results.get(i-1);
-            lineDown.setDeltaPressao(lineUp.getDeltaPressao());
+            ModelTurbina lineDown = (ModelTurbina)results.get(i);
+            ModelTurbina lineUp = (ModelTurbina)results.get(i-1);
+            lineDown.setEficiencia(lineUp.getEficiencia());
             session.saveOrUpdate(lineDown);
-            deltaPressao.add(lineDown.getDeltaPressao());
+            efetv.add(lineDown.getEficiencia());
         }
         
         if(!results.isEmpty())
-            evaporador = (ModelEvaporador)results.get(0);
-        deltaPressao.add(value);
-        evaporador.setDeltaPressao(value);
-        session.saveOrUpdate(evaporador);
+            regenerador = (ModelTurbina)results.get(0);
+        efetv.add(value);
+        regenerador.setEficiencia(value);
+        session.saveOrUpdate(regenerador);
         
-        JComboBox combo = viewEvaporadorPanel.getFieldDelta();
-        atualizaComboBox(deltaPressao, combo);
+        JComboBox combo = viewTurbinaPanel.getFieldEfici();
+        atualizaComboBox(efetv, combo);
         
-        tx.commit();        
+        tx.commit();
     }
-    
-    public ViewEvaporadorPanelRankine getViewEvaporadorPanel() {
-        return viewEvaporadorPanel;
+    public ViewTurbinaPanelRankine getViewTurbinaPanel() {
+        return viewTurbinaPanel;
     }
 
-    public void setViewEvaporadorPanel(ViewEvaporadorPanelRankine viewEvaporadorPanel) {
-        this.viewEvaporadorPanel = viewEvaporadorPanel;
+    public void setViewTurbinaPanel(ViewTurbinaPanelRankine viewTurbinaPanel) {
+        this.viewTurbinaPanel = viewTurbinaPanel;
     }
+    
+    
     
 }

@@ -13,13 +13,12 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.util.ArrayList;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.BorderFactory;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 /**
  *
@@ -40,7 +39,7 @@ public class ViewRegeneradorPanelRankine extends JPanel{
     private JLabel labelDelta = new JLabel("Efetividade: ");
     
     //TEXTFIELDS
-    private JTextField fieldMassa = new JTextField(10);
+    private DropdownComboBox fieldMassa = new DropdownComboBox(new Double[]{});;
     
     private DropdownComboBox fieldTempEntr = new DropdownComboBox(new Double[]{});
     
@@ -84,129 +83,197 @@ public class ViewRegeneradorPanelRankine extends JPanel{
         
         GridBagConstraints g = new GridBagConstraints();
         
-        ArrayList<Double> aux = controlRegeneradorPanel.getValuesTempEntr();        
-        DefaultComboBoxModel model = new DefaultComboBoxModel(aux.toArray());
-        fieldTempEntr.setModel(model);
-        
-        
         fieldTempEntr.getEditor().getEditorComponent().addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent fe) {
                 fieldTempEntr.showPopup();
                 fieldTempEntr.getEditor().selectAll();
+                fieldTempEntr.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent ke) {
+                    }
+
+                    @Override
+                    public void keyPressed(KeyEvent ke) {
+                        fieldTempEntr.setPopupVisible(false);
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent ke) {
+                    }
+                });
             }
             @Override
             public void focusLost(FocusEvent fe) {
                 controlRegeneradorPanel.saveTempEntr();
-                
-                ArrayList<Double> aux = controlRegeneradorPanel.getValuesTempEntr();
-                DefaultComboBoxModel model = new DefaultComboBoxModel(aux.toArray());
-                fieldTempEntr.setModel(model);
             }
         });
         
-        aux = controlRegeneradorPanel.getValuesTempSai();        
-        model = new DefaultComboBoxModel(aux.toArray());
-        fieldTempSai.setModel(model);
         
         fieldTempSai.getEditor().getEditorComponent().addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent fe) {
                 fieldTempSai.showPopup();
                 fieldTempSai.getEditor().selectAll();
+                fieldTempSai.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent ke) {
+                    }
+
+                    @Override
+                    public void keyPressed(KeyEvent ke) {
+                        fieldTempSai.setPopupVisible(false);
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent ke) {
+                    }
+                });
             }
 
             @Override
             public void focusLost(FocusEvent fe) {
                 controlRegeneradorPanel.saveTempSai();
-                
-                ArrayList<Double> aux = controlRegeneradorPanel.getValuesTempSai();
-                DefaultComboBoxModel model = new DefaultComboBoxModel(aux.toArray());
-                fieldTempSai.setModel(model);
+
             }
         });
         
-        aux = controlRegeneradorPanel.getValuesPressaoEntr();        
-        model = new DefaultComboBoxModel(aux.toArray());
-        fieldPressaoEntr.setModel(model);
         
         fieldPressaoEntr.getEditor().getEditorComponent().addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent fe) {
                 fieldPressaoEntr.showPopup();
                 fieldPressaoEntr.getEditor().selectAll();
+                fieldPressaoEntr.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent ke) {
+                    }
+
+                    @Override
+                    public void keyPressed(KeyEvent ke) {
+                        fieldPressaoEntr.setPopupVisible(false);
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent ke) {
+                    }
+                });
             }
 
             @Override
             public void focusLost(FocusEvent fe) {
                 controlRegeneradorPanel.savePressaoEntr();
                 
-                ArrayList<Double> aux = controlRegeneradorPanel.getValuesPressaoEntr();
-                DefaultComboBoxModel model = new DefaultComboBoxModel(aux.toArray());
-                fieldPressaoEntr.setModel(model);
             }
         });
-        
-        aux = controlRegeneradorPanel.getValuesPressaoSai();        
-        model = new DefaultComboBoxModel(aux.toArray());
-        fieldPressaoSai.setModel(model);
         
         fieldPressaoSai.getEditor().getEditorComponent().addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent fe) {
                 fieldPressaoSai.showPopup();
                 fieldPressaoSai.getEditor().selectAll();
+                fieldPressaoSai.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent ke) {
+                    }
+
+                    @Override
+                    public void keyPressed(KeyEvent ke) {
+                        fieldPressaoSai.setPopupVisible(false);
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent ke) {
+                    }
+                });
             }
 
             @Override
             public void focusLost(FocusEvent fe) {
                 controlRegeneradorPanel.savePressaoSai();
                 
-                ArrayList<Double> aux = controlRegeneradorPanel.getValuesPressaoSai();
-                DefaultComboBoxModel model = new DefaultComboBoxModel(aux.toArray());
-                fieldPressaoSai.setModel(model);
             }
         });
         
-        aux = controlRegeneradorPanel.getValuesDeltaPressao();        
-        model = new DefaultComboBoxModel(aux.toArray());
-        fieldDelta.setModel(model);
-        
+
         fieldDelta.getEditor().getEditorComponent().addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent fe) {
                 fieldDelta.showPopup();
                 fieldDelta.getEditor().selectAll();
+                fieldDelta.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent ke) {
+                    }
+
+                    @Override
+                    public void keyPressed(KeyEvent ke) {
+                        fieldDelta.setPopupVisible(false);
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent ke) {
+                    }
+                });
             }
 
             @Override
             public void focusLost(FocusEvent fe) {
                 controlRegeneradorPanel.saveDeltaPressao();
-                
-                ArrayList<Double> aux = controlRegeneradorPanel.getValuesDeltaPressao();
-                DefaultComboBoxModel model = new DefaultComboBoxModel(aux.toArray());
-                fieldDelta.setModel(model);
             }
         });
-        
-        aux = controlRegeneradorPanel.getValuesEfetv();        
-        model = new DefaultComboBoxModel(aux.toArray());
-        fieldEfetiv.setModel(model);
         
         fieldEfetiv.getEditor().getEditorComponent().addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent fe) {
                 fieldEfetiv.showPopup();
                 fieldEfetiv.getEditor().selectAll();
+                fieldEfetiv.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent ke) {
+                    }
+
+                    @Override
+                    public void keyPressed(KeyEvent ke) {
+                        fieldEfetiv.setPopupVisible(false);
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent ke) {
+                    }
+                });
             }
 
             @Override
             public void focusLost(FocusEvent fe) {
                 controlRegeneradorPanel.saveEfetv();
-                
-                ArrayList<Double> aux = controlRegeneradorPanel.getValuesEfetv();
-                DefaultComboBoxModel model = new DefaultComboBoxModel(aux.toArray());
-                fieldEfetiv.setModel(model);
+            }
+        });
+        
+        fieldMassa.getEditor().getEditorComponent().addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent fe) {
+                fieldMassa.showPopup();
+                fieldMassa.getEditor().selectAll();
+                fieldMassa.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent ke) {
+                    }
+
+                    @Override
+                    public void keyPressed(KeyEvent ke) {
+                        fieldMassa.setPopupVisible(false);
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent ke) {
+                    }
+                });
+            }
+
+            @Override
+            public void focusLost(FocusEvent fe) {
+                controlRegeneradorPanel.atualizaMassa();
             }
         });
         
@@ -351,11 +418,11 @@ public class ViewRegeneradorPanelRankine extends JPanel{
         this.add(painelDados, g);
     }
 
-    public JTextField getFieldMassa() {
+    public DropdownComboBox getFieldMassa() {
         return fieldMassa;
     }
 
-    public void setFieldMassa(JTextField fieldMassa) {
+    public void setFieldMassa(DropdownComboBox fieldMassa) {
         this.fieldMassa = fieldMassa;
     }
 
