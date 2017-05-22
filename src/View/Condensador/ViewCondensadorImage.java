@@ -70,11 +70,12 @@ public class ViewCondensadorImage extends JPanel{
                 }else{
                     //CASO O CICLO SEJA O SEGUNDO CHAMA A CLASSE VIEWCONDENSADORPANELKCS
                     if(ciclo == 2){
-                        ControlCondensadorPanelRankine viewCondensador = new ControlCondensadorPanelRankine(ViewCondensadorImage.this.ctrlPrincipal.getSession());
-                        viewCondensador.getViewCondensador().setPreferredSize(new Dimension(x, y));
-                        ViewCondensadorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().addTab("Condensador", null, viewCondensador.getViewCondensador());
-                        ViewCondensadorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().setSelectedComponent(viewCondensador.getViewCondensador());
+                        ControlCondensadorPanelRankine Condensador = new ControlCondensadorPanelRankine(ViewCondensadorImage.this.ctrlPrincipal.getSession());
+                        Condensador.getViewCondensador().setPreferredSize(new Dimension(x, y));
+                        ViewCondensadorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().addTab("Condensador", null, Condensador.getViewCondensador());
+                        ViewCondensadorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().setSelectedComponent(Condensador.getViewCondensador());
                         ViewCondensadorImage.this.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+                        Condensador.criaComboBoxes();
                     }
                 }
             }

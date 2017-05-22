@@ -17,8 +17,8 @@ import javax.swing.plaf.basic.BasicComboBoxUI;
  */
 public class DropdownComboBox<E> extends JComboBox<E> {
 
-    public DropdownComboBox(E[] list) {
-        super(list);
+    public DropdownComboBox() {
+        //super(list);
         this.setEditable(true);
         this.setBorder(BorderFactory.createLineBorder(Color.lightGray, 1));
         this.setUI(new BasicComboBoxUI() {
