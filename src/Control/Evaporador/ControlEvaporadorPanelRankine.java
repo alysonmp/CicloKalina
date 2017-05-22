@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ControlEvaporador;
+package Control.Evaporador;
 
 import Control.ControlPrincipal;
 import Model.Ciclo2.ModelEvaporador;

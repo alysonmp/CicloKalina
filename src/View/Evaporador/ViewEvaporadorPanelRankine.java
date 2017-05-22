@@ -5,7 +5,7 @@
  */
 package View.Evaporador;
 
-import ControlEvaporador.ControlEvaporadorPanelRankine;
+import Control.Evaporador.ControlEvaporadorPanelRankine;
 import Util.DropdownComboBox;
 import java.awt.Color;
 import java.awt.Font;
@@ -41,17 +41,17 @@ public class ViewEvaporadorPanelRankine extends JPanel{
     private final JLabel labelDelta = new JLabel("Delta de Pressão: ");
     
     //TEXTFIELDS
-    private DropdownComboBox fieldMassa = new DropdownComboBox(new Double[]{});;
+    private DropdownComboBox fieldMassa = new DropdownComboBox();;
     
-    private DropdownComboBox fieldTempEntr = new DropdownComboBox(new Double[]{});
+    private DropdownComboBox fieldTempEntr = new DropdownComboBox();
     
-    private DropdownComboBox fieldPressaoEntr = new DropdownComboBox(new Double[]{});
+    private DropdownComboBox fieldPressaoEntr = new DropdownComboBox();
     
-    private DropdownComboBox fieldTempSai = new DropdownComboBox(new Double[]{});
+    private DropdownComboBox fieldTempSai = new DropdownComboBox();
     
-    private DropdownComboBox fieldPressaoSai = new DropdownComboBox(new Double[]{});
+    private DropdownComboBox fieldPressaoSai = new DropdownComboBox();
     
-    private DropdownComboBox fieldDelta = new DropdownComboBox(new Double[]{});
+    private DropdownComboBox fieldDelta = new DropdownComboBox();
     
     //COMBOBOX
     private final String[] massas = {"kg/s", "kg/m", "kg/h", "lb/s", "lb/m", "lb/h"};

@@ -6,11 +6,9 @@
 package View.Turbina;
 
 import Control.ControlPrincipal;
-import ControlTurbina.ControlTurbinaPanelRankine;
+import Control.Turbina.ControlTurbinaPanelRankine;
 import Util.DropdownComboBox;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -43,17 +41,17 @@ public class ViewTurbinaPanelRankine extends JPanel{
     private JLabel labelEfici = new JLabel("Eficiência");
     
     //TEXTFIELDS
-    private DropdownComboBox fieldMassa = new DropdownComboBox(new Double[]{});;
+    private DropdownComboBox fieldMassa = new DropdownComboBox();;
     
-    private DropdownComboBox fieldTempEntr = new DropdownComboBox(new Double[]{});
+    private DropdownComboBox fieldTempEntr = new DropdownComboBox();
     
-    private DropdownComboBox fieldPressaoEntr = new DropdownComboBox(new Double[]{});
+    private DropdownComboBox fieldPressaoEntr = new DropdownComboBox();
     
-    private DropdownComboBox fieldTempSai = new DropdownComboBox(new Double[]{});
+    private DropdownComboBox fieldTempSai = new DropdownComboBox();
     
-    private DropdownComboBox fieldPressaoSai = new DropdownComboBox(new Double[]{});
+    private DropdownComboBox fieldPressaoSai = new DropdownComboBox();
     
-    private DropdownComboBox fieldEfici = new DropdownComboBox(new Double[]{});
+    private DropdownComboBox fieldEfici = new DropdownComboBox();
     
     //COMBOBOX
     private String[] massas = {"kg/s", "kg/m", "kg/h", "lb/s", "lb/m", "lb/h"};

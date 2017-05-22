@@ -5,7 +5,7 @@
  */
 package View.Regenerador;
 
-import ControlRegenerador.ControlRegeneradorPanelRankine;
+import Control.Regenerador.ControlRegeneradorPanelRankine;
 import Util.DropdownComboBox;
 import java.awt.Color;
 import java.awt.Font;
@@ -39,19 +39,19 @@ public class ViewRegeneradorPanelRankine extends JPanel{
     private JLabel labelDelta = new JLabel("Efetividade: ");
     
     //TEXTFIELDS
-    private DropdownComboBox fieldMassa = new DropdownComboBox(new Double[]{});;
+    private DropdownComboBox fieldMassa = new DropdownComboBox();;
     
-    private DropdownComboBox fieldTempEntr = new DropdownComboBox(new Double[]{});
+    private DropdownComboBox fieldTempEntr = new DropdownComboBox();
     
-    private DropdownComboBox fieldPressaoEntr = new DropdownComboBox(new Double[]{});
+    private DropdownComboBox fieldPressaoEntr = new DropdownComboBox();
     
-    private DropdownComboBox fieldTempSai = new DropdownComboBox(new Double[]{});
+    private DropdownComboBox fieldTempSai = new DropdownComboBox();
     
-    private DropdownComboBox fieldPressaoSai = new DropdownComboBox(new Double[]{});
+    private DropdownComboBox fieldPressaoSai = new DropdownComboBox();
     
-    private DropdownComboBox fieldDelta = new DropdownComboBox(new Double[]{});
+    private DropdownComboBox fieldDelta = new DropdownComboBox();
     
-    private DropdownComboBox fieldEfetiv = new DropdownComboBox(new Double[]{});
+    private DropdownComboBox fieldEfetiv = new DropdownComboBox();
 
     //COMBOBOX
     private String[] massas = {"kg/s", "kg/m", "kg/h", "lb/s", "lb/m", "lb/h"};

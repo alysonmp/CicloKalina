@@ -6,7 +6,7 @@
 package View.Regenerador;
 
 import Control.ControlPrincipal;
-import ControlRegenerador.ControlRegeneradorPanelRankine;
+import Control.Regenerador.ControlRegeneradorPanelRankine;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
