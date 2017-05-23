@@ -11,23 +11,34 @@ import Control.Ciclo2.ControlPBolha;
 import Control.Ciclo2.ControlPorvalho;
 import Control.Ciclo2.ControlS_Sistema;
 import Control.Ciclo2.ControlTSaida;
+import Control.TabelaFluidos.ControlButanoLiquido;
+import Control.TabelaFluidos.ControlHexane;
 import Model.Ciclo2.ModelFluidos;
 import Model.ModelConstantesMat;
 import Model.ModelLinear;
 import Model.ModelQfpso;
+import Model.TabelasFluidos.ModelHexane;
 import Util.HibernateUtil;
 import View.Condensador.ViewCondensadorImage;
 import View.Evaporador.ViewEvaporadorImage;
 import View.Recuperador.ViewRecuperadorImage;
 import View.Separador.ViewSeparadorImage;
 import View.Bomba.ViewBombaImage;
+import View.Bomba.ViewBombaPanelRankine;
+import View.Condensador.ViewCondensadorPanelRankine;
 import View.Evaporador.ViewEvaporadorPanelRankine;
 import View.Regenerador.ViewRegeneradorImage;
+import View.Regenerador.ViewRegeneradorPanelRankine;
 import View.ViewPrincipal;
 import View.Turbina.ViewTurbinaImage;
+import View.Turbina.ViewTurbinaPanelRankine;
 import View.ViewCiclos;
 import java.awt.Color;
 import java.awt.Component;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -144,6 +155,12 @@ public class ControlPrincipal {
         }
         
         viewPrincipal = new ViewPrincipal(this);
+        
+        ControlHexane hexane = new ControlHexane(session);
+        hexane.criaTabelaHexane();
+        hexane.interpolacaoHexane(1100, 450);
+        /*ControlButanoLiquido butano = new ControlButanoLiquido(session);
+        butano.criaTabelaButano();*/
     }
     
     //FUNÇÃO QUE CRIA O DESENHO DO PRIMEIRO CICLO E INDICA OS LOCAIS DOS JPANELS INSERIDOS
@@ -237,13 +254,33 @@ public class ControlPrincipal {
     }  
     
     //FUNÇÃO QUE AJUSTA A MASSA DE TODOS OS COMPONENTES
-    public void ajustaMassa() {
+    public void ajustaMassa(String valor) {
         Component[] components = viewPrincipal.getTabbedPanel().getComponents();
         for(Component c: components){
             switch(c.getName()){
                 case "Evaporador":
-                    ViewEvaporadorPanelRankine painel = (ViewEvaporadorPanelRankine)c;
-                    //painel.
+                    ViewEvaporadorPanelRankine painelE = (ViewEvaporadorPanelRankine)c;
+                    //painelE.getFieldMassa().get;
+                    break;
+                
+                case "Condensador":
+                    ViewCondensadorPanelRankine painelC = (ViewCondensadorPanelRankine)c;
+                    painelC.getFieldMassa();
+                    break;
+                    
+                case "Bomba":
+                    ViewBombaPanelRankine painelB = (ViewBombaPanelRankine)c;
+                    painelB.getFieldMassa();
+                    break;
+                    
+                case "Separador":
+                    ViewRegeneradorPanelRankine painelR = (ViewRegeneradorPanelRankine)c;
+                    painelR.getFieldMassa();
+                    break;
+                    
+                case "Turbina":
+                    ViewTurbinaPanelRankine painelT = (ViewTurbinaPanelRankine)c;
+                    painelT.getFieldMassa();
                     break;
             }
         }

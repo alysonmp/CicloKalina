@@ -5,6 +5,7 @@
  */
 package View.Bomba;
 
+import Control.Bomba.ControlBombaPanelRankine;
 import Control.ControlPrincipal;
 import java.awt.Color;
 import java.awt.Component;
@@ -68,11 +69,12 @@ public class ViewBombaImage extends JPanel{
                 }else{
                     //CASO O CICLO SEJA O SEGUNDO, CHAMA A CLASSE VIEWBOMBAPANELKALINA
                     if(ciclo == 2){
-                        ViewBombaPanelRankine viewBombaPanel = new ViewBombaPanelRankine();
-                        viewBombaPanel.setPreferredSize(new Dimension(x, y));
-                        ViewBombaImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().addTab("Bomba", null, viewBombaPanel);
-                        ViewBombaImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().setSelectedComponent(viewBombaPanel);
+                        ControlBombaPanelRankine Bomba = new ControlBombaPanelRankine(ViewBombaImage.this.ctrlPrincipal.getSession());
+                        Bomba.getViewBomba().setPreferredSize(new Dimension(x, y));
+                        ViewBombaImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().addTab("Bomba", null, Bomba.getViewBomba());
+                        ViewBombaImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().setSelectedComponent(Bomba.getViewBomba());
                         ViewBombaImage.this.setBorder(BorderFactory.createLineBorder(Color.black, 1));
+                        Bomba.criaComboBoxes();
                     }
                 }
             }

@@ -220,7 +220,7 @@ public class ViewTurbinaPanelRankine extends JPanel{
 
             @Override
             public void focusLost(FocusEvent e) {
-                ViewTurbinaPanelRankine.this.ctrlPrincipal.ajustaMassa();
+                //ViewTurbinaPanelRankine.this.ctrlPrincipal.ajustaMassa();
             }
         });
     }

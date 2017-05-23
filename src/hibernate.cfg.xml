@@ -59,5 +59,7 @@ Contributor(s):
     <mapping class="Model.ModelConstantesMat"/>
     <mapping class="Model.ModelLinear"/>
     <mapping class="Model.ModelQfpso"/>
+    <mapping class="Model.TabelasFluidos.ModelHexane"/>
+    <mapping class="Model.TabelasFluidos.ModelButanoLiquido"/>
   </session-factory>
 </hibernate-configuration>

@@ -240,6 +240,7 @@ public class ViewCondensadorPanelRankine extends JPanel{
                 //fieldMassa.setBackground(Color.white);
                 fieldMassa.showPopup();
                 fieldMassa.getEditor().selectAll();
+                ViewCondensadorPanelRankine.this.ctrlCondensador.getCtrlPrincipal().ajustaMassa(fieldMassa.getSelectedItem().toString());
             }
 
             @Override
