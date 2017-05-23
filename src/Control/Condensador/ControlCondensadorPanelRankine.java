@@ -5,6 +5,7 @@
  */
 package Control.Condensador;
 
+import Control.ControlPrincipal;
 import Model.Ciclo2.ModelCondensador;
 import Model.Ciclo2.ModelMassa;
 import View.Condensador.ViewCondensadorPanelRankine;
@@ -27,10 +28,12 @@ import org.hibernate.criterion.Projections;
 public class ControlCondensadorPanelRankine {
     private ViewCondensadorPanelRankine viewCondensador;
     private Session session;
+    private ControlPrincipal ctrlPrincipal;
     
-    public ControlCondensadorPanelRankine(Session session){
+    public ControlCondensadorPanelRankine(ControlPrincipal ctrlPrincipal){
         this.session = session;
         viewCondensador = new ViewCondensadorPanelRankine(this);
+        this.ctrlPrincipal = ctrlPrincipal;
     }
 
     public ViewCondensadorPanelRankine getViewCondensador() {
@@ -371,5 +374,13 @@ public class ControlCondensadorPanelRankine {
             this.viewCondensador.getFieldTempEntr().addItem(m.getTemperaturaEntr());
             this.viewCondensador.getFieldTempSai().addItem(m.getTemperaturaSai());
         }
+    }
+
+    public ControlPrincipal getCtrlPrincipal() {
+        return ctrlPrincipal;
+    }
+
+    public void setCtrlPrincipal(ControlPrincipal ctrlPrincipal) {
+        this.ctrlPrincipal = ctrlPrincipal;
     }
 }
