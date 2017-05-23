@@ -114,15 +114,11 @@ public class ControlRegeneradorPanelRankine {
     public void atualizaTempEntrada(){ 
         Double value = null;
         try{          
-            value = (Double) viewRegeneradorPanel.getFieldTempEntr().getSelectedItem();
-        }catch(ClassCastException e){
-            String text = (String)viewRegeneradorPanel.getFieldTempEntr().getSelectedItem();
-            try{
-                value = Double.valueOf(text);
-            }catch(NumberFormatException e2){
-                JOptionPane.showMessageDialog(null, e2);
-                return;
-            }
+            String text = (String) viewRegeneradorPanel.getFieldTempEntr().getSelectedItem();
+            value = Double.valueOf(text);
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null, e);
+            return;
         }
         
         Criteria cr = this.session.createCriteria(ModelRegenerador.class);
@@ -167,15 +163,11 @@ public class ControlRegeneradorPanelRankine {
     public void atualizaTempSaida(){ 
         Double value = null;
         try{          
-            value = (Double) viewRegeneradorPanel.getFieldTempSai().getSelectedItem();
-        }catch(ClassCastException e){
-            String text = (String)viewRegeneradorPanel.getFieldTempSai().getSelectedItem();
-            try{
-                value = Double.valueOf(text);
-            }catch(NumberFormatException e2){
-                JOptionPane.showMessageDialog(null, e2);
-                return;
-            }
+            String text = (String) viewRegeneradorPanel.getFieldTempSai().getSelectedItem();
+            value = Double.valueOf(text);
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null, e);
+            return;
         }
         
         Criteria cr = this.session.createCriteria(ModelRegenerador.class);
@@ -220,15 +212,11 @@ public class ControlRegeneradorPanelRankine {
     public void atualizaPressaoEntrada(){ 
         Double value = null;
         try{          
-            value = (Double) viewRegeneradorPanel.getFieldPressaoEntr().getSelectedItem();
-        }catch(ClassCastException e){
-            String text = (String)viewRegeneradorPanel.getFieldPressaoEntr().getSelectedItem();
-            try{
-                value = Double.valueOf(text);
-            }catch(NumberFormatException e2){
-                JOptionPane.showMessageDialog(null, e2);
-                return;
-            }
+            String text = (String) viewRegeneradorPanel.getFieldPressaoEntr().getSelectedItem();
+            value = Double.valueOf(text);
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null, e);
+            return;
         }
         
         Criteria cr = this.session.createCriteria(ModelRegenerador.class);
@@ -273,15 +261,11 @@ public class ControlRegeneradorPanelRankine {
     public void atualizaPressaoSaida(){  
         Double value = null;
         try{          
-            value = (Double) viewRegeneradorPanel.getFieldPressaoSai().getSelectedItem();
-        }catch(ClassCastException e){
-            String text = (String)viewRegeneradorPanel.getFieldPressaoSai().getSelectedItem();
-            try{
-                value = Double.valueOf(text);
-            }catch(NumberFormatException e2){
-                JOptionPane.showMessageDialog(null, e2);
-                return;
-            }
+            String text = (String) viewRegeneradorPanel.getFieldPressaoSai().getSelectedItem();
+            value = Double.valueOf(text);
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null, e);
+            return;
         }
 
         Criteria cr = this.session.createCriteria(ModelRegenerador.class);
@@ -326,15 +310,11 @@ public class ControlRegeneradorPanelRankine {
     public void atualizaDeltaPressao(){       
         Double value = null;
         try{          
-            value = (Double) viewRegeneradorPanel.getFieldDelta().getSelectedItem();
-        }catch(ClassCastException e){
-            String text = (String)viewRegeneradorPanel.getFieldDelta().getSelectedItem();
-            try{
-                value = Double.valueOf(text);
-            }catch(NumberFormatException e2){
-                JOptionPane.showMessageDialog(null, e2);
-                return;
-            }
+            String text = (String) viewRegeneradorPanel.getFieldDelta().getSelectedItem();
+            value = Double.valueOf(text);
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null, e);
+            return;
         }
         
         Criteria cr = this.session.createCriteria(ModelRegenerador.class);
@@ -379,15 +359,11 @@ public class ControlRegeneradorPanelRankine {
     public void atualizaEfetividade(){    
         Double value = null;
         try{          
-            value = (Double) viewRegeneradorPanel.getFieldEfetiv().getSelectedItem();
-        }catch(ClassCastException e){
-            String text = (String)viewRegeneradorPanel.getFieldEfetiv().getSelectedItem();
-            try{
-                value = Double.valueOf(text);
-            }catch(NumberFormatException e2){
-                JOptionPane.showMessageDialog(null, e2);
-                return;
-            }
+            String text = (String) viewRegeneradorPanel.getFieldEfetiv().getSelectedItem();
+            value = Double.valueOf(text);
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null, e);
+            return;
         }
         
         Criteria cr = this.session.createCriteria(ModelRegenerador.class);

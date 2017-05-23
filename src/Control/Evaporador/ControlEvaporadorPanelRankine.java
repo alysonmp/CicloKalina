@@ -112,15 +112,11 @@ public class ControlEvaporadorPanelRankine {
     public void atualizaTempEntrada(){ 
         Double value = null;
         try{          
-            value = (Double) viewEvaporadorPanel.getFieldTempEntr().getSelectedItem();
-        }catch(ClassCastException e){
-            String text = (String)viewEvaporadorPanel.getFieldTempEntr().getSelectedItem();
-            try{
-                value = Double.valueOf(text);
-            }catch(NumberFormatException e2){
-                JOptionPane.showMessageDialog(null, e2);
-                return;
-            }
+            String text = (String) viewEvaporadorPanel.getFieldTempEntr().getSelectedItem();
+            value = Double.valueOf(text);
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null, e);
+            return;
         }
         
         Criteria cr = this.session.createCriteria(ModelEvaporador.class);
@@ -164,16 +160,12 @@ public class ControlEvaporadorPanelRankine {
     
     public void atualizaTempSaida(){ 
         Double value = null;
-        try{          
-            value = (Double) viewEvaporadorPanel.getFieldTempSai().getSelectedItem();
-        }catch(ClassCastException e){
-            String text = (String)viewEvaporadorPanel.getFieldTempSai().getSelectedItem();
-            try{
-                value = Double.valueOf(text);
-            }catch(NumberFormatException e2){
-                JOptionPane.showMessageDialog(null, e2);
-                return;
-            }
+                try{          
+            String text = (String) viewEvaporadorPanel.getFieldTempSai().getSelectedItem();
+            value = Double.valueOf(text);
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null, e);
+            return;
         }
         
         Criteria cr = this.session.createCriteria(ModelEvaporador.class);
@@ -218,15 +210,11 @@ public class ControlEvaporadorPanelRankine {
     public void atualizaPressaoEntrada(){ 
         Double value = null;
         try{          
-            value = (Double) viewEvaporadorPanel.getFieldPressaoEntr().getSelectedItem();
-        }catch(ClassCastException e){
-            String text = (String)viewEvaporadorPanel.getFieldPressaoEntr().getSelectedItem();
-            try{
-                value = Double.valueOf(text);
-            }catch(NumberFormatException e2){
-                JOptionPane.showMessageDialog(null, e2);
-                return;
-            }
+            String text = (String) viewEvaporadorPanel.getFieldPressaoEntr().getSelectedItem();
+            value = Double.valueOf(text);
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null, e);
+            return;
         }
 
         Criteria cr = this.session.createCriteria(ModelEvaporador.class);
@@ -271,15 +259,11 @@ public class ControlEvaporadorPanelRankine {
     public void atualizaPressaoSaida(){ 
         Double value = null;
         try{          
-            value = (Double) viewEvaporadorPanel.getFieldPressaoSai().getSelectedItem();
-        }catch(ClassCastException e){
-            String text = (String)viewEvaporadorPanel.getFieldPressaoSai().getSelectedItem();
-            try{
-                value = Double.valueOf(text);
-            }catch(NumberFormatException e2){
-                JOptionPane.showMessageDialog(null, e2);
-                return;
-            }
+            String text = (String) viewEvaporadorPanel.getFieldPressaoSai().getSelectedItem();
+            value = Double.valueOf(text);
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null, e);
+            return;
         }
 
         Criteria cr = this.session.createCriteria(ModelEvaporador.class);
@@ -324,15 +308,11 @@ public class ControlEvaporadorPanelRankine {
     public void atualizaDeltaPressao(){ 
         Double value = null;
         try{          
-            value = (Double) viewEvaporadorPanel.getFieldDelta().getSelectedItem();
-        }catch(ClassCastException e){
-            String text = (String)viewEvaporadorPanel.getFieldDelta().getSelectedItem();
-            try{
-                value = Double.valueOf(text);
-            }catch(NumberFormatException e2){
-                JOptionPane.showMessageDialog(null, e2);
-                return;
-            }
+            String text = (String) viewEvaporadorPanel.getFieldDelta().getSelectedItem();
+            value = Double.valueOf(text);
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null, e);
+            return;
         }
         
         Criteria cr = this.session.createCriteria(ModelEvaporador.class);

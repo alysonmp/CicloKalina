@@ -112,15 +112,11 @@ public class ControlTurbinaPanelRankine {
     public void atualizaTempEntrada(){ 
         Double value = null;
         try{          
-            value = (Double) viewTurbinaPanel.getFieldTempEntr().getSelectedItem();
-        }catch(ClassCastException e){
-            String text = (String)viewTurbinaPanel.getFieldTempEntr().getSelectedItem();
-            try{
-                value = Double.valueOf(text);
-            }catch(NumberFormatException e2){
-                JOptionPane.showMessageDialog(null, e2);
-                return;
-            }
+            String text = (String) viewTurbinaPanel.getFieldTempEntr().getSelectedItem();
+            value = Double.valueOf(text);
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null, e);
+            return;
         }
         
         Criteria cr = this.session.createCriteria(ModelTurbina.class);
@@ -165,15 +161,11 @@ public class ControlTurbinaPanelRankine {
     public void atualizaTempSaida(){ 
         Double value = null;
         try{          
-            value = (Double) viewTurbinaPanel.getFieldTempSai().getSelectedItem();
-        }catch(ClassCastException e){
-            String text = (String)viewTurbinaPanel.getFieldTempSai().getSelectedItem();
-            try{
-                value = Double.valueOf(text);
-            }catch(NumberFormatException e2){
-                JOptionPane.showMessageDialog(null, e2);
-                return;
-            }
+            String text = (String) viewTurbinaPanel.getFieldPressaoSai().getSelectedItem();
+            value = Double.valueOf(text);
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null, e);
+            return;
         }
 
         Criteria cr = this.session.createCriteria(ModelTurbina.class);
@@ -218,15 +210,11 @@ public class ControlTurbinaPanelRankine {
     public void atualizaPressaoEntrada(){ 
         Double value = null;
         try{          
-            value = (Double) viewTurbinaPanel.getFieldPressaoEntr().getSelectedItem();
-        }catch(ClassCastException e){
-            String text = (String)viewTurbinaPanel.getFieldPressaoEntr().getSelectedItem();
-            try{
-                value = Double.valueOf(text);
-            }catch(NumberFormatException e2){
-                JOptionPane.showMessageDialog(null, e2);
-                return;
-            }
+            String text = (String) viewTurbinaPanel.getFieldPressaoEntr().getSelectedItem();
+            value = Double.valueOf(text);
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null, e);
+            return;
         }
         
         Criteria cr = this.session.createCriteria(ModelTurbina.class);
@@ -271,15 +259,11 @@ public class ControlTurbinaPanelRankine {
     public void atualizaPressaoSaida(){ 
         Double value = null;
         try{          
-            value = (Double) viewTurbinaPanel.getFieldPressaoSai().getSelectedItem();
-        }catch(ClassCastException e){
-            String text = (String)viewTurbinaPanel.getFieldPressaoSai().getSelectedItem();
-            try{
-                value = Double.valueOf(text);
-            }catch(NumberFormatException e2){
-                JOptionPane.showMessageDialog(null, e2);
-                return;
-            }
+            String text = (String) viewTurbinaPanel.getFieldPressaoSai().getSelectedItem();
+            value = Double.valueOf(text);
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null, e);
+            return;
         }
 
         Criteria cr = this.session.createCriteria(ModelTurbina.class);
@@ -324,15 +308,11 @@ public class ControlTurbinaPanelRankine {
     public void atualizaEficiencia(){    
         Double value = null;
         try{          
-            value = (Double) viewTurbinaPanel.getFieldEfici().getSelectedItem();
-        }catch(ClassCastException e){
             String text = (String) viewTurbinaPanel.getFieldEfici().getSelectedItem();
-            try{
-                value = Double.valueOf(text);
-            }catch(NumberFormatException e2){
-                JOptionPane.showMessageDialog(null, e2);
-                return;
-            }
+            value = Double.valueOf(text);
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null, e);
+            return;
         }
         
         Criteria cr = this.session.createCriteria(ModelTurbina.class);
