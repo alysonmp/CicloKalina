@@ -5,18 +5,20 @@
  */
 package View.Regenerador;
 
+import Control.Regenerador.ControlRegeneradorPanelRankine;
+import Util.DropdownComboBox;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 /**
  *
@@ -37,17 +39,20 @@ public class ViewRegeneradorPanelRankine extends JPanel{
     private JLabel labelDelta = new JLabel("Efetividade: ");
     
     //TEXTFIELDS
-    private JTextField fieldMassa = new JTextField(10);
+    private DropdownComboBox fieldMassa = new DropdownComboBox();;
     
-    private JTextField fieldTempEntr = new JTextField(10);
-    private JTextField fieldPressaoEntr = new JTextField(10);
+    private DropdownComboBox fieldTempEntr = new DropdownComboBox();
     
-    private JTextField fieldTempSai = new JTextField(10);
-    private JTextField fieldPressaoSai = new JTextField(10);
+    private DropdownComboBox fieldPressaoEntr = new DropdownComboBox();
     
-    private JTextField fieldEfetiv = new JTextField(10);
-    private JTextField fieldDelta = new JTextField(10);
+    private DropdownComboBox fieldTempSai = new DropdownComboBox();
     
+    private DropdownComboBox fieldPressaoSai = new DropdownComboBox();
+    
+    private DropdownComboBox fieldDelta = new DropdownComboBox();
+    
+    private DropdownComboBox fieldEfetiv = new DropdownComboBox();
+
     //COMBOBOX
     private String[] massas = {"kg/s", "kg/m", "kg/h", "lb/s", "lb/m", "lb/h"};
     private JComboBox<String> comboMassa = new JComboBox<>(massas);
@@ -64,7 +69,7 @@ public class ViewRegeneradorPanelRankine extends JPanel{
     private JPanel painelEntrada;
     private JPanel painelSaida;
     
-    public ViewRegeneradorPanelRankine(){
+    public ViewRegeneradorPanelRankine(ControlRegeneradorPanelRankine controlRegeneradorPanel){
         painelDados = new JPanel(new GridBagLayout());
         painelEntrada = new JPanel(new GridBagLayout());
         painelSaida = new JPanel(new GridBagLayout());
@@ -77,6 +82,201 @@ public class ViewRegeneradorPanelRankine extends JPanel{
         //this.setBorder(BorderFactory.createLineBorder(Color.black, 1));
         
         GridBagConstraints g = new GridBagConstraints();
+        
+        fieldTempEntr.getEditor().getEditorComponent().addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent fe) {
+                fieldTempEntr.showPopup();
+                fieldTempEntr.getEditor().selectAll();
+                fieldTempEntr.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent ke) {
+                    }
+
+                    @Override
+                    public void keyPressed(KeyEvent ke) {
+                        fieldTempEntr.setPopupVisible(false);
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent ke) {
+                    }
+                });
+            }
+            @Override
+            public void focusLost(FocusEvent fe) {
+                controlRegeneradorPanel.atualizaTempEntrada();
+            }
+        });
+        
+        
+        fieldTempSai.getEditor().getEditorComponent().addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent fe) {
+                fieldTempSai.showPopup();
+                fieldTempSai.getEditor().selectAll();
+                fieldTempSai.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent ke) {
+                    }
+
+                    @Override
+                    public void keyPressed(KeyEvent ke) {
+                        fieldTempSai.setPopupVisible(false);
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent ke) {
+                    }
+                });
+            }
+
+            @Override
+            public void focusLost(FocusEvent fe) {
+                controlRegeneradorPanel.atualizaTempSaida();
+
+            }
+        });
+        
+        
+        fieldPressaoEntr.getEditor().getEditorComponent().addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent fe) {
+                fieldPressaoEntr.showPopup();
+                fieldPressaoEntr.getEditor().selectAll();
+                fieldPressaoEntr.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent ke) {
+                    }
+
+                    @Override
+                    public void keyPressed(KeyEvent ke) {
+                        fieldPressaoEntr.setPopupVisible(false);
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent ke) {
+                    }
+                });
+            }
+
+            @Override
+            public void focusLost(FocusEvent fe) {
+                controlRegeneradorPanel.atualizaPressaoEntrada();
+                
+            }
+        });
+        
+        fieldPressaoSai.getEditor().getEditorComponent().addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent fe) {
+                fieldPressaoSai.showPopup();
+                fieldPressaoSai.getEditor().selectAll();
+                fieldPressaoSai.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent ke) {
+                    }
+
+                    @Override
+                    public void keyPressed(KeyEvent ke) {
+                        fieldPressaoSai.setPopupVisible(false);
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent ke) {
+                    }
+                });
+            }
+
+            @Override
+            public void focusLost(FocusEvent fe) {
+                controlRegeneradorPanel.atualizaPressaoSaida();
+                
+            }
+        });
+        
+
+        fieldDelta.getEditor().getEditorComponent().addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent fe) {
+                fieldDelta.showPopup();
+                fieldDelta.getEditor().selectAll();
+                fieldDelta.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent ke) {
+                    }
+
+                    @Override
+                    public void keyPressed(KeyEvent ke) {
+                        fieldDelta.setPopupVisible(false);
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent ke) {
+                    }
+                });
+            }
+
+            @Override
+            public void focusLost(FocusEvent fe) {
+                controlRegeneradorPanel.atualizaDeltaPressao();
+            }
+        });
+        
+        fieldEfetiv.getEditor().getEditorComponent().addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent fe) {
+                fieldEfetiv.showPopup();
+                fieldEfetiv.getEditor().selectAll();
+                fieldEfetiv.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent ke) {
+                    }
+
+                    @Override
+                    public void keyPressed(KeyEvent ke) {
+                        fieldEfetiv.setPopupVisible(false);
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent ke) {
+                    }
+                });
+            }
+
+            @Override
+            public void focusLost(FocusEvent fe) {
+                controlRegeneradorPanel.atualizaEfetividade();
+            }
+        });
+        
+        fieldMassa.getEditor().getEditorComponent().addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent fe) {
+                fieldMassa.showPopup();
+                fieldMassa.getEditor().selectAll();
+                fieldMassa.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent ke) {
+                    }
+
+                    @Override
+                    public void keyPressed(KeyEvent ke) {
+                        fieldMassa.setPopupVisible(false);
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent ke) {
+                    }
+                });
+            }
+
+            @Override
+            public void focusLost(FocusEvent fe) {
+                controlRegeneradorPanel.atualizaMassa();
+            }
+        });
+        
         
         //INSERINDOS OS ELEMENTOS NO JPANEL DE ENTRADA
         g.gridx = 0;
@@ -218,60 +418,60 @@ public class ViewRegeneradorPanelRankine extends JPanel{
         this.add(painelDados, g);
     }
 
-    public JTextField getFieldMassa() {
+    public DropdownComboBox getFieldMassa() {
         return fieldMassa;
     }
 
-    public void setFieldMassa(JTextField fieldMassa) {
+    public void setFieldMassa(DropdownComboBox fieldMassa) {
         this.fieldMassa = fieldMassa;
     }
 
-    public JTextField getFieldTempEntr() {
+    public DropdownComboBox getFieldTempEntr() {
         return fieldTempEntr;
     }
 
-    public void setFieldTempEntr(JTextField fieldTempEntr) {
+    public void setFieldTempEntr(DropdownComboBox fieldTempEntr) {
         this.fieldTempEntr = fieldTempEntr;
     }
 
-    public JTextField getFieldPressaoEntr() {
+    public DropdownComboBox getFieldPressaoEntr() {
         return fieldPressaoEntr;
     }
 
-    public void setFieldPressaoEntr(JTextField fieldPressaoEntr) {
+    public void setFieldPressaoEntr(DropdownComboBox fieldPressaoEntr) {
         this.fieldPressaoEntr = fieldPressaoEntr;
     }
 
-    public JTextField getFieldTempSai() {
+    public DropdownComboBox getFieldTempSai() {
         return fieldTempSai;
     }
 
-    public void setFieldTempSai(JTextField fieldTempSai) {
+    public void setFieldTempSai(DropdownComboBox fieldTempSai) {
         this.fieldTempSai = fieldTempSai;
     }
 
-    public JTextField getFieldPressaoSai() {
+    public DropdownComboBox getFieldPressaoSai() {
         return fieldPressaoSai;
     }
 
-    public void setFieldPressaoSai(JTextField fieldPressaoSai) {
+    public void setFieldPressaoSai(DropdownComboBox fieldPressaoSai) {
         this.fieldPressaoSai = fieldPressaoSai;
     }
 
-    public JTextField getFieldEfetiv() {
-        return fieldEfetiv;
-    }
-
-    public void setFieldEfetiv(JTextField fieldEfetiv) {
-        this.fieldEfetiv = fieldEfetiv;
-    }
-
-    public JTextField getFieldDelta() {
+    public DropdownComboBox getFieldDelta() {
         return fieldDelta;
     }
 
-    public void setFieldDelta(JTextField fieldDelta) {
+    public void setFieldDelta(DropdownComboBox fieldDelta) {
         this.fieldDelta = fieldDelta;
+    }
+
+    public DropdownComboBox getFieldEfetiv() {
+        return fieldEfetiv;
+    }
+
+    public void setFieldEfetiv(DropdownComboBox fieldEfetiv) {
+        this.fieldEfetiv = fieldEfetiv;
     }
 
     public JComboBox<String> getComboMassa() {

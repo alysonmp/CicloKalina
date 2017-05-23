@@ -6,15 +6,17 @@
 package View.Turbina;
 
 import Control.ControlPrincipal;
+import Control.Turbina.ControlTurbinaPanelRankine;
+import Util.DropdownComboBox;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -39,15 +41,17 @@ public class ViewTurbinaPanelRankine extends JPanel{
     private JLabel labelEfici = new JLabel("Eficiência");
     
     //TEXTFIELDS
-    private JTextField fieldMassa = new JTextField(10);
+    private DropdownComboBox fieldMassa = new DropdownComboBox();;
     
-    private JTextField fieldTempEntr = new JTextField(10);
-    private JTextField fieldPressaoEntr = new JTextField(10);
+    private DropdownComboBox fieldTempEntr = new DropdownComboBox();
     
-    private JTextField fieldTempSai = new JTextField(10);
-    private JTextField fieldPressaoSai = new JTextField(10);
+    private DropdownComboBox fieldPressaoEntr = new DropdownComboBox();
     
-    private JTextField fieldEfici = new JTextField(10);
+    private DropdownComboBox fieldTempSai = new DropdownComboBox();
+    
+    private DropdownComboBox fieldPressaoSai = new DropdownComboBox();
+    
+    private DropdownComboBox fieldEfici = new DropdownComboBox();
     
     //COMBOBOX
     private String[] massas = {"kg/s", "kg/m", "kg/h", "lb/s", "lb/m", "lb/h"};
@@ -67,7 +71,7 @@ public class ViewTurbinaPanelRankine extends JPanel{
     
     ControlPrincipal ctrlPrincipal;
     
-    public ViewTurbinaPanelRankine(ControlPrincipal ctrlPrincipal){
+    public ViewTurbinaPanelRankine(ControlPrincipal ctrlPrincipal,ControlTurbinaPanelRankine controlTurbinaPanel){
         this.ctrlPrincipal = ctrlPrincipal;
         
         painelDados = new JPanel(new GridBagLayout());
@@ -82,6 +86,173 @@ public class ViewTurbinaPanelRankine extends JPanel{
         //this.setBorder(BorderFactory.createLineBorder(Color.black, 1));
         
         GridBagConstraints g = new GridBagConstraints();
+        
+        fieldTempEntr.getEditor().getEditorComponent().addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent fe) {
+                fieldTempEntr.showPopup();
+                fieldTempEntr.getEditor().selectAll();
+                fieldTempEntr.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent ke) {
+                    }
+
+                    @Override
+                    public void keyPressed(KeyEvent ke) {
+                        fieldTempEntr.setPopupVisible(false);
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent ke) {
+                    }
+                });
+            }
+            @Override
+            public void focusLost(FocusEvent fe) {
+                controlTurbinaPanel.atualizaTempEntrada();
+            }
+        });
+        
+        
+        fieldTempSai.getEditor().getEditorComponent().addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent fe) {
+                fieldTempSai.showPopup();
+                fieldTempSai.getEditor().selectAll();
+                fieldTempSai.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent ke) {
+                    }
+
+                    @Override
+                    public void keyPressed(KeyEvent ke) {
+                        fieldTempSai.setPopupVisible(false);
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent ke) {
+                    }
+                });
+            }
+
+            @Override
+            public void focusLost(FocusEvent fe) {
+                controlTurbinaPanel.atualizaTempSaida();
+
+            }
+        });
+        
+        
+        fieldPressaoEntr.getEditor().getEditorComponent().addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent fe) {
+                fieldPressaoEntr.showPopup();
+                fieldPressaoEntr.getEditor().selectAll();
+                fieldPressaoEntr.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent ke) {
+                    }
+
+                    @Override
+                    public void keyPressed(KeyEvent ke) {
+                        fieldPressaoEntr.setPopupVisible(false);
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent ke) {
+                    }
+                });
+            }
+
+            @Override
+            public void focusLost(FocusEvent fe) {
+                controlTurbinaPanel.atualizaPressaoEntrada();
+                
+            }
+        });
+        
+        fieldPressaoSai.getEditor().getEditorComponent().addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent fe) {
+                fieldPressaoSai.showPopup();
+                fieldPressaoSai.getEditor().selectAll();
+                fieldPressaoSai.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent ke) {
+                    }
+
+                    @Override
+                    public void keyPressed(KeyEvent ke) {
+                        fieldPressaoSai.setPopupVisible(false);
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent ke) {
+                    }
+                });
+            }
+
+            @Override
+            public void focusLost(FocusEvent fe) {
+                controlTurbinaPanel.atualizaPressaoSaida();
+                
+            }
+        });
+        
+        fieldEfici.getEditor().getEditorComponent().addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent fe) {
+                fieldEfici.showPopup();
+                fieldEfici.getEditor().selectAll();
+                fieldEfici.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent ke) {
+                    }
+
+                    @Override
+                    public void keyPressed(KeyEvent ke) {
+                        fieldEfici.setPopupVisible(false);
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent ke) {
+                    }
+                });
+            }
+
+            @Override
+            public void focusLost(FocusEvent fe) {
+                controlTurbinaPanel.atualizaEficiencia();
+            }
+        });
+        
+        fieldMassa.getEditor().getEditorComponent().addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent fe) {
+                fieldMassa.showPopup();
+                fieldMassa.getEditor().selectAll();
+                fieldMassa.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent ke) {
+                    }
+
+                    @Override
+                    public void keyPressed(KeyEvent ke) {
+                        fieldMassa.setPopupVisible(false);
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent ke) {
+                    }
+                });
+            }
+
+            @Override
+            public void focusLost(FocusEvent fe) {
+                controlTurbinaPanel.atualizaMassa();
+            }
+        });
+        
         
         //INSERINDOS OS ELEMENTOS NO JPANEL DE ENTRADA
         g.gridx = 0;
@@ -211,65 +382,53 @@ public class ViewTurbinaPanelRankine extends JPanel{
         g.weighty = 1;
         this.add(painelDados, g);
         
-        //ADICIONA OS LISTENERS AOS FIELDS
-        fieldMassa.addFocusListener(new FocusListener() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                fieldMassa.selectAll();
-            }
-
-            @Override
-            public void focusLost(FocusEvent e) {
-                ViewTurbinaPanelRankine.this.ctrlPrincipal.ajustaMassa();
-            }
-        });
     }
 
-    public JTextField getFieldMassa() {
+    public DropdownComboBox getFieldMassa() {
         return fieldMassa;
     }
 
-    public void setFieldMassa(JTextField fieldMassa) {
+    public void setFieldMassa(DropdownComboBox fieldMassa) {
         this.fieldMassa = fieldMassa;
     }
 
-    public JTextField getFieldTempEntr() {
+    public DropdownComboBox getFieldTempEntr() {
         return fieldTempEntr;
     }
 
-    public void setFieldTempEntr(JTextField fieldTempEntr) {
+    public void setFieldTempEntr(DropdownComboBox fieldTempEntr) {
         this.fieldTempEntr = fieldTempEntr;
     }
 
-    public JTextField getFieldPressaoEntr() {
+    public DropdownComboBox getFieldPressaoEntr() {
         return fieldPressaoEntr;
     }
 
-    public void setFieldPressaoEntr(JTextField fieldPressaoEntr) {
+    public void setFieldPressaoEntr(DropdownComboBox fieldPressaoEntr) {
         this.fieldPressaoEntr = fieldPressaoEntr;
     }
 
-    public JTextField getFieldTempSai() {
+    public DropdownComboBox getFieldTempSai() {
         return fieldTempSai;
     }
 
-    public void setFieldTempSai(JTextField fieldTempSai) {
+    public void setFieldTempSai(DropdownComboBox fieldTempSai) {
         this.fieldTempSai = fieldTempSai;
     }
 
-    public JTextField getFieldPressaoSai() {
+    public DropdownComboBox getFieldPressaoSai() {
         return fieldPressaoSai;
     }
 
-    public void setFieldPressaoSai(JTextField fieldPressaoSai) {
+    public void setFieldPressaoSai(DropdownComboBox fieldPressaoSai) {
         this.fieldPressaoSai = fieldPressaoSai;
     }
 
-    public JTextField getFieldEfici() {
+    public DropdownComboBox getFieldEfici() {
         return fieldEfici;
     }
 
-    public void setFieldEfici(JTextField fieldEfici) {
+    public void setFieldEfici(DropdownComboBox fieldEfici) {
         this.fieldEfici = fieldEfici;
     }
 
