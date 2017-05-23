@@ -114,7 +114,7 @@ public class ControlRegeneradorPanelRankine {
     public void atualizaTempEntrada(){ 
         Double value = null;
         try{          
-            String text = (String) viewRegeneradorPanel.getFieldTempEntr().getSelectedItem();
+            String text = viewRegeneradorPanel.getFieldTempEntr().getSelectedItem().toString();
             value = Double.valueOf(text);
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
@@ -163,7 +163,7 @@ public class ControlRegeneradorPanelRankine {
     public void atualizaTempSaida(){ 
         Double value = null;
         try{          
-            String text = (String) viewRegeneradorPanel.getFieldTempSai().getSelectedItem();
+            String text = viewRegeneradorPanel.getFieldTempSai().getSelectedItem().toString();
             value = Double.valueOf(text);
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
@@ -212,7 +212,7 @@ public class ControlRegeneradorPanelRankine {
     public void atualizaPressaoEntrada(){ 
         Double value = null;
         try{          
-            String text = (String) viewRegeneradorPanel.getFieldPressaoEntr().getSelectedItem();
+            String text = viewRegeneradorPanel.getFieldPressaoEntr().getSelectedItem().toString();
             value = Double.valueOf(text);
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
@@ -261,7 +261,7 @@ public class ControlRegeneradorPanelRankine {
     public void atualizaPressaoSaida(){  
         Double value = null;
         try{          
-            String text = (String) viewRegeneradorPanel.getFieldPressaoSai().getSelectedItem();
+            String text = viewRegeneradorPanel.getFieldPressaoSai().getSelectedItem().toString();
             value = Double.valueOf(text);
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
@@ -310,7 +310,7 @@ public class ControlRegeneradorPanelRankine {
     public void atualizaDeltaPressao(){       
         Double value = null;
         try{          
-            String text = (String) viewRegeneradorPanel.getFieldDelta().getSelectedItem();
+            String text = viewRegeneradorPanel.getFieldDelta().getSelectedItem().toString();
             value = Double.valueOf(text);
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
@@ -359,7 +359,7 @@ public class ControlRegeneradorPanelRankine {
     public void atualizaEfetividade(){    
         Double value = null;
         try{          
-            String text = (String) viewRegeneradorPanel.getFieldEfetiv().getSelectedItem();
+            String text = viewRegeneradorPanel.getFieldEfetiv().getSelectedItem().toString();
             value = Double.valueOf(text);
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
