@@ -14,6 +14,7 @@ import org.hibernate.Session;
 public class ControlT_Ref {
     
     double P, Te, erro, DT, burbuja, Tref;
+    private ControlPdeVapor pdevapor;
     
     public ControlT_Ref(double P, double x, Session session){
         this.P = P;
@@ -23,7 +24,7 @@ public class ControlT_Ref {
             erro = 1;
             DT = 80;
             while(erro > 0.0001){
-                ControlPdeVapor pdevapor = new ControlPdeVapor(Te, x, session);
+                pdevapor = new ControlPdeVapor(Te, x, session);
                 burbuja = pdevapor.getPsj()-P;
                 erro = Math.abs((pdevapor.getPsj()-P)/pdevapor.getPsj());
                 if(erro > 0.0001 && burbuja > 0){
@@ -47,7 +48,7 @@ public class ControlT_Ref {
             erro = 1;
             DT = 80;
             while(erro > 0.0001){
-                ControlPdeVapor pdevapor = new ControlPdeVapor(Te, x, session);
+                pdevapor = new ControlPdeVapor(Te, x, session);
                 burbuja = pdevapor.getPsi() - P;
                 erro = Math.abs((pdevapor.getPsi()-P)/pdevapor.getPsi());
                 if(erro > 0.0001 && burbuja > 0){

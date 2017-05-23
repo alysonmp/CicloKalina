@@ -20,7 +20,7 @@ public class ControlParametros {
         ControlPBolha pBolha = new ControlPBolha(Tcon, zi, session);
         Pcon = pBolha.getPbol();
         
-        ControlTBolha tBolha = new ControlTBolha(Pf, zi, session);
+        ControlTBolha tBolha = new ControlTBolha(P1, zi, session);
         TbolA = tBolha.getTbol();
         yii = tBolha.getYi();
         
