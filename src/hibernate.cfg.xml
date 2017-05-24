@@ -60,6 +60,10 @@ Contributor(s):
     <mapping class="Model.ModelLinear"/>
     <mapping class="Model.ModelQfpso"/>
     <mapping class="Model.TabelasFluidos.ModelButanoLiquido"/>
+<<<<<<< HEAD
+=======
+    <mapping class="Model.TabelasFluidos.ModelButanoGas"/>
+>>>>>>> 1130947211aac8b59b13774a493cd1764506ed74
     <mapping class="Model.TabelasFluidos.ModelHexaneGas"/>
     <mapping class="Model.TabelasFluidos.ModelWaterGas"/>
     <mapping class="Model.TabelasFluidos.ModelWaterLiquido"/>
@@ -94,6 +98,7 @@ Contributor(s):
     <mapping class="Model.TabelasFluidos.ModelMDMGas"/>
     <mapping class="Model.TabelasFluidos.ModelMD4MLiquido"/>
     <mapping class="Model.TabelasFluidos.ModelMD4MGas"/>
+<<<<<<< HEAD
     <mapping class="Model.TabelasFluidos.ModelButanoGas"/>
     <mapping class="Model.TabelasFluidos.ModelD4Gas"/>
     <mapping class="Model.TabelasFluidos.ModelD4Liquido"/>
@@ -110,5 +115,7 @@ Contributor(s):
     <mapping class="Model.TabelasFluidos.ModelIsobutanLiquido"/>
     <mapping class="Model.TabelasFluidos.ModelMD2MGas"/>
     <mapping class="Model.TabelasFluidos.ModelMD2MLiquido"/>
+=======
+>>>>>>> 1130947211aac8b59b13774a493cd1764506ed74
   </session-factory>
 </hibernate-configuration>
