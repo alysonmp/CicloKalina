@@ -32,3 +32,5 @@ build/classes/Control/Ciclo2/ControlH_Sistemamix.class
 *.jar
 
 *.csv
+/dist/
+*.class
