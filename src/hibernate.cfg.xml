@@ -61,5 +61,6 @@ Contributor(s):
     <mapping class="Model.ModelQfpso"/>
     <mapping class="Model.TabelasFluidos.ModelHexane"/>
     <mapping class="Model.TabelasFluidos.ModelButanoLiquido"/>
+    <mapping class="Model.TabelasFluidos.ModelButanoGas"/>
   </session-factory>
 </hibernate-configuration>
