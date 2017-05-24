@@ -7,7 +7,7 @@ package Control.TabelaFluidos;
 
 import Model.Ciclo2.ModelFluidos;
 import Model.TabelasFluidos.ModelButanoLiquido;
-import Model.TabelasFluidos.ModelHexane;
+import Model.TabelasFluidos.ModelHexaneGas;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -78,29 +78,29 @@ public class ControlButanoLiquido {
     
     public void interpolacaoButano(double pressao, double temperatura){
         Criteria cr = this.session.createCriteria(ModelButanoLiquido.class);
-        //cr = this.session.createCriteria(ModelHexane.class);
+        //cr = this.session.createCriteria(ModelHexaneGas.class);
         
         SQLQuery consulta = this.session.createSQLQuery("select * from Hexane where pressao <= " +pressao+ "and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
         
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelHexane.class));//Sem isso aqui impossível de retornar
+        consulta.setResultTransformer(Transformers.aliasToBean(ModelHexaneGas.class));//Sem isso aqui impossível de retornar
 	List<ModelButanoLiquido> hexanes = consulta.list(); 
         ModelButanoLiquido hexane1 = hexanes.get(0);
         
         consulta = this.session.createSQLQuery("select * from Hexane where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
         
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelHexane.class));//Sem isso aqui impossível de retornar
+        consulta.setResultTransformer(Transformers.aliasToBean(ModelHexaneGas.class));//Sem isso aqui impossível de retornar
 	hexanes = consulta.list(); 
         ModelButanoLiquido hexane2 = hexanes.get(0);
         
         consulta = this.session.createSQLQuery("select * from Hexane where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
         
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelHexane.class));//Sem isso aqui impossível de retornar
+        consulta.setResultTransformer(Transformers.aliasToBean(ModelHexaneGas.class));//Sem isso aqui impossível de retornar
 	hexanes = consulta.list(); 
         ModelButanoLiquido hexane3 = hexanes.get(0);
         
         consulta = this.session.createSQLQuery("select * from Hexane where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
         
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelHexane.class));//Sem isso aqui impossível de retornar
+        consulta.setResultTransformer(Transformers.aliasToBean(ModelHexaneGas.class));//Sem isso aqui impossível de retornar
 	hexanes = consulta.list(); 
         ModelButanoLiquido hexane4 = hexanes.get(0);
         
