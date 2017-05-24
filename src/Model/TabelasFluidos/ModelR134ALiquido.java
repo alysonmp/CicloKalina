@@ -17,13 +17,13 @@ import javax.persistence.Table;
  * @author alysonmp
  */
 @Entity
-@Table(name = "Hexane")
-public class ModelHexane implements Serializable{
-
+@Table(name = "R134A_liquido")
+public class ModelR134ALiquido implements Serializable{
+    
     @Id
     @GeneratedValue
     private int ID;
-
+    
     @Column
     private double pressao;
     
@@ -31,33 +31,21 @@ public class ModelHexane implements Serializable{
     private double temperatura;
     
     @Column
-    private double Cpv;
+    private double Cpl;
     
     @Column
-    private double Prv;
-    
-    @Column
-    private double Kv;
-    
-    @Column
-    private double Muv;
-    
-    @Column
-    private double Vcv;
+    private double Prl;
 
-    public ModelHexane(double pressao, double temperatura, double Cpv, double Prv, double Kv, double Muv, double Vcv) {
+    public ModelR134ALiquido(double pressao, double temperatura, double Cpl, double Prl) {
         this.pressao = pressao;
         this.temperatura = temperatura;
-        this.Cpv = Cpv;
-        this.Prv = Prv;
-        this.Kv = Kv;
-        this.Muv = Muv;
-        this.Vcv = Vcv;
+        this.Cpl = Cpl;
+        this.Prl = Prl;
     }
 
-    public ModelHexane() {
+    public ModelR134ALiquido() {
     }
-    
+
     public int getID() {
         return ID;
     }
@@ -82,43 +70,19 @@ public class ModelHexane implements Serializable{
         this.temperatura = temperatura;
     }
 
-    public double getCPV() {
-        return Cpv;
+    public double getCPL() {
+        return Cpl;
     }
 
-    public void setCPV(double Cpv) {
-        this.Cpv = Cpv;
+    public void setCPL(double Cpl) {
+        this.Cpl = Cpl;
     }
 
-    public double getPRV() {
-        return Prv;
+    public double getPRL() {
+        return Prl;
     }
 
-    public void setPRV(double Prv) {
-        this.Prv = Prv;
-    }
-
-    public double getKV() {
-        return Kv;
-    }
-
-    public void setKV(double Kv) {
-        this.Kv = Kv;
-    }
-
-    public double getMUV() {
-        return Muv;
-    }
-
-    public void setMUV(double Muv) {
-        this.Muv = Muv;
-    }
-
-    public double getVCV() {
-        return Vcv;
-    }
-
-    public void setVCV(double Vcv) {
-        this.Vcv = Vcv;
+    public void setPRL(double Prl) {
+        this.Prl = Prl;
     }
 }

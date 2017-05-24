@@ -17,13 +17,13 @@ import javax.persistence.Table;
  * @author alysonmp
  */
 @Entity
-@Table(name = "water_liquido")
-public class ModelWaterLiquido implements Serializable{
-    
+@Table(name = "Hexane_gas")
+public class ModelHexaneGas implements Serializable{
+
     @Id
     @GeneratedValue
     private int ID;
-    
+
     @Column
     private double pressao;
     
@@ -31,21 +31,33 @@ public class ModelWaterLiquido implements Serializable{
     private double temperatura;
     
     @Column
-    private double Cpl;
+    private double Cpv;
     
     @Column
-    private double Prl;
+    private double Prv;
+    
+    @Column
+    private double Kv;
+    
+    @Column
+    private double Muv;
+    
+    @Column
+    private double Vcv;
 
-    public ModelWaterLiquido(double pressao, double temperatura, double Cpl, double Prl) {
+    public ModelHexaneGas(double pressao, double temperatura, double Cpv, double Prv, double Kv, double Muv, double Vcv) {
         this.pressao = pressao;
         this.temperatura = temperatura;
-        this.Cpl = Cpl;
-        this.Prl = Prl;
+        this.Cpv = Cpv;
+        this.Prv = Prv;
+        this.Kv = Kv;
+        this.Muv = Muv;
+        this.Vcv = Vcv;
     }
 
-    public ModelWaterLiquido() {
+    public ModelHexaneGas() {
     }
-
+    
     public int getID() {
         return ID;
     }
@@ -70,19 +82,43 @@ public class ModelWaterLiquido implements Serializable{
         this.temperatura = temperatura;
     }
 
-    public double getCPL() {
-        return Cpl;
+    public double getCPV() {
+        return Cpv;
     }
 
-    public void setCPL(double Cpl) {
-        this.Cpl = Cpl;
+    public void setCPV(double Cpv) {
+        this.Cpv = Cpv;
     }
 
-    public double getPRL() {
-        return Prl;
+    public double getPRV() {
+        return Prv;
     }
 
-    public void setPRL(double Prl) {
-        this.Prl = Prl;
+    public void setPRV(double Prv) {
+        this.Prv = Prv;
+    }
+
+    public double getKV() {
+        return Kv;
+    }
+
+    public void setKV(double Kv) {
+        this.Kv = Kv;
+    }
+
+    public double getMUV() {
+        return Muv;
+    }
+
+    public void setMUV(double Muv) {
+        this.Muv = Muv;
+    }
+
+    public double getVCV() {
+        return Vcv;
+    }
+
+    public void setVCV(double Vcv) {
+        this.Vcv = Vcv;
     }
 }

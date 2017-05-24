@@ -12,13 +12,14 @@ import Control.Ciclo2.ControlPorvalho;
 import Control.Ciclo2.ControlS_Sistema;
 import Control.Ciclo2.ControlTSaida;
 import Control.TabelaFluidos.ControlButanoLiquido;
-import Control.TabelaFluidos.ControlHexane;
+import Control.TabelaFluidos.ControlHexaneGas;
+import Control.TabelaFluidos.ControlWaterGas;
 import Model.Ciclo2.ModelFluidos;
 import Model.Ciclo2.ModelMassa;
 import Model.ModelConstantesMat;
 import Model.ModelLinear;
 import Model.ModelQfpso;
-import Model.TabelasFluidos.ModelHexane;
+import Model.TabelasFluidos.ModelHexaneGas;
 import Util.HibernateUtil;
 import View.Condensador.ViewCondensadorImage;
 import View.Evaporador.ViewEvaporadorImage;
@@ -157,9 +158,9 @@ public class ControlPrincipal {
         
         viewPrincipal = new ViewPrincipal(this);
         
-        ControlHexane hexane = new ControlHexane(session);
-        hexane.criaTabelaHexane();
-        hexane.interpolacaoHexane(1100, 450);
+        ControlWaterGas hexane = new ControlWaterGas(session);
+        hexane.criaTabelaWaterGas();
+        hexane.interpolacao(5000, 600);
         /*ControlButanoLiquido butano = new ControlButanoLiquido(session);
         butano.criaTabelaButano();*/
     }
