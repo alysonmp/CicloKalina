@@ -382,18 +382,6 @@ public class ViewTurbinaPanelRankine extends JPanel{
         g.weighty = 1;
         this.add(painelDados, g);
         
-        //ADICIONA OS LISTENERS AOS FIELDS
-        fieldMassa.addFocusListener(new FocusListener() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                fieldMassa.selectAll();
-            }
-
-            @Override
-            public void focusLost(FocusEvent e) {
-                //ViewTurbinaPanelRankine.this.ctrlPrincipal.ajustaMassa();
-            }
-        });
     }
 
     public DropdownComboBox getFieldMassa() {

@@ -112,7 +112,7 @@ public class ControlTurbinaPanelRankine {
     public void atualizaTempEntrada(){ 
         Double value = null;
         try{          
-            String text = (String) viewTurbinaPanel.getFieldTempEntr().getSelectedItem();
+            String text = viewTurbinaPanel.getFieldTempEntr().getSelectedItem().toString();
             value = Double.valueOf(text);
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
@@ -161,7 +161,7 @@ public class ControlTurbinaPanelRankine {
     public void atualizaTempSaida(){ 
         Double value = null;
         try{          
-            String text = (String) viewTurbinaPanel.getFieldPressaoSai().getSelectedItem();
+            String text = viewTurbinaPanel.getFieldPressaoSai().getSelectedItem().toString();
             value = Double.valueOf(text);
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
@@ -210,7 +210,7 @@ public class ControlTurbinaPanelRankine {
     public void atualizaPressaoEntrada(){ 
         Double value = null;
         try{          
-            String text = (String) viewTurbinaPanel.getFieldPressaoEntr().getSelectedItem();
+            String text = viewTurbinaPanel.getFieldPressaoEntr().getSelectedItem().toString();
             value = Double.valueOf(text);
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
@@ -259,7 +259,7 @@ public class ControlTurbinaPanelRankine {
     public void atualizaPressaoSaida(){ 
         Double value = null;
         try{          
-            String text = (String) viewTurbinaPanel.getFieldPressaoSai().getSelectedItem();
+            String text = viewTurbinaPanel.getFieldPressaoSai().getSelectedItem().toString();
             value = Double.valueOf(text);
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
@@ -308,7 +308,7 @@ public class ControlTurbinaPanelRankine {
     public void atualizaEficiencia(){    
         Double value = null;
         try{          
-            String text = (String) viewTurbinaPanel.getFieldEfici().getSelectedItem();
+            String text = viewTurbinaPanel.getFieldEfici().getSelectedItem().toString();
             value = Double.valueOf(text);
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
@@ -353,6 +353,7 @@ public class ControlTurbinaPanelRankine {
         
         tx.commit();
     }
+    
     public ViewTurbinaPanelRankine getViewTurbinaPanel() {
         return viewTurbinaPanel;
     }

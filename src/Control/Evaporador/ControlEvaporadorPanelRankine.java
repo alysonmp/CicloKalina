@@ -112,7 +112,7 @@ public class ControlEvaporadorPanelRankine {
     public void atualizaTempEntrada(){ 
         Double value = null;
         try{          
-            String text = (String) viewEvaporadorPanel.getFieldTempEntr().getSelectedItem();
+            String text = viewEvaporadorPanel.getFieldTempEntr().getSelectedItem().toString();
             value = Double.valueOf(text);
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
@@ -160,8 +160,8 @@ public class ControlEvaporadorPanelRankine {
     
     public void atualizaTempSaida(){ 
         Double value = null;
-                try{          
-            String text = (String) viewEvaporadorPanel.getFieldTempSai().getSelectedItem();
+        try{          
+            String text = viewEvaporadorPanel.getFieldTempSai().getSelectedItem().toString();
             value = Double.valueOf(text);
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
@@ -210,7 +210,7 @@ public class ControlEvaporadorPanelRankine {
     public void atualizaPressaoEntrada(){ 
         Double value = null;
         try{          
-            String text = (String) viewEvaporadorPanel.getFieldPressaoEntr().getSelectedItem();
+            String text =  viewEvaporadorPanel.getFieldPressaoEntr().getSelectedItem().toString();
             value = Double.valueOf(text);
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
@@ -259,7 +259,7 @@ public class ControlEvaporadorPanelRankine {
     public void atualizaPressaoSaida(){ 
         Double value = null;
         try{          
-            String text = (String) viewEvaporadorPanel.getFieldPressaoSai().getSelectedItem();
+            String text = viewEvaporadorPanel.getFieldPressaoSai().getSelectedItem().toString();
             value = Double.valueOf(text);
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
@@ -308,7 +308,7 @@ public class ControlEvaporadorPanelRankine {
     public void atualizaDeltaPressao(){ 
         Double value = null;
         try{          
-            String text = (String) viewEvaporadorPanel.getFieldDelta().getSelectedItem();
+            String text = viewEvaporadorPanel.getFieldDelta().getSelectedItem().toString();
             value = Double.valueOf(text);
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
