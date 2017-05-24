@@ -120,8 +120,13 @@ public class ControlEvaporadorPanelRankine {
         
         Double value = null;
         try{          
+<<<<<<< HEAD
             String text = (String) viewEvaporadorPanel.getFieldTempEntr().getSelectedItem();
             value = Double.parseDouble(text);
+=======
+            String text = viewEvaporadorPanel.getFieldTempEntr().getSelectedItem().toString();
+            value = Double.valueOf(text);
+>>>>>>> master
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
             return;
@@ -173,8 +178,13 @@ public class ControlEvaporadorPanelRankine {
         
         Double value = null;
         try{          
+<<<<<<< HEAD
             String text = (String) viewEvaporadorPanel.getFieldTempSai().getSelectedItem();
             value = Double.parseDouble(text);
+=======
+            String text = viewEvaporadorPanel.getFieldTempSai().getSelectedItem().toString();
+            value = Double.valueOf(text);
+>>>>>>> master
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
             return;
@@ -226,8 +236,13 @@ public class ControlEvaporadorPanelRankine {
         
         Double value = null;
         try{          
+<<<<<<< HEAD
             String text = (String) viewEvaporadorPanel.getFieldPressaoEntr().getSelectedItem();
             value = Double.parseDouble(text);
+=======
+            String text =  viewEvaporadorPanel.getFieldPressaoEntr().getSelectedItem().toString();
+            value = Double.valueOf(text);
+>>>>>>> master
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
             return;
@@ -279,8 +294,13 @@ public class ControlEvaporadorPanelRankine {
         
         Double value = null;
         try{          
+<<<<<<< HEAD
             String text = (String) viewEvaporadorPanel.getFieldPressaoSai().getSelectedItem();
             value = Double.parseDouble(text);
+=======
+            String text = viewEvaporadorPanel.getFieldPressaoSai().getSelectedItem().toString();
+            value = Double.valueOf(text);
+>>>>>>> master
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
             return;
@@ -332,8 +352,13 @@ public class ControlEvaporadorPanelRankine {
         
         Double value = null;
         try{          
+<<<<<<< HEAD
             String text = (String) viewEvaporadorPanel.getFieldDelta().getSelectedItem();
             value = Double.parseDouble(text);
+=======
+            String text = viewEvaporadorPanel.getFieldDelta().getSelectedItem().toString();
+            value = Double.valueOf(text);
+>>>>>>> master
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
             return;
