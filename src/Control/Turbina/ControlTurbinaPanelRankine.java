@@ -64,6 +64,10 @@ public class ControlTurbinaPanelRankine {
     }
     
     public void atualizaMassa(){
+        if(viewTurbinaPanel.getFieldMassa().getSelectedItem().equals("")){
+            return;
+        }
+        
         Vector valores = new Vector();
         
         Criteria cr = this.session.createCriteria(ModelMassa.class);
@@ -110,10 +114,19 @@ public class ControlTurbinaPanelRankine {
     
     //Salva no banco de dados os 5 valores mais recentes da temperatura de entrada
     public void atualizaTempEntrada(){ 
+        if(viewTurbinaPanel.getFieldTempEntr().getSelectedItem().equals("")){
+            return;
+        }
+        
         Double value = null;
         try{          
+<<<<<<< HEAD
+            String text = (String) viewTurbinaPanel.getFieldTempEntr().getSelectedItem();
+            value = Double.parseDouble(text);
+=======
             String text = viewTurbinaPanel.getFieldTempEntr().getSelectedItem().toString();
             value = Double.valueOf(text);
+>>>>>>> master
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
             return;
@@ -159,10 +172,19 @@ public class ControlTurbinaPanelRankine {
     }
     
     public void atualizaTempSaida(){ 
+        if(viewTurbinaPanel.getFieldTempSai().getSelectedItem().equals("")){
+            return;
+        }
+        
         Double value = null;
         try{          
+<<<<<<< HEAD
+            String text = (String) viewTurbinaPanel.getFieldPressaoSai().getSelectedItem();
+            value = Double.parseDouble(text);
+=======
             String text = viewTurbinaPanel.getFieldPressaoSai().getSelectedItem().toString();
             value = Double.valueOf(text);
+>>>>>>> master
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
             return;
@@ -208,10 +230,19 @@ public class ControlTurbinaPanelRankine {
     }
     
     public void atualizaPressaoEntrada(){ 
+        if(viewTurbinaPanel.getFieldPressaoEntr().getSelectedItem().equals("")){
+            return;
+        }
+        
         Double value = null;
         try{          
+<<<<<<< HEAD
+            String text = (String) viewTurbinaPanel.getFieldPressaoEntr().getSelectedItem();
+            value = Double.parseDouble(text);
+=======
             String text = viewTurbinaPanel.getFieldPressaoEntr().getSelectedItem().toString();
             value = Double.valueOf(text);
+>>>>>>> master
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
             return;
@@ -257,10 +288,19 @@ public class ControlTurbinaPanelRankine {
     }
     
     public void atualizaPressaoSaida(){ 
+        if(viewTurbinaPanel.getFieldPressaoSai().getSelectedItem().equals("")){
+            return;
+        }
+        
         Double value = null;
         try{          
+<<<<<<< HEAD
+            String text = (String) viewTurbinaPanel.getFieldPressaoSai().getSelectedItem();
+            value = Double.parseDouble(text);
+=======
             String text = viewTurbinaPanel.getFieldPressaoSai().getSelectedItem().toString();
             value = Double.valueOf(text);
+>>>>>>> master
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
             return;
@@ -305,11 +345,20 @@ public class ControlTurbinaPanelRankine {
         tx.commit();        
     }
     
-    public void atualizaEficiencia(){    
+    public void atualizaEficiencia(){ 
+        if(viewTurbinaPanel.getFieldEfici().getSelectedItem().equals("")){
+            return;
+        }
+        
         Double value = null;
         try{          
+<<<<<<< HEAD
+            String text = (String) viewTurbinaPanel.getFieldEfici().getSelectedItem();
+            value = Double.parseDouble(text);
+=======
             String text = viewTurbinaPanel.getFieldEfici().getSelectedItem().toString();
             value = Double.valueOf(text);
+>>>>>>> master
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
             return;
@@ -361,7 +410,4 @@ public class ControlTurbinaPanelRankine {
     public void setViewTurbinaPanel(ViewTurbinaPanelRankine viewTurbinaPanel) {
         this.viewTurbinaPanel = viewTurbinaPanel;
     }
-    
-    
-    
 }

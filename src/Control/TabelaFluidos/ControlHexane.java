@@ -34,7 +34,7 @@ public class ControlHexane {
     }
     
     public void criaTabelaHexane(){
-        String csvFile = "src/Csv/Hexane Teste.csv";
+        String csvFile = "src/Csv/Hexane_gas.csv";
         BufferedReader br = null;
         String line = "";
         String cvsSplitBy = ";";

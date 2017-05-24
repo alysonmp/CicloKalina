@@ -65,6 +65,10 @@ public class ControlEvaporadorPanelRankine {
     }
     
     public void atualizaMassa(){
+        if(viewEvaporadorPanel.getFieldMassa().getSelectedItem().equals("")){
+            return;
+        }
+        
         Vector valores = new Vector();
         
         Criteria cr = this.session.createCriteria(ModelMassa.class);
@@ -110,10 +114,19 @@ public class ControlEvaporadorPanelRankine {
     }
     
     public void atualizaTempEntrada(){ 
+        if(viewEvaporadorPanel.getFieldTempEntr().getSelectedItem().equals("")){
+            return;
+        }
+        
         Double value = null;
         try{          
+<<<<<<< HEAD
+            String text = (String) viewEvaporadorPanel.getFieldTempEntr().getSelectedItem();
+            value = Double.parseDouble(text);
+=======
             String text = viewEvaporadorPanel.getFieldTempEntr().getSelectedItem().toString();
             value = Double.valueOf(text);
+>>>>>>> master
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
             return;
@@ -159,10 +172,19 @@ public class ControlEvaporadorPanelRankine {
     }
     
     public void atualizaTempSaida(){ 
+        if(viewEvaporadorPanel.getFieldTempSai().getSelectedItem().equals("")){
+            return;
+        }
+        
         Double value = null;
         try{          
+<<<<<<< HEAD
+            String text = (String) viewEvaporadorPanel.getFieldTempSai().getSelectedItem();
+            value = Double.parseDouble(text);
+=======
             String text = viewEvaporadorPanel.getFieldTempSai().getSelectedItem().toString();
             value = Double.valueOf(text);
+>>>>>>> master
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
             return;
@@ -208,10 +230,19 @@ public class ControlEvaporadorPanelRankine {
     }
     
     public void atualizaPressaoEntrada(){ 
+        if(viewEvaporadorPanel.getFieldPressaoEntr().getSelectedItem().equals("")){
+            return;
+        }
+        
         Double value = null;
         try{          
+<<<<<<< HEAD
+            String text = (String) viewEvaporadorPanel.getFieldPressaoEntr().getSelectedItem();
+            value = Double.parseDouble(text);
+=======
             String text =  viewEvaporadorPanel.getFieldPressaoEntr().getSelectedItem().toString();
             value = Double.valueOf(text);
+>>>>>>> master
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
             return;
@@ -257,10 +288,19 @@ public class ControlEvaporadorPanelRankine {
     }
     
     public void atualizaPressaoSaida(){ 
+        if(viewEvaporadorPanel.getFieldPressaoSai().getSelectedItem().equals("")){
+            return;
+        }
+        
         Double value = null;
         try{          
+<<<<<<< HEAD
+            String text = (String) viewEvaporadorPanel.getFieldPressaoSai().getSelectedItem();
+            value = Double.parseDouble(text);
+=======
             String text = viewEvaporadorPanel.getFieldPressaoSai().getSelectedItem().toString();
             value = Double.valueOf(text);
+>>>>>>> master
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
             return;
@@ -306,10 +346,19 @@ public class ControlEvaporadorPanelRankine {
     }
       
     public void atualizaDeltaPressao(){ 
+        if(viewEvaporadorPanel.getFieldDelta().getSelectedItem().equals("")){
+            return;
+        }
+        
         Double value = null;
         try{          
+<<<<<<< HEAD
+            String text = (String) viewEvaporadorPanel.getFieldDelta().getSelectedItem();
+            value = Double.parseDouble(text);
+=======
             String text = viewEvaporadorPanel.getFieldDelta().getSelectedItem().toString();
             value = Double.valueOf(text);
+>>>>>>> master
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
             return;

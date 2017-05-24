@@ -83,6 +83,7 @@ public class ViewTurbinaPanelRankine extends JPanel{
         
         //this.setLayout(new FlowLayout(FlowLayout.LEADING));
         this.setLayout(new GridBagLayout());
+        this.setName("Turbina");
         //this.setBorder(BorderFactory.createLineBorder(Color.black, 1));
         
         GridBagConstraints g = new GridBagConstraints();
@@ -382,6 +383,21 @@ public class ViewTurbinaPanelRankine extends JPanel{
         g.weighty = 1;
         this.add(painelDados, g);
         
+<<<<<<< HEAD
+        //ADICIONA OS LISTENERS AOS FIELDS
+        fieldMassa.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                fieldMassa.getEditor().selectAll();
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                //ViewTurbinaPanelRankine.this.ctrlPrincipal.ajustaMassa();
+            }
+        });
+=======
+>>>>>>> master
     }
 
     public DropdownComboBox getFieldMassa() {

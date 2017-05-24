@@ -66,6 +66,10 @@ public class ControlRegeneradorPanelRankine {
     }
     
     public void atualizaMassa(){
+        if(viewRegeneradorPanel.getFieldMassa().getSelectedItem().equals("")){
+            return;
+        }
+        
         Vector valores = new Vector();
         
         Criteria cr = this.session.createCriteria(ModelMassa.class);
@@ -112,10 +116,19 @@ public class ControlRegeneradorPanelRankine {
     
         //Salva no banco de dados os 5 valores mais recentes da temperatura de entrada
     public void atualizaTempEntrada(){ 
+        if(viewRegeneradorPanel.getFieldTempEntr().getSelectedItem().equals("")){
+            return;
+        }
+        
         Double value = null;
         try{          
+<<<<<<< HEAD
+            String text = (String) viewRegeneradorPanel.getFieldTempEntr().getSelectedItem();
+            value = Double.parseDouble(text);
+=======
             String text = viewRegeneradorPanel.getFieldTempEntr().getSelectedItem().toString();
             value = Double.valueOf(text);
+>>>>>>> master
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
             return;
@@ -160,11 +173,20 @@ public class ControlRegeneradorPanelRankine {
         tx.commit();        
     }
     
-    public void atualizaTempSaida(){ 
+    public void atualizaTempSaida(){
+        if(viewRegeneradorPanel.getFieldTempSai().getSelectedItem().equals("")){
+            return;
+        }
+        
         Double value = null;
         try{          
+<<<<<<< HEAD
+            String text = (String) viewRegeneradorPanel.getFieldTempSai().getSelectedItem();
+            value = Double.parseDouble(text);
+=======
             String text = viewRegeneradorPanel.getFieldTempSai().getSelectedItem().toString();
             value = Double.valueOf(text);
+>>>>>>> master
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
             return;
@@ -210,10 +232,19 @@ public class ControlRegeneradorPanelRankine {
     }
     
     public void atualizaPressaoEntrada(){ 
+        if(viewRegeneradorPanel.getFieldPressaoEntr().getSelectedItem().equals("")){
+            return;
+        }
+        
         Double value = null;
         try{          
+<<<<<<< HEAD
+            String text = (String) viewRegeneradorPanel.getFieldPressaoEntr().getSelectedItem();
+            value = Double.parseDouble(text);
+=======
             String text = viewRegeneradorPanel.getFieldPressaoEntr().getSelectedItem().toString();
             value = Double.valueOf(text);
+>>>>>>> master
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
             return;
@@ -259,10 +290,19 @@ public class ControlRegeneradorPanelRankine {
     }
     
     public void atualizaPressaoSaida(){  
+        if(viewRegeneradorPanel.getFieldPressaoSai().getSelectedItem().equals("")){
+            return;
+        }
+        
         Double value = null;
         try{          
+<<<<<<< HEAD
+            String text = (String) viewRegeneradorPanel.getFieldPressaoSai().getSelectedItem();
+            value = Double.parseDouble(text);
+=======
             String text = viewRegeneradorPanel.getFieldPressaoSai().getSelectedItem().toString();
             value = Double.valueOf(text);
+>>>>>>> master
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
             return;
@@ -307,11 +347,20 @@ public class ControlRegeneradorPanelRankine {
         tx.commit();        
     }
       
-    public void atualizaDeltaPressao(){       
+    public void atualizaDeltaPressao(){ 
+        if(viewRegeneradorPanel.getFieldDelta().getSelectedItem().equals("")){
+            return;
+        }
+        
         Double value = null;
         try{          
+<<<<<<< HEAD
+            String text = (String) viewRegeneradorPanel.getFieldDelta().getSelectedItem();
+            value = Double.parseDouble(text);
+=======
             String text = viewRegeneradorPanel.getFieldDelta().getSelectedItem().toString();
             value = Double.valueOf(text);
+>>>>>>> master
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
             return;
@@ -356,11 +405,20 @@ public class ControlRegeneradorPanelRankine {
         tx.commit();        
     }
     
-    public void atualizaEfetividade(){    
+    public void atualizaEfetividade(){ 
+        if(viewRegeneradorPanel.getFieldEfetiv().getSelectedItem().equals("")){
+            return;
+        }
+        
         Double value = null;
         try{          
+<<<<<<< HEAD
+            String text = (String) viewRegeneradorPanel.getFieldEfetiv().getSelectedItem();
+            value = Double.parseDouble(text);
+=======
             String text = viewRegeneradorPanel.getFieldEfetiv().getSelectedItem().toString();
             value = Double.valueOf(text);
+>>>>>>> master
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
             return;
