@@ -15,6 +15,7 @@ import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import org.hibernate.Session;
 
 /**
  *
@@ -23,10 +24,12 @@ import javax.swing.JPanel;
 public class ViewCondensadorImage extends JPanel{
     
     private ControlPrincipal ctrlPrincipal;
+    private Session session;
     
     //CONSTRUTOR DO CONDENSADOR
-    public ViewCondensadorImage(ControlPrincipal ctrlPrincipal, int ciclo){
+    public ViewCondensadorImage(ControlPrincipal ctrlPrincipal, int ciclo, Session session){
         this.ctrlPrincipal = ctrlPrincipal;
+        this.session = session;
     
         this.setName("Condensador");
         
@@ -70,7 +73,7 @@ public class ViewCondensadorImage extends JPanel{
                 }else{
                     //CASO O CICLO SEJA O SEGUNDO CHAMA A CLASSE VIEWCONDENSADORPANELKCS
                     if(ciclo == 2){
-                        ControlCondensadorPanelRankine Condensador = new ControlCondensadorPanelRankine(ViewCondensadorImage.this.ctrlPrincipal);
+                        ControlCondensadorPanelRankine Condensador = new ControlCondensadorPanelRankine(ViewCondensadorImage.this.ctrlPrincipal, ViewCondensadorImage.this.session);
                         Condensador.getViewCondensador().setPreferredSize(new Dimension(x, y));
                         ViewCondensadorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().addTab("Condensador", null, Condensador.getViewCondensador());
                         ViewCondensadorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().setSelectedComponent(Condensador.getViewCondensador());

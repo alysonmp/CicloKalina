@@ -30,7 +30,7 @@ public class ControlCondensadorPanelRankine {
     private Session session;
     private ControlPrincipal ctrlPrincipal;
     
-    public ControlCondensadorPanelRankine(ControlPrincipal ctrlPrincipal){
+    public ControlCondensadorPanelRankine(ControlPrincipal ctrlPrincipal, Session session){
         this.session = session;
         viewCondensador = new ViewCondensadorPanelRankine(this);
         this.ctrlPrincipal = ctrlPrincipal;
@@ -45,6 +45,10 @@ public class ControlCondensadorPanelRankine {
     }
     
     public void atualizaMassa(){
+        if(viewCondensador.getFieldMassa().getSelectedItem().equals("")){
+            return;
+        }
+        
         Vector valores = new Vector();
         
         Criteria cr = this.session.createCriteria(ModelMassa.class);
@@ -89,6 +93,10 @@ public class ControlCondensadorPanelRankine {
     }
 
     public void atualizaTempEntrada() {
+        if(viewCondensador.getFieldTempEntr().getSelectedItem().equals("")){
+            return;
+        }
+        
         Vector valores = new Vector();
         
         Criteria cr = this.session.createCriteria(ModelCondensador.class);
@@ -132,6 +140,10 @@ public class ControlCondensadorPanelRankine {
     }
 
     public void atualizaTempSaida() {
+        if(viewCondensador.getFieldTempSai().getSelectedItem().equals("")){
+            return;
+        }
+        
         Vector valores = new Vector();
         
         Criteria cr = this.session.createCriteria(ModelCondensador.class);
@@ -175,6 +187,10 @@ public class ControlCondensadorPanelRankine {
     }
 
     public void atualizaPressaoEntrada() {
+        if(viewCondensador.getFieldPressaoEntr().getSelectedItem().equals("")){
+            return;
+        }
+        
         Vector valores = new Vector();
         
         Criteria cr = this.session.createCriteria(ModelCondensador.class);
@@ -218,6 +234,10 @@ public class ControlCondensadorPanelRankine {
     }
 
     public void atualizaPressaoSaida() {
+        if(viewCondensador.getFieldPressaoSai().getSelectedItem().equals("")){
+            return;
+        }
+        
         Vector valores = new Vector();
         
         Criteria cr = this.session.createCriteria(ModelCondensador.class);
@@ -261,6 +281,10 @@ public class ControlCondensadorPanelRankine {
     }
 
     public void atualizaTempCond() {
+        if(viewCondensador.getFieldTempCond().getSelectedItem().equals("")){
+            return;
+        }
+        
         Vector valores = new Vector();
         
         Criteria cr = this.session.createCriteria(ModelCondensador.class);
@@ -304,6 +328,10 @@ public class ControlCondensadorPanelRankine {
     }
 
     public void atualizaDelta() {
+        if(viewCondensador.getFieldDelta().getSelectedItem().equals("")){
+            return;
+        }
+        
         Vector valores = new Vector();
         
         Criteria cr = this.session.createCriteria(ModelCondensador.class);

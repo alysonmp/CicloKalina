@@ -86,6 +86,7 @@ public class ViewCondensadorPanelRankine extends JPanel{
         
         //this.setLayout(new FlowLayout(FlowLayout.LEADING));
         this.setLayout(new GridBagLayout());
+        this.setName("Condensador");
         //this.setBorder(BorderFactory.createLineBorder(Color.black, 1));
         
         GridBagConstraints g = new GridBagConstraints();
@@ -240,12 +241,12 @@ public class ViewCondensadorPanelRankine extends JPanel{
                 //fieldMassa.setBackground(Color.white);
                 fieldMassa.showPopup();
                 fieldMassa.getEditor().selectAll();
-                ViewCondensadorPanelRankine.this.ctrlCondensador.getCtrlPrincipal().ajustaMassa(fieldMassa.getSelectedItem().toString());
             }
 
             @Override
             public void focusLost(FocusEvent e) {
                 ctrlCondensador.atualizaMassa();
+                ViewCondensadorPanelRankine.this.ctrlCondensador.getCtrlPrincipal().ajustaMassa(fieldMassa.getSelectedItem().toString());
             }
         });
         fieldMassa.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
