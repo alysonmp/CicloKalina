@@ -6,7 +6,7 @@
 package Control.TabelaFluidos;
 
 import Model.Ciclo2.ModelFluidos;
-import Model.TabelasFluidos.ModelHexane;
+import Model.TabelasFluidos.ModelHexaneGas;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -23,25 +23,25 @@ import org.hibernate.transform.Transformers;
  *
  * @author alysonmp
  */
-public class ControlHexane {
+public class ControlHexaneGas {
     
     Session session;
     private double kv, Cpv, Prv, Muv, Vcv;
     private double cpv1, cpv2, Prv1, Prv2, kv1, kv2, Muv1, Muv2, Vcv1, Vcv2;
     
-    public ControlHexane(Session session){
+    public ControlHexaneGas(Session session){
         this.session = session;
     }
     
     public void criaTabelaHexane(){
-        String csvFile = "src/Csv/Hexane_gas.csv";
+        String csvFile = "src/Csv/HEXANE_gas.csv";
         BufferedReader br = null;
         String line = "";
         String cvsSplitBy = ";";
         this.session = session;
         
         try {
-            Criteria cr = this.session.createCriteria(ModelHexane.class);
+            Criteria cr = this.session.createCriteria(ModelHexaneGas.class);
             List results = cr.list();
             
             if(results.isEmpty()){
@@ -53,7 +53,7 @@ public class ControlHexane {
                     // use comma as separator
                     String[] hexane = line.split(cvsSplitBy);
 
-                    session.save(new ModelHexane(Double.parseDouble(hexane[0]), Double.parseDouble(hexane[1]), Double.parseDouble(hexane[2]), Double.parseDouble(hexane[3]), Double.parseDouble(hexane[4]), Double.parseDouble(hexane[5]), Double.parseDouble(hexane[6])));
+                    session.save(new ModelHexaneGas(Double.parseDouble(hexane[0]), Double.parseDouble(hexane[1]), Double.parseDouble(hexane[2]), Double.parseDouble(hexane[3]), Double.parseDouble(hexane[4]), Double.parseDouble(hexane[5]), Double.parseDouble(hexane[6])));
                 }
                 
                 tx.commit();
@@ -75,31 +75,31 @@ public class ControlHexane {
     }
     
     public void interpolacaoHexane(double pressao, double temperatura){
-        Criteria cr = this.session.createCriteria(ModelHexane.class);
+        Criteria cr = this.session.createCriteria(ModelHexaneGas.class);
         
-        SQLQuery consulta = this.session.createSQLQuery("select * from Hexane where pressao <= " +pressao+ " and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
+        SQLQuery consulta = this.session.createSQLQuery("select * from Hexane_gas where pressao <= " +pressao+ " and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
         
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelHexane.class));//Sem isso aqui impossível de retornar
-	List<ModelHexane> hexanes = consulta.list(); 
-        ModelHexane hexane1 = hexanes.get(0);
+        consulta.setResultTransformer(Transformers.aliasToBean(ModelHexaneGas.class));
+	List<ModelHexaneGas> hexanes = consulta.list(); 
+        ModelHexaneGas hexane1 = hexanes.get(0);
         
-        consulta = this.session.createSQLQuery("select * from Hexane where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
+        consulta = this.session.createSQLQuery("select * from Hexane_gas where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
         
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelHexane.class));//Sem isso aqui impossível de retornar
+        consulta.setResultTransformer(Transformers.aliasToBean(ModelHexaneGas.class));
 	hexanes = consulta.list(); 
-        ModelHexane hexane2 = hexanes.get(0);
+        ModelHexaneGas hexane2 = hexanes.get(0);
         
-        consulta = this.session.createSQLQuery("select * from Hexane where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC FETCH FIRST 1 ROWS ONLY");
+        consulta = this.session.createSQLQuery("select * from Hexane_gas where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC FETCH FIRST 1 ROWS ONLY");
         
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelHexane.class));//Sem isso aqui impossível de retornar
+        consulta.setResultTransformer(Transformers.aliasToBean(ModelHexaneGas.class));
 	hexanes = consulta.list(); 
-        ModelHexane hexane3 = hexanes.get(0);
+        ModelHexaneGas hexane3 = hexanes.get(0);
         
-        consulta = this.session.createSQLQuery("select * from Hexane where pressao >= " +pressao+ " and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
+        consulta = this.session.createSQLQuery("select * from Hexane_gas where pressao >= " +pressao+ " and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
         
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelHexane.class));//Sem isso aqui impossível de retornar
+        consulta.setResultTransformer(Transformers.aliasToBean(ModelHexaneGas.class));
 	hexanes = consulta.list(); 
-        ModelHexane hexane4 = hexanes.get(0);
+        ModelHexaneGas hexane4 = hexanes.get(0);
         
         cpv1 = hexane1.getCPV() + (hexane2.getCPV() - hexane1.getCPV()) * ((temperatura-hexane1.getTEMPERATURA())/(hexane2.getTEMPERATURA()-hexane1.getTEMPERATURA()));
         cpv2 = hexane3.getCPV() + (hexane4.getCPV() - hexane3.getCPV()) * ((temperatura-hexane3.getTEMPERATURA())/(hexane4.getTEMPERATURA()-hexane3.getTEMPERATURA()));
@@ -120,6 +120,12 @@ public class ControlHexane {
         Vcv1 = hexane1.getVCV() + (hexane2.getVCV() - hexane1.getVCV()) * ((temperatura-hexane1.getTEMPERATURA())/(hexane2.getTEMPERATURA()-hexane1.getTEMPERATURA()));
         Vcv2 = hexane3.getVCV() + (hexane4.getVCV() - hexane3.getVCV()) * ((temperatura-hexane3.getTEMPERATURA())/(hexane4.getTEMPERATURA()-hexane3.getTEMPERATURA()));
         Vcv = Vcv1 + (Vcv2 - Vcv1) * ((pressao-hexane1.getPRESSAO())/(hexane3.getPRESSAO()-hexane1.getPRESSAO()));
+        
+        System.out.println("cpv = "+Cpv);
+        System.out.println("prv = "+Prv);
+        System.out.println("kv = "+kv);
+        System.out.println("muv = "+Muv);
+        System.out.println("vcv = "+Vcv);
     }
 
     public double getKv() {

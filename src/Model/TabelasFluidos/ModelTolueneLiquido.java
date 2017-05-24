@@ -17,8 +17,8 @@ import javax.persistence.Table;
  * @author alysonmp
  */
 @Entity
-@Table(name = "water_liquido")
-public class ModelWaterLiquido implements Serializable{
+@Table(name = "toluene_liquido")
+public class ModelTolueneLiquido implements Serializable{
     
     @Id
     @GeneratedValue
@@ -36,14 +36,14 @@ public class ModelWaterLiquido implements Serializable{
     @Column
     private double Prl;
 
-    public ModelWaterLiquido(double pressao, double temperatura, double Cpl, double Prl) {
+    public ModelTolueneLiquido(double pressao, double temperatura, double Cpl, double Prl) {
         this.pressao = pressao;
         this.temperatura = temperatura;
         this.Cpl = Cpl;
         this.Prl = Prl;
     }
 
-    public ModelWaterLiquido() {
+    public ModelTolueneLiquido() {
     }
 
     public int getID() {
