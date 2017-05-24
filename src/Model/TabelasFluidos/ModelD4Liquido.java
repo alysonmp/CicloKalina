@@ -12,7 +12,7 @@ import javax.persistence.Table;
  * @author leonardo
  */
 @Entity
-@Table(name = "D4")
+@Table(name = "d4_liquido")
 public class ModelD4Liquido implements Serializable{
     
     @Id
@@ -26,19 +26,19 @@ public class ModelD4Liquido implements Serializable{
     private double temperatura;
     
     @Column
-    private double variavel1;
+    private double Cpl;
     
     @Column
-    private double variavel2;
+    private double Prl;
 
     public ModelD4Liquido() {
     }
     
-    public ModelD4Liquido(double pressao, double temperatura, double variavel1, double variavel2) {
+    public ModelD4Liquido(double pressao, double temperatura, double Cpl, double Prl) {
         this.pressao = pressao;
         this.temperatura = temperatura;
-        this.variavel1 = variavel1;
-        this.variavel2 = variavel2;
+        this.Cpl = Cpl;
+        this.Prl = Prl;
     }
 
     public int getID() {
@@ -65,19 +65,20 @@ public class ModelD4Liquido implements Serializable{
         this.temperatura = temperatura;
     }
 
-    public double getVARIAVEL1() {
-        return variavel1;
+    public double getCPL() {
+        return Cpl;
     }
 
-    public void setVARIAVEL1(double variavel1) {
-        this.variavel1 = variavel1;
+    public void setCPL(double Cpl) {
+        this.Cpl = Cpl;
     }
 
-    public double getVARIAVEL2() {
-        return variavel2;
+    public double getPRL() {
+        return Prl;
     }
 
-    public void setVARIAVEL2(double variavel1) {
-        this.variavel2 = variavel1;
+    public void setPRL(double Prl) {
+        this.Prl = Prl;
     }
+    
 }

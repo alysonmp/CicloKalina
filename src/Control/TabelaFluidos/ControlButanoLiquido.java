@@ -7,7 +7,6 @@ package Control.TabelaFluidos;
 
 import Model.Ciclo2.ModelFluidos;
 import Model.TabelasFluidos.ModelButanoLiquido;
-import Model.TabelasFluidos.ModelHexane;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -27,14 +26,14 @@ import org.hibernate.transform.Transformers;
 public class ControlButanoLiquido {
     
     Session session;
-    private double variavel1, variavel2;
-    private double variavel11, variavel12, variavel21, variavel22;
+    private double Cpl, Prl;
+    private double Cpl1, Cpl2, Prl1, Prl2;
     
     public ControlButanoLiquido(Session session){
         this.session = session;
     }
     
-    public void criaTabelaButano(){
+    public void criaTabelaButanoLiquido(){
         String csvFile = "src/Csv/Butano_liquido.csv";
         BufferedReader br = null;
         String line = "";
@@ -76,44 +75,45 @@ public class ControlButanoLiquido {
         }
     }
     
-    public void interpolacaoButano(double pressao, double temperatura){
+    public void interpolacaoButanoLiquido(double pressao, double temperatura){
         Criteria cr = this.session.createCriteria(ModelButanoLiquido.class);
-        //cr = this.session.createCriteria(ModelHexane.class);
         
-        SQLQuery consulta = this.session.createSQLQuery("select * from Hexane where pressao <= " +pressao+ "and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
+        SQLQuery consulta = this.session.createSQLQuery("select * from butano_liquido where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
         
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelHexane.class));//Sem isso aqui impossível de retornar
-	List<ModelButanoLiquido> hexanes = consulta.list(); 
-        ModelButanoLiquido hexane1 = hexanes.get(0);
+        consulta.setResultTransformer(Transformers.aliasToBean(ModelButanoLiquido.class));//Sem isso aqui impossível de retornar
+	List<ModelButanoLiquido> butano_l = consulta.list(); 
+        ModelButanoLiquido butano_l1 = butano_l.get(0);
         
-        consulta = this.session.createSQLQuery("select * from Hexane where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
+        consulta = this.session.createSQLQuery("select * from butano_liquido where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
         
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelHexane.class));//Sem isso aqui impossível de retornar
-	hexanes = consulta.list(); 
-        ModelButanoLiquido hexane2 = hexanes.get(0);
+        consulta.setResultTransformer(Transformers.aliasToBean(ModelButanoLiquido.class));//Sem isso aqui impossível de retornar
+	butano_l = consulta.list(); 
+        ModelButanoLiquido butano_l2 = butano_l.get(0);
         
-        consulta = this.session.createSQLQuery("select * from Hexane where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
+        consulta = this.session.createSQLQuery("select * from butano_liquido where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
         
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelHexane.class));//Sem isso aqui impossível de retornar
-	hexanes = consulta.list(); 
-        ModelButanoLiquido hexane3 = hexanes.get(0);
+        consulta.setResultTransformer(Transformers.aliasToBean(ModelButanoLiquido.class));//Sem isso aqui impossível de retornar
+	butano_l = consulta.list(); 
+        ModelButanoLiquido butano_l3 = butano_l.get(0);
         
-        consulta = this.session.createSQLQuery("select * from Hexane where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
+        consulta = this.session.createSQLQuery("select * from butano_liquido where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
         
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelHexane.class));//Sem isso aqui impossível de retornar
-	hexanes = consulta.list(); 
-        ModelButanoLiquido hexane4 = hexanes.get(0);
+        consulta.setResultTransformer(Transformers.aliasToBean(ModelButanoLiquido.class));//Sem isso aqui impossível de retornar
+	butano_l = consulta.list(); 
+        ModelButanoLiquido butano_l4 = butano_l.get(0);
         
-        variavel11 = hexane1.getVARIAVEL1()+ (hexane2.getVARIAVEL1()- hexane1.getVARIAVEL1()) * ((temperatura-hexane1.getTEMPERATURA())/(hexane2.getTEMPERATURA()-hexane1.getTEMPERATURA()));
-        variavel12 = hexane3.getVARIAVEL1()+ (hexane4.getVARIAVEL1()- hexane3.getVARIAVEL1()) * ((temperatura-hexane3.getTEMPERATURA())/(hexane4.getTEMPERATURA()-hexane3.getTEMPERATURA()));
-        variavel1 = variavel11 + (variavel12 - variavel11) * ((pressao-hexane1.getPRESSAO())/(hexane3.getPRESSAO()-hexane1.getPRESSAO()));
+        double p1 = ((pressao - butano_l1.getPRESSAO())/(butano_l2.getPRESSAO() - butano_l1.getPRESSAO()));
+        double p2 = ((pressao - butano_l3.getPRESSAO())/(butano_l4.getPRESSAO() - butano_l3.getPRESSAO()));
+        double t1 = ((temperatura - butano_l1.getTEMPERATURA())/(butano_l2.getTEMPERATURA() - butano_l1.getTEMPERATURA()));
+        double t2 = ((temperatura - butano_l3.getTEMPERATURA())/(butano_l4.getTEMPERATURA() - butano_l3.getTEMPERATURA()));
         
-        variavel21 = hexane1.getVARIAVEL1()+ (hexane2.getVARIAVEL1()- hexane1.getVARIAVEL1()) * ((temperatura-hexane1.getTEMPERATURA())/(hexane2.getTEMPERATURA()-hexane1.getTEMPERATURA()));
-        variavel22 = hexane3.getVARIAVEL1()+ (hexane4.getVARIAVEL1()- hexane3.getVARIAVEL1()) * ((temperatura-hexane3.getTEMPERATURA())/(hexane4.getTEMPERATURA()-hexane3.getTEMPERATURA()));
-        variavel2 = variavel21 + (variavel22 - variavel21) * ((pressao-hexane1.getPRESSAO())/(hexane3.getPRESSAO()-hexane1.getPRESSAO()));
+        Cpl1 = butano_l1.getCPL()+ (butano_l2.getCPL()- butano_l1.getCPL()) * t1;
+        Cpl2 = butano_l3.getCPL()+ (butano_l4.getCPL()- butano_l3.getCPL()) * t2;
+        Cpl = Cpl1 + (Cpl2 - Cpl1) * p1;
         
-        System.out.println(variavel1);
-        System.out.println(variavel2);
+        Prl1 = butano_l1.getPRL()+ (butano_l2.getPRL()- butano_l1.getPRL()) * t1;
+        Prl2 = butano_l3.getPRL()+ (butano_l4.getPRL()- butano_l3.getPRL()) * t2;
+        Prl = Prl1 + (Prl2 - Prl1) * p2;
     }
     
 }

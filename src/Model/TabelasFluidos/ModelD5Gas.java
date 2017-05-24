@@ -5,7 +5,6 @@
  */
 package Model.TabelasFluidos;
 
-import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,9 +16,8 @@ import javax.persistence.Table;
  * @author leonardo
  */
 @Entity
-@Table(name = "butano_gas")
-public class ModelButanoGas implements Serializable{
-
+@Table(name = "d5_gas")
+public class ModelD5Gas {
     @Id
     @GeneratedValue
     private int ID;
@@ -45,10 +43,10 @@ public class ModelButanoGas implements Serializable{
     @Column
     private double Vcv;
     
-    public ModelButanoGas() {
+    public ModelD5Gas() {
     }
 
-    public ModelButanoGas(double pressao, double temperatura, double kv, double Cpv, double Prv, double Muv) {
+    public ModelD5Gas(double pressao, double temperatura, double kv, double Cpv, double Prv, double Muv) {
         this.pressao = pressao;
         this.temperatura = temperatura;
         this.kv = kv;

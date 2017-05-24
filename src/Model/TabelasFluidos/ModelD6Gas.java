@@ -16,10 +16,10 @@ import javax.persistence.Table;
  *
  * @author leonardo
  */
-@Entity
-@Table(name = "butano_gas")
-public class ModelButanoGas implements Serializable{
 
+@Entity
+@Table(name = "d6_gas")
+public class ModelD6Gas implements Serializable{
     @Id
     @GeneratedValue
     private int ID;
@@ -45,10 +45,10 @@ public class ModelButanoGas implements Serializable{
     @Column
     private double Vcv;
     
-    public ModelButanoGas() {
+    public ModelD6Gas() {
     }
 
-    public ModelButanoGas(double pressao, double temperatura, double kv, double Cpv, double Prv, double Muv) {
+    public ModelD6Gas(double pressao, double temperatura, double kv, double Cpv, double Prv, double Muv) {
         this.pressao = pressao;
         this.temperatura = temperatura;
         this.kv = kv;
