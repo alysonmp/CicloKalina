@@ -76,6 +76,7 @@ public class ViewEvaporadorPanelRankine extends JPanel{
         
         //this.setLayout(new FlowLayout(FlowLayout.LEADING));
         this.setLayout(new GridBagLayout());
+        this.setName("Evaporador");
         //this.setBorder(BorderFactory.createLineBorder(Color.black, 1));
         
         GridBagConstraints g = new GridBagConstraints();

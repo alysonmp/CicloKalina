@@ -42,6 +42,10 @@ public class ControlBombaPanelRankine {
     }
     
     public void atualizaMassa(){
+        if(viewBomba.getFieldMassa().getSelectedItem().equals("")){
+            return;
+        }
+        
         Vector valores = new Vector();
         
         Criteria cr = this.session.createCriteria(ModelMassa.class);
@@ -86,6 +90,10 @@ public class ControlBombaPanelRankine {
     }
 
     public void atualizaTempEntrada() {
+        if(viewBomba.getFieldTempEntr().getSelectedItem().equals("")){
+            return;
+        }
+        
         Vector valores = new Vector();
         
         Criteria cr = this.session.createCriteria(ModelBomba.class);
@@ -129,6 +137,10 @@ public class ControlBombaPanelRankine {
     }
 
     public void atualizaTempSaida() {
+        if(viewBomba.getFieldTempSai().getSelectedItem().equals("")){
+            return;
+        }
+        
         Vector valores = new Vector();
         
         Criteria cr = this.session.createCriteria(ModelBomba.class);
@@ -172,6 +184,10 @@ public class ControlBombaPanelRankine {
     }
 
     public void atualizaPressaoEntrada() {
+        if(viewBomba.getFieldPressaoEntr().getSelectedItem().equals("")){
+            return;
+        }
+        
         Vector valores = new Vector();
         
         Criteria cr = this.session.createCriteria(ModelBomba.class);
@@ -215,6 +231,10 @@ public class ControlBombaPanelRankine {
     }
 
     public void atualizaPressaoSaida() {
+        if(viewBomba.getFieldPressaoSai().getSelectedItem().equals("")){
+            return;
+        }
+        
         Vector valores = new Vector();
         
         Criteria cr = this.session.createCriteria(ModelBomba.class);
@@ -258,6 +278,10 @@ public class ControlBombaPanelRankine {
     }
 
     public void atualizaEficiencia() {
+        if(viewBomba.getFieldEfic().getSelectedItem().equals("")){
+            return;
+        }
+        
         Vector valores = new Vector();
         
         Criteria cr = this.session.createCriteria(ModelBomba.class);

@@ -80,6 +80,7 @@ public class ViewBombaPanelRankine extends JPanel{
         
         //this.setLayout(new FlowLayout(FlowLayout.LEADING));
         this.setLayout(new GridBagLayout());
+        this.setName("Bomba");
         //this.setBorder(BorderFactory.createLineBorder(Color.black, 1));
         
         GridBagConstraints g = new GridBagConstraints();

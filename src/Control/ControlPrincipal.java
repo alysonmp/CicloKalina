@@ -14,6 +14,7 @@ import Control.Ciclo2.ControlTSaida;
 import Control.TabelaFluidos.ControlButanoLiquido;
 import Control.TabelaFluidos.ControlHexane;
 import Model.Ciclo2.ModelFluidos;
+import Model.Ciclo2.ModelMassa;
 import Model.ModelConstantesMat;
 import Model.ModelLinear;
 import Model.ModelQfpso;
@@ -187,7 +188,7 @@ public class ControlPrincipal {
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.13), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.166), 
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.075), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.15));
         
-        criaPanel(new ViewCondensadorImage(this, 1), 
+        criaPanel(new ViewCondensadorImage(this, 1, session), 
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.285), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.725), 
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.07), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.15));
         
@@ -233,7 +234,7 @@ public class ControlPrincipal {
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.15), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.148), 
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.055), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.16));
         
-        criaPanel(new ViewCondensadorImage(this, 2), 
+        criaPanel(new ViewCondensadorImage(this, 2, session), 
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.275), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.61), 
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.075), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.11));
         
@@ -257,32 +258,43 @@ public class ControlPrincipal {
     public void ajustaMassa(String valor) {
         Component[] components = viewPrincipal.getTabbedPanel().getComponents();
         for(Component c: components){
+            System.out.println(c);
             switch(c.getName()){
                 case "Evaporador":
                     ViewEvaporadorPanelRankine painelE = (ViewEvaporadorPanelRankine)c;
-                    //painelE.getFieldMassa().get;
+                    painelE.getFieldMassa().setSelectedItem(valor);
                     break;
                 
                 case "Condensador":
                     ViewCondensadorPanelRankine painelC = (ViewCondensadorPanelRankine)c;
-                    painelC.getFieldMassa();
+                    painelC.getFieldMassa().setSelectedItem(valor);
                     break;
                     
                 case "Bomba":
                     ViewBombaPanelRankine painelB = (ViewBombaPanelRankine)c;
-                    painelB.getFieldMassa();
+                    painelB.getFieldMassa().setSelectedItem(valor);
                     break;
                     
-                case "Separador":
+                case "Regenerador":
                     ViewRegeneradorPanelRankine painelR = (ViewRegeneradorPanelRankine)c;
-                    painelR.getFieldMassa();
+                    painelR.getFieldMassa().setSelectedItem(valor);
                     break;
                     
                 case "Turbina":
                     ViewTurbinaPanelRankine painelT = (ViewTurbinaPanelRankine)c;
-                    painelT.getFieldMassa();
+                    painelT.getFieldMassa().setSelectedItem(valor);
                     break;
             }
+            
+            Transaction tx = this.session.beginTransaction();
+            Criteria cr = this.session.createCriteria(ModelMassa.class);
+            List result = cr.list();
+            
+            ModelMassa massa = (ModelMassa)result.get(0);
+            massa.setMassa(Double.parseDouble(valor));
+            session.saveOrUpdate(massa);
+            
+            tx.commit();
         }
     }
     

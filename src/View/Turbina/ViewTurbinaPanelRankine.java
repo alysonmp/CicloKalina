@@ -83,6 +83,7 @@ public class ViewTurbinaPanelRankine extends JPanel{
         
         //this.setLayout(new FlowLayout(FlowLayout.LEADING));
         this.setLayout(new GridBagLayout());
+        this.setName("Turbina");
         //this.setBorder(BorderFactory.createLineBorder(Color.black, 1));
         
         GridBagConstraints g = new GridBagConstraints();
@@ -386,7 +387,7 @@ public class ViewTurbinaPanelRankine extends JPanel{
         fieldMassa.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
-                fieldMassa.selectAll();
+                fieldMassa.getEditor().selectAll();
             }
 
             @Override
