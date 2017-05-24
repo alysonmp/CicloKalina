@@ -120,13 +120,8 @@ public class ControlTurbinaPanelRankine {
         
         Double value = null;
         try{          
-<<<<<<< HEAD
-            String text = (String) viewTurbinaPanel.getFieldTempEntr().getSelectedItem();
-            value = Double.parseDouble(text);
-=======
             String text = viewTurbinaPanel.getFieldTempEntr().getSelectedItem().toString();
-            value = Double.valueOf(text);
->>>>>>> master
+            value = Double.parseDouble(text);
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
             return;
@@ -178,13 +173,8 @@ public class ControlTurbinaPanelRankine {
         
         Double value = null;
         try{          
-<<<<<<< HEAD
-            String text = (String) viewTurbinaPanel.getFieldPressaoSai().getSelectedItem();
-            value = Double.parseDouble(text);
-=======
             String text = viewTurbinaPanel.getFieldPressaoSai().getSelectedItem().toString();
-            value = Double.valueOf(text);
->>>>>>> master
+            value = Double.parseDouble(text);
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
             return;
@@ -236,13 +226,8 @@ public class ControlTurbinaPanelRankine {
         
         Double value = null;
         try{          
-<<<<<<< HEAD
-            String text = (String) viewTurbinaPanel.getFieldPressaoEntr().getSelectedItem();
-            value = Double.parseDouble(text);
-=======
             String text = viewTurbinaPanel.getFieldPressaoEntr().getSelectedItem().toString();
-            value = Double.valueOf(text);
->>>>>>> master
+            value = Double.parseDouble(text);
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
             return;
@@ -294,13 +279,8 @@ public class ControlTurbinaPanelRankine {
         
         Double value = null;
         try{          
-<<<<<<< HEAD
-            String text = (String) viewTurbinaPanel.getFieldPressaoSai().getSelectedItem();
-            value = Double.parseDouble(text);
-=======
             String text = viewTurbinaPanel.getFieldPressaoSai().getSelectedItem().toString();
-            value = Double.valueOf(text);
->>>>>>> master
+            value = Double.parseDouble(text);
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
             return;
@@ -352,13 +332,8 @@ public class ControlTurbinaPanelRankine {
         
         Double value = null;
         try{          
-<<<<<<< HEAD
-            String text = (String) viewTurbinaPanel.getFieldEfici().getSelectedItem();
-            value = Double.parseDouble(text);
-=======
             String text = viewTurbinaPanel.getFieldEfici().getSelectedItem().toString();
-            value = Double.valueOf(text);
->>>>>>> master
+            value = Double.parseDouble(text);
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
             return;
