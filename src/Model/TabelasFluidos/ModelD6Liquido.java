@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Model.TabelasFluidos;
 
 import java.io.Serializable;
@@ -14,12 +9,11 @@ import javax.persistence.Table;
 
 /**
  *
- * @author alysonmp
+ * @author leonardo
  */
 @Entity
-@Table(name = "butano_liquido")
-public class ModelButanoLiquido implements Serializable{
-
+@Table(name = "d6_liquido")
+public class ModelD6Liquido implements Serializable{
     @Id
     @GeneratedValue
     private int ID;
@@ -36,10 +30,10 @@ public class ModelButanoLiquido implements Serializable{
     @Column
     private double Prl;
 
-    public ModelButanoLiquido() {
+    public ModelD6Liquido() {
     }
     
-    public ModelButanoLiquido(double pressao, double temperatura, double Cpl, double Prl) {
+    public ModelD6Liquido(double pressao, double temperatura, double Cpl, double Prl) {
         this.pressao = pressao;
         this.temperatura = temperatura;
         this.Cpl = Cpl;
