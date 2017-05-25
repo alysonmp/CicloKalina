@@ -34,11 +34,10 @@ public class ControlButanoLiquido {
     }
     
     public void criaTabelaButanoLiquido(){
-        String csvFile = "src/Csv/Butano_liquido.csv";
+        String csvFile = "src/Csv/Butane_liquido.csv";
         BufferedReader br = null;
         String line = "";
-        String cvsSplitBy = "\t";
-        this.session = session;
+        String cvsSplitBy = ";";
         
         try {
 
@@ -46,7 +45,6 @@ public class ControlButanoLiquido {
             List results = cr.list();
             
             if(results.isEmpty()){
-                Transaction tx = session.beginTransaction();
                 br = new BufferedReader(new FileReader(csvFile));
                 line = br.readLine();
                 while ((line = br.readLine()) != null) {
@@ -56,8 +54,6 @@ public class ControlButanoLiquido {
                     
                     session.save(new ModelButanoLiquido(Double.parseDouble(butano_l[0]), Double.parseDouble(butano_l[1]), Double.parseDouble(butano_l[2]), Double.parseDouble(butano_l[3])));
                 }
-                
-                tx.commit();
             }
 
         } catch (FileNotFoundException e) {

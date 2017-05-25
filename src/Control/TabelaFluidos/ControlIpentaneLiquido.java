@@ -28,7 +28,7 @@ public class ControlIpentaneLiquido {
     private double Cpl1, Cpl2, Prl1, Prl2;
 
     public ControlIpentaneLiquido(Session session) {
-        this.session = this.session;
+        this.session = session;
     }
     
     public void criaTabelaIpentaneLiquido(){
@@ -42,7 +42,6 @@ public class ControlIpentaneLiquido {
             List results = cr.list();
             
             if(results.isEmpty()){
-                Transaction tx = session.beginTransaction();
                 br = new BufferedReader(new FileReader(csvFile));
                 line = br.readLine();
                 while((line = br.readLine()) != null){
@@ -50,7 +49,6 @@ public class ControlIpentaneLiquido {
                     
                     this.session.save(new ModelIpentaneLiquido(Double.parseDouble(ipentane_liquido[0]),Double.parseDouble(ipentane_liquido[1]),Double.parseDouble(ipentane_liquido[2]),Double.parseDouble(ipentane_liquido[3])));   
                 }
-                tx.commit();
             }
             
         }catch(FileNotFoundException e){

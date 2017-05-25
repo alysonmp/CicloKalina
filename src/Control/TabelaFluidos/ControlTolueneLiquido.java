@@ -45,7 +45,6 @@ public class ControlTolueneLiquido {
             List results = cr.list();
             
             if(results.isEmpty()){
-                Transaction tx = session.beginTransaction();
                 br = new BufferedReader(new FileReader(csvFile));
                 line = br.readLine();
                 while ((line = br.readLine()) != null) {
@@ -55,8 +54,6 @@ public class ControlTolueneLiquido {
                     
                     session.save(new ModelTolueneLiquido(Double.parseDouble(Toluene_l[0]), Double.parseDouble(Toluene_l[1]), Double.parseDouble(Toluene_l[2]), Double.parseDouble(Toluene_l[3])));
                 }
-                
-                tx.commit();
             }
 
         } catch (FileNotFoundException e) {

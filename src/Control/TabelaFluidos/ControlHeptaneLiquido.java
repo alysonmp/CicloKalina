@@ -28,7 +28,7 @@ public class ControlHeptaneLiquido {
     private double Cpl1, Cpl2, Prl1, Prl2;
 
     public ControlHeptaneLiquido(Session session) {
-        this.session = this.session;
+        this.session = session;
     }
     
     public void criaTabelaHeptaneLiquido(){
@@ -42,7 +42,6 @@ public class ControlHeptaneLiquido {
             List results = cr.list();
             
             if(results.isEmpty()){
-                Transaction tx = session.beginTransaction();
                 br = new BufferedReader(new FileReader(csvFile));
                 line = br.readLine();
                 while((line = br.readLine()) != null){
@@ -50,7 +49,6 @@ public class ControlHeptaneLiquido {
                     
                     this.session.save(new ModelHeptaneLiquido(Double.parseDouble(heptane_liquido[0]),Double.parseDouble(heptane_liquido[1]),Double.parseDouble(heptane_liquido[2]),Double.parseDouble(heptane_liquido[3])));   
                 }
-                tx.commit();
             }
             
         }catch(FileNotFoundException e){

@@ -28,7 +28,7 @@ public class ControlMD2MLiquido {
     private double Cpl1, Cpl2, Prl1, Prl2;
 
     public ControlMD2MLiquido(Session session) {
-        this.session = this.session;
+        this.session = session;
     }
     
     public void criaTabelaMD2MLiquido(){
@@ -42,7 +42,6 @@ public class ControlMD2MLiquido {
             List results = cr.list();
             
             if(results.isEmpty()){
-                Transaction tx = session.beginTransaction();
                 br = new BufferedReader(new FileReader(csvFile));
                 line = br.readLine();
                 while((line = br.readLine()) != null){
@@ -50,7 +49,6 @@ public class ControlMD2MLiquido {
                     
                     this.session.save(new ModelMD2MLiquido(Double.parseDouble(md2m_liquido[0]),Double.parseDouble(md2m_liquido[1]),Double.parseDouble(md2m_liquido[2]),Double.parseDouble(md2m_liquido[3])));   
                 }
-                tx.commit();
             }
             
         }catch(FileNotFoundException e){

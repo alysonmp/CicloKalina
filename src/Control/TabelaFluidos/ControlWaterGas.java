@@ -46,7 +46,6 @@ public class ControlWaterGas {
             List results = cr.list();
             
             if(results.isEmpty()){
-                Transaction tx = session.beginTransaction();
                 br = new BufferedReader(new FileReader(csvFile));
                 line = br.readLine();
                 while ((line = br.readLine()) != null) {
@@ -56,8 +55,6 @@ public class ControlWaterGas {
                     
                     session.save(new ModelWaterGas(Double.parseDouble(water_g[0]), Double.parseDouble(water_g[1]), Double.parseDouble(water_g[2]), Double.parseDouble(water_g[3]), Double.parseDouble(water_g[4]), Double.parseDouble(water_g[5]), Double.parseDouble(water_g[6])));
                 }
-                
-                tx.commit();
             }
 
         } catch (FileNotFoundException e) {

@@ -37,7 +37,6 @@ public class ControlButanoGas {
             List results = cr.list();
             
             if(results.isEmpty()){
-                Transaction tx = session.beginTransaction();
                 br = new BufferedReader(new FileReader(csvFile));
                 line = br.readLine();
                 while((line = br.readLine()) != null){
@@ -45,7 +44,6 @@ public class ControlButanoGas {
                     
                     this.session.save(new ModelButanoGas(Double.parseDouble(butano_g[0]),Double.parseDouble(butano_g[1]),Double.parseDouble(butano_g[2]),Double.parseDouble(butano_g[3]),Double.parseDouble(butano_g[4]),Double.parseDouble(butano_g[5])));   
                 }
-                tx.commit();
             }
             
         }catch(FileNotFoundException e){

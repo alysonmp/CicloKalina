@@ -28,7 +28,7 @@ public class ControlIsobutanLiquido {
     private double Cpl1, Cpl2, Prl1, Prl2;
 
     public ControlIsobutanLiquido(Session session) {
-        this.session = this.session;
+        this.session = session;
     }
     
     public void criaTabelaIsobutanLiquido(){
@@ -42,7 +42,6 @@ public class ControlIsobutanLiquido {
             List results = cr.list();
             
             if(results.isEmpty()){
-                Transaction tx = session.beginTransaction();
                 br = new BufferedReader(new FileReader(csvFile));
                 line = br.readLine();
                 while((line = br.readLine()) != null){
@@ -50,7 +49,6 @@ public class ControlIsobutanLiquido {
                     
                     this.session.save(new ModelIsobutanLiquido(Double.parseDouble(isobutan_liquido[0]),Double.parseDouble(isobutan_liquido[1]),Double.parseDouble(isobutan_liquido[2]),Double.parseDouble(isobutan_liquido[3])));   
                 }
-                tx.commit();
             }
             
         }catch(FileNotFoundException e){
