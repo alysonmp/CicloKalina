@@ -44,7 +44,6 @@ public class ControlR11Liquido {
             List results = cr.list();
             
             if(results.isEmpty()){
-                Transaction tx = session.beginTransaction();
                 br = new BufferedReader(new FileReader(csvFile));
                 line = br.readLine();
                 while ((line = br.readLine()) != null) {
@@ -54,8 +53,6 @@ public class ControlR11Liquido {
                     
                     session.save(new ModelR11Liquido(Double.parseDouble(R11_l[0]), Double.parseDouble(R11_l[1]), Double.parseDouble(R11_l[2]), Double.parseDouble(R11_l[3])));
                 }
-                
-                tx.commit();
             }
 
         } catch (FileNotFoundException e) {

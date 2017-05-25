@@ -46,7 +46,6 @@ public class ControlPentaneGas {
             List results = cr.list();
             
             if(results.isEmpty()){
-                Transaction tx = session.beginTransaction();
                 br = new BufferedReader(new FileReader(csvFile));
                 line = br.readLine();
                 while ((line = br.readLine()) != null) {
@@ -56,8 +55,6 @@ public class ControlPentaneGas {
                     
                     session.save(new ModelPentaneGas(Double.parseDouble(Pentane_g[0]), Double.parseDouble(Pentane_g[1]), Double.parseDouble(Pentane_g[2]), Double.parseDouble(Pentane_g[3]), Double.parseDouble(Pentane_g[4]), Double.parseDouble(Pentane_g[5]), Double.parseDouble(Pentane_g[6])));
                 }
-                
-                tx.commit();
             }
 
         } catch (FileNotFoundException e) {

@@ -46,7 +46,6 @@ public class ControlMDMGas {
             List results = cr.list();
             
             if(results.isEmpty()){
-                Transaction tx = session.beginTransaction();
                 br = new BufferedReader(new FileReader(csvFile));
                 line = br.readLine();
                 while ((line = br.readLine()) != null) {
@@ -56,8 +55,6 @@ public class ControlMDMGas {
                     
                     session.save(new ModelMDMGas(Double.parseDouble(MDM_g[0]), Double.parseDouble(MDM_g[1]), Double.parseDouble(MDM_g[2]), Double.parseDouble(MDM_g[3]), Double.parseDouble(MDM_g[4]), Double.parseDouble(MDM_g[5]), Double.parseDouble(MDM_g[6])));
                 }
-                
-                tx.commit();
             }
 
         } catch (FileNotFoundException e) {

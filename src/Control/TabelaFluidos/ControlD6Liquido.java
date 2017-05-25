@@ -28,7 +28,7 @@ public class ControlD6Liquido {
     private double Cpl1, Cpl2, Prl1, Prl2;
 
     public ControlD6Liquido(Session session) {
-        this.session = this.session;
+        this.session = session;
     }
     
     public void criaTabelaD6Liquido(){
@@ -42,7 +42,6 @@ public class ControlD6Liquido {
             List results = cr.list();
             
             if(results.isEmpty()){
-                Transaction tx = session.beginTransaction();
                 br = new BufferedReader(new FileReader(csvFile));
                 line = br.readLine();
                 while((line = br.readLine()) != null){
@@ -50,7 +49,6 @@ public class ControlD6Liquido {
                     
                     this.session.save(new ModelD6Liquido(Double.parseDouble(d6_liquido[0]),Double.parseDouble(d6_liquido[1]),Double.parseDouble(d6_liquido[2]),Double.parseDouble(d6_liquido[3])));   
                 }
-                tx.commit();
             }
             
         }catch(FileNotFoundException e){

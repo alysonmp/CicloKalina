@@ -23,10 +23,10 @@ public class ControlD5Liquido {
     private double Cpl1, Cpl2, Prl1, Prl2;
 
     public ControlD5Liquido(Session session) {
-        this.session = this.session;
+        this.session = session;
     }
     
-    public void criaTabelaD6Liquido(){
+    public void criaTabelaD5Liquido(){
         String csvFile = "src/Csv/D5_liquido.csv";
         BufferedReader br = null;
         String line = "";
@@ -37,7 +37,6 @@ public class ControlD5Liquido {
             List results = cr.list();
             
             if(results.isEmpty()){
-                Transaction tx = session.beginTransaction();
                 br = new BufferedReader(new FileReader(csvFile));
                 line = br.readLine();
                 while((line = br.readLine()) != null){
@@ -45,7 +44,6 @@ public class ControlD5Liquido {
                     
                     this.session.save(new ModelD5Liquido(Double.parseDouble(d5_liquido[0]),Double.parseDouble(d5_liquido[1]),Double.parseDouble(d5_liquido[2]),Double.parseDouble(d5_liquido[3])));   
                 }
-                tx.commit();
             }
             
         }catch(FileNotFoundException e){

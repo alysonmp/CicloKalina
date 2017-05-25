@@ -41,7 +41,6 @@ public class ControlIsobutanGas {
             List results = cr.list();
             
             if(results.isEmpty()){
-                Transaction tx = session.beginTransaction();
                 br = new BufferedReader(new FileReader(csvFile));
                 line = br.readLine();
                 while((line = br.readLine()) != null){
@@ -49,7 +48,6 @@ public class ControlIsobutanGas {
                     
                     this.session.save(new ModelIsobutanGas(Double.parseDouble(isobutan_gas[0]),Double.parseDouble(isobutan_gas[1]),Double.parseDouble(isobutan_gas[2]),Double.parseDouble(isobutan_gas[3]),Double.parseDouble(isobutan_gas[4]),Double.parseDouble(isobutan_gas[5])));   
                 }
-                tx.commit();
             }
             
         }catch(FileNotFoundException e){
