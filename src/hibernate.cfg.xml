@@ -60,6 +60,7 @@ Contributor(s):
     <mapping class="Model.ModelLinear"/>
     <mapping class="Model.ModelQfpso"/>
     <mapping class="Model.TabelasFluidos.ModelButanoLiquido"/>
+    <mapping class="Model.TabelasFluidos.ModelButanoGas"/>
     <mapping class="Model.TabelasFluidos.ModelHexaneGas"/>
     <mapping class="Model.TabelasFluidos.ModelWaterGas"/>
     <mapping class="Model.TabelasFluidos.ModelWaterLiquido"/>
@@ -94,5 +95,21 @@ Contributor(s):
     <mapping class="Model.TabelasFluidos.ModelMDMGas"/>
     <mapping class="Model.TabelasFluidos.ModelMD4MLiquido"/>
     <mapping class="Model.TabelasFluidos.ModelMD4MGas"/>
+    <mapping class="Model.TabelasFluidos.ModelButanoGas"/>
+    <mapping class="Model.TabelasFluidos.ModelD4Gas"/>
+    <mapping class="Model.TabelasFluidos.ModelD4Liquido"/>
+    <mapping class="Model.TabelasFluidos.ModelD5Gas"/>
+    <mapping class="Model.TabelasFluidos.ModelD5Liquido"/>
+    <mapping class="Model.TabelasFluidos.ModelD6Gas"/>
+    <mapping class="Model.TabelasFluidos.ModelD6Liquido"/>
+    <mapping class="Model.TabelasFluidos.ModelHeptaneGas"/>
+    <mapping class="Model.TabelasFluidos.ModelHeptaneLiquido"/>
+    <mapping class="Model.TabelasFluidos.ModelHexaneLiquido"/>
+    <mapping class="Model.TabelasFluidos.ModelIpentaneGas"/>
+    <mapping class="Model.TabelasFluidos.ModelIpentaneLiquido"/>
+    <mapping class="Model.TabelasFluidos.ModelIsobutanGas"/>
+    <mapping class="Model.TabelasFluidos.ModelIsobutanLiquido"/>
+    <mapping class="Model.TabelasFluidos.ModelMD2MGas"/>
+    <mapping class="Model.TabelasFluidos.ModelMD2MLiquido"/>
   </session-factory>
 </hibernate-configuration>

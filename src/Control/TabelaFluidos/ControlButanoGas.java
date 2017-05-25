@@ -19,9 +19,8 @@ import org.hibernate.transform.Transformers;
 public class ControlButanoGas {
     
     private Session session;
-    private double temperatura, pressao, variavel1, variavel2, 
-            variavel3, variavel4, variavel5;
-    private double v11, v12, v21, v22, v31, v32, v41, v42, v51, v52;
+    private double kv, Cpv, Prv, Muv, Vcv;
+    private double kv1, kv2, Cpv1, Cpv2, Prv1, Prv2, Muv1, Muv2, Vcv1, Vcv2;
 
     public ControlButanoGas(Session session) {
         this.session = session;
@@ -64,8 +63,7 @@ public class ControlButanoGas {
         }
     }
     
-    public void interpolacaoButano(double pressao,double temperatura){
-    
+    public void interpolacaoButanoGas(double pressao,double temperatura){
         Criteria cr = this.session.createCriteria(ModelButanoGas.class);
         
         SQLQuery consulta = this.session.createSQLQuery("select * from butano_gas where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
@@ -89,26 +87,27 @@ public class ControlButanoGas {
         ModelButanoGas butano_gas4 = butano_gas.get(0);
         
         double p = ((pressao - butano_gas1.getPRESSAO())/(butano_gas3.getPRESSAO() - butano_gas1.getPRESSAO()));
-        double t = ((temperatura - butano_gas1.getTEMPERATURA())/(butano_gas2.getTEMPERATURA() - butano_gas1.getTEMPERATURA()));
+        double t1 = ((temperatura - butano_gas1.getTEMPERATURA())/(butano_gas2.getTEMPERATURA() - butano_gas1.getTEMPERATURA()));
+        double t2 = ((temperatura - butano_gas3.getTEMPERATURA())/(butano_gas4.getTEMPERATURA() - butano_gas3.getTEMPERATURA()));
+
+        Cpv2 = butano_gas1.getCPV() + (butano_gas2.getCPV() - butano_gas1.getCPV()) * t1;
+        Cpv2 = butano_gas3.getCPV() + (butano_gas4.getCPV() - butano_gas3.getCPV()) * t2;
+        Cpv = Cpv2 + (Cpv2 - Cpv2) * p;
         
-        v11 = butano_gas1.getVARIAVEL1() + (butano_gas2.getVARIAVEL1() - butano_gas1.getVARIAVEL1()) * t;
-        v12 = butano_gas3.getVARIAVEL1() + (butano_gas4.getVARIAVEL1() - butano_gas3.getVARIAVEL1()) * t;
-        variavel1 = v11 + (v12 - v11) * p;
+        Prv1 = butano_gas1.getPRV() + (butano_gas2.getPRV() - butano_gas1.getPRV()) * t1;
+        Prv2 = butano_gas3.getPRV() + (butano_gas4.getPRV() - butano_gas3.getPRV()) * t2;
+        Prv2 = Prv1 + (Prv2 - Prv1) * p;
         
-        v21 = butano_gas1.getVARIAVEL2() + (butano_gas2.getVARIAVEL2() - butano_gas1.getVARIAVEL2()) * t;
-        v22 = butano_gas3.getVARIAVEL2() + (butano_gas4.getVARIAVEL2() - butano_gas3.getVARIAVEL2()) * t;
-        variavel2 = v21 + (v22 - v21) * p;
+        kv1 = butano_gas1.getKV() + (butano_gas2.getKV() - butano_gas1.getKV()) * t1;
+        kv2 = butano_gas3.getKV() + (butano_gas4.getKV() - butano_gas3.getKV()) * t2;
+        kv = kv1 + (kv2 - kv1) * p;
         
-        v31 = butano_gas1.getVARIAVEL3() + (butano_gas2.getVARIAVEL3() - butano_gas1.getVARIAVEL3()) * t;
-        v32 = butano_gas3.getVARIAVEL3() + (butano_gas4.getVARIAVEL3() - butano_gas3.getVARIAVEL3()) * t;
-        variavel3 = v31 + (v32 - v31) * p;
+        Muv1 = butano_gas1.getMUV() + (butano_gas2.getMUV() - butano_gas1.getMUV()) * t1;
+        Muv2 = butano_gas3.getMUV() + (butano_gas4.getMUV() - butano_gas3.getMUV()) * t2;
+        Muv = Muv1 + (Muv2 - Muv1) * p;
         
-        v41 = butano_gas1.getVARIAVEL4() + (butano_gas2.getVARIAVEL4() - butano_gas1.getVARIAVEL4()) * t;
-        v42 = butano_gas3.getVARIAVEL4() + (butano_gas4.getVARIAVEL4() - butano_gas3.getVARIAVEL4()) * t;
-        variavel4 = v41 + (v42 - v41) * p;
-        
-        v51 = butano_gas1.getVARIAVEL5() + (butano_gas2.getVARIAVEL5() - butano_gas1.getVARIAVEL5()) * t;
-        v52 = butano_gas3.getVARIAVEL5() + (butano_gas4.getVARIAVEL5() - butano_gas3.getVARIAVEL5()) * t;
-        variavel5 = v51 + (v52 - v51) * p;
+        Vcv1 = butano_gas1.getVCV() + (butano_gas2.getVCV() - butano_gas1.getVCV()) * t1;
+        Vcv2 = butano_gas3.getVCV() + (butano_gas4.getVCV() - butano_gas3.getVCV()) * t2;
+        Vcv = Vcv1 + (Vcv2 - Vcv1) * p;
     }
 }

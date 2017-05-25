@@ -17,9 +17,8 @@ import javax.persistence.Table;
  * @author leonardo
  */
 @Entity
-@Table(name = "butano_gas")
-public class ModelButanoGas implements Serializable{
-
+@Table (name = "isobutan_gas")
+public class ModelIsobutanGas implements Serializable{
     @Id
     @GeneratedValue
     private int ID;
@@ -45,10 +44,10 @@ public class ModelButanoGas implements Serializable{
     @Column
     private double Vcv;
     
-    public ModelButanoGas() {
+    public ModelIsobutanGas() {
     }
 
-    public ModelButanoGas(double pressao, double temperatura, double kv, double Cpv, double Prv, double Muv) {
+    public ModelIsobutanGas(double pressao, double temperatura, double kv, double Cpv, double Prv, double Muv) {
         this.pressao = pressao;
         this.temperatura = temperatura;
         this.kv = kv;
