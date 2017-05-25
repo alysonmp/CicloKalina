@@ -23,7 +23,7 @@ public class ControlD4Liquido {
     private double Cpl1, Cpl2, Prl1, Prl2;
 
     public ControlD4Liquido(Session session) {
-        this.session = this.session;
+        this.session = session;
     }
     
     public void criaTabelaD4Liquido(){
@@ -37,7 +37,6 @@ public class ControlD4Liquido {
             List results = cr.list();
             
             if(results.isEmpty()){
-                Transaction tx = session.beginTransaction();
                 br = new BufferedReader(new FileReader(csvFile));
                 line = br.readLine();
                 while((line = br.readLine()) != null){
@@ -45,7 +44,6 @@ public class ControlD4Liquido {
                     
                     this.session.save(new ModelD4Liquido(Double.parseDouble(d4_liquido[0]),Double.parseDouble(d4_liquido[1]),Double.parseDouble(d4_liquido[2]),Double.parseDouble(d4_liquido[3])));   
                 }
-                tx.commit();
             }
             
         }catch(FileNotFoundException e){

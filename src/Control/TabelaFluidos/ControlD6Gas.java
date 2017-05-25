@@ -41,7 +41,6 @@ public class ControlD6Gas {
             List results = cr.list();
             
             if(results.isEmpty()){
-                Transaction tx = session.beginTransaction();
                 br = new BufferedReader(new FileReader(csvFile));
                 line = br.readLine();
                 while((line = br.readLine()) != null){
@@ -49,7 +48,6 @@ public class ControlD6Gas {
                     
                     this.session.save(new ModelD6Gas(Double.parseDouble(d6_gas[0]),Double.parseDouble(d6_gas[1]),Double.parseDouble(d6_gas[2]),Double.parseDouble(d6_gas[3]),Double.parseDouble(d6_gas[4]),Double.parseDouble(d6_gas[5])));   
                 }
-                tx.commit();
             }
             
         }catch(FileNotFoundException e){

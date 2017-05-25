@@ -45,7 +45,6 @@ public class ControlR152ALiquido {
             List results = cr.list();
             
             if(results.isEmpty()){
-                Transaction tx = session.beginTransaction();
                 br = new BufferedReader(new FileReader(csvFile));
                 line = br.readLine();
                 while ((line = br.readLine()) != null) {
@@ -55,8 +54,6 @@ public class ControlR152ALiquido {
                     
                     session.save(new ModelR152ALiquido(Double.parseDouble(R152A_l[0]), Double.parseDouble(R152A_l[1]), Double.parseDouble(R152A_l[2]), Double.parseDouble(R152A_l[3])));
                 }
-                
-                tx.commit();
             }
 
         } catch (FileNotFoundException e) {

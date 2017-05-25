@@ -33,7 +33,7 @@ public class ControlHexaneGas {
         this.session = session;
     }
     
-    public void criaTabelaHexane(){
+    public void criaTabelaHexaneGas(){
         String csvFile = "src/Csv/HEXANE_gas.csv";
         BufferedReader br = null;
         String line = "";
@@ -45,7 +45,6 @@ public class ControlHexaneGas {
             List results = cr.list();
             
             if(results.isEmpty()){
-                Transaction tx = session.beginTransaction();
                 br = new BufferedReader(new FileReader(csvFile));
                 line = br.readLine();
                 while ((line = br.readLine()) != null) {
@@ -55,8 +54,6 @@ public class ControlHexaneGas {
 
                     session.save(new ModelHexaneGas(Double.parseDouble(hexane[0]), Double.parseDouble(hexane[1]), Double.parseDouble(hexane[2]), Double.parseDouble(hexane[3]), Double.parseDouble(hexane[4]), Double.parseDouble(hexane[5]), Double.parseDouble(hexane[6])));
                 }
-                
-                tx.commit();
             }
 
         } catch (FileNotFoundException e) {

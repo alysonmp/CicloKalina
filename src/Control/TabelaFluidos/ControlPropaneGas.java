@@ -46,7 +46,6 @@ public class ControlPropaneGas {
             List results = cr.list();
             
             if(results.isEmpty()){
-                Transaction tx = session.beginTransaction();
                 br = new BufferedReader(new FileReader(csvFile));
                 line = br.readLine();
                 while ((line = br.readLine()) != null) {
@@ -56,8 +55,6 @@ public class ControlPropaneGas {
                     
                     session.save(new ModelPropaneGas(Double.parseDouble(Propane_g[0]), Double.parseDouble(Propane_g[1]), Double.parseDouble(Propane_g[2]), Double.parseDouble(Propane_g[3]), Double.parseDouble(Propane_g[4]), Double.parseDouble(Propane_g[5]), Double.parseDouble(Propane_g[6])));
                 }
-                
-                tx.commit();
             }
 
         } catch (FileNotFoundException e) {

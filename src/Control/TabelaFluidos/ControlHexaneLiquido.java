@@ -28,7 +28,7 @@ public class ControlHexaneLiquido {
     private double Cpl1, Cpl2, Prl1, Prl2;
 
     public ControlHexaneLiquido(Session session) {
-        this.session = this.session;
+        this.session = session;
     }
     
     public void criaTabelaHexaneLiquido(){
@@ -42,7 +42,6 @@ public class ControlHexaneLiquido {
             List results = cr.list();
             
             if(results.isEmpty()){
-                Transaction tx = session.beginTransaction();
                 br = new BufferedReader(new FileReader(csvFile));
                 line = br.readLine();
                 while((line = br.readLine()) != null){
@@ -50,7 +49,6 @@ public class ControlHexaneLiquido {
                     
                     this.session.save(new ModelHexaneLiquido(Double.parseDouble(hexane_liquido[0]),Double.parseDouble(hexane_liquido[1]),Double.parseDouble(hexane_liquido[2]),Double.parseDouble(hexane_liquido[3])));   
                 }
-                tx.commit();
             }
             
         }catch(FileNotFoundException e){

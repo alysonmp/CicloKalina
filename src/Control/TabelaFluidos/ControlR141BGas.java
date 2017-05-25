@@ -46,7 +46,6 @@ public class ControlR141BGas {
             List results = cr.list();
             
             if(results.isEmpty()){
-                Transaction tx = session.beginTransaction();
                 br = new BufferedReader(new FileReader(csvFile));
                 line = br.readLine();
                 while ((line = br.readLine()) != null) {
@@ -56,8 +55,6 @@ public class ControlR141BGas {
                     
                     session.save(new ModelR141BGas(Double.parseDouble(R141B_g[0]), Double.parseDouble(R141B_g[1]), Double.parseDouble(R141B_g[2]), Double.parseDouble(R141B_g[3]), Double.parseDouble(R141B_g[4]), Double.parseDouble(R141B_g[5]), Double.parseDouble(R141B_g[6])));
                 }
-                
-                tx.commit();
             }
 
         } catch (FileNotFoundException e) {

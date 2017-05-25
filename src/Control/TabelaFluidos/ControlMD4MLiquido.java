@@ -44,7 +44,6 @@ public class ControlMD4MLiquido {
             List results = cr.list();
             
             if(results.isEmpty()){
-                Transaction tx = session.beginTransaction();
                 br = new BufferedReader(new FileReader(csvFile));
                 line = br.readLine();
                 while ((line = br.readLine()) != null) {
@@ -54,8 +53,6 @@ public class ControlMD4MLiquido {
                     
                     session.save(new ModelMD4MLiquido(Double.parseDouble(MD4M_l[0]), Double.parseDouble(MD4M_l[1]), Double.parseDouble(MD4M_l[2]), Double.parseDouble(MD4M_l[3])));
                 }
-                
-                tx.commit();
             }
 
         } catch (FileNotFoundException e) {
