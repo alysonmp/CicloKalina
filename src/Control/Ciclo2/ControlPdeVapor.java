@@ -6,7 +6,7 @@
 package Control.Ciclo2;
 
 import Model.Ciclo2.ModelFluidos;
-import Model.ModelConstantesMat;
+import Model.ModelConstantesRankineMat;
 import Util.HibernateUtil;
 import java.util.List;
 import org.hibernate.Criteria;
@@ -27,11 +27,11 @@ public class ControlPdeVapor {
         this.session = session;
         
         //RECUPERA TODOS OS DADOS DA TABELA DE CONSTANTES
-        Criteria cr = this.session.createCriteria(ModelConstantesMat.class); 
+        Criteria cr = this.session.createCriteria(ModelConstantesRankineMat.class); 
         List results = cr.list();
         
         //UTILIZA A PRIMEIRA LINHA BUSCADA, VARIÁVEL C1
-        ModelConstantesMat constantesMat = (ModelConstantesMat)results.get(0); 
+        ModelConstantesRankineMat constantesMat = (ModelConstantesRankineMat)results.get(0); 
         double[][] valores = constantesMat.getValores();
         
         //Psi=(exp(C1(1)+(C1(2)/T)+(C1(3)*log(T))+(C1(4)*(T^C1(5)))))/100000; %bar
@@ -39,7 +39,7 @@ public class ControlPdeVapor {
         
         //UTILIZA A SEGUNDA LINHA BUSCADA, VARIÁVEL C2
         results = cr.list();
-        constantesMat = (ModelConstantesMat)results.get(1); 
+        constantesMat = (ModelConstantesRankineMat)results.get(1); 
         valores = constantesMat.getValores();
         
         //Psj=(exp(C2(1)+(C2(2)/T)+(C2(3)*log(T))+(C2(4)*(T^C2(5)))))/100000; %bar

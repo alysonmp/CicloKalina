@@ -5,7 +5,7 @@
  */
 package Control.Ciclo2;
 
-import Model.ModelQfpso;
+import Model.ModelQfpsoRankineMat;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -22,10 +22,10 @@ public class ControlCalor {
         int c = compressor-1;
         double T = Tf - Tf2;
         
-        Criteria cr = session.createCriteria(ModelQfpso.class); 
+        Criteria cr = session.createCriteria(ModelQfpsoRankineMat.class); 
         List results = cr.list();
         
-        ModelQfpso q = (ModelQfpso)results.get(c);
+        ModelQfpsoRankineMat q = (ModelQfpsoRankineMat)results.get(c);
         double[] Qfpso = q.getQfpso();
         
         switch (compressor) {

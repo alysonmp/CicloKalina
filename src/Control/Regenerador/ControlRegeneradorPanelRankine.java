@@ -29,9 +29,12 @@ public class ControlRegeneradorPanelRankine {
     
     private Session session;
 
+    ControlPrincipal ctrlPrincipal;
+    
     public ControlRegeneradorPanelRankine(ControlPrincipal ctrlPrincipal) {
         this.session = ctrlPrincipal.getSession();
         viewRegeneradorPanel = new ViewRegeneradorPanelRankine(this);
+        this.ctrlPrincipal = ctrlPrincipal;
     }
     
     public void atualizaComboBox(Vector valor,JComboBox combo){
@@ -439,6 +442,14 @@ public class ControlRegeneradorPanelRankine {
 
     public void setViewRegeneradorPanel(ViewRegeneradorPanelRankine viewRegeneradorPanel) {
         this.viewRegeneradorPanel = viewRegeneradorPanel;
+    }
+
+    public ControlPrincipal getCtrlPrincipal() {
+        return ctrlPrincipal;
+    }
+
+    public void setCtrlPrincipal(ControlPrincipal ctrlPrincipal) {
+        this.ctrlPrincipal = ctrlPrincipal;
     }
     
     

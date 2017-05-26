@@ -5,6 +5,7 @@
  */
 package Model;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,39 +14,39 @@ import javax.persistence.Table;
 
 /**
  *
- * @author leonardo
+ * @author alysonmp
  */
 @Entity
-@Table(name = "Qfpso")
-public class ModelQfpso {
+@Table(name = "criticas_w")
+public class ModelCriticasKCSMat_w implements Serializable{
     
     @Id
     @GeneratedValue
     private int cod;
     
     @Column
-    private double[] Qfpso;
+    private double valor;
 
-    public ModelQfpso() {
-    }        
-    
-    public ModelQfpso(double[] Qfpso){
-        this.Qfpso = Qfpso;
+    public ModelCriticasKCSMat_w() {
     }
 
-    public double[] getQfpso() {
-        return Qfpso;
-    }
-
-    public void setQfpso(double[] Qfpso) {
-        this.Qfpso = Qfpso;
+    public ModelCriticasKCSMat_w(double valor) {
+        this.valor = valor;
     }
 
     public int getCod() {
         return cod;
     }
 
-    public void setCod(int cod) {
-        this.cod = cod;
+    public void setCod(int name) {
+        this.cod = name;
     }
+
+    public double getValor() {
+        return valor;
+    }
+
+    public void setValor(double valor) {
+        this.valor = valor;
+    }    
 }

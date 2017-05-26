@@ -5,7 +5,7 @@
  */
 package Control.Ciclo2;
 
-import Model.ModelConstantesMat;
+import Model.ModelConstantesRankineMat;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -24,12 +24,12 @@ public class ControlS_Ideal_Gas_Mix {
         
         zj = 1 - zi;
         
-        Criteria cr = this.session.createCriteria(ModelConstantesMat.class); 
+        Criteria cr = this.session.createCriteria(ModelConstantesRankineMat.class); 
         List results = cr.list();
         
         R = 8.314;
         
-        ModelConstantesMat constantesMat = (ModelConstantesMat)results.get(2); 
+        ModelConstantesRankineMat constantesMat = (ModelConstantesRankineMat)results.get(2); 
         double[][] valores = constantesMat.getValores();
         
         //Cpj=cc(1,1)+cc(1,2)*T+cc(1,3)*T^2+cc(1,4)*T^3+cc(1,5)*T^4;
