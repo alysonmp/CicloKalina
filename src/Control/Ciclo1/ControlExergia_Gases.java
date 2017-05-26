@@ -5,27 +5,31 @@
  */
 package Control.Ciclo1;
 
+import Model.ModelConsExeMat;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
  * @author leonardo
  */
 public class ControlExergia_Gases {
-    private double Ein, Hin, Sin, bgas, ET;
+    private double Ein, Hin, Sin, bgas, ET, XTOTAL;
 
-    public ControlExergia_Gases(double mf, double Tf, double[] X,Session session) {
+    public ControlExergia_Gases(double mf, double Tf, double[] X, Session session) {
 
-        Criteria cr = session.createCriteria(ModelConsEXE.class); 
+        Criteria cr = session.createCriteria(ModelConsExeMat.class); 
+        cr.add(Restrictions.eq("name", "A"));
         List results = cr.list();
         
-        ModelConsEXE consEXE = (ModelConsEXE)results.get(0);
+        ModelConsExeMat consEXE = (ModelConsExeMat)results.get(0);
         double[][] valores = consEXE.getValores();
         
         double To = 298.15;
         double T = Tf;
+        XTOTAL=X[1] + X[2] + X[3] + X[4] + X[5] + X[6] + X[7] + X[8];
         
         double DHCO2 =((valores[0][0]*T)+((valores[0][1]/1000)*Math.pow(T,2))+((valores[0][2]*100000)/T)+(valores[0][3]))*4.186;
         double DHH2O =((valores[1][0]*T)+((valores[1][1]/1000)*Math.pow(T,2))+((valores[1][2]*100000)/T)+(valores[1][3]))*4.186;

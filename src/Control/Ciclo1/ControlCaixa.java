@@ -70,10 +70,10 @@ public class ControlCaixa {
         // Fluxo de Caixa
         FCX=L_L+DEP;
 
-        double NV1=pvfix(0.12, 10, FCX);
+        /*double NV1=pvfix(0.12, 10, FCX);
         double NV2=pvfix(0.12, 20, FCX);
         NPV1=NV1-FCI;
-        NPV2=NV2-FCI;
+        NPV2=NV2-FCI;*/
     }
     
     

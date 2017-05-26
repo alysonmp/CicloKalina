@@ -5,9 +5,15 @@
  */
 package Control.Ciclo1;
 
+import Model.ModelCriticasKCSMat_K1;
+import Model.ModelCriticasKCSMat_Pc;
+import Model.ModelCriticasKCSMat_Tc;
+import Model.ModelCriticasKCSMat_w;
 import java.util.List;
+import org.apache.derby.vti.Restriction;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -19,20 +25,31 @@ public class ControlConstantes {
     public ControlConstantes(double T, double P, int ii,Session session) {
         this.R = 8.3145;
         
-        Criteria cr = session.createCriteria(ModelCriticas.class); 
+        Criteria cr = session.createCriteria(ModelCriticasKCSMat_K1.class); 
+        cr.add(Restrictions.eq("id", ii));
         List results = cr.list();
+        K1 = ((ModelCriticasKCSMat_K1)results.get(0)).getValor();
         
-        ModelCriticas modelCriticas = (ModelCriticas)results.get(0); 
-        double[] w  = modelCriticas.getW();
-        double[] Tc = modelCriticas.getTc();
-        double[] Pc = modelCriticas.getPc();
-        double[] K1 = modelCriticas.getK1();
+        cr = session.createCriteria(ModelCriticasKCSMat_w.class); 
+        cr.add(Restrictions.eq("id", ii));
+        results = cr.list();
+        w = ((ModelCriticasKCSMat_w)results.get(0)).getValor();
         
-        K0 = 0.378893+1.489715*w[ii]-0.1713848*(Math.pow(w[ii],2))+0.0196544*(Math.pow(w[ii],3));
-        Tr = T/Tc[ii];
-        double alp = Math.pow((1+K0*(1-(Math.pow(Tr,0.5)))+K1[ii]*(1-Tr)*(0.7-Tr)),2);
-        a = (0.457235*(Math.pow(R,2))*(Math.pow(Tc[ii],2))*alp)/Pc[ii];
-        b = (0.077796*R*Tc[ii])/Pc[ii];
+        cr = session.createCriteria(ModelCriticasKCSMat_Tc.class); 
+        cr.add(Restrictions.eq("id", ii));
+        results = cr.list();
+        Tc = ((ModelCriticasKCSMat_Tc)results.get(0)).getValor();
+        
+        cr = session.createCriteria(ModelCriticasKCSMat_Pc.class); 
+        cr.add(Restrictions.eq("id", ii));
+        results = cr.list();
+        Pc = ((ModelCriticasKCSMat_Pc)results.get(0)).getValor();
+        
+        K0 = 0.378893+1.489715*w-0.1713848*(Math.pow(w,2))+0.0196544*(Math.pow(w,3));
+        Tr = T/Tc;
+        double alp = Math.pow((1+K0*(1-(Math.pow(Tr,0.5)))+K1*(1-Tr)*(0.7-Tr)),2);
+        a = (0.457235*(Math.pow(R,2))*(Math.pow(Tc,2))*alp)/Pc;
+        b = (0.077796*R*Tc)/Pc;
 
         A=(a*P)/((Math.pow(R,2))*(Math.pow(T,2)));
 
@@ -43,11 +60,6 @@ public class ControlConstantes {
         eps=A-3*(Math.pow(B,2))-2*B;
 
         delta=(Math.pow(B,3))+(Math.pow(B,2))-A*B;
-
-        this.K1 = K1[ii];
-        this.Pc = Pc[ii];
-        this.Tc = Tc[ii];
-        this.w = w[ii];
     }
 
     public void setBeta(double beta) {

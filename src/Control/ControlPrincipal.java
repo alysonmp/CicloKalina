@@ -65,7 +65,9 @@ import Control.TabelaFluidos.ControlWaterGas;
 import Control.TabelaFluidos.ControlWaterLiquido;
 import Model.Ciclo2.ModelFluidos;
 import Model.Ciclo2.ModelMassa;
+import Model.ModelConsExeMat;
 import Model.ModelConstantesKCSMat_C;
+import Model.ModelConstantesKCSMat_CC;
 import Model.ModelConstantesRankineMat;
 import Model.ModelCriticasKCSMat_K1;
 import Model.ModelCriticasKCSMat_PM;
@@ -323,7 +325,7 @@ public class ControlPrincipal {
                     for(int i = 0; i < 0; i++){
                         valoresV[i] = Double.parseDouble(table_c[i]);
                     }
-                    this.session.save(new ModelConstantesKCSMat_C(valoresV)); 
+                    this.session.save(new ModelConstantesKCSMat_CC(valoresV)); 
                 }
             }catch(FileNotFoundException e){
                 e.printStackTrace();
@@ -416,6 +418,28 @@ public class ControlPrincipal {
             }
         }
         
+        cr = this.session.createCriteria(ModelQfpsoKCSMat.class);
+        results = cr.list();
+        tx = session.beginTransaction();
+        
+        if(results.isEmpty()){
+            double[][] valores = {{10.57, 1.05, 2.06, -3936.0}, 
+                                  {7.3, 1.23, 0.0, -2286.0}, 
+                                  {11.4, 0.94, 1.84, -3992.0},
+                                  {7.16, 0.5, 0.4, -2313.0},
+                                  {6.83, 0.45, 0.12, -2127.0},
+                                  {6.79, 0.49, 0.11, -2105.0},
+                                  {7.3, 1.23, 0.0, -5379.0},
+                                  {7.03, 0.46, 0.14, -2184.0}};
+            
+            this.session.save(new ModelConsExeMat("A", valores));
+            
+            double[][] valores2 = {{20140.0}, {11710.0}, {303500.0}, {3970.0}, {720.0}, {275430.0}, {238490.0}, {89040.0}};
+            
+            this.session.save(new ModelConsExeMat("B", valores2));
+        }
+        
+        tx.commit();
         viewPrincipal = new ViewPrincipal(this);
     }
     
