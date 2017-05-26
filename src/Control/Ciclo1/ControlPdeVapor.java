@@ -17,18 +17,15 @@ public class ControlPdeVapor {
     
     private double Ps2;
     
-    private Session session;
-
     public ControlPdeVapor(double T, int ii, Session session) {
-        this.session = session;
         double P = 1000;
         
         //RECUPERA TODOS OS DADOS DA TABELA DE CONSTANTES
-        Criteria cr = this.session.createCriteria(ModelContantes.class); 
+        Criteria cr = session.createCriteria(ModelContantes.class); 
         List results = cr.list();
         
-        ModelConstantes constantesMat = (ModelConstantes)results.get(0); 
-        double[][] valores = constantesMat.getValores();
+        ModelConstantes constantes = (ModelConstantes)results.get(0); 
+        double[][] valores = constantes.getValores();
         
         if(ii >= 1 && ii <= 5){
             //Ps2=(exp(C(ii,1)+(C(ii,2)/T)+(C(ii,3)*log(T))+(C(ii,4)*(T^C(ii,5)))))/1000;
@@ -51,4 +48,14 @@ public class ControlPdeVapor {
             Ps2 = Math.exp(valores[ii][0]+(valores[ii][1]/(T+valores[ii][2]))+(valores[ii][3]*Math.log(T))+(valores[ii][4]*Math.pow(T,valores[ii][5])));
         }    
     }
+
+    public double getPs2() {
+        return Ps2;
+    }
+
+    public void setPs2(double Ps2) {
+        this.Ps2 = Ps2;
+    }
+    
+    
 }
