@@ -16,8 +16,8 @@ import javax.persistence.Table;
  * @author alysonmp
  */
 @Entity
-@Table(name = "Constantes")
-public class ModelConstantesMat implements Serializable{
+@Table(name = "Constantes_Rankine")
+public class ModelConstantesRankineMat implements Serializable{
     
     @Id
     private String nome;
@@ -25,10 +25,10 @@ public class ModelConstantesMat implements Serializable{
     @Column
     private double[][] valores;
 
-    public ModelConstantesMat() {
+    public ModelConstantesRankineMat() {
     }
 
-    public ModelConstantesMat(String nome, double[][] valores) {
+    public ModelConstantesRankineMat(String nome, double[][] valores) {
         this.nome = nome;
         this.valores = valores;
     }

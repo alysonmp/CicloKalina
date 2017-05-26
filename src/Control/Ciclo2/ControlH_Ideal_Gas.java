@@ -5,7 +5,7 @@
  */
 package Control.Ciclo2;
 
-import Model.ModelConstantesMat;
+import Model.ModelConstantesRankineMat;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -21,11 +21,11 @@ public class ControlH_Ideal_Gas {
     
     public ControlH_Ideal_Gas(double T, double Tref, double x, Session session){
         
-        Criteria cr = session.createCriteria(ModelConstantesMat.class);
+        Criteria cr = session.createCriteria(ModelConstantesRankineMat.class);
         List results = cr.list();
         
         //UTILIZA A PRIMEIRA LINHA BUSCADA, VARIÁVEL CC
-        ModelConstantesMat constantesMat = (ModelConstantesMat)results.get(2); 
+        ModelConstantesRankineMat constantesMat = (ModelConstantesRankineMat)results.get(2); 
         double[][] valores = constantesMat.getValores();
         
         if(x == 0){

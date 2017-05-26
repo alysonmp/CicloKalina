@@ -69,7 +69,11 @@ public class ViewRegeneradorPanelRankine extends JPanel{
     private JPanel painelEntrada;
     private JPanel painelSaida;
     
+    ControlRegeneradorPanelRankine ctrlRegenerador;
+    
     public ViewRegeneradorPanelRankine(ControlRegeneradorPanelRankine controlRegeneradorPanel){
+        this.ctrlRegenerador = controlRegeneradorPanel;
+        
         painelDados = new JPanel(new GridBagLayout());
         painelEntrada = new JPanel(new GridBagLayout());
         painelSaida = new JPanel(new GridBagLayout());
@@ -275,6 +279,7 @@ public class ViewRegeneradorPanelRankine extends JPanel{
             @Override
             public void focusLost(FocusEvent fe) {
                 controlRegeneradorPanel.atualizaMassa();
+                ViewRegeneradorPanelRankine.this.ctrlRegenerador.getCtrlPrincipal().ajustaMassa(fieldMassa.getSelectedItem().toString());
             }
         });
         

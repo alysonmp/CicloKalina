@@ -56,9 +56,9 @@ Contributor(s):
     <mapping class="Model.Ciclo2.ModelRegenerador"/>
     <mapping class="Model.Ciclo2.ModelTurbina"/>
     <mapping class="Model.Ciclo2.ModelFluidos"/>
-    <mapping class="Model.ModelConstantesMat"/>
+    <mapping class="Model.ModelConstantesRankineMat"/>
     <mapping class="Model.ModelLinear"/>
-    <mapping class="Model.ModelQfpso"/>
+    <mapping class="Model.ModelQfpsoRankineMat"/>
     <mapping class="Model.TabelasFluidos.ModelButanoLiquido"/>
     <mapping class="Model.TabelasFluidos.ModelButanoGas"/>
     <mapping class="Model.TabelasFluidos.ModelHexaneGas"/>
@@ -111,5 +111,13 @@ Contributor(s):
     <mapping class="Model.TabelasFluidos.ModelMD2MLiquido"/>
     <mapping class="Model.TabelasFluidos.ModelMD3MGas"/>
     <mapping class="Model.TabelasFluidos.ModelMD3MLiquido"/>
+    <mapping class="Model.ModelConstantesKCSMat_C"/>
+    <mapping class="Model.ModelCriticasKCSMat_K1"/>
+    <mapping class="Model.ModelCriticasKCSMat_PM"/>
+    <mapping class="Model.ModelCriticasKCSMat_Pc"/>
+    <mapping class="Model.ModelCriticasKCSMat_Tc"/>
+    <mapping class="Model.ModelCriticasKCSMat_w"/>
+    <mapping class="Model.ModelQfpsoKCSMat"/>
+    <mapping class="Model.ModelConstantesKCSMat_CC"/>
   </session-factory>
 </hibernate-configuration>

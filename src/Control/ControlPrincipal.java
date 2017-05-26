@@ -65,9 +65,16 @@ import Control.TabelaFluidos.ControlWaterGas;
 import Control.TabelaFluidos.ControlWaterLiquido;
 import Model.Ciclo2.ModelFluidos;
 import Model.Ciclo2.ModelMassa;
-import Model.ModelConstantesMat;
+import Model.ModelConstantesKCSMat_C;
+import Model.ModelConstantesRankineMat;
+import Model.ModelCriticasKCSMat_K1;
+import Model.ModelCriticasKCSMat_PM;
+import Model.ModelCriticasKCSMat_Pc;
+import Model.ModelCriticasKCSMat_Tc;
+import Model.ModelCriticasKCSMat_w;
 import Model.ModelLinear;
-import Model.ModelQfpso;
+import Model.ModelQfpsoKCSMat;
+import Model.ModelQfpsoRankineMat;
 import Model.TabelasFluidos.ModelButanoGas;
 import Model.TabelasFluidos.ModelHexaneGas;
 import Util.HibernateUtil;
@@ -158,20 +165,20 @@ public class ControlPrincipal {
             tx.commit();
         }
         
-        cr = this.session.createCriteria(ModelConstantesMat.class);
+        cr = this.session.createCriteria(ModelConstantesRankineMat.class);
         results = cr.list();
         if(results.isEmpty()){
             Transaction tx = session.beginTransaction();
             
             double[][] valoresC1 = {{90.483, -4669.7, -11.607, 0.017194, 1.0}};
-            session.save(new ModelConstantesMat("C1", valoresC1));
+            session.save(new ModelConstantesRankineMat("C1", valoresC1));
             
             double[][] valoresC2 = {{73.649, -7258.2, -7.3037, 4.1653E-6, 2.0}};
-            session.save(new ModelConstantesMat("C2", valoresC2));
+            session.save(new ModelConstantesRankineMat("C2", valoresC2));
 
             double[][] valoresCC = {{33.60134, -0.002145, -3.999E-6, 4.752E-8, -3.533E-11, 0.0, 0.0}, 
                                     {33.573, -0.012581, 8.8906E-5, -7.1783E-8, 1.8569E-11, 0.0, 0.0}};
-            session.save(new ModelConstantesMat("CC", valoresCC));
+            session.save(new ModelConstantesRankineMat("CC", valoresCC));
             
             tx.commit();
         }
@@ -192,21 +199,19 @@ public class ControlPrincipal {
             tx.commit();
         }
         
-        cr = this.session.createCriteria(ModelQfpso.class);
+        cr = this.session.createCriteria(ModelQfpsoRankineMat.class);
         results = cr.list();
         if(results.isEmpty()){
             Transaction tx = session.beginTransaction();
             
-            session.save(new ModelQfpso(new double[]{-5.0989335E-5, 66.250549, -0.024244439, 1.4359252E-5, -3.1287299E-9, 2.7938016E-10, 3.1938551E-11, -8.6058944E-13, 1.0138024E-14, -5.7854786E-17, 1.3108388E-19, 0.0}));
-            session.save(new ModelQfpso(new double[]{-7.6520373E-5, 68.996718, -0.015276822, 4.4519632E-5, 3.2384275E-7, -9.5543181E-9, 3.1876871E-10, -5.3692223E-12, 5.1514164E-14, -2.6095697E-16, 5.4962813E-19, 0.0}));
-            session.save(new ModelQfpso(new double[]{7.875352E-5, -0.04698885, 77.569376, 7.5518527E-4, -3.6218838, -4.6157586E-6, 0.05773998, 8.645757E-9, -3.5076036E-4, 3.2457331E-12, 6.9448062E-7, 0.0}));
-            session.save(new ModelQfpso(new double[]{-0.0025970942, 99.279743, 0.12007259, 8.0406572E-4, -1.1669656E-5, 4.9266436E-7, -1.169747E-8, 1.6715254E-10, -1.5243562E-12, 7.6811009E-15, -1.5862785E-17, 0.0}));
-            session.save(new ModelQfpso(new double[]{1.5353958, 162.37375, 0.11646613, -0.0086520143, 1.3170876E-4, 5.772981E-6, -3.037534E-7, 6.0681698E-9, -6.2711257E-11, 3.3117369E-13, -7.0587574E-16, 0.0}));
+            session.save(new ModelQfpsoRankineMat(new double[]{-5.0989335E-5, 66.250549, -0.024244439, 1.4359252E-5, -3.1287299E-9, 2.7938016E-10, 3.1938551E-11, -8.6058944E-13, 1.0138024E-14, -5.7854786E-17, 1.3108388E-19, 0.0}));
+            session.save(new ModelQfpsoRankineMat(new double[]{-7.6520373E-5, 68.996718, -0.015276822, 4.4519632E-5, 3.2384275E-7, -9.5543181E-9, 3.1876871E-10, -5.3692223E-12, 5.1514164E-14, -2.6095697E-16, 5.4962813E-19, 0.0}));
+            session.save(new ModelQfpsoRankineMat(new double[]{7.875352E-5, -0.04698885, 77.569376, 7.5518527E-4, -3.6218838, -4.6157586E-6, 0.05773998, 8.645757E-9, -3.5076036E-4, 3.2457331E-12, 6.9448062E-7, 0.0}));
+            session.save(new ModelQfpsoRankineMat(new double[]{-0.0025970942, 99.279743, 0.12007259, 8.0406572E-4, -1.1669656E-5, 4.9266436E-7, -1.169747E-8, 1.6715254E-10, -1.5243562E-12, 7.6811009E-15, -1.5862785E-17, 0.0}));
+            session.save(new ModelQfpsoRankineMat(new double[]{1.5353958, 162.37375, 0.11646613, -0.0086520143, 1.3170876E-4, 5.772981E-6, -3.037534E-7, 6.0681698E-9, -6.2711257E-11, 3.3117369E-13, -7.0587574E-16, 0.0}));
   
             tx.commit();
         }
-        
-        viewPrincipal = new ViewPrincipal(this);
         
         cr = this.session.createCriteria(ModelButanoGas.class);
         results = cr.list();
@@ -269,10 +274,149 @@ public class ControlPrincipal {
             tx.commit();
         }
         
-        //hexane.criaTabelaWaterGas();
-        //hexane.interpolacao(5000, 600);
-        /*ControlButanoLiquido butano = new ControlButanoLiquido(session);
-        butano.criaTabelaButano();*/
+        cr = this.session.createCriteria(ModelConstantesKCSMat_C.class);
+        results = cr.list();
+        Transaction tx = session.beginTransaction();
+        
+        if(results.isEmpty()){
+            String csvFile = "src/Csv/C.csv";
+            BufferedReader br = null;
+            String line = "";
+            String csvSplitBy = ";";
+            
+            double[] valoresV = new double[6];
+            int linha = 0;
+            try{
+                cr = this.session.createCriteria(ModelConstantesKCSMat_C.class);
+                results = cr.list();
+                br = new BufferedReader(new FileReader(csvFile));
+                while((line = br.readLine()) != null){
+                    String[] table_c = line.split(csvSplitBy);
+                    for(int i = 0; i < 0; i++){
+                        valoresV[i] = Double.parseDouble(table_c[i]);
+                    }
+                    this.session.save(new ModelConstantesKCSMat_C(valoresV));
+                }
+            }catch(FileNotFoundException e){
+                e.printStackTrace();
+            }catch(IOException e){
+                e.printStackTrace();
+            }finally {
+                if (br != null) {
+                    try {
+                        br.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            
+            csvFile = "src/Csv/CC.csv";
+            br = null;
+            valoresV = new double[7];
+            
+            linha = 0;
+            try{
+                br = new BufferedReader(new FileReader(csvFile));
+                while((line = br.readLine()) != null){
+                    String[] table_c = line.split(csvSplitBy);
+                    for(int i = 0; i < 0; i++){
+                        valoresV[i] = Double.parseDouble(table_c[i]);
+                    }
+                    this.session.save(new ModelConstantesKCSMat_C(valoresV)); 
+                }
+            }catch(FileNotFoundException e){
+                e.printStackTrace();
+            }catch(IOException e){
+                e.printStackTrace();
+            }finally {
+                if (br != null) {
+                    try {
+                        br.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+        tx.commit();
+        
+        cr = this.session.createCriteria(ModelCriticasKCSMat_K1.class);
+        results = cr.list();
+        
+        if(results.isEmpty()){
+            tx = session.beginTransaction();
+            
+            double[] valores = {-0.06635, 0.03849, 0.03994, 0.02715, 0.01277, 0.12634,0.03079,0.16431,0.09627,0.03781,0.0284,0.02222,0.03521,-0.0103,0.19724,0.00689,-0.24609,0.0304,-0.0528,0.0346,0.1568,0.0388,0.02574,0.02752,0.10833,0.02818,0.05949,-0.1459,0.00689,0.06998,0.07222,0.07233,0.02623};
+            for(int i = 0; i < valores.length; i++){
+                this.session.save(new ModelCriticasKCSMat_K1(valores[i]));
+            }
+            
+            double[] valores2 = {18.0, 92.14, 106.17, 120.19, 106.17, 236.53, 310.69, 384.94, 444.92, 58.12, 72.15, 58.12, 72.15, 102.0, 44.1, 100.5, 42.08, 50.49, 162.37752, 458.99328, 296.61576, 370.7697,137.36,120.91,220.92,170.91,116.94,66.05,100.49,86.18,100.2,114.2,86.47};
+            for(int i = 0; i < valores2.length; i++){
+                this.session.save(new ModelCriticasKCSMat_PM(valores2[i]));
+            }
+            
+            double[] valores3 = {22089.75,4106.0,3606.0,3200.0,3511.0,1415.0,1227.0,945.0,961.0,3648.0,3381.0,4023.0,3529.0,4059.0,4242.0,4120.0,4664.0,6700.0,1939.39,877.47,1332.0,1160.46,4408.0,4124.0,2570.0,3300.0,4340.0,4444.0,4121.0,3032.0,2737.0,2497.0,4975.0};
+            for(int i = 0; i < valores3.length; i++){
+                this.session.save(new ModelCriticasKCSMat_Pc(valores3[i]));
+            }
+            
+            double[] valores4 = {647.286,591.8,617.2,638.32,616.23,564.09,599.4,628.36,645.78,408.05,460.43,419.53,464.78,374.21,369.82,410.25,365.59,416.25,518.75,653.2,586.5,619.15,471.11,385.12,449.05,418.55,478.85,386.41,410.25,507.85,540.15,568.55,369.2};
+            for(int i = 0; i < valores4.length; i++){
+                this.session.save(new ModelCriticasKCSMat_Tc(valores4[i]));
+            }
+            
+            double[] valores5 = {0.3438,0.26323,0.3027,0.34513,0.32141,0.5297,0.668,0.7218,0.7361,0.1848,0.22802,0.19409,0.23329,0.3261,0.268,0.2816,0.21974,0.153,0.419,0.785,0.589,0.6658,0.191,0.176,0.3286,0.2533,0.2211,0.2557,0.236,0.3007,0.3498,0.4018,0.215};
+            for(int i = 0; i < valores5.length; i++){
+                this.session.save(new ModelCriticasKCSMat_w(valores5[i]));
+            }
+            
+            tx.commit();
+        }
+        
+        cr = this.session.createCriteria(ModelQfpsoKCSMat.class);
+        results = cr.list();
+        tx = session.beginTransaction();
+        
+        if(results.isEmpty()){
+            String csvFile = "src/Csv/Qfpso.csv";
+            BufferedReader br = null;
+            String line = "";
+            String csvSplitBy = ";";
+           
+            double[][] valoresM = new double[5][12];
+            double[] valoresV = new double[12];
+            int linha = 0;
+            try{
+                cr = this.session.createCriteria(ModelQfpsoKCSMat.class);
+                results = cr.list();
+                br = new BufferedReader(new FileReader(csvFile));
+                while((line = br.readLine()) != null){
+                    String[] table_c = line.split(csvSplitBy);
+                    for(int i = 0; i < table_c.length; i++){
+                        valoresV[i] = Double.parseDouble(table_c[i]);
+                    }
+                    this.session.save(new ModelQfpsoKCSMat(valoresV));
+                }
+
+            }catch(FileNotFoundException e){
+                e.printStackTrace();
+            }catch(IOException e){
+                e.printStackTrace();
+            }finally {
+                tx.commit();
+                if (br != null) {
+                    try {
+                        br.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+        
+        viewPrincipal = new ViewPrincipal(this);
     }
     
     //FUNÇÃO QUE CRIA O DESENHO DO PRIMEIRO CICLO E INDICA OS LOCAIS DOS JPANELS INSERIDOS
