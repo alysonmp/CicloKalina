@@ -35,7 +35,7 @@ public class ControlMassa {
         m = calor.getQfon1()/EntEVP;
         double QTf = m * (H1 - H6);
         double QTfcor = QTf* 1.02;
-        //ControlTSaidaF tSaidaF = new ControlTSaidaF(compressor, Tf, QTfcor,session);
+        ControlTSaida tSaidaF = new ControlTSaida(compressor, Tf, QTfcor,session);
         
         //Correcao da massa
         
@@ -67,7 +67,7 @@ public class ControlMassa {
         }else{
             ControlExergia_Gases exergia_Gases1 = new ControlExergia_Gases(mf, Tf, X, session);
             ControlExergia_Gases exergia_Gases2 = new ControlExergia_Gases(mf, Tf2, X, session);
-            //Qfon1=(exergia_Gases1.getHin() - exergia_Gases2.getHsat())*mf;
+            Qfon1=(exergia_Gases1.getHin() - exergia_Gases2.getHin())*mf;
         }
         
         m = (Qfon1/EntEVP);
@@ -100,8 +100,9 @@ public class ControlMassa {
                     if(DT<0.0005)
                         DT=0.0003975313;
             }else{ 
+                ControlExergia_Gases exergia_Gases1 = new ControlExergia_Gases(mf, Tf, X, session);
                 ControlExergia_Gases exergia_Gases = new ControlExergia_Gases(mf, Test, X, session);
-                //Q = exergia_Gases.getHin() - exergia_Gases.getHout*mf;
+                Q = exergia_Gases1.getHin() - exergia_Gases.getHin()*mf;
                 erro=Math.abs((QTf-Q)/QTf);
                 Burbuja=Q-QTf;
                 if(erro>0.0005 && Burbuja<0){

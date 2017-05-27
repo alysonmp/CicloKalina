@@ -14,96 +14,167 @@ import org.hibernate.Session;
 public class ControlExergia {
     
     private double To, Po;
+    private double E1, E2, E3, E4, E5, E6, EXevp, EXcon;
     
     public ControlExergia(double H1, double H2, double H3, double H4, double H5, double H6, double S1, double S2, double S3, double S4, double S5, double S6, double m, double Pref, double Tref, double ii, double Qcon, double Qevp, double mf, double Tf, double Tfout, double[] X, double FON, double Pf, Session session){
         To=25+273.15;
         Po=101.325;
+        double Ten, Pen, Ts, Ps, mH2O, EH2Oe, EH2Os;
+        double HLo, HVo, SLo, SVo, HLen, HVen, SLen, SVen, HLs, HVs, SLs, SVs;
+        
+        ControlH_Sistema h_Sistema = new ControlH_Sistema(To, Po, Pref, Tref, 0, session);
+        HLo  = h_Sistema.getHL();
+        HVo  = h_Sistema.getHV();
+        ControlS_Sistema s_Sistema = new ControlS_Sistema(To, Po, Pref, Tref, 0, session);
+        SLo = s_Sistema.getSL();
+        SVo = s_Sistema.getSV();
         
         if(FON != 1){
-            ControlExergia_Gases exergiaGases = new ControlExergia_Gases(mf, Tf, X, session);
-            Ein = exergiaGases.get
-                    
-            [Ein, Hin, Sin, bgasin, ETin]=Exergia_Gases(mf, Tf, X);
-            [Eout, Hout, Sout, bgasout, ETout]=Exergia_Gases(mf, Tfout, X);
+            ControlExergia_Gases exergiaGasesIn = new ControlExergia_Gases(mf, Tf, X, session);
+            //ControlExergia_Gases exergiaGasesOut = new ControlExergia_Gases(mf, Tfout, X, session);
+
+            EXevp = exergiaGasesIn.getET()*mf;
+        }else{
+            Ten = Tf;
+            Pen = Pf;
+            Ts = Tfout;
+            Ps = Pen;
+            
+            h_Sistema = new ControlH_Sistema(Ten, Pen, Pref, Tref, 0, session);
+            HLen  = h_Sistema.getHL();
+            HVen  = h_Sistema.getHV();
+            s_Sistema = new ControlS_Sistema(Ten, Pen, Pref, Tref, 0, session);
+            SLen = s_Sistema.getSL();
+            SVen = s_Sistema.getSV();
+            
+            h_Sistema = new ControlH_Sistema(Ts, Ps, Pref, Tref, 0, session);
+            HLs  = h_Sistema.getHL();
+            HVs  = h_Sistema.getHV();
+            s_Sistema = new ControlS_Sistema(Ts, Ps, Pref, Tref, 0, session);
+            SLs = s_Sistema.getSL();
+            SVs = s_Sistema.getSV();
+            
+            mH2O = mf;
+            EH2Oe= mH2O*((HLen-HLo)-(To*(SLen-SLo)));
+            EH2Os= mH2O*((HLs-HLo)-(To*(SLs-SLo)));
+            
+            EXevp=EH2Oe;
+        }
+        
+        Ten = 25+273.15;
+        Pen=(101.325)*1.2;
+        Ts=35+273.15;
+        Ps=Pen;
+            
+        h_Sistema = new ControlH_Sistema(Ten, Pen, Pref, Tref, 0, session);
+        HLen  = h_Sistema.getHL();
+        HVen  = h_Sistema.getHV();
+        s_Sistema = new ControlS_Sistema(Ten, Pen, Pref, Tref, 0, session);
+        SLen = s_Sistema.getSL();
+        SVen = s_Sistema.getSV();
+            
+        h_Sistema = new ControlH_Sistema(Ts, Ps, Pref, Tref, 0, session);
+        HLs  = h_Sistema.getHL();
+        HVs  = h_Sistema.getHV();
+        s_Sistema = new ControlS_Sistema(Ts, Ps, Pref, Tref, 0, session);
+        SLs = s_Sistema.getSL();
+        SVs = s_Sistema.getSV();
+        
+        mH2O = Qcon/(HLs-HLen);
+        EH2Oe = mH2O*((HLen-HLo)-(To*(SLen-SLo)));
+        EH2Os = mH2O*((HLs-HLo)-(To*(SLs-SLo)));
+
+        EXcon=EH2Os-EH2Oe;
+        
+        E1= m*((H1-HLo)-(To*(S1-SLo)));
+        E2= m*((H2-HLo)-(To*(S2-SLo)));
+        E3= m*((H3-HLo)-(To*(S3-SLo)));
+        E4= m*((H4-HLo)-(To*(S4-SLo)));
+        E5= m*((H5-HLo)-(To*(S5-SLo)));
+        E6= m*((H6-HLo)-(To*(S6-SLo)));
+
+    }
+
+    public double getTo() {
+        return To;
+    }
+
+    public void setTo(double To) {
+        this.To = To;
+    }
+
+    public double getPo() {
+        return Po;
+    }
+
+    public void setPo(double Po) {
+        this.Po = Po;
+    }
+
+    public double getE1() {
+        return E1;
+    }
+
+    public void setE1(double E1) {
+        this.E1 = E1;
+    }
+
+    public double getE2() {
+        return E2;
+    }
+
+    public void setE2(double E2) {
+        this.E2 = E2;
+    }
+
+    public double getE3() {
+        return E3;
+    }
+
+    public void setE3(double E3) {
+        this.E3 = E3;
+    }
+
+    public double getE4() {
+        return E4;
+    }
+
+    public void setE4(double E4) {
+        this.E4 = E4;
+    }
+
+    public double getE5() {
+        return E5;
+    }
+
+    public void setE5(double E5) {
+        this.E5 = E5;
+    }
+
+    public double getE6() {
+        return E6;
+    }
+
+    public void setE6(double E6) {
+        this.E6 = E6;
+    }
+
+    public double getEXevp() {
+        return EXevp;
+    }
+
+    public void setEXevp(double EXevp) {
+        this.EXevp = EXevp;
+    }
+
+    public double getEXcon() {
+        return EXcon;
+    }
+
+    public void setEXcon(double EXcon) {
+        this.EXcon = EXcon;
     }
     
+    
+    
 }
-
-function [E1, E2, E3, E4, E5, E6, EXevp, EXcon]= exergia(H1, H2, H3, H4, H5, H6, S1, S2, S3, S4, S5, S6, m, Pref, Tref, ii, Qcon, Qevp, mf, Tf, Tfout, X, FON, Pf)
-
-%%%%%%%%%%%%%Agua ou g·s no Evaporador  %%%%%%%%%
-if FON ~= 1
-[Ein, Hin, Sin, bgasin, ETin]=Exergia_Gases(mf, Tf, X);
-[Eout, Hout, Sout, bgasout, ETout]=Exergia_Gases(mf, Tfout, X);
-%EXevp=(ETin-ETout)*mf;
-EXevp=(ETin)*mf; %Teorria josÈ joaquin
-else
- Ten=Tf;
- Pen=Pf;
- Ts=Tfout;
- Ps=Pen;
-[HLo, HVo] = H_sistema(To, Po, Pref, Tref, 1);
-[SLo, SVo] = S_sistema(To, Po, Pref, Tref, 1);
-[HLen, HVen] = H_sistema(Ten, Pen, Pref, Tref, 1);
-[HLs, HVs] = H_sistema(Ts, Ps, Pref, Tref, 1); 
- [SLen, SVen] = S_sistema(Ten, Pen, Pref, Tref, 1);
- [SLs, SVs] = S_sistema(Ts, Ps, Pref, Tref, 1);
- mH2O=mf;
-  EH2Oe= mH2O*((HLen-HLo)-(To*(SLen-SLo)));
- EH2Os= mH2O*((HLs-HLo)-(To*(SLs-SLo)));
- 
- %EXevp=EH2Oe-EH2Os;
- EXevp=EH2Oe; %Jose Joaquin
-end
-%%%%%%agua de arrefecimento%%%%%
- Ten=25+273.15;
- Pen=(101.325)*1.2;
- Ts=35+273.15;
- Ps=Pen;
-[HLo, HVo] = H_sistema(To, Po, Pref, Tref, 1);
-[SLo, SVo] = S_sistema(To, Po, Pref, Tref, 1);
-[HLen, HVen] = H_sistema(Ten, Pen, Pref, Tref, 1);
-[HLs, HVs] = H_sistema(Ts, Ps, Pref, Tref, 1); 
- [SLen, SVen] = S_sistema(Ten, Pen, Pref, Tref, 1);
- [SLs, SVs] = S_sistema(Ts, Ps, Pref, Tref, 1);
- mH2O=Qcon/(HLs-HLen);
-  EH2Oe= mH2O*((HLen-HLo)-(To*(SLen-SLo)));
- EH2Os= mH2O*((HLs-HLo)-(To*(SLs-SLo)));
- 
- EXcon=EH2Os-EH2Oe
- 
- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
- %[HL, HV] = H_sistema(To, Po, Pref, Tref, ii); 
-% 
-% [SL, SV] = S_sistema(To, Po, Pref, Tref, ii);
-% 
-% [Ps2] = Pdevapor(To, ii);
-% if Ps2<Po
-%      Ho=H4;
-%      So=S4;
-% else
-%     Ho=HV;
-%     So=SV;
-% end
-    [Ho, HV] = H_sistema(To, Po, Pref, Tref, ii); 
-    [So, SV] = S_sistema(To, Po, Pref, Tref, ii);
-
-E1= m*((H1-Ho)-(To*(S1-So)));
-E2= m*((H2-Ho)-(To*(S2-So)));
-E3= m*((H3-Ho)-(To*(S3-So)));
-E4= m*((H4-Ho)-(To*(S4-So)));
-E5= m*((H5-Ho)-(To*(S5-So)));
-E6= m*((H6-Ho)-(To*(S6-So)));
-
-
-% Eoutlet=m*((Houlet-Ho)-(To*(Soulet-So)));
-% 
-% HNH3e=5803.8; %kJ/kmol
-% HNH3s=24429; %kJ/kmol
-% SNH3e=22.848; %kJ/kmol K
-% SNH3s=94.962; %%kJ/kmol K
-% 
-% mNH3=PF/(HNH3s-HNH3e); %kmol
-% DENH3= mNH3*((HNH3e-HNH3s)-(To*(SNH3e-SNH3s)));
-
