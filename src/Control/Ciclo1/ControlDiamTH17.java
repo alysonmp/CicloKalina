@@ -5,7 +5,14 @@
  */
 package Control.Ciclo1;
 
+import Model.ModelDRT70;
+import Model.ModelDRT80;
+import Model.ModelEqro;
+import Model.ModelEqrs;
 import java.util.ArrayList;
+import java.util.List;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
 
 /**
  *
@@ -14,7 +21,7 @@ import java.util.ArrayList;
 public class ControlDiamTH17 {
     private double Dr, Teff;
     
-    public ControlDiamTH17(double v2, double DHT) {
+    public ControlDiamTH17(double v2, double DHT, Session session) {
         
         double NN = 18000, Nsa, Dsa = 0;
         double V3 = v2, Had = DHT;
@@ -30,20 +37,31 @@ public class ControlDiamTH17 {
         ArrayList<Double> NRs_80 = new ArrayList<>();
         ArrayList<Double> Dis_80 = new ArrayList<>();
         
-        for(int k=0;k<108;k++){
-            Nsa = dr70[k][0];
+        Criteria cr = session.createCriteria(ModelDRT70.class); 
+        List results = cr.list();
+        double[] dr70 = ((ModelDRT70)results.get(0)).getValores();
+        
+        cr = session.createCriteria(ModelEqrs.class); 
+        results = cr.list();
+        
+        for(int k=0;k<108;k++){    
+            Nsa = dr70[k];
             if(k>=0 && k < 4){
                 e = 0;
-                Dsa = eqrs[e][0]+eqrs[e][1]*Math.pow(Nsa,3)+eqrs[e][2]*Math.exp(Nsa);
+                double[] eqrs = ((ModelEqrs)results.get(e)).getValores();
+                Dsa = eqrs[0]+eqrs[1]*Math.pow(Nsa,3)+eqrs[2]*Math.exp(Nsa);
             }else if(k>=4 && k < 102){
                 e = 1;
-                Dsa = (Math.pow((eqrs[e][0]+eqrs[e][1]/(Math.pow((Nsa),2))),0.5));
+                double[] eqrs = ((ModelEqrs)results.get(e)).getValores();
+                Dsa = (Math.pow((eqrs[0]+eqrs[1]/(Math.pow((Nsa),2))),0.5));
             }else if(k>= 102 && k < 105){
                 e = 4;
-                Dsa = Math.pow((eqrs[e][0]+eqrs[e][1]*Math.exp(Nsa)),-1);
+                double[] eqrs = ((ModelEqrs)results.get(e)).getValores();
+                Dsa = Math.pow((eqrs[0]+eqrs[1]*Math.exp(Nsa)),-1);
             }else if(k>=105 && k < 108){
                 e = 5;
-                Dsa = Math.exp(eqrs[e][0]+eqrs[e][1]*(Nsa));
+                double[] eqrs = ((ModelEqrs)results.get(e)).getValores();
+                Dsa = Math.exp(eqrs[0]+eqrs[1]*(Nsa));
             }
             
             NRi_70.add(((Math.pow(Had,0.75))*Nsa)/(Math.pow(V3,0.5)));
@@ -52,14 +70,18 @@ public class ControlDiamTH17 {
             //hold on;
         }
         
+        dr70 = ((ModelDRT70)results.get(2)).getValores();
+        
         for(int k=0;k<84;k++){
-            Nsa=dr70[k][2];
+            Nsa = dr70[k];
             if(k>=0 && k< 80){
                 e = 2;
-                Dsa=Math.pow((eqrs[e][0]+eqrs[e][1]*(Nsa)),-1);
+                double[] eqrs = ((ModelEqrs)results.get(e)).getValores();
+                Dsa=Math.pow((eqrs[0]+eqrs[1]*(Nsa)),-1);
             }else if(k>= 80 && k < 84){
                 e = 3;
-                Dsa=(eqrs[e][0]+eqrs[e][1]*Math.exp(-Nsa));
+                double[] eqrs = ((ModelEqrs)results.get(e)).getValores();
+                Dsa=(eqrs[0]+eqrs[1]*Math.exp(-Nsa));
             }
             
             NRs_70.add(((Math.pow(Had,0.75))*Nsa)/(Math.pow(V3,0.5)));
@@ -68,14 +90,23 @@ public class ControlDiamTH17 {
             //hold on;
         }
         
+        cr = session.createCriteria(ModelDRT80.class); 
+        results = cr.list();
+        double[] dr80 = ((ModelDRT80)results.get(0)).getValores();
+        
+        cr = session.createCriteria(ModelEqro.class); 
+        results = cr.list();
+        
         for(int k=0; k < 67;k++){//Curva Inferior (Restante)
-            Nsa=dr80[k][0];
+            Nsa=dr80[k];
             if(k >= 0 && k < 63){
                 e = 0;
-                Dsa=Math.pow((eqro[e][0]+eqro[e][1]*Math.log(Nsa)),-1);
+                double[] eqro = ((ModelEqro)results.get(e)).getValores();
+                Dsa=Math.pow((eqro[0]+eqro[1]*Math.log(Nsa)),-1);
             }else if(k >= 63 && k < 67){
                 e=3;
-                Dsa = Math.pow((eqro[e][0]+eqro[e][1]*Math.exp(Nsa)),-1);
+                double[] eqro = ((ModelEqro)results.get(e)).getValores();
+                Dsa = Math.pow((eqro[0]+eqro[1]*Math.exp(Nsa)),-1);
             }
             NRi_80.add(((Math.pow(Had,0.75))*Nsa)/(Math.pow(V3,0.5)));
             Dii_80.add((Dsa*(Math.pow(V3,0.5)))/(Math.pow(Had,0.25)));
@@ -83,14 +114,18 @@ public class ControlDiamTH17 {
             //hold on
         }
         
+        dr80 = ((ModelDRT80)results.get(2)).getValores();
+        
         for(int k=0; k < 70;k++){//Curva Superior (Restante)
-            Nsa=dr80[k][2];
+            Nsa=dr80[k];
             if(k >= 0 && k < 66){
                 e = 1;
-                Dsa=((Math.log(Nsa))/(eqro[e][0]*Math.log(Nsa)+eqro[e][1]*(Nsa)));
+                double[] eqro = ((ModelEqro)results.get(e)).getValores();
+                Dsa=((Math.log(Nsa))/(eqro[0]*Math.log(Nsa)+eqro[1]*(Nsa)));
             }else if(k >= 66 && k < 70){
                 e = 2;
-                Dsa=((eqro[e][0])+(eqro[e][1]/(Nsa))+(eqro[e][2]/Math.pow((Nsa),2)));
+                double[] eqro = ((ModelEqro)results.get(e)).getValores();
+                Dsa=((eqro[0])+(eqro[1]/(Nsa))+(eqro[2]/Math.pow((Nsa),2)));
             }
             
             NRs_80.add(((Math.pow(Had,0.75))*Nsa)/(Math.pow(V3,0.5)));
@@ -121,14 +156,16 @@ public class ControlDiamTH17 {
             double Nsoa = (Math.pow(V3,0.5)*NRoa)/Math.pow(Had,0.75);
             
             e = 3;
-            double Dsoa = Math.pow((eqrs[e][0]+eqrs[e][1]*(Nsoa)),-1); 
-            double Ds_70 = (Dsoa*Math.pow(V3,0.5))/math.pow(Had,0.25);
+            double[] eqrs = ((ModelEqrs)results.get(e)).getValores();
+            double Dsoa = Math.pow((eqrs[0]+eqrs[1]*(Nsoa)),-1); 
+            double Ds_70 = (Dsoa*Math.pow(V3,0.5))/Math.pow(Had,0.25);
             //plot(NRoa,Ds_70,'gv-');
             //hold on;
             
             e = 2;
-            Dsoa = eqrs[e][0]+eqrs[e][1]/Math.pow(Math.pow((Nsoa),2),0.5);
-            double Di_70 = (Dsoa*Math.pow(V3,0.5))/math.pow(Had,0.25);
+            eqrs = ((ModelEqrs)results.get(e)).getValores();
+            Dsoa = eqrs[0]+eqrs[1]/Math.pow(Math.pow((Nsoa),2),0.5);
+            double Di_70 = (Dsoa*Math.pow(V3,0.5))/Math.pow(Had,0.25);
             //plot(NRoa,Di_70,'gv-');
             //hold on
             
@@ -160,13 +197,15 @@ public class ControlDiamTH17 {
                 Nsoa=(Math.pow(V3,0.5)*NRoa)/Math.pow(Had,0.75);
                 
                 e=2;
-                double Dsos=((Math.log(Nsoa))/(eqro[e][0]*Math.log(Nsoa)+eqro[e][1]*(Nsoa))); 
+                double[] eqro = ((ModelEqro)results.get(e)).getValores();
+                double Dsos=((Math.log(Nsoa))/(eqro[0]*Math.log(Nsoa)+eqro[1]*(Nsoa))); 
                 double Ds_80=(Dsos*Math.pow(V3,0.5))/Math.pow(Had,0.25);
                 //plot(NRoa,Ds_80,'gv-');
                 //hold on
 
                 e=1;
-                double Dsoi= Math.pow((eqro[e][0]+eqro[e][1]*Math.log(Nsoa)),-1); 
+                eqro = ((ModelEqro)results.get(e)).getValores();
+                double Dsoi= Math.pow((eqro[0]+eqro[1]*Math.log(Nsoa)),-1); 
                 double Di_80= (Dsoi*Math.pow(V3,0.5))/Math.pow(Had,0.25);
                 //plot(NRoa,Di_80,'gv-');
                 //hold on;
