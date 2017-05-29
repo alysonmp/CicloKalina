@@ -39,4 +39,20 @@ public class ControlTurbina {
     public void setIsoTurbina(ControlIsoentropiaTurbine isoTurbina) {
         this.isoTurbina = isoTurbina;
     }   
+
+    public double getH1() {
+        return H1;
+    }
+
+    public void setH1(double H1) {
+        this.H1 = H1;
+    }
+
+    public double getS1() {
+        return S1;
+    }
+
+    public void setS1(double S1) {
+        this.S1 = S1;
+    }
 }
