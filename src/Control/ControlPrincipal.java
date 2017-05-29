@@ -76,6 +76,10 @@ import Model.ModelCriticasKCSMat_PM;
 import Model.ModelCriticasKCSMat_Pc;
 import Model.ModelCriticasKCSMat_Tc;
 import Model.ModelCriticasKCSMat_w;
+import Model.ModelDRT70;
+import Model.ModelDRT80;
+import Model.ModelEqro;
+import Model.ModelEqrs;
 import Model.ModelLinear;
 import Model.ModelQfpsoKCSMat;
 import Model.ModelQfpsoRankineMat;
@@ -503,7 +507,6 @@ public class ControlPrincipal {
             }catch(IOException e){
                 e.printStackTrace();
             }finally {
-                tx.commit();
                 if (br != null) {
                     try {
                         br.close();
@@ -512,6 +515,142 @@ public class ControlPrincipal {
                     }
                 }
             }
+        }
+        tx.commit();
+        
+        cr = this.session.createCriteria(ModelDRT70.class);
+        results = cr.list();
+        tx = session.beginTransaction();
+        
+        if(results.isEmpty()){
+            String csvFile = "src/Csv/drT70.csv";
+            BufferedReader br = null;
+            String line = "";
+            String csvSplitBy = ";";
+           
+            double[] valoresV = new double[5];
+            try{
+                cr = this.session.createCriteria(ModelDRT70.class);
+                results = cr.list();
+                br = new BufferedReader(new FileReader(csvFile));
+                while((line = br.readLine()) != null){
+                    String[] table_c = line.split(csvSplitBy);
+                    for(int i = 0; i < table_c.length; i++){
+                        valoresV[i] = Double.parseDouble(table_c[i]);
+                    }
+                    this.session.save(new ModelDRT70(valoresV));
+                }
+
+            }catch(FileNotFoundException e){
+                e.printStackTrace();
+            }catch(IOException e){
+                e.printStackTrace();
+            }finally {
+                if (br != null) {
+                    try {
+                        br.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            
+            csvFile = "src/Csv/drT80.csv";
+            br = null;
+            line = "";
+            csvSplitBy = ";";
+           
+            valoresV = new double[4];
+            try{
+                cr = this.session.createCriteria(ModelDRT80.class);
+                results = cr.list();
+                br = new BufferedReader(new FileReader(csvFile));
+                while((line = br.readLine()) != null){
+                    String[] table_c = line.split(csvSplitBy);
+                    for(int i = 0; i < table_c.length; i++){
+                        valoresV[i] = Double.parseDouble(table_c[i]);
+                    }
+                    this.session.save(new ModelDRT80(valoresV));
+                }
+
+            }catch(FileNotFoundException e){
+                e.printStackTrace();
+            }catch(IOException e){
+                e.printStackTrace();
+            }finally {
+                if (br != null) {
+                    try {
+                        br.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            
+            csvFile = "src/Csv/eqro.csv";
+            br = null;
+            line = "";
+            csvSplitBy = ";";
+           
+            valoresV = new double[3];
+            try{
+                cr = this.session.createCriteria(ModelEqro.class);
+                results = cr.list();
+                br = new BufferedReader(new FileReader(csvFile));
+                while((line = br.readLine()) != null){
+                    String[] table_c = line.split(csvSplitBy);
+                    for(int i = 0; i < table_c.length; i++){
+                        valoresV[i] = Double.parseDouble(table_c[i]);
+                    }
+                    this.session.save(new ModelEqro(valoresV));
+                }
+
+            }catch(FileNotFoundException e){
+                e.printStackTrace();
+            }catch(IOException e){
+                e.printStackTrace();
+            }finally {
+                if (br != null) {
+                    try {
+                        br.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            
+            csvFile = "src/Csv/eqrs.csv";
+            br = null;
+            line = "";
+            csvSplitBy = ";";
+           
+            valoresV = new double[3];
+            try{
+                cr = this.session.createCriteria(ModelEqrs.class);
+                results = cr.list();
+                br = new BufferedReader(new FileReader(csvFile));
+                while((line = br.readLine()) != null){
+                    String[] table_c = line.split(csvSplitBy);
+                    for(int i = 0; i < table_c.length; i++){
+                        valoresV[i] = Double.parseDouble(table_c[i]);
+                    }
+                    this.session.save(new ModelEqrs(valoresV));
+                }
+
+            }catch(FileNotFoundException e){
+                e.printStackTrace();
+            }catch(IOException e){
+                e.printStackTrace();
+            }finally {
+                if (br != null) {
+                    try {
+                        br.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            tx.commit();
         }
         
         viewPrincipal = new ViewPrincipal(this);

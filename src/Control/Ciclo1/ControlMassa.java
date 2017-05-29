@@ -123,4 +123,68 @@ public class ControlMassa {
         Tfout=Test;
         }
     }
+
+    public double getM() {
+        return m;
+    }
+
+    public void setM(double m) {
+        this.m = m;
+    }
+
+    public double getQ() {
+        return Q;
+    }
+
+    public void setQ(double Q) {
+        this.Q = Q;
+    }
+
+    public double getTfout() {
+        return Tfout;
+    }
+
+    public void setTfout(double Tfout) {
+        this.Tfout = Tfout;
+    }
+
+    public double getPINCH() {
+        return PINCH;
+    }
+
+    public void setPINCH(double PINCH) {
+        this.PINCH = PINCH;
+    }
+
+    public double getHlat() {
+        return Hlat;
+    }
+
+    public void setHlat(double Hlat) {
+        this.Hlat = Hlat;
+    }
+
+    public double getHsen() {
+        return Hsen;
+    }
+
+    public void setHsen(double Hsen) {
+        this.Hsen = Hsen;
+    }
+
+    public double getHsup() {
+        return Hsup;
+    }
+
+    public void setHsup(double Hsup) {
+        this.Hsup = Hsup;
+    }
+
+    public double getT1s() {
+        return T1s;
+    }
+
+    public void setT1s(double T1s) {
+        this.T1s = T1s;
+    }
 }

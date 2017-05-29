@@ -139,4 +139,60 @@ public class ControlRegenerador {
             }
         }
     }
+
+    public double getIHR() {
+        return IHR;
+    }
+
+    public void setIHR(double IHR) {
+        this.IHR = IHR;
+    }
+
+    public double getH3() {
+        return H3;
+    }
+
+    public void setH3(double H3) {
+        this.H3 = H3;
+    }
+
+    public double getT3() {
+        return T3;
+    }
+
+    public void setT3(double T3) {
+        this.T3 = T3;
+    }
+
+    public double getS3() {
+        return S3;
+    }
+
+    public void setS3(double S3) {
+        this.S3 = S3;
+    }
+
+    public double getH6() {
+        return H6;
+    }
+
+    public void setH6(double H6) {
+        this.H6 = H6;
+    }
+
+    public double getT6() {
+        return T6;
+    }
+
+    public void setT6(double T6) {
+        this.T6 = T6;
+    }
+
+    public double getS6() {
+        return S6;
+    }
+
+    public void setS6(double S6) {
+        this.S6 = S6;
+    }
 }

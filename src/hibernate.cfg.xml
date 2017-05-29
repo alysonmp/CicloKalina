@@ -121,5 +121,9 @@ Contributor(s):
     <mapping class="Model.ModelConstantesKCSMat_CC"/>
     <mapping class="Model.ModelCVA"/>
     <mapping class="Model.ModelCVB"/>
+    <mapping class="Model.ModelDRT70"/>
+    <mapping class="Model.ModelDRT80"/>
+    <mapping class="Model.ModelEqro"/>
+    <mapping class="Model.ModelEqrs"/>
   </session-factory>
 </hibernate-configuration>
