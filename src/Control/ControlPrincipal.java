@@ -65,6 +65,8 @@ import Control.TabelaFluidos.ControlWaterGas;
 import Control.TabelaFluidos.ControlWaterLiquido;
 import Model.Ciclo2.ModelFluidos;
 import Model.Ciclo2.ModelMassa;
+import Model.ModelCVA;
+import Model.ModelCVB;
 import Model.ModelConsExeMat;
 import Model.ModelConstantesKCSMat_C;
 import Model.ModelConstantesKCSMat_CC;
@@ -379,9 +381,9 @@ public class ControlPrincipal {
         
         cr = this.session.createCriteria(ModelQfpsoKCSMat.class);
         results = cr.list();
-        tx = session.beginTransaction();
         
         if(results.isEmpty()){
+            tx = session.beginTransaction();
             String csvFile = "src/Csv/Qfpso.csv";
             BufferedReader br = null;
             String line = "";
@@ -440,6 +442,78 @@ public class ControlPrincipal {
         }
         
         tx.commit();
+        
+        cr = this.session.createCriteria(ModelCVA.class);
+        results = cr.list();
+        tx = session.beginTransaction();
+        
+        if(results.isEmpty()){
+            String csvFile = "src/Csv/Cva.csv";
+            BufferedReader br = null;
+            String line = "";
+            String csvSplitBy = ";";
+           
+            double[] valoresV = new double[2];
+            try{
+                cr = this.session.createCriteria(ModelCVA.class);
+                results = cr.list();
+                br = new BufferedReader(new FileReader(csvFile));
+                while((line = br.readLine()) != null){
+                    String[] table_c = line.split(csvSplitBy);
+                    for(int i = 0; i < table_c.length; i++){
+                        valoresV[i] = Double.parseDouble(table_c[i]);
+                    }
+                    this.session.save(new ModelCVA(valoresV));
+                }
+
+            }catch(FileNotFoundException e){
+                e.printStackTrace();
+            }catch(IOException e){
+                e.printStackTrace();
+            }finally {
+                if (br != null) {
+                    try {
+                        br.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            
+            csvFile = "src/Csv/Cvb.csv";
+            br = null;
+            line = "";
+            csvSplitBy = ";";
+           
+            valoresV = new double[2];
+            try{
+                cr = this.session.createCriteria(ModelCVB.class);
+                results = cr.list();
+                br = new BufferedReader(new FileReader(csvFile));
+                while((line = br.readLine()) != null){
+                    String[] table_c = line.split(csvSplitBy);
+                    for(int i = 0; i < table_c.length; i++){
+                        valoresV[i] = Double.parseDouble(table_c[i]);
+                    }
+                    this.session.save(new ModelCVB(valoresV));
+                }
+
+            }catch(FileNotFoundException e){
+                e.printStackTrace();
+            }catch(IOException e){
+                e.printStackTrace();
+            }finally {
+                tx.commit();
+                if (br != null) {
+                    try {
+                        br.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+        
         viewPrincipal = new ViewPrincipal(this);
     }
     

@@ -119,5 +119,7 @@ Contributor(s):
     <mapping class="Model.ModelCriticasKCSMat_w"/>
     <mapping class="Model.ModelQfpsoKCSMat"/>
     <mapping class="Model.ModelConstantesKCSMat_CC"/>
+    <mapping class="Model.ModelCVA"/>
+    <mapping class="Model.ModelCVB"/>
   </session-factory>
 </hibernate-configuration>
