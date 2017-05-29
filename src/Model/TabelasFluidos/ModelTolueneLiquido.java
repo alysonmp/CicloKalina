@@ -36,6 +36,11 @@ public class ModelTolueneLiquido implements Serializable{
     @Column
     private double Prl;
 
+    public ModelTolueneLiquido(double pressao, double temperatura) {
+        this.pressao = pressao;
+        this.temperatura = temperatura;
+    }
+
     public ModelTolueneLiquido(double pressao, double temperatura, double Cpl, double Prl) {
         this.pressao = pressao;
         this.temperatura = temperatura;
@@ -45,7 +50,7 @@ public class ModelTolueneLiquido implements Serializable{
 
     public ModelTolueneLiquido() {
     }
-
+    
     public int getID() {
         return ID;
     }

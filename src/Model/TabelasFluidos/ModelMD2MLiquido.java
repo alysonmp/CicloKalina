@@ -38,6 +38,11 @@ public class ModelMD2MLiquido implements Serializable{
     public ModelMD2MLiquido() {
     }
     
+    public ModelMD2MLiquido(double pressao, double temperatura) {
+        this.pressao = pressao;
+        this.temperatura = temperatura;
+    }
+
     public ModelMD2MLiquido(double pressao, double temperatura, double Cpl, double Prl) {
         this.pressao = pressao;
         this.temperatura = temperatura;

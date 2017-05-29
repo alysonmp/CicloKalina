@@ -47,13 +47,19 @@ public class ModelIsobutanGas implements Serializable{
     public ModelIsobutanGas() {
     }
 
-    public ModelIsobutanGas(double pressao, double temperatura, double kv, double Cpv, double Prv, double Muv) {
+    public ModelIsobutanGas(double pressao, double temperatura, double kv, double Cpv, double Prv, double Muv, double Vcv) {
         this.pressao = pressao;
         this.temperatura = temperatura;
         this.kv = kv;
         this.Cpv = Cpv;
         this.Prv = Prv;
         this.Muv = Muv;
+        this.Vcv = Vcv;
+    }
+
+    public ModelIsobutanGas(double pressao, double temperatura) {
+        this.pressao = pressao;
+        this.temperatura = temperatura;
     }
     
     public int getID() {

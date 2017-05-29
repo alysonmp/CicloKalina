@@ -38,6 +38,11 @@ public class ModelIpentaneLiquido implements Serializable{
     public ModelIpentaneLiquido() {
     }
     
+    public ModelIpentaneLiquido(double pressao, double temperatura) {
+        this.pressao = pressao;
+        this.temperatura = temperatura;
+    }
+
     public ModelIpentaneLiquido(double pressao, double temperatura, double Cpl, double Prl) {
         this.pressao = pressao;
         this.temperatura = temperatura;

@@ -45,6 +45,11 @@ public class ModelWaterGas implements Serializable{
     @Column
     private double Vcv;
 
+    public ModelWaterGas(double pressao, double temperatura) {
+        this.pressao = pressao;
+        this.temperatura = temperatura;
+    }
+
     public ModelWaterGas(double pressao, double temperatura, double Cpv, double Prv, double Kv, double Muv, double Vcv) {
         this.pressao = pressao;
         this.temperatura = temperatura;

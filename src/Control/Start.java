@@ -9,11 +9,17 @@ import Control.Ciclo1.ControlAreas;
 import Control.Ciclo1.ControlBalanco;
 import Control.Ciclo1.ControlBomba;
 import Control.Ciclo1.ControlDiamTH17;
+import Control.Ciclo1.ControlInterpolacao;
 import Control.Ciclo1.ControlMassa;
 import Control.Ciclo1.ControlRegenerador;
 import Control.Ciclo1.ControlSF;
 import Control.Ciclo1.ControlT_Ref;
 import Control.Ciclo1.ControlTurbina;
+import Control.TabelaFluidos.ControlWaterGas;
+import Model.TabelasFluidos.ModelWaterGas;
+import java.lang.reflect.Field;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.hibernate.Session;
 
 /**
@@ -26,7 +32,7 @@ public class Start {
     private int ii;
     private Session session;
     
-    public Start(int compressor, double Pe, double Pconop, double Tconop, int flu, double Tee, double Tf, double Tcri, double Teff, double Tref, double Pref, double m, double Beff, double G, double H6, Session session){
+    public Start(int compressor, int flu, double Pe, double Pconop, double Tconop, double Tee, double Tf, double Tcri, double Teff, double Tref, double Pref, double m, double Beff, double G, double H6, Session session){
         this.session = session;
         if(compressor == 5){
             mf = 2.8400; //%kmol/s
@@ -41,7 +47,7 @@ public class Start {
         PINCH = 10;
         ii = flu;
         
-        ControlT_Ref TRef = new ControlT_Ref(Pe, ii, session);
+        //ControlT_Ref TRef = new ControlT_Ref(Pe, ii, session);
         T1 = Tee+SUP;
         P2 = Pconop; //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%Pcon È variavel
         P4 = P2;
@@ -64,14 +70,26 @@ public class Start {
             //jkljkljkljkljkl*jkljkljkjkl
         }
         
-        ControlTurbina turbina = new ControlTurbina(Teff, P1, T1, P2, Pref, Tref, ii, session);
+        /*ControlTurbina turbina = new ControlTurbina(Teff, P1, T1, P2, Pref, Tref, ii, session);
         H1 = turbina.getH1();
         H2 = turbina.getIsoTurbina().getH2();
         S1 = turbina.getS1();
         S2 = turbina.getIsoTurbina().getS2();
         T2 = turbina.getIsoTurbina().getT2();
-        H2s = turbina.getIsoTurbina().getH2s();
+        H2s = turbina.getIsoTurbina().getH2s();*/
 
+        ControlInterpolacao interpolacao = new ControlInterpolacao(ii, Pref, Tref, session);
+        Object gas = interpolacao.getGas();
+        Object liquido = interpolacao.getLiquido();
+        
+        Field[] gases = gas.getClass().getFields();
+        System.out.println(gases[0]);
+        Class<?> classe = gas.getClass();
+        Field[] atributos = classe.getDeclaredFields();
+        
+        
+        System.out.println(gas.getClass().getName());
+        
         DH2s = H1-H2s;
         
         ControlSF sf = new ControlSF(T2, P2, ii, m, DH2s, session);
@@ -79,12 +97,12 @@ public class Start {
         v2 = sf.getV2();
         DHT = sf.getDHT();
         
-        ControlDiamTH17 diamTH17 = new ControlDiamTH17(v2, DHT);
+        ControlDiamTH17 diamTH17 = new ControlDiamTH17(v2, DHT, session);
         Dr = diamTH17.getDr();
         Teff = diamTH17.getTeff();
                 
         if(Teff < 0.8){
-            turbina = new ControlTurbina(Teff, P1, T1, P2, Pref, Tref, ii, session);
+            ControlTurbina turbina = new ControlTurbina(Teff, P1, T1, P2, Pref, Tref, ii, session);
             H1 = turbina.getH1();
             H2 = turbina.getIsoTurbina().getH2();
             S1 = turbina.getS1();
@@ -99,7 +117,7 @@ public class Start {
             v2 = sf.getV2();
             DHT = sf.getDHT();
             
-            diamTH17 = new ControlDiamTH17(v2, DHT);
+            diamTH17 = new ControlDiamTH17(v2, DHT, session);
             Dr = diamTH17.getDr();
             Teff = diamTH17.getTeff();
                     

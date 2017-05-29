@@ -37,12 +37,17 @@ public class ModelD5Liquido implements Serializable{
 
     public ModelD5Liquido() {
     }
-    
+
     public ModelD5Liquido(double pressao, double temperatura, double Cpl, double Prl) {
         this.pressao = pressao;
         this.temperatura = temperatura;
         this.Cpl = Cpl;
         this.Prl = Prl;
+    }
+    
+    public ModelD5Liquido(double pressao, double temperatura) {
+        this.pressao = pressao;
+        this.temperatura = temperatura;
     }
 
     public int getID() {

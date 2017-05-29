@@ -37,12 +37,17 @@ public class ModelHexaneLiquido implements Serializable{
 
     public ModelHexaneLiquido() {
     }
-    
+
     public ModelHexaneLiquido(double pressao, double temperatura, double Cpl, double Prl) {
         this.pressao = pressao;
         this.temperatura = temperatura;
         this.Cpl = Cpl;
         this.Prl = Prl;
+    }
+    
+    public ModelHexaneLiquido(double pressao, double temperatura) {
+        this.pressao = pressao;
+        this.temperatura = temperatura;
     }
 
     public int getID() {

@@ -45,6 +45,11 @@ public class ModelHexaneGas implements Serializable{
     @Column
     private double Vcv;
 
+    public ModelHexaneGas(double pressao, double temperatura) {
+        this.pressao = pressao;
+        this.temperatura = temperatura;
+    }
+
     public ModelHexaneGas(double pressao, double temperatura, double Cpv, double Prv, double Kv, double Muv, double Vcv) {
         this.pressao = pressao;
         this.temperatura = temperatura;
