@@ -19,7 +19,7 @@ import org.hibernate.transform.Transformers;
 public class ControlD4Liquido {
     private Session session;
     
-    private double Cpl, Prl;
+    private double Cpl, Prl, kl, Mul, Vcl;
     private double Cpl1, Cpl2, Prl1, Prl2;
 
     public ControlD4Liquido(Session session) {
@@ -61,7 +61,7 @@ public class ControlD4Liquido {
         }
     }
     
-    public void interpolacaoD4Liquido(double pressao, double temperatura){
+    public void interpolacao(double pressao, double temperatura){
         Criteria cr = this.session.createCriteria(ModelD4Liquido.class);
         
         SQLQuery consulta = this.session.createSQLQuery("select * from d4_liquido where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
@@ -100,6 +100,46 @@ public class ControlD4Liquido {
         Prl1 = d4_liquido1.getPRL()+ (d4_liquido2.getPRL()- d4_liquido1.getPRL()) * t1;
         Prl2 = d4_liquido3.getPRL()+ (d4_liquido4.getPRL()- d4_liquido3.getPRL()) * t2;
         Prl = Prl1 + (Prl2 - Prl1) * p2;
+    }
+
+    public double getCpl() {
+        return Cpl;
+    }
+
+    public void setCpl(double Cpl) {
+        this.Cpl = Cpl;
+    }
+
+    public double getPrl() {
+        return Prl;
+    }
+
+    public void setPrl(double Prl) {
+        this.Prl = Prl;
+    }
+
+    public double getKl() {
+        return kl;
+    }
+
+    public void setKl(double kl) {
+        this.kl = kl;
+    }
+
+    public double getMul() {
+        return Mul;
+    }
+
+    public void setMul(double Mul) {
+        this.Mul = Mul;
+    }
+
+    public double getVcl() {
+        return Vcl;
+    }
+
+    public void setVcl(double Vcl) {
+        this.Vcl = Vcl;
     }
     
 }

@@ -45,6 +45,11 @@ public class ModelR141BGas implements Serializable{
     @Column
     private double Vcv;
 
+    public ModelR141BGas(double pressao, double temperatura) {
+        this.pressao = pressao;
+        this.temperatura = temperatura;
+    }
+
     public ModelR141BGas(double pressao, double temperatura, double Cpv, double Prv, double Kv, double Muv, double Vcv) {
         this.pressao = pressao;
         this.temperatura = temperatura;

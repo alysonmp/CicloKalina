@@ -36,6 +36,11 @@ public class ModelWaterLiquido implements Serializable{
     @Column
     private double Prl;
 
+    public ModelWaterLiquido(double pressao, double temperatura) {
+        this.pressao = pressao;
+        this.temperatura = temperatura;
+    }
+
     public ModelWaterLiquido(double pressao, double temperatura, double Cpl, double Prl) {
         this.pressao = pressao;
         this.temperatura = temperatura;

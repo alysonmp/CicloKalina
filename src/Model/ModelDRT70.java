@@ -31,6 +31,9 @@ public class ModelDRT70 implements Serializable{
         this.valores = valores;
     }
 
+    public ModelDRT70() {
+    }
+
     public int getCod() {
         return cod;
     }

@@ -47,13 +47,19 @@ public class ModelD4Gas implements Serializable{
     public ModelD4Gas() {
     }
 
-    public ModelD4Gas(double pressao, double temperatura, double kv, double Cpv, double Prv, double Muv) {
+    public ModelD4Gas(double pressao, double temperatura, double kv, double Cpv, double Prv, double Muv, double Vcv) {
         this.pressao = pressao;
         this.temperatura = temperatura;
         this.kv = kv;
         this.Cpv = Cpv;
         this.Prv = Prv;
         this.Muv = Muv;
+        this.Vcv = Vcv;
+    }
+
+    public ModelD4Gas(double pressao, double temperatura) {
+        this.pressao = pressao;
+        this.temperatura = temperatura;
     }
     
     public int getID() {

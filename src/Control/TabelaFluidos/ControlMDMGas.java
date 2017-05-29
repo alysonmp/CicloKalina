@@ -126,4 +126,44 @@ public class ControlMDMGas {
         System.out.println("muv = "+Muv);
         System.out.println("vcv = "+Vcv);
     }
+
+    public double getCpv() {
+        return Cpv;
+    }
+
+    public void setCpv(double Cpv) {
+        this.Cpv = Cpv;
+    }
+
+    public double getPrv() {
+        return Prv;
+    }
+
+    public void setPrv(double Prv) {
+        this.Prv = Prv;
+    }
+
+    public double getKv() {
+        return kv;
+    }
+
+    public void setKv(double kv) {
+        this.kv = kv;
+    }
+
+    public double getMuv() {
+        return Muv;
+    }
+
+    public void setMuv(double Muv) {
+        this.Muv = Muv;
+    }
+
+    public double getVcv() {
+        return Vcv;
+    }
+
+    public void setVcv(double Vcv) {
+        this.Vcv = Vcv;
+    }
 }

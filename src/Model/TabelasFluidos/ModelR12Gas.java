@@ -45,6 +45,11 @@ public class ModelR12Gas implements Serializable{
     @Column
     private double Vcv;
 
+    public ModelR12Gas(double pressao, double temperatura) {
+        this.pressao = pressao;
+        this.temperatura = temperatura;
+    }
+
     public ModelR12Gas(double pressao, double temperatura, double Cpv, double Prv, double Kv, double Muv, double Vcv) {
         this.pressao = pressao;
         this.temperatura = temperatura;

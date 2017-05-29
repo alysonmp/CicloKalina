@@ -24,7 +24,7 @@ import org.hibernate.transform.Transformers;
 public class ControlHexaneLiquido {
     private Session session;
     
-    private double Cpl, Prl;
+    private double Cpl, Prl, kl, Mul, Vcl;
     private double Cpl1, Cpl2, Prl1, Prl2;
 
     public ControlHexaneLiquido(Session session) {
@@ -66,7 +66,7 @@ public class ControlHexaneLiquido {
         }
     }
     
-    public void interpolacaoHexaneLiquido(double pressao, double temperatura){
+    public void interpolacao(double pressao, double temperatura){
         Criteria cr = this.session.createCriteria(ModelHexaneLiquido.class);
         
         SQLQuery consulta = this.session.createSQLQuery("select * from hexane_liquido where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
@@ -105,5 +105,45 @@ public class ControlHexaneLiquido {
         Prl1 = hexane_liquido1.getPRL()+ (hexane_liquido2.getPRL()- hexane_liquido1.getPRL()) * t1;
         Prl2 = hexane_liquido3.getPRL()+ (hexane_liquido4.getPRL()- hexane_liquido3.getPRL()) * t2;
         Prl = Prl1 + (Prl2 - Prl1) * p2;
+    }
+
+    public double getCpl() {
+        return Cpl;
+    }
+
+    public void setCpl(double Cpl) {
+        this.Cpl = Cpl;
+    }
+
+    public double getPrl() {
+        return Prl;
+    }
+
+    public void setPrl(double Prl) {
+        this.Prl = Prl;
+    }
+
+    public double getKl() {
+        return kl;
+    }
+
+    public void setKl(double kl) {
+        this.kl = kl;
+    }
+
+    public double getMul() {
+        return Mul;
+    }
+
+    public void setMul(double Mul) {
+        this.Mul = Mul;
+    }
+
+    public double getVcl() {
+        return Vcl;
+    }
+
+    public void setVcl(double Vcl) {
+        this.Vcl = Vcl;
     }
 }
