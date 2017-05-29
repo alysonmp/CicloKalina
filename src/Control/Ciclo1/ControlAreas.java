@@ -13,6 +13,8 @@ import org.hibernate.Session;
  */
 public class ControlAreas {
 
+    private double Acon, Areg, Aevp;
+    
     public ControlAreas(double T1, double T2, double T3, double T4, double T5, double T6, double Tf, double Tfout, double Qevp, double Qcon, double Qreg, double eff, double Hlat, double Hsen, double Hsup, double T1s, double PP, double SUP, double m, double Pref, double Tref, double P4, int ii, double H3,int compressor,Session session) {
         double Ucon = 0.75;
         double Uevp = 0.75;
@@ -109,19 +111,41 @@ public class ControlAreas {
         }else{
             double Tmcon1= ((T4-Ten1)-(T4-Ten))/(Math.log((T4-Ten1)/(T4-Ten)));
             double Tmcon2= ((T3-Ts)-(T4-Ten1))/(Math.log((T3-Ts)/(T4-Ten1)));
-            double Acon= Qconlat/(Tmcon1*Ucon);
+            Acon= Qconlat/(Tmcon1*Ucon);
 
             double Tmreg= ((T2-T6)-(T3-T5))/(Math.log((T2-T6)/(T3-T5)));
-            double Areg= Qreg/(Tmreg*Ureg);
+            Areg= Qreg/(Tmreg*Ureg);
 
             double Tmevp1= ((Toil1-T1s)-(Toils-T6))/(Math.log((Toil1-T1s)/(Toils-T6)));
             double Tmevp2= ((Toil2-T1s)-(Toil1-T1s))/(Math.log((Toil2-T1s)/(Toil1-T1s)));
-            double Aevp= (Qsen/(Tmevp1*Uevp))+(Qlat/(Tmevp2*Uevp))+(Qsup/(Tmevp3*Uevp));
+            Aevp= (Qsen/(Tmevp1*Uevp))+(Qlat/(Tmevp2*Uevp))+(Qsup/(Tmevp3*Uevp));
 
             if(T3==T4 && Acon<10)
                 Acon = 0;
         }
     }
-    
-    
+
+    public double getAcon() {
+        return Acon;
+    }
+
+    public void setAcon(double Acon) {
+        this.Acon = Acon;
+    }
+
+    public double getAreg() {
+        return Areg;
+    }
+
+    public void setAreg(double Areg) {
+        this.Areg = Areg;
+    }
+
+    public double getAevp() {
+        return Aevp;
+    }
+
+    public void setAevp(double Aevp) {
+        this.Aevp = Aevp;
+    }
 }
