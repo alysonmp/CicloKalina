@@ -89,27 +89,32 @@ public class ControlExergia_Gases {
         
         Ein=(ECO2+EH2O+ESO2+EO2+EN2+ECO+EH2+ENO);
         
-        double mfx = 0;
-        double logy = 0;
+        double[] mfx = new double[y.length];
+        double[] logy = new double[y.length];
         for(int i = 0; i < y.length; i++){
             //A resposta aqui não é a soma de tudo, é um vetor do mesmo tamanho do vetor original depois da multiplicação
-            mfx += (mf*y[i]);
-            logy += Math.log(y[i]);
+            //mfx += (mf*y[i]);
+            //logy += Math.log(y[i]);
+            mfx[i] = mf*y[i];
+            logy[i] = Math.log(y[i]);
         }
+        double inf = Double.POSITIVE_INFINITY;
         
         for(int qq=1; qq < 8; qq++){
-            double real = isinf(logy(qq,1));
-            if real>0
-                logy(qq,1)=0;
-            else
-                logy(qq,1)=logy(qq,1);
-            end
-            end
-
-        ylogy=y*logy;
-        yb=y*b;
-        bgas=yb+(8.31416*ylogy*To); %%kJ/kmol
-
+            if(Double.isNaN(logy[qq]) || logy[qq] == inf)
+                logy[qq]=0;
+        }
+        
+        double[] yb = new double[y.length];
+        double[] ylogy = new double[y.length];
+        double b = 1;
+        
+        for(int i=0; i< y.length;i++){
+            ylogy[i] = y[i]*logy[i];
+            yb[i] = y[i]*b;
+            bgas += yb[i]+(8.31416*ylogy[i]*To);
+        }
+        
         ET=bgas+Ein;
 
     }
