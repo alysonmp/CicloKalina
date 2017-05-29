@@ -5,8 +5,10 @@
  */
 package Control;
 
+import Control.Ciclo1.ControlAreas;
 import Control.Ciclo1.ControlBalanco;
 import Control.Ciclo1.ControlBomba;
+import Control.Ciclo1.ControlDiamTH17;
 import Control.Ciclo1.ControlMassa;
 import Control.Ciclo1.ControlRegenerador;
 import Control.Ciclo1.ControlSF;
@@ -20,7 +22,7 @@ import org.hibernate.Session;
  */
 public class Start {
     
-    private double mf, Pf, P1, P2, SUP, eff, PINCH, T1, P4, T4, P5, P3, P6, Tcontrol, Tcontrol2, H1, H2, S1, S2, T2, H2s, DH2s, sp, v2, DHT, S4, S5, H4, H5, T5, S3, H3, T3, S6, T6, IHR, Q, Tfout, PP, Hlat, Hsen, Hsup, T1s, Wt, Wb, Qevp, Qcon, ec, Qreg, Qreg1, Wn, Acon, Aevp, Areg, AT, ecg;
+    private double mf, Pf, P1, P2, SUP, eff, PINCH, T1, P4, T4, P5, P3, P6, Tcontrol, Tcontrol2, H1, H2, S1, S2, T2, H2s, DH2s, sp, v2, DHT, S4, S5, H4, H5, T5, S3, H3, T3, S6, T6, IHR, Q, Tfout, PP, Hlat, Hsen, Hsup, T1s, Wt, Wb, Qevp, Qcon, ec, Qreg, Qreg1, Wn, Acon, Aevp, Areg, AT, ecg, Dr;
     private int ii;
     private Session session;
     
@@ -77,7 +79,9 @@ public class Start {
         v2 = sf.getV2();
         DHT = sf.getDHT();
         
-        [Dr, Teff]= diamTH17(v2, DHT);
+        ControlDiamTH17 diamTH17 = new ControlDiamTH17(v2, DHT);
+        Dr = diamTH17.getDr();
+        Teff = diamTH17.getTeff();
                 
         if(Teff < 0.8){
             turbina = new ControlTurbina(Teff, P1, T1, P2, Pref, Tref, ii, session);
@@ -95,9 +99,10 @@ public class Start {
             v2 = sf.getV2();
             DHT = sf.getDHT();
             
-            [Dr, Teff]= diamTH17(v2, DHT);
+            diamTH17 = new ControlDiamTH17(v2, DHT);
+            Dr = diamTH17.getDr();
+            Teff = diamTH17.getTeff();
                     
-            
             ControlBomba bomba = new ControlBomba(Beff, P1, T1, P4, T4, Pref, Tref, ii, session);
             S4 = bomba.getS4();
             H4 = bomba.getH4();
@@ -134,10 +139,10 @@ public class Start {
             Qreg1 = balanco.getQreg1();
             Wn = balanco.getWn();
             
-            ControlAreas areas = new ControlAreas(T1, T2, T3, T4, T5, T6, Tf, Tfout, Qevp, Qcon, Qreg, eff, Hlat, Hsen, Hsup, T1s, PP, SUP, m, Pref, Tref, P4, ii, H3, compressor);
+            ControlAreas areas = new ControlAreas(T1, T2, T3, T4, T5, T6, Tf, Tfout, Qevp, Qcon, Qreg, eff, Hlat, Hsen, Hsup, T1s, PP, SUP, m, Pref, Tref, P4, ii, H3, compressor, session);
             Acon = areas.getAcon();
             Aevp = areas.getAevp();
-            Areg = areas.getAreg;
+            Areg = areas.getAreg();
             
             AT = Acon+Aevp+Areg;
             ecg = ec*100;
