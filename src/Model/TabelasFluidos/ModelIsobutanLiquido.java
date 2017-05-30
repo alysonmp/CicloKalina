@@ -30,24 +30,36 @@ public class ModelIsobutanLiquido implements Serializable{
     private double temperatura;
     
     @Column
+    private double kl;
+    
+    @Column
     private double Cpl;
     
     @Column
     private double Prl;
+    
+    @Column
+    private double Mul;
 
-    public ModelIsobutanLiquido() {
-    }
+    @Column
+    private double Vcl;
 
-    public ModelIsobutanLiquido(double pressao, double temperatura, double Cpl, double Prl) {
+    public ModelIsobutanLiquido(double pressao, double temperatura, double kl, double Cpl, double Prl, double Mul, double Vcl) {
         this.pressao = pressao;
         this.temperatura = temperatura;
+        this.kl = kl;
         this.Cpl = Cpl;
         this.Prl = Prl;
+        this.Mul = Mul;
+        this.Vcl = Vcl;
     }
     
     public ModelIsobutanLiquido(double pressao, double temperatura) {
         this.pressao = pressao;
         this.temperatura = temperatura;
+    }
+    
+    public ModelIsobutanLiquido() {
     }
 
     public int getID() {
@@ -88,5 +100,29 @@ public class ModelIsobutanLiquido implements Serializable{
 
     public void setPRL(double Prl) {
         this.Prl = Prl;
+    }
+    
+    public double getKL() {
+        return kl;
+    }
+
+    public void setKL(double kl) {
+        this.kl = kl;
+    }
+
+    public double getMUL() {
+        return Mul;
+    }
+
+    public void setMUL(double Mul) {
+        this.Mul = Mul;
+    }
+
+    public double getVCL() {
+        return Vcl;
+    }
+
+    public void setVCL(double Vcl) {
+        this.Vcl = Vcl;
     }
 }
