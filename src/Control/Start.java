@@ -11,6 +11,7 @@ import Control.Ciclo1.ControlBomba;
 import Control.Ciclo1.ControlDiamTH17;
 import Control.Ciclo1.ControlInterpolacao;
 import Control.Ciclo1.ControlMassa;
+import Control.Ciclo1.ControlParametros;
 import Control.Ciclo1.ControlRegenerador;
 import Control.Ciclo1.ControlSF;
 import Control.Ciclo1.ControlT_Ref;
@@ -28,11 +29,29 @@ import org.hibernate.Session;
  */
 public class Start {
     
-    private double mf, Pf, P1, P2, SUP, eff, PINCH, T1, P4, T4, P5, P3, P6, Tcontrol, Tcontrol2, H1, H2, S1, S2, T2, H2s, DH2s, sp, v2, DHT, S4, S5, H4, H5, T5, S3, H3, T3, S6, T6, IHR, Q, Tfout, PP, Hlat, Hsen, Hsup, T1s, Wt, Wb, Qevp, Qcon, ec, Qreg, Qreg1, Wn, Acon, Aevp, Areg, AT, ecg, Dr;
+    private double mf, P1, P2, eff, T1, P4, T4, P5, P3, P6, Tcontrol, Tcontrol2, H1, H2, S1, S2, T2, H2s, DH2s, sp, v2, DHT, S4, S5, H4, H5, T5, S3, H3, T3, S6, T6, H6, IHR, Q, Tfout, PP, Hlat, Hsen, Hsup, T1s, Wt, Wb, Qevp, Qcon, ec, Qreg, Qreg1, Wn, Acon, Aevp, Areg, AT, ecg, Dr;
     private int ii;
     private Session session;
     
-    public Start(int compressor, int flu, double Pe, double Pconop, double Tconop, double Tee, double Tf, double Tcri, double Teff, double Tref, double Pref, double m, double Beff, double G, double H6, Session session){
+    public Start(int compressor, int flu, double Tf, double SUP, double Pf, double PINCH, double m, double Tconop, Session session){
+        
+        //flu=14;
+        //Tf=142.1+273.15;
+        //compressor=1;
+        
+        ControlParametros parametros = new ControlParametros(Tf, flu, session);
+        double Pe = parametros.getPe();
+        double Te = parametros.getTe();
+        double Pconop = parametros.getPconop();
+        double Pref = parametros.getPref();
+        double Tref = parametros.getTref();
+        double Tcri = parametros.getTcri();
+        double Pcri = parametros.getPcri();
+
+        double G = 1;
+        double Beff = 0.8;
+        double Teff = 0.8;
+        
         this.session = session;
         if(compressor == 5){
             mf = 2.8400; //%kmol/s
@@ -47,7 +66,8 @@ public class Start {
         PINCH = 10;
         ii = flu;
         
-        //ControlT_Ref TRef = new ControlT_Ref(Pe, ii, session);
+        ControlT_Ref TRef = new ControlT_Ref(Pe, ii, session);
+        double Tee = TRef.getTref();
         T1 = Tee+SUP;
         P2 = Pconop; //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%Pcon È variavel
         P4 = P2;
@@ -132,6 +152,7 @@ public class Start {
             S3 = regenerador.getS3();
             H3 = regenerador.getH3();
             S6 = regenerador.getS6();
+            H6 = regenerador.getH6();
             T3 = regenerador.getT3();
             T6 = regenerador.getT6();
             IHR = regenerador.getIHR();

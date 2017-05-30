@@ -7,6 +7,7 @@ package Control.Ciclo1;
 
 import Model.ModelCriticasKCSMat_Tc;
 import java.util.List;
+import javax.swing.JOptionPane;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
@@ -31,8 +32,6 @@ public class ControlT_Ref {
         ModelCriticasKCSMat_Tc Tc = (ModelCriticasKCSMat_Tc) results.get(0);
         
         Te = Tc.getValor()-150;
-        
-        ControlConstantes constantes = new ControlConstantes(Te, P, ii, session);
         
         erro = 1;
         DT = 80;

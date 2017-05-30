@@ -5,12 +5,7 @@
  */
 package Control;
 
-import Control.Ciclo2.ControlH_Ideal_Gas;
-import Control.Ciclo2.ControlH_Sistema;
-import Control.Ciclo2.ControlPBolha;
-import Control.Ciclo2.ControlPorvalho;
-import Control.Ciclo2.ControlS_Sistema;
-import Control.Ciclo2.ControlTSaida;
+import Control.Ciclo1.ControlT_Ref;
 import Control.TabelaFluidos.ControlButanoGas;
 import Control.TabelaFluidos.ControlButanoLiquido;
 import Control.TabelaFluidos.ControlD4Gas;
@@ -109,6 +104,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -292,15 +288,12 @@ public class ControlPrincipal {
             String line = "";
             String csvSplitBy = ";";
             
-            double[] valoresV = new double[6];
-            int linha = 0;
             try{
-                cr = this.session.createCriteria(ModelConstantesKCSMat_C.class);
-                results = cr.list();
                 br = new BufferedReader(new FileReader(csvFile));
                 while((line = br.readLine()) != null){
+                    double[] valoresV = new double[6];
                     String[] table_c = line.split(csvSplitBy);
-                    for(int i = 0; i < 0; i++){
+                    for(int i = 0; i < table_c.length; i++){
                         valoresV[i] = Double.parseDouble(table_c[i]);
                     }
                     this.session.save(new ModelConstantesKCSMat_C(valoresV));
@@ -321,14 +314,13 @@ public class ControlPrincipal {
             
             csvFile = "src/Csv/CC.csv";
             br = null;
-            valoresV = new double[7];
             
-            linha = 0;
             try{
                 br = new BufferedReader(new FileReader(csvFile));
                 while((line = br.readLine()) != null){
+                    double[] valoresV = new double[7];
                     String[] table_c = line.split(csvSplitBy);
-                    for(int i = 0; i < 0; i++){
+                    for(int i = 0; i < table_c.length; i++){
                         valoresV[i] = Double.parseDouble(table_c[i]);
                     }
                     this.session.save(new ModelConstantesKCSMat_CC(valoresV)); 
@@ -702,7 +694,7 @@ public class ControlPrincipal {
     //FUNÇÃO QUE CRIA O DESENHO DO SEGUNDO CICLO E INDICA OS LOCAIS DOS JPANELS INSERIDOS
     public void criaCiclo2(){        
         //ControlS_Sistema c = new ControlS_Sistema(500, 45, 20, 200, 0.2, session);
-        Start start = new Start(0, 1, 0, 0, 0, 0, 0, 0, 0, 621, 4500, 0, 0, 0, 0, session);
+        //Start start = new Start(0, 0, 0, 0, 0, 0, 0, 0, session)
         //System.exit(0);
         
         viewPrincipal.getPainelCiclos().removeAll();
@@ -806,6 +798,31 @@ public class ControlPrincipal {
         List results = cr.list();
         
         return results;
+    }
+    
+    public void calculaLimites() {
+        Criteria cr = this.session.createCriteria(ModelFluidos.class);
+        cr.add(Restrictions.eq("nome", viewPrincipal.getComboFluidos().getSelectedItem()));
+        
+        List results = cr.list();
+        
+        ModelFluidos fluido = (ModelFluidos) results.get(0);
+        int ii = fluido.getCod();
+        
+        cr = this.session.createCriteria(ModelCriticasKCSMat_Pc.class);
+        cr.add(Restrictions.eq("cod", ii));
+        results = cr.list();
+        
+        ModelCriticasKCSMat_Pc pc = (ModelCriticasKCSMat_Pc) results.get(0);
+        double p = pc.getValor();
+        
+        double PMax = p * 0.9;
+        
+        ControlT_Ref TRef = new ControlT_Ref(PMax, ii, session);
+        double TMax = TRef.getTref();
+        
+        JOptionPane.showMessageDialog(null, "A pressão máxima para esse fluido é "+PMax+
+                                            "\nA temperatura máxima para esse fluido é "+TMax);
     }
     
     public ViewPrincipal getViewPrincipal() {
