@@ -28,7 +28,7 @@ import org.hibernate.transform.Transformers;
 public class ControlWaterLiquido {
     
     Session session;
-    private double Cpl, Prl;
+    private double Cpl, Prl, Vcl, Mul, kl;
     private double Cpl1, Cpl2, Prl1, Prl2;
     
     public ControlWaterLiquido(Session session){
@@ -113,5 +113,45 @@ public class ControlWaterLiquido {
         System.out.println(Cpl);
         System.out.println(Prl);
     }
-    
+
+    public double getCpl() {
+        return Cpl;
+    }
+
+    public void setCpl(double Cpl) {
+        this.Cpl = Cpl;
+    }
+
+    public double getPrl() {
+        return Prl;
+    }
+
+    public void setPrl(double Prl) {
+        this.Prl = Prl;
+    }
+
+    public double getVcl() {
+        return Vcl;
+    }
+
+    public void setVcl(double Vcl) {
+        this.Vcl = Vcl;
+    }
+
+    public double getMul() {
+        return Mul;
+    }
+
+    public void setMul(double Mul) {
+        this.Mul = Mul;
+    }
+
+    public double getKl() {
+        return kl;
+    }
+
+    public void setKl(double kl) {
+        this.kl = kl;
+    }
+
 }

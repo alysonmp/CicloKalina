@@ -46,7 +46,7 @@ public class ControlD4Gas {
                 while((line = br.readLine()) != null){
                     String[] g4_gas = line.split(csvSplitBy);
                     
-                    this.session.save(new ModelD4Gas(Double.parseDouble(g4_gas[0]),Double.parseDouble(g4_gas[1]),Double.parseDouble(g4_gas[2]),Double.parseDouble(g4_gas[3]),Double.parseDouble(g4_gas[4]),Double.parseDouble(g4_gas[5])));   
+                    this.session.save(new ModelD4Gas(Double.parseDouble(g4_gas[0]),Double.parseDouble(g4_gas[1]),Double.parseDouble(g4_gas[2]),Double.parseDouble(g4_gas[3]),Double.parseDouble(g4_gas[4]),Double.parseDouble(g4_gas[5]), Double.parseDouble(g4_gas[6])));   
                 }
             }
             
@@ -65,7 +65,7 @@ public class ControlD4Gas {
         }
     }
     
-    public void interpolacaoD4Gas(double pressao,double temperatura){
+    public void interpolacao(double pressao,double temperatura){
     
         Criteria cr = this.session.createCriteria(ModelD4Gas.class);
         
@@ -112,5 +112,45 @@ public class ControlD4Gas {
         Vcv1 = d4_gas1.getVCV() + (d4_gas2.getVCV() - d4_gas1.getVCV()) * t1;
         Vcv2 = d4_gas3.getVCV() + (d4_gas4.getVCV() - d4_gas3.getVCV()) * t2;
         Vcv = Vcv1 + (Vcv2 - Vcv1) * p;
+    }
+
+    public double getKv() {
+        return kv;
+    }
+
+    public void setKv(double kv) {
+        this.kv = kv;
+    }
+
+    public double getCpv() {
+        return Cpv;
+    }
+
+    public void setCpv(double Cpv) {
+        this.Cpv = Cpv;
+    }
+
+    public double getPrv() {
+        return Prv;
+    }
+
+    public void setPrv(double Prv) {
+        this.Prv = Prv;
+    }
+
+    public double getMuv() {
+        return Muv;
+    }
+
+    public void setMuv(double Muv) {
+        this.Muv = Muv;
+    }
+
+    public double getVcv() {
+        return Vcv;
+    }
+
+    public void setVcv(double Vcv) {
+        this.Vcv = Vcv;
     }
 }

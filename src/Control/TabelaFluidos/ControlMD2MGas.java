@@ -46,7 +46,7 @@ public class ControlMD2MGas {
                 while((line = br.readLine()) != null){
                     String[] md2m_gas = line.split(csvSplitBy);
                     
-                    this.session.save(new ModelMD2MGas(Double.parseDouble(md2m_gas[0]),Double.parseDouble(md2m_gas[1]),Double.parseDouble(md2m_gas[2]),Double.parseDouble(md2m_gas[3]),Double.parseDouble(md2m_gas[4]),Double.parseDouble(md2m_gas[5])));   
+                    this.session.save(new ModelMD2MGas(Double.parseDouble(md2m_gas[0]),Double.parseDouble(md2m_gas[1]),Double.parseDouble(md2m_gas[2]),Double.parseDouble(md2m_gas[3]),Double.parseDouble(md2m_gas[4]),Double.parseDouble(md2m_gas[5]), Double.parseDouble(md2m_gas[6])));   
                 }
             }
             
@@ -65,7 +65,7 @@ public class ControlMD2MGas {
         }
     }
     
-    public void interpolacaoMD2MGas(double pressao,double temperatura){
+    public void interpolacao(double pressao,double temperatura){
         Criteria cr = this.session.createCriteria(ModelMD2MGas.class);
         
         SQLQuery consulta = this.session.createSQLQuery("select * from md2m_gas where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
@@ -111,5 +111,45 @@ public class ControlMD2MGas {
         Vcv1 = md2m_gas1.getVCV() + (md2m_gas2.getVCV() - md2m_gas1.getVCV()) * t1;
         Vcv2 = md2m_gas3.getVCV() + (md2m_gas4.getVCV() - md2m_gas3.getVCV()) * t2;
         Vcv = Vcv1 + (Vcv2 - Vcv1) * p;
+    }
+
+    public double getKv() {
+        return kv;
+    }
+
+    public void setKv(double kv) {
+        this.kv = kv;
+    }
+
+    public double getCpv() {
+        return Cpv;
+    }
+
+    public void setCpv(double Cpv) {
+        this.Cpv = Cpv;
+    }
+
+    public double getPrv() {
+        return Prv;
+    }
+
+    public void setPrv(double Prv) {
+        this.Prv = Prv;
+    }
+
+    public double getMuv() {
+        return Muv;
+    }
+
+    public void setMuv(double Muv) {
+        this.Muv = Muv;
+    }
+
+    public double getVcv() {
+        return Vcv;
+    }
+
+    public void setVcv(double Vcv) {
+        this.Vcv = Vcv;
     }
 }

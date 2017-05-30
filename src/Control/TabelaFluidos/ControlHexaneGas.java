@@ -71,7 +71,7 @@ public class ControlHexaneGas {
         }
     }
     
-    public void interpolacaoHexane(double pressao, double temperatura){
+    public void interpolacao(double pressao, double temperatura){
         Criteria cr = this.session.createCriteria(ModelHexaneGas.class);
         
         SQLQuery consulta = this.session.createSQLQuery("select * from Hexane_gas where pressao <= " +pressao+ " and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");

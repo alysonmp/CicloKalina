@@ -36,6 +36,11 @@ public class ModelPentaneLiquido implements Serializable{
     @Column
     private double Prl;
 
+    public ModelPentaneLiquido(double pressao, double temperatura) {
+        this.pressao = pressao;
+        this.temperatura = temperatura;
+    }
+
     public ModelPentaneLiquido(double pressao, double temperatura, double Cpl, double Prl) {
         this.pressao = pressao;
         this.temperatura = temperatura;

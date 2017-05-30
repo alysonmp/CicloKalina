@@ -45,6 +45,14 @@ public class ModelPropaneGas implements Serializable{
     @Column
     private double Vcv;
 
+    public ModelPropaneGas(double pressao, double temperatura) {
+        this.pressao = pressao;
+        this.temperatura = temperatura;
+    }
+
+    public ModelPropaneGas() {
+    }
+
     public ModelPropaneGas(double pressao, double temperatura, double Cpv, double Prv, double Kv, double Muv, double Vcv) {
         this.pressao = pressao;
         this.temperatura = temperatura;
@@ -53,9 +61,6 @@ public class ModelPropaneGas implements Serializable{
         this.Kv = Kv;
         this.Muv = Muv;
         this.Vcv = Vcv;
-    }
-
-    public ModelPropaneGas() {
     }
     
     public int getID() {

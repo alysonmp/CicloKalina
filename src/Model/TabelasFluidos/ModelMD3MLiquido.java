@@ -36,6 +36,11 @@ public class ModelMD3MLiquido implements Serializable{
     @Column
     private double Prl;
 
+    public ModelMD3MLiquido(double pressao, double temperatura) {
+        this.pressao = pressao;
+        this.temperatura = temperatura;
+    }
+
     public ModelMD3MLiquido(double pressao, double temperatura, double Cpl, double Prl) {
         this.pressao = pressao;
         this.temperatura = temperatura;

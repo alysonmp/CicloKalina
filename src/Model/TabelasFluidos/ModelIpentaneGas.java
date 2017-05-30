@@ -47,13 +47,19 @@ public class ModelIpentaneGas implements Serializable{
     public ModelIpentaneGas() {
     }
 
-    public ModelIpentaneGas(double pressao, double temperatura, double kv, double Cpv, double Prv, double Muv) {
+    public ModelIpentaneGas(double pressao, double temperatura) {
+        this.pressao = pressao;
+        this.temperatura = temperatura;
+    }
+
+    public ModelIpentaneGas(double pressao, double temperatura, double kv, double Cpv, double Prv, double Muv, double Vcv) {
         this.pressao = pressao;
         this.temperatura = temperatura;
         this.kv = kv;
         this.Cpv = Cpv;
         this.Prv = Prv;
         this.Muv = Muv;
+        this.Vcv = Vcv;
     }
     
     public int getID() {

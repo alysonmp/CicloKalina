@@ -36,6 +36,11 @@ public class ModelR22Liquido implements Serializable{
     @Column
     private double Prl;
 
+    public ModelR22Liquido(double pressao, double temperatura) {
+        this.pressao = pressao;
+        this.temperatura = temperatura;
+    }
+
     public ModelR22Liquido(double pressao, double temperatura, double Cpl, double Prl) {
         this.pressao = pressao;
         this.temperatura = temperatura;
