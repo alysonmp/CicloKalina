@@ -5,6 +5,7 @@
  */
 package Control.Ciclo2;
 
+import javax.swing.JOptionPane;
 import org.hibernate.Session;
 
 /**

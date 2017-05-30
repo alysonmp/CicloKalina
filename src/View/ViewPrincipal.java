@@ -13,6 +13,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
@@ -115,6 +117,13 @@ public class ViewPrincipal {
                 }
             }
         });
+        
+        comboFluidos.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                ViewPrincipal.this.ctrlPrincipal.calculaLimites();
+            }
+        });
     }
     
     //CRIA A BARRA DE MENU NO TOPO DO FRAME
@@ -197,5 +206,13 @@ public class ViewPrincipal {
 
     public void setTabbedPanel(JTabbedPane tabbedPanel) {
         this.tabbedPanel = tabbedPanel;
+    }    
+
+    public JComboBox<String> getComboFluidos() {
+        return comboFluidos;
+    }
+
+    public void setComboFluidos(JComboBox<String> comboFluidos) {
+        this.comboFluidos = comboFluidos;
     }    
 }
