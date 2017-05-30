@@ -25,7 +25,7 @@ public class ControlPentaneLiquido {
     
     Session session;
     private double Cpl, Prl, kl, Mul, Vcl;
-    private double Cpl1, Cpl2, Prl1, Prl2;
+    private double Cpl1, Cpl2, Prl1, Prl2, kl1, kl2, Mul1, Mul2, Vcl1, Vcl2;
     
     public ControlPentaneLiquido(Session session){
         this.session = session;
@@ -51,7 +51,7 @@ public class ControlPentaneLiquido {
                     // use comma as separator
                     String[] Pentane_l = line.split(cvsSplitBy);
                     
-                    session.save(new ModelPentaneLiquido(Double.parseDouble(Pentane_l[0]), Double.parseDouble(Pentane_l[1]), Double.parseDouble(Pentane_l[2]), Double.parseDouble(Pentane_l[3])));
+                    this.session.save(new ModelPentaneLiquido(Double.parseDouble(Pentane_l[0]), Double.parseDouble(Pentane_l[1]), Double.parseDouble(Pentane_l[2]), Double.parseDouble(Pentane_l[3]), Double.parseDouble(Pentane_l[4]), Double.parseDouble(Pentane_l[5]),Double.parseDouble(Pentane_l[6])));
                 }
             }
 
@@ -98,16 +98,29 @@ public class ControlPentaneLiquido {
 	Pentanes = consulta.list(); 
         ModelPentaneLiquido Pentane4 = Pentanes.get(0);
         
-        Cpl1 = Pentane1.getCPL()+ (Pentane2.getCPL()- Pentane1.getCPL()) * ((temperatura-Pentane1.getTEMPERATURA())/(Pentane2.getTEMPERATURA()-Pentane1.getTEMPERATURA()));
-        Cpl2 = Pentane3.getCPL()+ (Pentane4.getCPL()- Pentane3.getCPL()) * ((temperatura-Pentane3.getTEMPERATURA())/(Pentane4.getTEMPERATURA()-Pentane3.getTEMPERATURA()));
-        Cpl = Cpl1 + (Cpl2 - Cpl1) * ((pressao-Pentane1.getPRESSAO())/(Pentane2.getPRESSAO()-Pentane1.getPRESSAO()));
+        double p  = ((pressao - Pentane1.getPRESSAO())/(Pentane3.getPRESSAO() - Pentane1.getPRESSAO()));
+        double t1 = ((temperatura - Pentane1.getTEMPERATURA())/(Pentane2.getTEMPERATURA() - Pentane1.getTEMPERATURA()));
+        double t2 = ((temperatura - Pentane3.getTEMPERATURA())/(Pentane4.getTEMPERATURA() - Pentane3.getTEMPERATURA()));
         
-        Prl1 = Pentane1.getPRL()+ (Pentane2.getPRL()- Pentane1.getPRL()) * ((temperatura-Pentane1.getTEMPERATURA())/(Pentane2.getTEMPERATURA()-Pentane1.getTEMPERATURA()));
-        Prl2 = Pentane3.getPRL()+ (Pentane4.getPRL()- Pentane3.getPRL()) * ((temperatura-Pentane3.getTEMPERATURA())/(Pentane4.getTEMPERATURA()-Pentane3.getTEMPERATURA()));
-        Prl = Prl1 + (Prl2 - Prl1) * ((pressao-Pentane3.getPRESSAO())/(Pentane4.getPRESSAO()-Pentane3.getPRESSAO()));
+        Cpl1 = Pentane1.getCPL()+ (Pentane2.getCPL()- Pentane1.getCPL()) * t1;
+        Cpl2 = Pentane3.getCPL()+ (Pentane4.getCPL()- Pentane3.getCPL()) * t2;
+        Cpl = Cpl1 + (Cpl2 - Cpl1) * p;
         
-        System.out.println(Cpl);
-        System.out.println(Prl);
+        Prl1 = Pentane1.getPRL()+ (Pentane2.getPRL()- Pentane1.getPRL()) * t1;
+        Prl2 = Pentane3.getPRL()+ (Pentane4.getPRL()- Pentane3.getPRL()) * t2;
+        Prl = Prl1 + (Prl2 - Prl1) * p;
+        
+        kl1 = Pentane1.getKL() + (Pentane2.getKL() - Pentane1.getKL()) * t1;
+        kl2 = Pentane3.getKL() + (Pentane4.getKL() - Pentane3.getKL()) * t2;
+        kl = kl1 + (kl2 - kl1) * p;
+        
+        Mul1 = Pentane1.getMUL() + (Pentane2.getMUL() - Pentane1.getMUL()) * t1;
+        Mul2 = Pentane3.getMUL() + (Pentane4.getMUL() - Pentane3.getMUL()) * t2;
+        Mul = Mul1 + (Mul2 - Mul1) * p;
+        
+        Vcl1 = Pentane1.getVCL() + (Pentane2.getVCL() - Pentane1.getVCL()) * t1;
+        Vcl2 = Pentane3.getVCL() + (Pentane4.getVCL() - Pentane3.getVCL()) * t2;
+        Vcl = Vcl1 + (Vcl2 - Vcl1) * p;
     }    
 
     public double getCpl() {

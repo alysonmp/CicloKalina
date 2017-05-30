@@ -25,7 +25,7 @@ public class ControlHeptaneLiquido {
     private Session session;
     
     private double Cpl, Prl, kl, Mul, Vcl;
-    private double Cpl1, Cpl2, Prl1, Prl2;
+    private double Cpl1, Cpl2, Prl1, Prl2,kl1 , kl2, Mul1, Mul2, Vcl1, Vcl2;
 
     public ControlHeptaneLiquido(Session session) {
         this.session = session;
@@ -47,7 +47,7 @@ public class ControlHeptaneLiquido {
                 while((line = br.readLine()) != null){
                     String[] heptane_liquido = line.split(csvSplitBy);
                     
-                    this.session.save(new ModelHeptaneLiquido(Double.parseDouble(heptane_liquido[0]),Double.parseDouble(heptane_liquido[1]),Double.parseDouble(heptane_liquido[2]),Double.parseDouble(heptane_liquido[3])));   
+                    session.save(new ModelHeptaneLiquido(Double.parseDouble(heptane_liquido[0]), Double.parseDouble(heptane_liquido[1]), Double.parseDouble(heptane_liquido[2]), Double.parseDouble(heptane_liquido[3]), Double.parseDouble(heptane_liquido[4]), Double.parseDouble(heptane_liquido[5]),Double.parseDouble(heptane_liquido[6])));
                 }
             }
             
@@ -93,18 +93,29 @@ public class ControlHeptaneLiquido {
 	heptane_liquido = consulta.list(); 
         ModelHeptaneLiquido heptane_liquido4 = heptane_liquido.get(0);
      
-        double p1 = ((pressao - heptane_liquido1.getPRESSAO())/(heptane_liquido2.getPRESSAO() - heptane_liquido1.getPRESSAO()));
-        double p2 = ((pressao - heptane_liquido3.getPRESSAO())/(heptane_liquido4.getPRESSAO() - heptane_liquido3.getPRESSAO()));
+        double p  = ((pressao - heptane_liquido1.getPRESSAO())/(heptane_liquido3.getPRESSAO() - heptane_liquido1.getPRESSAO()));
         double t1 = ((temperatura - heptane_liquido1.getTEMPERATURA())/(heptane_liquido2.getTEMPERATURA() - heptane_liquido1.getTEMPERATURA()));
         double t2 = ((temperatura - heptane_liquido3.getTEMPERATURA())/(heptane_liquido4.getTEMPERATURA() - heptane_liquido3.getTEMPERATURA()));
         
         Cpl1 = heptane_liquido1.getCPL()+ (heptane_liquido2.getCPL()- heptane_liquido1.getCPL()) * t1;
         Cpl2 = heptane_liquido3.getCPL()+ (heptane_liquido4.getCPL()- heptane_liquido3.getCPL()) * t2;
-        Cpl = Cpl1 + (Cpl2 - Cpl1) * p1;
+        Cpl = Cpl1 + (Cpl2 - Cpl1) * p;
         
         Prl1 = heptane_liquido1.getPRL()+ (heptane_liquido2.getPRL()- heptane_liquido1.getPRL()) * t1;
         Prl2 = heptane_liquido3.getPRL()+ (heptane_liquido4.getPRL()- heptane_liquido3.getPRL()) * t2;
-        Prl = Prl1 + (Prl2 - Prl1) * p2;
+        Prl = Prl1 + (Prl2 - Prl1) * p;
+        
+        kl1 = heptane_liquido1.getKL() + (heptane_liquido2.getKL() - heptane_liquido1.getKL()) * t1;
+        kl2 = heptane_liquido3.getKL() + (heptane_liquido4.getKL() - heptane_liquido3.getKL()) * t2;
+        kl = kl1 + (kl2 - kl1) * p;
+        
+        Mul1 = heptane_liquido1.getMUL() + (heptane_liquido2.getMUL() - heptane_liquido1.getMUL()) * t1;
+        Mul2 = heptane_liquido3.getMUL() + (heptane_liquido4.getMUL() - heptane_liquido3.getMUL()) * t2;
+        Mul = Mul1 + (Mul2 - Mul1) * p;
+        
+        Vcl1 = heptane_liquido1.getVCL() + (heptane_liquido2.getVCL() - heptane_liquido1.getVCL()) * t1;
+        Vcl2 = heptane_liquido3.getVCL() + (heptane_liquido4.getVCL() - heptane_liquido3.getVCL()) * t2;
+        Vcl = Vcl1 + (Vcl2 - Vcl1) * p;
     }
 
     public double getCpl() {

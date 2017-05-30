@@ -29,7 +29,7 @@ public class ControlWaterLiquido {
     
     Session session;
     private double Cpl, Prl, Vcl, Mul, kl;
-    private double Cpl1, Cpl2, Prl1, Prl2;
+    private double Cpl1, Cpl2, Prl1, Prl2, kl1, kl2, Mul1, Mul2, Vcl1, Vcl2;
     
     public ControlWaterLiquido(Session session){
         this.session = session;
@@ -55,7 +55,7 @@ public class ControlWaterLiquido {
                     // use comma as separator
                     String[] water_l = line.split(cvsSplitBy);
                     
-                    session.save(new ModelWaterLiquido(Double.parseDouble(water_l[0]), Double.parseDouble(water_l[1]), Double.parseDouble(water_l[2]), Double.parseDouble(water_l[3])));
+                    this.session.save(new ModelWaterLiquido(Double.parseDouble(water_l[0]), Double.parseDouble(water_l[1]), Double.parseDouble(water_l[2]), Double.parseDouble(water_l[3]), Double.parseDouble(water_l[4]), Double.parseDouble(water_l[5]),Double.parseDouble(water_l[6])));
                 }
             }
 
@@ -102,16 +102,29 @@ public class ControlWaterLiquido {
 	waters = consulta.list(); 
         ModelWaterLiquido water4 = waters.get(0);
         
-        Cpl1 = water1.getCPL()+ (water2.getCPL()- water1.getCPL()) * ((temperatura-water1.getTEMPERATURA())/(water2.getTEMPERATURA()-water1.getTEMPERATURA()));
-        Cpl2 = water3.getCPL()+ (water4.getCPL()- water3.getCPL()) * ((temperatura-water3.getTEMPERATURA())/(water4.getTEMPERATURA()-water3.getTEMPERATURA()));
-        Cpl = Cpl1 + (Cpl2 - Cpl1) * ((pressao-water1.getPRESSAO())/(water2.getPRESSAO()-water1.getPRESSAO()));
+        double p  = ((pressao - water1.getPRESSAO())/(water3.getPRESSAO() - water1.getPRESSAO()));
+        double t1 = ((temperatura - water1.getTEMPERATURA())/(water2.getTEMPERATURA() - water1.getTEMPERATURA()));
+        double t2 = ((temperatura - water3.getTEMPERATURA())/(water4.getTEMPERATURA() - water3.getTEMPERATURA()));
         
-        Prl1 = water1.getPRL()+ (water2.getPRL()- water1.getPRL()) * ((temperatura-water1.getTEMPERATURA())/(water2.getTEMPERATURA()-water1.getTEMPERATURA()));
-        Prl2 = water3.getPRL()+ (water4.getPRL()- water3.getPRL()) * ((temperatura-water3.getTEMPERATURA())/(water4.getTEMPERATURA()-water3.getTEMPERATURA()));
-        Prl = Prl1 + (Prl2 - Prl1) * ((pressao-water3.getPRESSAO())/(water4.getPRESSAO()-water3.getPRESSAO()));
+        Cpl1 = water1.getCPL()+ (water2.getCPL()- water1.getCPL()) * t1;
+        Cpl2 = water3.getCPL()+ (water4.getCPL()- water3.getCPL()) * t2;
+        Cpl = Cpl1 + (Cpl2 - Cpl1) * p;
         
-        System.out.println(Cpl);
-        System.out.println(Prl);
+        Prl1 = water1.getPRL()+ (water2.getPRL()- water1.getPRL()) * t1;
+        Prl2 = water3.getPRL()+ (water4.getPRL()- water3.getPRL()) * t2;
+        Prl = Prl1 + (Prl2 - Prl1) * p;
+        
+        kl1 = water1.getKL() + (water2.getKL() - water1.getKL()) * t1;
+        kl2 = water3.getKL() + (water4.getKL() - water3.getKL()) * t2;
+        kl = kl1 + (kl2 - kl1) * p;
+        
+        Mul1 = water1.getMUL() + (water2.getMUL() - water1.getMUL()) * t1;
+        Mul2 = water3.getMUL() + (water4.getMUL() - water3.getMUL()) * t2;
+        Mul = Mul1 + (Mul2 - Mul1) * p;
+        
+        Vcl1 = water1.getVCL() + (water2.getVCL() - water1.getVCL()) * t1;
+        Vcl2 = water3.getVCL() + (water4.getVCL() - water3.getVCL()) * t2;
+        Vcl = Vcl1 + (Vcl2 - Vcl1) * p;
     }
 
     public double getCpl() {

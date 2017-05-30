@@ -25,7 +25,7 @@ public class ControlMD2MLiquido {
     private Session session;
     
     private double Cpl, Prl, kl, Mul, Vcl;
-    private double Cpl1, Cpl2, Prl1, Prl2;
+    private double Cpl1, Cpl2, Prl1, Prl2,kl1 , kl2, Mul1, Mul2, Vcl1, Vcl2;
 
     public ControlMD2MLiquido(Session session) {
         this.session = session;
@@ -47,7 +47,7 @@ public class ControlMD2MLiquido {
                 while((line = br.readLine()) != null){
                     String[] md2m_liquido = line.split(csvSplitBy);
                     
-                    this.session.save(new ModelMD2MLiquido(Double.parseDouble(md2m_liquido[0]),Double.parseDouble(md2m_liquido[1]),Double.parseDouble(md2m_liquido[2]),Double.parseDouble(md2m_liquido[3])));   
+                    this.session.save(new ModelMD2MLiquido(Double.parseDouble(md2m_liquido[0]), Double.parseDouble(md2m_liquido[1]), Double.parseDouble(md2m_liquido[2]), Double.parseDouble(md2m_liquido[3]), Double.parseDouble(md2m_liquido[4]), Double.parseDouble(md2m_liquido[5]),Double.parseDouble(md2m_liquido[6])));
                 }
             }
             
@@ -93,18 +93,29 @@ public class ControlMD2MLiquido {
 	md2m_liquido = consulta.list(); 
         ModelMD2MLiquido md2m_liquido4 = md2m_liquido.get(0);
      
-        double p1 = ((pressao - md2m_liquido1.getPRESSAO())/(md2m_liquido2.getPRESSAO() - md2m_liquido1.getPRESSAO()));
-        double p2 = ((pressao - md2m_liquido3.getPRESSAO())/(md2m_liquido4.getPRESSAO() - md2m_liquido3.getPRESSAO()));
+        double p  = ((pressao - md2m_liquido1.getPRESSAO())/(md2m_liquido3.getPRESSAO() - md2m_liquido1.getPRESSAO()));
         double t1 = ((temperatura - md2m_liquido1.getTEMPERATURA())/(md2m_liquido2.getTEMPERATURA() - md2m_liquido1.getTEMPERATURA()));
         double t2 = ((temperatura - md2m_liquido3.getTEMPERATURA())/(md2m_liquido4.getTEMPERATURA() - md2m_liquido3.getTEMPERATURA()));
         
         Cpl1 = md2m_liquido1.getCPL()+ (md2m_liquido2.getCPL()- md2m_liquido1.getCPL()) * t1;
         Cpl2 = md2m_liquido3.getCPL()+ (md2m_liquido4.getCPL()- md2m_liquido3.getCPL()) * t2;
-        Cpl = Cpl1 + (Cpl2 - Cpl1) * p1;
+        Cpl = Cpl1 + (Cpl2 - Cpl1) * p;
         
         Prl1 = md2m_liquido1.getPRL()+ (md2m_liquido2.getPRL()- md2m_liquido1.getPRL()) * t1;
         Prl2 = md2m_liquido3.getPRL()+ (md2m_liquido4.getPRL()- md2m_liquido3.getPRL()) * t2;
-        Prl = Prl1 + (Prl2 - Prl1) * p2;
+        Prl = Prl1 + (Prl2 - Prl1) * p;
+        
+        kl1 = md2m_liquido1.getKL() + (md2m_liquido2.getKL() - md2m_liquido1.getKL()) * t1;
+        kl2 = md2m_liquido3.getKL() + (md2m_liquido4.getKL() - md2m_liquido3.getKL()) * t2;
+        kl = kl1 + (kl2 - kl1) * p;
+        
+        Mul1 = md2m_liquido1.getMUL() + (md2m_liquido2.getMUL() - md2m_liquido1.getMUL()) * t1;
+        Mul2 = md2m_liquido3.getMUL() + (md2m_liquido4.getMUL() - md2m_liquido3.getMUL()) * t2;
+        Mul = Mul1 + (Mul2 - Mul1) * p;
+        
+        Vcl1 = md2m_liquido1.getVCL() + (md2m_liquido2.getVCL() - md2m_liquido1.getVCL()) * t1;
+        Vcl2 = md2m_liquido3.getVCL() + (md2m_liquido4.getVCL() - md2m_liquido3.getVCL()) * t2;
+        Vcl = Vcl1 + (Vcl2 - Vcl1) * p;
     }
 
     public double getCpl() {

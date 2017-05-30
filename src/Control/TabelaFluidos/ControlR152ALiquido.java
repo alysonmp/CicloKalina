@@ -26,7 +26,7 @@ public class ControlR152ALiquido {
     
     Session session;
     private double Cpl, Prl, kl, Mul, Vcl;
-    private double Cpl1, Cpl2, Prl1, Prl2;
+    private double Cpl1, Cpl2, Prl1, Prl2, kl1, kl2, Mul1, Mul2, Vcl1, Vcl2;
     
     public ControlR152ALiquido(Session session){
         this.session = session;
@@ -52,7 +52,7 @@ public class ControlR152ALiquido {
                     // use comma as separator
                     String[] R152A_l = line.split(cvsSplitBy);
                     
-                    session.save(new ModelR152ALiquido(Double.parseDouble(R152A_l[0]), Double.parseDouble(R152A_l[1]), Double.parseDouble(R152A_l[2]), Double.parseDouble(R152A_l[3])));
+                    this.session.save(new ModelR152ALiquido(Double.parseDouble(R152A_l[0]), Double.parseDouble(R152A_l[1]), Double.parseDouble(R152A_l[2]), Double.parseDouble(R152A_l[3]), Double.parseDouble(R152A_l[4]), Double.parseDouble(R152A_l[5]),Double.parseDouble(R152A_l[6])));
                 }
             }
 
@@ -99,16 +99,29 @@ public class ControlR152ALiquido {
 	R152As = consulta.list(); 
         ModelR152ALiquido R152A4 = R152As.get(0);
         
-        Cpl1 = R152A1.getCPL()+ (R152A2.getCPL()- R152A1.getCPL()) * ((temperatura-R152A1.getTEMPERATURA())/(R152A2.getTEMPERATURA()-R152A1.getTEMPERATURA()));
-        Cpl2 = R152A3.getCPL()+ (R152A4.getCPL()- R152A3.getCPL()) * ((temperatura-R152A3.getTEMPERATURA())/(R152A4.getTEMPERATURA()-R152A3.getTEMPERATURA()));
-        Cpl = Cpl1 + (Cpl2 - Cpl1) * ((pressao-R152A1.getPRESSAO())/(R152A2.getPRESSAO()-R152A1.getPRESSAO()));
+        double p  = ((pressao - R152A1.getPRESSAO())/(R152A3.getPRESSAO() - R152A1.getPRESSAO()));
+        double t1 = ((temperatura - R152A1.getTEMPERATURA())/(R152A2.getTEMPERATURA() - R152A1.getTEMPERATURA()));
+        double t2 = ((temperatura - R152A3.getTEMPERATURA())/(R152A4.getTEMPERATURA() - R152A3.getTEMPERATURA()));
         
-        Prl1 = R152A1.getPRL()+ (R152A2.getPRL()- R152A1.getPRL()) * ((temperatura-R152A1.getTEMPERATURA())/(R152A2.getTEMPERATURA()-R152A1.getTEMPERATURA()));
-        Prl2 = R152A3.getPRL()+ (R152A4.getPRL()- R152A3.getPRL()) * ((temperatura-R152A3.getTEMPERATURA())/(R152A4.getTEMPERATURA()-R152A3.getTEMPERATURA()));
-        Prl = Prl1 + (Prl2 - Prl1) * ((pressao-R152A3.getPRESSAO())/(R152A4.getPRESSAO()-R152A3.getPRESSAO()));
+        Cpl1 = R152A1.getCPL()+ (R152A2.getCPL()- R152A1.getCPL()) * t1;
+        Cpl2 = R152A3.getCPL()+ (R152A4.getCPL()- R152A3.getCPL()) * t2;
+        Cpl = Cpl1 + (Cpl2 - Cpl1) * p;
         
-        System.out.println(Cpl);
-        System.out.println(Prl);
+        Prl1 = R152A1.getPRL()+ (R152A2.getPRL()- R152A1.getPRL()) * t1;
+        Prl2 = R152A3.getPRL()+ (R152A4.getPRL()- R152A3.getPRL()) * t2;
+        Prl = Prl1 + (Prl2 - Prl1) * p;
+        
+        kl1 = R152A1.getKL() + (R152A2.getKL() - R152A1.getKL()) * t1;
+        kl2 = R152A3.getKL() + (R152A4.getKL() - R152A3.getKL()) * t2;
+        kl = kl1 + (kl2 - kl1) * p;
+        
+        Mul1 = R152A1.getMUL() + (R152A2.getMUL() - R152A1.getMUL()) * t1;
+        Mul2 = R152A3.getMUL() + (R152A4.getMUL() - R152A3.getMUL()) * t2;
+        Mul = Mul1 + (Mul2 - Mul1) * p;
+        
+        Vcl1 = R152A1.getVCL() + (R152A2.getVCL() - R152A1.getVCL()) * t1;
+        Vcl2 = R152A3.getVCL() + (R152A4.getVCL() - R152A3.getVCL()) * t2;
+        Vcl = Vcl1 + (Vcl2 - Vcl1) * p;
     }    
 
     public double getCpl() {

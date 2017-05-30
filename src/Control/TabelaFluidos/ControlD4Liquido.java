@@ -20,7 +20,7 @@ public class ControlD4Liquido {
     private Session session;
     
     private double Cpl, Prl, kl, Mul, Vcl;
-    private double Cpl1, Cpl2, Prl1, Prl2;
+    private double Cpl1, Cpl2, Prl1, Prl2,kl1 , kl2, Mul1, Mul2, Vcl1, Vcl2;
 
     public ControlD4Liquido(Session session) {
         this.session = session;
@@ -42,7 +42,7 @@ public class ControlD4Liquido {
                 while((line = br.readLine()) != null){
                     String[] d4_liquido = line.split(csvSplitBy);
                     
-                    this.session.save(new ModelD4Liquido(Double.parseDouble(d4_liquido[0]),Double.parseDouble(d4_liquido[1]),Double.parseDouble(d4_liquido[2]),Double.parseDouble(d4_liquido[3])));   
+                    this.session.save(new ModelD4Liquido(Double.parseDouble(d4_liquido[0]),Double.parseDouble(d4_liquido[1]),Double.parseDouble(d4_liquido[2]),Double.parseDouble(d4_liquido[3]),Double.parseDouble(d4_liquido[4]),Double.parseDouble(d4_liquido[5]),Double.parseDouble(d4_liquido[6])));   
                 }
             }
             
@@ -88,18 +88,29 @@ public class ControlD4Liquido {
 	d4_liquido = consulta.list(); 
         ModelD4Liquido d4_liquido4 = d4_liquido.get(0);
      
-        double p1 = ((pressao - d4_liquido1.getPRESSAO())/(d4_liquido2.getPRESSAO() - d4_liquido1.getPRESSAO()));
-        double p2 = ((pressao - d4_liquido3.getPRESSAO())/(d4_liquido4.getPRESSAO() - d4_liquido3.getPRESSAO()));
+        double p = ((pressao - d4_liquido1.getPRESSAO())/(d4_liquido3.getPRESSAO() - d4_liquido1.getPRESSAO()));
         double t1 = ((temperatura - d4_liquido1.getTEMPERATURA())/(d4_liquido2.getTEMPERATURA() - d4_liquido1.getTEMPERATURA()));
         double t2 = ((temperatura - d4_liquido3.getTEMPERATURA())/(d4_liquido4.getTEMPERATURA() - d4_liquido3.getTEMPERATURA()));
         
         Cpl1 = d4_liquido1.getCPL()+ (d4_liquido2.getCPL()- d4_liquido1.getCPL()) * t1;
         Cpl2 = d4_liquido3.getCPL()+ (d4_liquido4.getCPL()- d4_liquido3.getCPL()) * t2;
-        Cpl = Cpl1 + (Cpl2 - Cpl1) * p1;
+        Cpl = Cpl1 + (Cpl2 - Cpl1) * p;
         
         Prl1 = d4_liquido1.getPRL()+ (d4_liquido2.getPRL()- d4_liquido1.getPRL()) * t1;
         Prl2 = d4_liquido3.getPRL()+ (d4_liquido4.getPRL()- d4_liquido3.getPRL()) * t2;
-        Prl = Prl1 + (Prl2 - Prl1) * p2;
+        Prl = Prl1 + (Prl2 - Prl1) * p;
+        
+        kl1 = d4_liquido1.getKL() + (d4_liquido2.getKL() - d4_liquido1.getKL()) * t1;
+        kl2 = d4_liquido3.getKL() + (d4_liquido4.getKL() - d4_liquido3.getKL()) * t2;
+        kl = kl1 + (kl2 - kl1) * p;
+        
+        Mul1 = d4_liquido1.getMUL() + (d4_liquido2.getMUL() - d4_liquido1.getMUL()) * t1;
+        Mul2 = d4_liquido3.getMUL() + (d4_liquido4.getMUL() - d4_liquido3.getMUL()) * t2;
+        Mul = Mul1 + (Mul2 - Mul1) * p;
+        
+        Vcl1 = d4_liquido1.getVCL() + (d4_liquido2.getVCL() - d4_liquido1.getVCL()) * t1;
+        Vcl2 = d4_liquido3.getVCL() + (d4_liquido4.getVCL() - d4_liquido3.getVCL()) * t2;
+        Vcl = Vcl1 + (Vcl2 - Vcl1) * p;
     }
 
     public double getCpl() {

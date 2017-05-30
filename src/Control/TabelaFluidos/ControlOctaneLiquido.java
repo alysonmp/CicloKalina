@@ -25,7 +25,7 @@ public class ControlOctaneLiquido {
     
     Session session;
     private double Cpl, Prl, kl, Mul, Vcl;
-    private double Cpl1, Cpl2, Prl1, Prl2;
+    private double Cpl1, Cpl2, Prl1, Prl2, kl1, kl2, Mul1, Mul2, Vcl1, Vcl2;
     
     public ControlOctaneLiquido(Session session){
         this.session = session;
@@ -51,7 +51,7 @@ public class ControlOctaneLiquido {
                     // use comma as separator
                     String[] Octane_l = line.split(cvsSplitBy);
                     
-                    session.save(new ModelOctaneLiquido(Double.parseDouble(Octane_l[0]), Double.parseDouble(Octane_l[1]), Double.parseDouble(Octane_l[2]), Double.parseDouble(Octane_l[3])));
+                    this.session.save(new ModelOctaneLiquido(Double.parseDouble(Octane_l[0]), Double.parseDouble(Octane_l[1]), Double.parseDouble(Octane_l[2]), Double.parseDouble(Octane_l[3]), Double.parseDouble(Octane_l[4]), Double.parseDouble(Octane_l[5]),Double.parseDouble(Octane_l[6])));
                 }
             }
 
@@ -98,16 +98,29 @@ public class ControlOctaneLiquido {
 	Octanes = consulta.list(); 
         ModelOctaneLiquido Octane4 = Octanes.get(0);
         
-        Cpl1 = Octane1.getCPL()+ (Octane2.getCPL()- Octane1.getCPL()) * ((temperatura-Octane1.getTEMPERATURA())/(Octane2.getTEMPERATURA()-Octane1.getTEMPERATURA()));
-        Cpl2 = Octane3.getCPL()+ (Octane4.getCPL()- Octane3.getCPL()) * ((temperatura-Octane3.getTEMPERATURA())/(Octane4.getTEMPERATURA()-Octane3.getTEMPERATURA()));
-        Cpl = Cpl1 + (Cpl2 - Cpl1) * ((pressao-Octane1.getPRESSAO())/(Octane2.getPRESSAO()-Octane1.getPRESSAO()));
+        double p  = ((pressao - Octane1.getPRESSAO())/(Octane3.getPRESSAO() - Octane1.getPRESSAO()));
+        double t1 = ((temperatura - Octane1.getTEMPERATURA())/(Octane2.getTEMPERATURA() - Octane1.getTEMPERATURA()));
+        double t2 = ((temperatura - Octane3.getTEMPERATURA())/(Octane4.getTEMPERATURA() - Octane3.getTEMPERATURA()));
         
-        Prl1 = Octane1.getPRL()+ (Octane2.getPRL()- Octane1.getPRL()) * ((temperatura-Octane1.getTEMPERATURA())/(Octane2.getTEMPERATURA()-Octane1.getTEMPERATURA()));
-        Prl2 = Octane3.getPRL()+ (Octane4.getPRL()- Octane3.getPRL()) * ((temperatura-Octane3.getTEMPERATURA())/(Octane4.getTEMPERATURA()-Octane3.getTEMPERATURA()));
-        Prl = Prl1 + (Prl2 - Prl1) * ((pressao-Octane3.getPRESSAO())/(Octane4.getPRESSAO()-Octane3.getPRESSAO()));
+        Cpl1 = Octane1.getCPL()+ (Octane2.getCPL()- Octane1.getCPL()) * t1;
+        Cpl2 = Octane3.getCPL()+ (Octane4.getCPL()- Octane3.getCPL()) * t2;
+        Cpl = Cpl1 + (Cpl2 - Cpl1) * p;
         
-        System.out.println(Cpl);
-        System.out.println(Prl);
+        Prl1 = Octane1.getPRL()+ (Octane2.getPRL()- Octane1.getPRL()) * t1;
+        Prl2 = Octane3.getPRL()+ (Octane4.getPRL()- Octane3.getPRL()) * t2;
+        Prl = Prl1 + (Prl2 - Prl1) * p;
+        
+        kl1 = Octane1.getKL() + (Octane2.getKL() - Octane1.getKL()) * t1;
+        kl2 = Octane3.getKL() + (Octane4.getKL() - Octane3.getKL()) * t2;
+        kl = kl1 + (kl2 - kl1) * p;
+        
+        Mul1 = Octane1.getMUL() + (Octane2.getMUL() - Octane1.getMUL()) * t1;
+        Mul2 = Octane3.getMUL() + (Octane4.getMUL() - Octane3.getMUL()) * t2;
+        Mul = Mul1 + (Mul2 - Mul1) * p;
+        
+        Vcl1 = Octane1.getVCL() + (Octane2.getVCL() - Octane1.getVCL()) * t1;
+        Vcl2 = Octane3.getVCL() + (Octane4.getVCL() - Octane3.getVCL()) * t2;
+        Vcl = Vcl1 + (Vcl2 - Vcl1) * p;
     }    
 
     public double getCpl() {
