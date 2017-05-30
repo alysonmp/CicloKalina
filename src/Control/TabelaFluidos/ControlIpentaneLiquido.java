@@ -25,7 +25,7 @@ public class ControlIpentaneLiquido {
     private Session session;
     
     private double Cpl, Prl, kl, Mul, Vcl;
-    private double Cpl1, Cpl2, Prl1, Prl2;
+    private double Cpl1, Cpl2, Prl1, Prl2,kl1 , kl2, Mul1, Mul2, Vcl1, Vcl2;
 
     public ControlIpentaneLiquido(Session session) {
         this.session = session;
@@ -47,7 +47,7 @@ public class ControlIpentaneLiquido {
                 while((line = br.readLine()) != null){
                     String[] ipentane_liquido = line.split(csvSplitBy);
                     
-                    this.session.save(new ModelIpentaneLiquido(Double.parseDouble(ipentane_liquido[0]),Double.parseDouble(ipentane_liquido[1]),Double.parseDouble(ipentane_liquido[2]),Double.parseDouble(ipentane_liquido[3])));   
+                    this.session.save(new ModelIpentaneLiquido(Double.parseDouble(ipentane_liquido[0]), Double.parseDouble(ipentane_liquido[1]), Double.parseDouble(ipentane_liquido[2]), Double.parseDouble(ipentane_liquido[3]), Double.parseDouble(ipentane_liquido[4]), Double.parseDouble(ipentane_liquido[5]),Double.parseDouble(ipentane_liquido[6])));
                 }
             }
             
@@ -93,18 +93,29 @@ public class ControlIpentaneLiquido {
 	ipentane_liquido = consulta.list(); 
         ModelIpentaneLiquido ipentane_liquido4 = ipentane_liquido.get(0);
      
-        double p1 = ((pressao - ipentane_liquido1.getPRESSAO())/(ipentane_liquido2.getPRESSAO() - ipentane_liquido1.getPRESSAO()));
-        double p2 = ((pressao - ipentane_liquido3.getPRESSAO())/(ipentane_liquido4.getPRESSAO() - ipentane_liquido3.getPRESSAO()));
+        double p  = ((pressao - ipentane_liquido1.getPRESSAO())/(ipentane_liquido3.getPRESSAO() - ipentane_liquido1.getPRESSAO()));
         double t1 = ((temperatura - ipentane_liquido1.getTEMPERATURA())/(ipentane_liquido2.getTEMPERATURA() - ipentane_liquido1.getTEMPERATURA()));
         double t2 = ((temperatura - ipentane_liquido3.getTEMPERATURA())/(ipentane_liquido4.getTEMPERATURA() - ipentane_liquido3.getTEMPERATURA()));
         
         Cpl1 = ipentane_liquido1.getCPL()+ (ipentane_liquido2.getCPL()- ipentane_liquido1.getCPL()) * t1;
         Cpl2 = ipentane_liquido3.getCPL()+ (ipentane_liquido4.getCPL()- ipentane_liquido3.getCPL()) * t2;
-        Cpl = Cpl1 + (Cpl2 - Cpl1) * p1;
+        Cpl = Cpl1 + (Cpl2 - Cpl1) * p;
         
         Prl1 = ipentane_liquido1.getPRL()+ (ipentane_liquido2.getPRL()- ipentane_liquido1.getPRL()) * t1;
         Prl2 = ipentane_liquido3.getPRL()+ (ipentane_liquido4.getPRL()- ipentane_liquido3.getPRL()) * t2;
-        Prl = Prl1 + (Prl2 - Prl1) * p2;
+        Prl = Prl1 + (Prl2 - Prl1) * p;
+        
+        kl1 = ipentane_liquido1.getKL() + (ipentane_liquido2.getKL() - ipentane_liquido1.getKL()) * t1;
+        kl2 = ipentane_liquido3.getKL() + (ipentane_liquido4.getKL() - ipentane_liquido3.getKL()) * t2;
+        kl = kl1 + (kl2 - kl1) * p;
+        
+        Mul1 = ipentane_liquido1.getMUL() + (ipentane_liquido2.getMUL() - ipentane_liquido1.getMUL()) * t1;
+        Mul2 = ipentane_liquido3.getMUL() + (ipentane_liquido4.getMUL() - ipentane_liquido3.getMUL()) * t2;
+        Mul = Mul1 + (Mul2 - Mul1) * p;
+        
+        Vcl1 = ipentane_liquido1.getVCL() + (ipentane_liquido2.getVCL() - ipentane_liquido1.getVCL()) * t1;
+        Vcl2 = ipentane_liquido3.getVCL() + (ipentane_liquido4.getVCL() - ipentane_liquido3.getVCL()) * t2;
+        Vcl = Vcl1 + (Vcl2 - Vcl1) * p;
     }
 
     public double getCpl() {

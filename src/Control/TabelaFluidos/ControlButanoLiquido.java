@@ -27,7 +27,7 @@ public class ControlButanoLiquido {
     
     Session session;
     private double Cpl, Prl, kl, Mul, Vcl;
-    private double Cpl1, Cpl2, Prl1, Prl2;
+    private double Cpl1, Cpl2, Prl1, Prl2, kl1, kl2, Mul1, Mul2, Vcl1, Vcl2;
     
     public ControlButanoLiquido(Session session){
         this.session = session;
@@ -52,7 +52,7 @@ public class ControlButanoLiquido {
                     // use comma as separator
                     String[] butano_l = line.split(cvsSplitBy);
                     
-                    session.save(new ModelButanoLiquido(Double.parseDouble(butano_l[0]), Double.parseDouble(butano_l[1]), Double.parseDouble(butano_l[2]), Double.parseDouble(butano_l[3])));
+                    this.session.save(new ModelButanoLiquido(Double.parseDouble(butano_l[0]), Double.parseDouble(butano_l[1]), Double.parseDouble(butano_l[2]), Double.parseDouble(butano_l[3]), Double.parseDouble(butano_l[4]), Double.parseDouble(butano_l[5]),Double.parseDouble(butano_l[6])));
                 }
             }
 
@@ -98,18 +98,29 @@ public class ControlButanoLiquido {
 	butano_l = consulta.list(); 
         ModelButanoLiquido butano_l4 = butano_l.get(0);
         
-        double p1 = ((pressao - butano_l1.getPRESSAO())/(butano_l2.getPRESSAO() - butano_l1.getPRESSAO()));
-        double p2 = ((pressao - butano_l3.getPRESSAO())/(butano_l4.getPRESSAO() - butano_l3.getPRESSAO()));
+        double p  = ((pressao - butano_l1.getPRESSAO())/(butano_l3.getPRESSAO() - butano_l1.getPRESSAO()));
         double t1 = ((temperatura - butano_l1.getTEMPERATURA())/(butano_l2.getTEMPERATURA() - butano_l1.getTEMPERATURA()));
         double t2 = ((temperatura - butano_l3.getTEMPERATURA())/(butano_l4.getTEMPERATURA() - butano_l3.getTEMPERATURA()));
         
         Cpl1 = butano_l1.getCPL()+ (butano_l2.getCPL()- butano_l1.getCPL()) * t1;
         Cpl2 = butano_l3.getCPL()+ (butano_l4.getCPL()- butano_l3.getCPL()) * t2;
-        Cpl = Cpl1 + (Cpl2 - Cpl1) * p1;
+        Cpl = Cpl1 + (Cpl2 - Cpl1) * p;
         
         Prl1 = butano_l1.getPRL()+ (butano_l2.getPRL()- butano_l1.getPRL()) * t1;
         Prl2 = butano_l3.getPRL()+ (butano_l4.getPRL()- butano_l3.getPRL()) * t2;
-        Prl = Prl1 + (Prl2 - Prl1) * p2;
+        Prl = Prl1 + (Prl2 - Prl1) * p;
+        
+        kl1 = butano_l1.getKL() + (butano_l2.getKL() - butano_l1.getKL()) * t1;
+        kl2 = butano_l3.getKL() + (butano_l4.getKL() - butano_l3.getKL()) * t2;
+        kl = kl1 + (kl2 - kl1) * p;
+        
+        Mul1 = butano_l1.getMUL() + (butano_l2.getMUL() - butano_l1.getMUL()) * t1;
+        Mul2 = butano_l3.getMUL() + (butano_l4.getMUL() - butano_l3.getMUL()) * t2;
+        Mul = Mul1 + (Mul2 - Mul1) * p;
+        
+        Vcl1 = butano_l1.getVCL() + (butano_l2.getVCL() - butano_l1.getVCL()) * t1;
+        Vcl2 = butano_l3.getVCL() + (butano_l4.getVCL() - butano_l3.getVCL()) * t2;
+        Vcl = Vcl1 + (Vcl2 - Vcl1) * p;
     }
 
     public double getCpl() {

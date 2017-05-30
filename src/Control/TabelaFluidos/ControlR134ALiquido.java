@@ -25,7 +25,7 @@ public class ControlR134ALiquido {
     
     Session session;
     private double Cpl, Prl, kl, Mul, Vcl;
-    private double Cpl1, Cpl2, Prl1, Prl2;
+    private double Cpl1, Cpl2, Prl1, Prl2, kl1, kl2, Mul1, Mul2, Vcl1, Vcl2;
     
     public ControlR134ALiquido(Session session){
         this.session = session;
@@ -51,7 +51,7 @@ public class ControlR134ALiquido {
                     // use comma as separator
                     String[] R134A_l = line.split(cvsSplitBy);
                     
-                    session.save(new ModelR134ALiquido(Double.parseDouble(R134A_l[0]), Double.parseDouble(R134A_l[1]), Double.parseDouble(R134A_l[2]), Double.parseDouble(R134A_l[3])));
+                    this.session.save(new ModelR134ALiquido(Double.parseDouble(R134A_l[0]), Double.parseDouble(R134A_l[1]), Double.parseDouble(R134A_l[2]), Double.parseDouble(R134A_l[3]), Double.parseDouble(R134A_l[4]), Double.parseDouble(R134A_l[5]),Double.parseDouble(R134A_l[6])));
                 }
             }
 
@@ -98,16 +98,29 @@ public class ControlR134ALiquido {
 	R134As = consulta.list(); 
         ModelR134ALiquido R134A4 = R134As.get(0);
         
-        Cpl1 = R134A1.getCPL()+ (R134A2.getCPL()- R134A1.getCPL()) * ((temperatura-R134A1.getTEMPERATURA())/(R134A2.getTEMPERATURA()-R134A1.getTEMPERATURA()));
-        Cpl2 = R134A3.getCPL()+ (R134A4.getCPL()- R134A3.getCPL()) * ((temperatura-R134A3.getTEMPERATURA())/(R134A4.getTEMPERATURA()-R134A3.getTEMPERATURA()));
-        Cpl = Cpl1 + (Cpl2 - Cpl1) * ((pressao-R134A1.getPRESSAO())/(R134A2.getPRESSAO()-R134A1.getPRESSAO()));
+        double p  = ((pressao - R134A1.getPRESSAO())/(R134A3.getPRESSAO() - R134A1.getPRESSAO()));
+        double t1 = ((temperatura - R134A1.getTEMPERATURA())/(R134A2.getTEMPERATURA() - R134A1.getTEMPERATURA()));
+        double t2 = ((temperatura - R134A3.getTEMPERATURA())/(R134A4.getTEMPERATURA() - R134A3.getTEMPERATURA()));
         
-        Prl1 = R134A1.getPRL()+ (R134A2.getPRL()- R134A1.getPRL()) * ((temperatura-R134A1.getTEMPERATURA())/(R134A2.getTEMPERATURA()-R134A1.getTEMPERATURA()));
-        Prl2 = R134A3.getPRL()+ (R134A4.getPRL()- R134A3.getPRL()) * ((temperatura-R134A3.getTEMPERATURA())/(R134A4.getTEMPERATURA()-R134A3.getTEMPERATURA()));
-        Prl = Prl1 + (Prl2 - Prl1) * ((pressao-R134A3.getPRESSAO())/(R134A4.getPRESSAO()-R134A3.getPRESSAO()));
+        Cpl1 = R134A1.getCPL()+ (R134A2.getCPL()- R134A1.getCPL()) * t1;
+        Cpl2 = R134A3.getCPL()+ (R134A4.getCPL()- R134A3.getCPL()) * t2;
+        Cpl = Cpl1 + (Cpl2 - Cpl1) * p;
         
-        System.out.println(Cpl);
-        System.out.println(Prl);
+        Prl1 = R134A1.getPRL()+ (R134A2.getPRL()- R134A1.getPRL()) * t1;
+        Prl2 = R134A3.getPRL()+ (R134A4.getPRL()- R134A3.getPRL()) * t2;
+        Prl = Prl1 + (Prl2 - Prl1) * p;
+        
+        kl1 = R134A1.getKL() + (R134A2.getKL() - R134A1.getKL()) * t1;
+        kl2 = R134A3.getKL() + (R134A4.getKL() - R134A3.getKL()) * t2;
+        kl = kl1 + (kl2 - kl1) * p;
+        
+        Mul1 = R134A1.getMUL() + (R134A2.getMUL() - R134A1.getMUL()) * t1;
+        Mul2 = R134A3.getMUL() + (R134A4.getMUL() - R134A3.getMUL()) * t2;
+        Mul = Mul1 + (Mul2 - Mul1) * p;
+        
+        Vcl1 = R134A1.getVCL() + (R134A2.getVCL() - R134A1.getVCL()) * t1;
+        Vcl2 = R134A3.getVCL() + (R134A4.getVCL() - R134A3.getVCL()) * t2;
+        Vcl = Vcl1 + (Vcl2 - Vcl1) * p;
     }    
 
     public double getCpl() {
