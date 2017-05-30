@@ -70,25 +70,25 @@ public class Start {
             //jkljkljkljkljkl*jkljkljkjkl
         }
         
-        /*ControlTurbina turbina = new ControlTurbina(Teff, P1, T1, P2, Pref, Tref, ii, session);
+        ControlTurbina turbina = new ControlTurbina(Teff, P1, T1, P2, Pref, Tref, ii, session);
         H1 = turbina.getH1();
         H2 = turbina.getIsoTurbina().getH2();
         S1 = turbina.getS1();
         S2 = turbina.getIsoTurbina().getS2();
         T2 = turbina.getIsoTurbina().getT2();
-        H2s = turbina.getIsoTurbina().getH2s();*/
+        H2s = turbina.getIsoTurbina().getH2s();
 
         ControlInterpolacao interpolacao = new ControlInterpolacao(ii, Pref, Tref, session);
-        Object gas = interpolacao.getGas();
-        Object liquido = interpolacao.getLiquido();
-        
-        Field[] gases = gas.getClass().getFields();
-        System.out.println(gases[0]);
-        Class<?> classe = gas.getClass();
-        Field[] atributos = classe.getDeclaredFields();
-        
-        
-        System.out.println(gas.getClass().getName());
+        double Cpv_g = interpolacao.getCpv_g();
+        double Cpv_l = interpolacao.getCpv_l();
+        double kv_g = interpolacao.getKv_g();
+        double kv_l = interpolacao.getKv_l();
+        double Muv_g = interpolacao.getMuv_g();
+        double Muv_l = interpolacao.getMuv_l();
+        double Prv_g = interpolacao.getPrv_g();
+        double Prv_l = interpolacao.getPrv_l();
+        double Vcv_g = interpolacao.getVcv_g();
+        double Vcv_l = interpolacao.getVcv_l();
         
         DH2s = H1-H2s;
         
@@ -102,7 +102,7 @@ public class Start {
         Teff = diamTH17.getTeff();
                 
         if(Teff < 0.8){
-            ControlTurbina turbina = new ControlTurbina(Teff, P1, T1, P2, Pref, Tref, ii, session);
+            turbina = new ControlTurbina(Teff, P1, T1, P2, Pref, Tref, ii, session);
             H1 = turbina.getH1();
             H2 = turbina.getIsoTurbina().getH2();
             S1 = turbina.getS1();
