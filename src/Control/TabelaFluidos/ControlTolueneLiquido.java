@@ -26,7 +26,7 @@ public class ControlTolueneLiquido {
     
     Session session;
     private double Cpl, Prl, kl, Mul, Vcl;
-    private double Cpl1, Cpl2, Prl1, Prl2;
+    private double Cpl1, Cpl2, Prl1, Prl2, kl1, kl2, Mul1, Mul2, Vcl1, Vcl2;
     
     public ControlTolueneLiquido(Session session){
         this.session = session;
@@ -52,7 +52,7 @@ public class ControlTolueneLiquido {
                     // use comma as separator
                     String[] Toluene_l = line.split(cvsSplitBy);
                     
-                    session.save(new ModelTolueneLiquido(Double.parseDouble(Toluene_l[0]), Double.parseDouble(Toluene_l[1]), Double.parseDouble(Toluene_l[2]), Double.parseDouble(Toluene_l[3])));
+                    this.session.save(new ModelTolueneLiquido(Double.parseDouble(Toluene_l[0]), Double.parseDouble(Toluene_l[1]), Double.parseDouble(Toluene_l[2]), Double.parseDouble(Toluene_l[3]), Double.parseDouble(Toluene_l[4]), Double.parseDouble(Toluene_l[5]),Double.parseDouble(Toluene_l[6])));
                 }
             }
 
@@ -99,16 +99,29 @@ public class ControlTolueneLiquido {
 	Toluenes = consulta.list(); 
         ModelTolueneLiquido toluene4 = Toluenes.get(0);
         
-        Cpl1 = toluene1.getCPL()+ (toluene2.getCPL()- toluene1.getCPL()) * ((temperatura-toluene1.getTEMPERATURA())/(toluene2.getTEMPERATURA()-toluene1.getTEMPERATURA()));
-        Cpl2 = toluene3.getCPL()+ (toluene4.getCPL()- toluene3.getCPL()) * ((temperatura-toluene3.getTEMPERATURA())/(toluene4.getTEMPERATURA()-toluene3.getTEMPERATURA()));
-        Cpl = Cpl1 + (Cpl2 - Cpl1) * ((pressao-toluene1.getPRESSAO())/(toluene2.getPRESSAO()-toluene1.getPRESSAO()));
+        double p  = ((pressao - toluene1.getPRESSAO())/(toluene3.getPRESSAO() - toluene1.getPRESSAO()));
+        double t1 = ((temperatura - toluene1.getTEMPERATURA())/(toluene2.getTEMPERATURA() - toluene1.getTEMPERATURA()));
+        double t2 = ((temperatura - toluene3.getTEMPERATURA())/(toluene4.getTEMPERATURA() - toluene3.getTEMPERATURA()));
         
-        Prl1 = toluene1.getPRL()+ (toluene2.getPRL()- toluene1.getPRL()) * ((temperatura-toluene1.getTEMPERATURA())/(toluene2.getTEMPERATURA()-toluene1.getTEMPERATURA()));
-        Prl2 = toluene3.getPRL()+ (toluene4.getPRL()- toluene3.getPRL()) * ((temperatura-toluene3.getTEMPERATURA())/(toluene4.getTEMPERATURA()-toluene3.getTEMPERATURA()));
-        Prl = Prl1 + (Prl2 - Prl1) * ((pressao-toluene3.getPRESSAO())/(toluene4.getPRESSAO()-toluene3.getPRESSAO()));
+        Cpl1 = toluene1.getCPL()+ (toluene2.getCPL()- toluene1.getCPL()) * t1;
+        Cpl2 = toluene3.getCPL()+ (toluene4.getCPL()- toluene3.getCPL()) * t2;
+        Cpl = Cpl1 + (Cpl2 - Cpl1) * p;
         
-        System.out.println(Cpl);
-        System.out.println(Prl);
+        Prl1 = toluene1.getPRL()+ (toluene2.getPRL()- toluene1.getPRL()) * t1;
+        Prl2 = toluene3.getPRL()+ (toluene4.getPRL()- toluene3.getPRL()) * t2;
+        Prl = Prl1 + (Prl2 - Prl1) * p;
+        
+        kl1 = toluene1.getKL() + (toluene2.getKL() - toluene1.getKL()) * t1;
+        kl2 = toluene3.getKL() + (toluene4.getKL() - toluene3.getKL()) * t2;
+        kl = kl1 + (kl2 - kl1) * p;
+        
+        Mul1 = toluene1.getMUL() + (toluene2.getMUL() - toluene1.getMUL()) * t1;
+        Mul2 = toluene3.getMUL() + (toluene4.getMUL() - toluene3.getMUL()) * t2;
+        Mul = Mul1 + (Mul2 - Mul1) * p;
+        
+        Vcl1 = toluene1.getVCL() + (toluene2.getVCL() - toluene1.getVCL()) * t1;
+        Vcl2 = toluene3.getVCL() + (toluene4.getVCL() - toluene3.getVCL()) * t2;
+        Vcl = Vcl1 + (Vcl2 - Vcl1) * p;
     }
 
     public double getCpl() {

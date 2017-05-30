@@ -25,7 +25,7 @@ public class ControlMD3MLiquido {
     
     Session session;
     private double Cpl, Prl, kl, Mul, Vcl;
-    private double Cpl1, Cpl2, Prl1, Prl2;
+    private double Cpl1, Cpl2, Prl1, Prl2,kl1 , kl2, Mul1, Mul2, Vcl1, Vcl2;
     
     public ControlMD3MLiquido(Session session){
         this.session = session;
@@ -51,7 +51,7 @@ public class ControlMD3MLiquido {
                     // use coMD3Ma as separator
                     String[] MD3M_l = line.split(cvsSplitBy);
                     
-                    session.save(new ModelMD3MLiquido(Double.parseDouble(MD3M_l[0]), Double.parseDouble(MD3M_l[1]), Double.parseDouble(MD3M_l[2]), Double.parseDouble(MD3M_l[3])));
+                    this.session.save(new ModelMD3MLiquido(Double.parseDouble(MD3M_l[0]), Double.parseDouble(MD3M_l[1]), Double.parseDouble(MD3M_l[2]), Double.parseDouble(MD3M_l[3]), Double.parseDouble(MD3M_l[4]), Double.parseDouble(MD3M_l[5]),Double.parseDouble(MD3M_l[6])));
                 }
             }
 
@@ -98,16 +98,29 @@ public class ControlMD3MLiquido {
 	MD3Ms = consulta.list(); 
         ModelMD3MLiquido MD3M4 = MD3Ms.get(0);
         
-        Cpl1 = MD3M1.getCPL()+ (MD3M2.getCPL()- MD3M1.getCPL()) * ((temperatura-MD3M1.getTEMPERATURA())/(MD3M2.getTEMPERATURA()-MD3M1.getTEMPERATURA()));
-        Cpl2 = MD3M3.getCPL()+ (MD3M4.getCPL()- MD3M3.getCPL()) * ((temperatura-MD3M3.getTEMPERATURA())/(MD3M4.getTEMPERATURA()-MD3M3.getTEMPERATURA()));
-        Cpl = Cpl1 + (Cpl2 - Cpl1) * ((pressao-MD3M1.getPRESSAO())/(MD3M2.getPRESSAO()-MD3M1.getPRESSAO()));
+        double p  = ((pressao - MD3M1.getPRESSAO())/(MD3M3.getPRESSAO() - MD3M1.getPRESSAO()));
+        double t1 = ((temperatura - MD3M1.getTEMPERATURA())/(MD3M2.getTEMPERATURA() - MD3M1.getTEMPERATURA()));
+        double t2 = ((temperatura - MD3M3.getTEMPERATURA())/(MD3M4.getTEMPERATURA() - MD3M3.getTEMPERATURA()));
         
-        Prl1 = MD3M1.getPRL()+ (MD3M2.getPRL()- MD3M1.getPRL()) * ((temperatura-MD3M1.getTEMPERATURA())/(MD3M2.getTEMPERATURA()-MD3M1.getTEMPERATURA()));
-        Prl2 = MD3M3.getPRL()+ (MD3M4.getPRL()- MD3M3.getPRL()) * ((temperatura-MD3M3.getTEMPERATURA())/(MD3M4.getTEMPERATURA()-MD3M3.getTEMPERATURA()));
-        Prl = Prl1 + (Prl2 - Prl1) * ((pressao-MD3M3.getPRESSAO())/(MD3M4.getPRESSAO()-MD3M3.getPRESSAO()));
+        Cpl1 = MD3M1.getCPL()+ (MD3M2.getCPL()- MD3M1.getCPL()) * t1;
+        Cpl2 = MD3M3.getCPL()+ (MD3M4.getCPL()- MD3M3.getCPL()) * t2;
+        Cpl = Cpl1 + (Cpl2 - Cpl1) * p;
         
-        System.out.println(Cpl);
-        System.out.println(Prl);
+        Prl1 = MD3M1.getPRL()+ (MD3M2.getPRL()- MD3M1.getPRL()) * t1;
+        Prl2 = MD3M3.getPRL()+ (MD3M4.getPRL()- MD3M3.getPRL()) * t2;
+        Prl = Prl1 + (Prl2 - Prl1) * p;
+        
+        kl1 = MD3M1.getKL() + (MD3M2.getKL() - MD3M1.getKL()) * t1;
+        kl2 = MD3M3.getKL() + (MD3M4.getKL() - MD3M3.getKL()) * t2;
+        kl = kl1 + (kl2 - kl1) * p;
+        
+        Mul1 = MD3M1.getMUL() + (MD3M2.getMUL() - MD3M1.getMUL()) * t1;
+        Mul2 = MD3M3.getMUL() + (MD3M4.getMUL() - MD3M3.getMUL()) * t2;
+        Mul = Mul1 + (Mul2 - Mul1) * p;
+        
+        Vcl1 = MD3M1.getVCL() + (MD3M2.getVCL() - MD3M1.getVCL()) * t1;
+        Vcl2 = MD3M3.getVCL() + (MD3M4.getVCL() - MD3M3.getVCL()) * t2;
+        Vcl = Vcl1 + (Vcl2 - Vcl1) * p;
     }    
 
     public double getCpl() {

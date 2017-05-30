@@ -25,7 +25,7 @@ public class ControlPropaneLiquido {
     
     Session session;
     private double Cpl, Prl, kl, Mul, Vcl;
-    private double Cpl1, Cpl2, Prl1, Prl2;
+    private double Cpl1, Cpl2, Prl1, Prl2, kl1, kl2, Mul1, Mul2, Vcl1, Vcl2;
     
     public ControlPropaneLiquido(Session session){
         this.session = session;
@@ -51,7 +51,7 @@ public class ControlPropaneLiquido {
                     // use comma as separator
                     String[] Propane_l = line.split(cvsSplitBy);
                     
-                    session.save(new ModelPropaneLiquido(Double.parseDouble(Propane_l[0]), Double.parseDouble(Propane_l[1]), Double.parseDouble(Propane_l[2]), Double.parseDouble(Propane_l[3])));
+                    this.session.save(new ModelPropaneLiquido(Double.parseDouble(Propane_l[0]), Double.parseDouble(Propane_l[1]), Double.parseDouble(Propane_l[2]), Double.parseDouble(Propane_l[3]), Double.parseDouble(Propane_l[4]), Double.parseDouble(Propane_l[5]),Double.parseDouble(Propane_l[6])));
                 }
             }
 
@@ -98,16 +98,29 @@ public class ControlPropaneLiquido {
 	Propanes = consulta.list(); 
         ModelPropaneLiquido Propane4 = Propanes.get(0);
         
-        Cpl1 = Propane1.getCPL()+ (Propane2.getCPL()- Propane1.getCPL()) * ((temperatura-Propane1.getTEMPERATURA())/(Propane2.getTEMPERATURA()-Propane1.getTEMPERATURA()));
-        Cpl2 = Propane3.getCPL()+ (Propane4.getCPL()- Propane3.getCPL()) * ((temperatura-Propane3.getTEMPERATURA())/(Propane4.getTEMPERATURA()-Propane3.getTEMPERATURA()));
-        Cpl = Cpl1 + (Cpl2 - Cpl1) * ((pressao-Propane1.getPRESSAO())/(Propane2.getPRESSAO()-Propane1.getPRESSAO()));
+        double p  = ((pressao - Propane1.getPRESSAO())/(Propane3.getPRESSAO() - Propane1.getPRESSAO()));
+        double t1 = ((temperatura - Propane1.getTEMPERATURA())/(Propane2.getTEMPERATURA() - Propane1.getTEMPERATURA()));
+        double t2 = ((temperatura - Propane3.getTEMPERATURA())/(Propane4.getTEMPERATURA() - Propane3.getTEMPERATURA()));
         
-        Prl1 = Propane1.getPRL()+ (Propane2.getPRL()- Propane1.getPRL()) * ((temperatura-Propane1.getTEMPERATURA())/(Propane2.getTEMPERATURA()-Propane1.getTEMPERATURA()));
-        Prl2 = Propane3.getPRL()+ (Propane4.getPRL()- Propane3.getPRL()) * ((temperatura-Propane3.getTEMPERATURA())/(Propane4.getTEMPERATURA()-Propane3.getTEMPERATURA()));
-        Prl = Prl1 + (Prl2 - Prl1) * ((pressao-Propane3.getPRESSAO())/(Propane4.getPRESSAO()-Propane3.getPRESSAO()));
+        Cpl1 = Propane1.getCPL()+ (Propane2.getCPL()- Propane1.getCPL()) * t1;
+        Cpl2 = Propane3.getCPL()+ (Propane4.getCPL()- Propane3.getCPL()) * t2;
+        Cpl = Cpl1 + (Cpl2 - Cpl1) * p;
         
-        System.out.println(Cpl);
-        System.out.println(Prl);
+        Prl1 = Propane1.getPRL()+ (Propane2.getPRL()- Propane1.getPRL()) * t1;
+        Prl2 = Propane3.getPRL()+ (Propane4.getPRL()- Propane3.getPRL()) * t2;
+        Prl = Prl1 + (Prl2 - Prl1) * p;
+        
+        kl1 = Propane1.getKL() + (Propane2.getKL() - Propane1.getKL()) * t1;
+        kl2 = Propane3.getKL() + (Propane4.getKL() - Propane3.getKL()) * t2;
+        kl = kl1 + (kl2 - kl1) * p;
+        
+        Mul1 = Propane1.getMUL() + (Propane2.getMUL() - Propane1.getMUL()) * t1;
+        Mul2 = Propane3.getMUL() + (Propane4.getMUL() - Propane3.getMUL()) * t2;
+        Mul = Mul1 + (Mul2 - Mul1) * p;
+        
+        Vcl1 = Propane1.getVCL() + (Propane2.getVCL() - Propane1.getVCL()) * t1;
+        Vcl2 = Propane3.getVCL() + (Propane4.getVCL() - Propane3.getVCL()) * t2;
+        Vcl = Vcl1 + (Vcl2 - Vcl1) * p;
     }    
 
     public double getCpl() {

@@ -25,7 +25,7 @@ public class ControlR141BLiquido {
     
     Session session;
     private double Cpl, Prl, kl, Mul, Vcl;
-    private double Cpl1, Cpl2, Prl1, Prl2;
+    private double Cpl1, Cpl2, Prl1, Prl2, kl1, kl2, Mul1, Mul2, Vcl1, Vcl2;
     
     public ControlR141BLiquido(Session session){
         this.session = session;
@@ -51,7 +51,7 @@ public class ControlR141BLiquido {
                     // use comma as separator
                     String[] R141B_l = line.split(cvsSplitBy);
                     
-                    session.save(new ModelR141BLiquido(Double.parseDouble(R141B_l[0]), Double.parseDouble(R141B_l[1]), Double.parseDouble(R141B_l[2]), Double.parseDouble(R141B_l[3])));
+                    this.session.save(new ModelR141BLiquido(Double.parseDouble(R141B_l[0]), Double.parseDouble(R141B_l[1]), Double.parseDouble(R141B_l[2]), Double.parseDouble(R141B_l[3]), Double.parseDouble(R141B_l[4]), Double.parseDouble(R141B_l[5]),Double.parseDouble(R141B_l[6])));
                 }
             }
 
@@ -98,16 +98,29 @@ public class ControlR141BLiquido {
 	R141Bs = consulta.list(); 
         ModelR141BLiquido R141B4 = R141Bs.get(0);
         
-        Cpl1 = R141B1.getCPL()+ (R141B2.getCPL()- R141B1.getCPL()) * ((temperatura-R141B1.getTEMPERATURA())/(R141B2.getTEMPERATURA()-R141B1.getTEMPERATURA()));
-        Cpl2 = R141B3.getCPL()+ (R141B4.getCPL()- R141B3.getCPL()) * ((temperatura-R141B3.getTEMPERATURA())/(R141B4.getTEMPERATURA()-R141B3.getTEMPERATURA()));
-        Cpl = Cpl1 + (Cpl2 - Cpl1) * ((pressao-R141B1.getPRESSAO())/(R141B2.getPRESSAO()-R141B1.getPRESSAO()));
+        double p  = ((pressao - R141B1.getPRESSAO())/(R141B3.getPRESSAO() - R141B1.getPRESSAO()));
+        double t1 = ((temperatura - R141B1.getTEMPERATURA())/(R141B2.getTEMPERATURA() - R141B1.getTEMPERATURA()));
+        double t2 = ((temperatura - R141B3.getTEMPERATURA())/(R141B4.getTEMPERATURA() - R141B3.getTEMPERATURA()));
         
-        Prl1 = R141B1.getPRL()+ (R141B2.getPRL()- R141B1.getPRL()) * ((temperatura-R141B1.getTEMPERATURA())/(R141B2.getTEMPERATURA()-R141B1.getTEMPERATURA()));
-        Prl2 = R141B3.getPRL()+ (R141B4.getPRL()- R141B3.getPRL()) * ((temperatura-R141B3.getTEMPERATURA())/(R141B4.getTEMPERATURA()-R141B3.getTEMPERATURA()));
-        Prl = Prl1 + (Prl2 - Prl1) * ((pressao-R141B3.getPRESSAO())/(R141B4.getPRESSAO()-R141B3.getPRESSAO()));
+        Cpl1 = R141B1.getCPL()+ (R141B2.getCPL()- R141B1.getCPL()) * t1;
+        Cpl2 = R141B3.getCPL()+ (R141B4.getCPL()- R141B3.getCPL()) * t2;
+        Cpl = Cpl1 + (Cpl2 - Cpl1) * p;
         
-        System.out.println(Cpl);
-        System.out.println(Prl);
+        Prl1 = R141B1.getPRL()+ (R141B2.getPRL()- R141B1.getPRL()) * t1;
+        Prl2 = R141B3.getPRL()+ (R141B4.getPRL()- R141B3.getPRL()) * t2;
+        Prl = Prl1 + (Prl2 - Prl1) * p;
+        
+        kl1 = R141B1.getKL() + (R141B2.getKL() - R141B1.getKL()) * t1;
+        kl2 = R141B3.getKL() + (R141B4.getKL() - R141B3.getKL()) * t2;
+        kl = kl1 + (kl2 - kl1) * p;
+        
+        Mul1 = R141B1.getMUL() + (R141B2.getMUL() - R141B1.getMUL()) * t1;
+        Mul2 = R141B3.getMUL() + (R141B4.getMUL() - R141B3.getMUL()) * t2;
+        Mul = Mul1 + (Mul2 - Mul1) * p;
+        
+        Vcl1 = R141B1.getVCL() + (R141B2.getVCL() - R141B1.getVCL()) * t1;
+        Vcl2 = R141B3.getVCL() + (R141B4.getVCL() - R141B3.getVCL()) * t2;
+        Vcl = Vcl1 + (Vcl2 - Vcl1) * p;
     }    
 
     public double getCpl() {

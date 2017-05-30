@@ -25,7 +25,7 @@ public class ControlIsobutanLiquido {
     private Session session;
     
     private double Cpl, Prl, kl, Mul, Vcl;
-    private double Cpl1, Cpl2, Prl1, Prl2;
+    private double Cpl1, Cpl2, Prl1, Prl2,kl1 , kl2, Mul1, Mul2, Vcl1, Vcl2;
 
     public ControlIsobutanLiquido(Session session) {
         this.session = session;
@@ -47,7 +47,7 @@ public class ControlIsobutanLiquido {
                 while((line = br.readLine()) != null){
                     String[] isobutan_liquido = line.split(csvSplitBy);
                     
-                    this.session.save(new ModelIsobutanLiquido(Double.parseDouble(isobutan_liquido[0]),Double.parseDouble(isobutan_liquido[1]),Double.parseDouble(isobutan_liquido[2]),Double.parseDouble(isobutan_liquido[3])));   
+                    this.session.save(new ModelIsobutanLiquido(Double.parseDouble(isobutan_liquido[0]), Double.parseDouble(isobutan_liquido[1]), Double.parseDouble(isobutan_liquido[2]), Double.parseDouble(isobutan_liquido[3]), Double.parseDouble(isobutan_liquido[4]), Double.parseDouble(isobutan_liquido[5]),Double.parseDouble(isobutan_liquido[6])));
                 }
             }
             
@@ -93,18 +93,29 @@ public class ControlIsobutanLiquido {
 	isobutan_liquido = consulta.list(); 
         ModelIsobutanLiquido isobutan_liquido4 = isobutan_liquido.get(0);
      
-        double p1 = ((pressao - isobutan_liquido1.getPRESSAO())/(isobutan_liquido2.getPRESSAO() - isobutan_liquido1.getPRESSAO()));
-        double p2 = ((pressao - isobutan_liquido3.getPRESSAO())/(isobutan_liquido4.getPRESSAO() - isobutan_liquido3.getPRESSAO()));
+        double p  = ((pressao - isobutan_liquido1.getPRESSAO())/(isobutan_liquido3.getPRESSAO() - isobutan_liquido1.getPRESSAO()));
         double t1 = ((temperatura - isobutan_liquido1.getTEMPERATURA())/(isobutan_liquido2.getTEMPERATURA() - isobutan_liquido1.getTEMPERATURA()));
         double t2 = ((temperatura - isobutan_liquido3.getTEMPERATURA())/(isobutan_liquido4.getTEMPERATURA() - isobutan_liquido3.getTEMPERATURA()));
         
         Cpl1 = isobutan_liquido1.getCPL()+ (isobutan_liquido2.getCPL()- isobutan_liquido1.getCPL()) * t1;
         Cpl2 = isobutan_liquido3.getCPL()+ (isobutan_liquido4.getCPL()- isobutan_liquido3.getCPL()) * t2;
-        Cpl = Cpl1 + (Cpl2 - Cpl1) * p1;
+        Cpl = Cpl1 + (Cpl2 - Cpl1) * p;
         
         Prl1 = isobutan_liquido1.getPRL()+ (isobutan_liquido2.getPRL()- isobutan_liquido1.getPRL()) * t1;
         Prl2 = isobutan_liquido3.getPRL()+ (isobutan_liquido4.getPRL()- isobutan_liquido3.getPRL()) * t2;
-        Prl = Prl1 + (Prl2 - Prl1) * p2;
+        Prl = Prl1 + (Prl2 - Prl1) * p;
+        
+        kl1 = isobutan_liquido1.getKL() + (isobutan_liquido2.getKL() - isobutan_liquido1.getKL()) * t1;
+        kl2 = isobutan_liquido3.getKL() + (isobutan_liquido4.getKL() - isobutan_liquido3.getKL()) * t2;
+        kl = kl1 + (kl2 - kl1) * p;
+        
+        Mul1 = isobutan_liquido1.getMUL() + (isobutan_liquido2.getMUL() - isobutan_liquido1.getMUL()) * t1;
+        Mul2 = isobutan_liquido3.getMUL() + (isobutan_liquido4.getMUL() - isobutan_liquido3.getMUL()) * t2;
+        Mul = Mul1 + (Mul2 - Mul1) * p;
+        
+        Vcl1 = isobutan_liquido1.getVCL() + (isobutan_liquido2.getVCL() - isobutan_liquido1.getVCL()) * t1;
+        Vcl2 = isobutan_liquido3.getVCL() + (isobutan_liquido4.getVCL() - isobutan_liquido3.getVCL()) * t2;
+        Vcl = Vcl1 + (Vcl2 - Vcl1) * p;
     }
 
     public double getCpl() {
