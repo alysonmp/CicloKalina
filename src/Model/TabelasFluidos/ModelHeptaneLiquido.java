@@ -30,24 +30,36 @@ public class ModelHeptaneLiquido implements Serializable{
     private double temperatura;
     
     @Column
+    private double kl;
+    
+    @Column
     private double Cpl;
     
     @Column
     private double Prl;
+    
+    @Column
+    private double Mul;
 
-    public ModelHeptaneLiquido() {
-    }
+    @Column
+    private double Vcl;
 
-    public ModelHeptaneLiquido(double pressao, double temperatura, double Cpl, double Prl) {
+    public ModelHeptaneLiquido(double pressao, double temperatura, double kl, double Cpl, double Prl, double Mul, double Vcl) {
         this.pressao = pressao;
         this.temperatura = temperatura;
+        this.kl = kl;
         this.Cpl = Cpl;
         this.Prl = Prl;
+        this.Mul = Mul;
+        this.Vcl = Vcl;
     }
     
     public ModelHeptaneLiquido(double pressao, double temperatura) {
         this.pressao = pressao;
         this.temperatura = temperatura;
+    }
+    
+    public ModelHeptaneLiquido() {
     }
 
     public int getID() {
@@ -88,5 +100,29 @@ public class ModelHeptaneLiquido implements Serializable{
 
     public void setPRL(double Prl) {
         this.Prl = Prl;
+    }
+    
+    public double getKL() {
+        return kl;
+    }
+
+    public void setKL(double kl) {
+        this.kl = kl;
+    }
+
+    public double getMUL() {
+        return Mul;
+    }
+
+    public void setMUL(double Mul) {
+        this.Mul = Mul;
+    }
+
+    public double getVCL() {
+        return Vcl;
+    }
+
+    public void setVCL(double Vcl) {
+        this.Vcl = Vcl;
     }
 }
