@@ -23,7 +23,7 @@ public class ControlS_Sistema {
         
         sDep = new ControlS_Dep(T, P, ii, session);
         SL = -SDrefL+sIdealGas.getSig()+sDep.getSDL();
-        SV = -SDrefV+sIdealGas.getSig()+sDep.getSDV();
+        SV = -SDrefL+sIdealGas.getSig()+sDep.getSDV();
     }
 
     public double getSL() {

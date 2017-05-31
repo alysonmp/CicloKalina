@@ -44,7 +44,7 @@ public class ControlT_Ref {
             if(erro > 0.0001 && burbuja > 0){
                 Te = Te-DT;
                 DT = DT/2;
-                if(DT<0.005){
+                if(DT < 0.005){
                    DT = 0.0047953543;
                 }
             }else{

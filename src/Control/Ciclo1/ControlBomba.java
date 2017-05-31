@@ -20,10 +20,13 @@ public class ControlBomba {
         ControlH_Sistema hSistema = new ControlH_Sistema(Tconop, Pconop, Pref, Tref, ii, session);
         ControlS_Sistema sSistema = new ControlS_Sistema(Tconop, Pconop, Pref, Tref, ii, session);
         
+        double P4 = Pconop;
+        double P5 = P1;
+        
         S4 = sSistema.getSL();
         H4= hSistema.getHL();
         double v4 = (zeta.getZl()*constantes.getR()*Tconop)/Pconop;
-        H5 = (v4*(P1-Pconop)/Beff)+H4;
+        H5 = (v4*(P5-P4)/Beff)+H4;
         
         double Test = Tconop ;
         double erro=1;

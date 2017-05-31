@@ -23,25 +23,25 @@ public class ControlConstantes {
     private double beta, eps, delta, a, b, A, B, K0, Tr, R, Tc, Pc, K1, w;
 
     public ControlConstantes(double T, double P, int ii,Session session) {
-        this.R = 8.3145;
+        this.R = 8.314472;
         
         Criteria cr = session.createCriteria(ModelCriticasKCSMat_K1.class); 
-        cr.add(Restrictions.eq("id", ii));
+        cr.add(Restrictions.eq("cod", ii));
         List results = cr.list();
         K1 = ((ModelCriticasKCSMat_K1)results.get(0)).getValor();
         
         cr = session.createCriteria(ModelCriticasKCSMat_w.class); 
-        cr.add(Restrictions.eq("id", ii));
+        cr.add(Restrictions.eq("cod", ii));
         results = cr.list();
         w = ((ModelCriticasKCSMat_w)results.get(0)).getValor();
         
         cr = session.createCriteria(ModelCriticasKCSMat_Tc.class); 
-        cr.add(Restrictions.eq("id", ii));
+        cr.add(Restrictions.eq("cod", ii));
         results = cr.list();
         Tc = ((ModelCriticasKCSMat_Tc)results.get(0)).getValor();
         
         cr = session.createCriteria(ModelCriticasKCSMat_Pc.class); 
-        cr.add(Restrictions.eq("id", ii));
+        cr.add(Restrictions.eq("cod", ii));
         results = cr.list();
         Pc = ((ModelCriticasKCSMat_Pc)results.get(0)).getValor();
         
@@ -130,19 +130,19 @@ public class ControlConstantes {
         return delta;
     }
 
-    public double getA() {
+    public double geta() {
         return a;
     }
 
-    public double getB() {
+    public double getb() {
         return b;
     }
 
-    public double geta() {
+    public double getA() {
         return A;
     }
 
-    public double getb() {
+    public double getB() {
         return B;
     }
 

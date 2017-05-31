@@ -62,7 +62,8 @@ import Model.Ciclo2.ModelFluidos;
 import Model.Ciclo2.ModelMassa;
 import Model.ModelCVA;
 import Model.ModelCVB;
-import Model.ModelConsExeMat;
+import Model.ModelConsExeMatA;
+import Model.ModelConsExeMatB;
 import Model.ModelConstantesKCSMat_C;
 import Model.ModelConstantesKCSMat_CC;
 import Model.ModelConstantesRankineMat;
@@ -416,25 +417,40 @@ public class ControlPrincipal {
             }
         }
         
-        cr = this.session.createCriteria(ModelQfpsoKCSMat.class);
+        cr = this.session.createCriteria(ModelConsExeMatA.class);
         results = cr.list();
-        tx = session.beginTransaction();
         
         if(results.isEmpty()){
-            double[][] valores = {{10.57, 1.05, 2.06, -3936.0}, 
-                                  {7.3, 1.23, 0.0, -2286.0}, 
-                                  {11.4, 0.94, 1.84, -3992.0},
-                                  {7.16, 0.5, 0.4, -2313.0},
-                                  {6.83, 0.45, 0.12, -2127.0},
-                                  {6.79, 0.49, 0.11, -2105.0},
-                                  {7.3, 1.23, 0.0, -5379.0},
-                                  {7.03, 0.46, 0.14, -2184.0}};
+            tx = session.beginTransaction();
+            double[] valores = {10.57, 1.05, 2.06, -3936.0};
+            this.session.save(new ModelConsExeMatA(valores));
             
-            this.session.save(new ModelConsExeMat("A", valores));
+            double[] valores2 = {7.3, 1.23, 0.0, -2286.0}; 
+            this.session.save(new ModelConsExeMatA(valores2));
             
-            double[][] valores2 = {{20140.0}, {11710.0}, {303500.0}, {3970.0}, {720.0}, {275430.0}, {238490.0}, {89040.0}};
+            double[] valores3 = {11.4, 0.94, 1.84, -3992.0};
+            this.session.save(new ModelConsExeMatA(valores3));
             
-            this.session.save(new ModelConsExeMat("B", valores2));
+            double[] valores4 = {7.16, 0.5, 0.4, -2313.0};
+            this.session.save(new ModelConsExeMatA(valores4));
+            
+            double[] valores5 = {6.83, 0.45, 0.12, -2127.0};
+            this.session.save(new ModelConsExeMatA(valores5));
+            
+            double[] valores6 = {6.79, 0.49, 0.11, -2105.0};
+            this.session.save(new ModelConsExeMatA(valores6));
+            
+            double[] valores7 = {7.3, 1.23, 0.0, -5379.0};
+            this.session.save(new ModelConsExeMatA(valores));
+            
+            double[] valores8 = {7.03, 0.46, 0.14, -2184.0};
+            this.session.save(new ModelConsExeMatA(valores));
+            
+            double[] valoresB = {20140.0, 11710.0, 303500.0, 3970.0, 720.0, 275430.0, 238490.0, 89040.0};
+            
+            for(int i = 0; i < valoresB.length; i++){
+                this.session.save(new ModelConsExeMatB(valoresB[i]));
+            }
         }
         
         tx.commit();
@@ -694,7 +710,7 @@ public class ControlPrincipal {
     //FUNÇÃO QUE CRIA O DESENHO DO SEGUNDO CICLO E INDICA OS LOCAIS DOS JPANELS INSERIDOS
     public void criaCiclo2(){        
         //ControlS_Sistema c = new ControlS_Sistema(500, 45, 20, 200, 0.2, session);
-        //Start start = new Start(0, 0, 0, 0, 0, 0, 0, 0, session)
+        Start start = new Start(1, 14, 415.25, 1144.4, 25, 1, 313.15, 0.3, session);
         //System.exit(0);
         
         viewPrincipal.getPainelCiclos().removeAll();

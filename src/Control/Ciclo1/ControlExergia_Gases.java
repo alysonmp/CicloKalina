@@ -5,7 +5,7 @@
  */
 package Control.Ciclo1;
 
-import Model.ModelConsExeMat;
+import Model.ModelConsExeMatA;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -20,36 +20,35 @@ public class ControlExergia_Gases {
 
     public ControlExergia_Gases(double mf, double Tf, double[] X, Session session) {
 
-        Criteria cr = session.createCriteria(ModelConsExeMat.class); 
-        cr.add(Restrictions.eq("name", "A"));
+        Criteria cr = session.createCriteria(ModelConsExeMatA.class); 
         List results = cr.list();
         
-        ModelConsExeMat consEXE = (ModelConsExeMat)results.get(0);
-        double[][] valores = consEXE.getValores();
+        ModelConsExeMatA consEXE = (ModelConsExeMatA)results.get(0);
+        double[] valores = consEXE.getValores();
         
         double To = 298.15;
         double T = Tf;
         XTOTAL=X[1] + X[2] + X[3] + X[4] + X[5] + X[6] + X[7] + X[8];
         
-        double DHCO2 =((valores[0][0]*T)+((valores[0][1]/1000)*Math.pow(T,2))+((valores[0][2]*100000)/T)+(valores[0][3]))*4.186;
-        double DHH2O =((valores[1][0]*T)+((valores[1][1]/1000)*Math.pow(T,2))+((valores[1][2]*100000)/T)+(valores[1][3]))*4.186;
-        double DHSO2 =((valores[2][0]*T)+((valores[2][1]/1000)*Math.pow(T,2))+((valores[2][2]*100000)/T)+(valores[2][4]))*4.186;
-        double DHO2 = ((valores[3][0]*T)+((valores[3][1]/1000)*Math.pow(T,2))+((valores[3][2]*100000)/T)+(valores[3][4]))*4.186;
-        double DHN2 = ((valores[4][0]*T)+((valores[4][1]/1000)*Math.pow(T,2))+((valores[4][2]*100000)/T)+(valores[4][4]))*4.186;
+        double DHCO2 = ((((ModelConsExeMatA)results.get(0)).getValores()[0]*T)+((((ModelConsExeMatA)results.get(0)).getValores()[1]/1000)*Math.pow(T,2))+((((ModelConsExeMatA)results.get(0)).getValores()[2]*100000)/T)+(((ModelConsExeMatA)results.get(0)).getValores()[3]))*4.186;
+        double DHH2O = ((((ModelConsExeMatA)results.get(1)).getValores()[0]*T)+((((ModelConsExeMatA)results.get(1)).getValores()[1]/1000)*Math.pow(T,2))+((((ModelConsExeMatA)results.get(1)).getValores()[2]*100000)/T)+(((ModelConsExeMatA)results.get(1)).getValores()[3]))*4.186;
+        double DHSO2 = ((((ModelConsExeMatA)results.get(2)).getValores()[0]*T)+((((ModelConsExeMatA)results.get(2)).getValores()[1]/1000)*Math.pow(T,2))+((((ModelConsExeMatA)results.get(2)).getValores()[2]*100000)/T)+(((ModelConsExeMatA)results.get(2)).getValores()[3]))*4.186;
+        double DHO2 = ((((ModelConsExeMatA)results.get(3)).getValores()[0]*T)+((((ModelConsExeMatA)results.get(3)).getValores()[1]/1000)*Math.pow(T,2))+((((ModelConsExeMatA)results.get(3)).getValores()[2]*100000)/T)+(((ModelConsExeMatA)results.get(3)).getValores()[3]))*4.186;
+        double DHN2 = ((((ModelConsExeMatA)results.get(4)).getValores()[0]*T)+((((ModelConsExeMatA)results.get(4)).getValores()[1]/1000)*Math.pow(T,2))+((((ModelConsExeMatA)results.get(4)).getValores()[2]*100000)/T)+(((ModelConsExeMatA)results.get(4)).getValores()[3]))*4.186;
 
-        double DHCO = ((valores[5][0]*T)+((valores[5][1]/1000)*Math.pow(T,2))+((valores[5][2]*100000)/T)+(valores[5][4]))*4.186;
-        double DHH2 = ((valores[6][0]*T)+((valores[6][1]/1000)*Math.pow(T,2))+((valores[6][2]*100000)/T)+(valores[6][4]))*4.186;
-        double DHNO = ((valores[7][0]*T)+((valores[7][1]/1000)*Math.pow(T,2))+((valores[7][2]*100000)/T)+(valores[7][4]))*4.186;
+        double DHCO = ((((ModelConsExeMatA)results.get(5)).getValores()[0]*T)+((((ModelConsExeMatA)results.get(5)).getValores()[1]/1000)*Math.pow(T,2))+((((ModelConsExeMatA)results.get(5)).getValores()[3]*100000)/T)+(((ModelConsExeMatA)results.get(5)).getValores()[3]))*4.186;
+        double DHH2 = ((((ModelConsExeMatA)results.get(6)).getValores()[0]*T)+((((ModelConsExeMatA)results.get(6)).getValores()[1]/1000)*Math.pow(T,2))+((((ModelConsExeMatA)results.get(6)).getValores()[3]*100000)/T)+(((ModelConsExeMatA)results.get(6)).getValores()[3]))*4.186;
+        double DHNO = ((((ModelConsExeMatA)results.get(7)).getValores()[0]*T)+((((ModelConsExeMatA)results.get(7)).getValores()[1]/1000)*Math.pow(T,2))+((((ModelConsExeMatA)results.get(7)).getValores()[3]*100000)/T)+(((ModelConsExeMatA)results.get(7)).getValores()[3]))*4.186;
         
-        double DSCO2 = ((valores[0][0]*Math.log(T/To))+((2*valores[0][1]/1000)*(T-To))+(((valores[0][2]/2)*100000)*((1/Math.pow(T,2))-(1/Math.pow(To,2)))))*4.1861;
-        double DSH2O = ((valores[1][0]*Math.log(T/To))+((2*valores[1][1]/1000)*(T-To))+(((valores[1][2]/2)*100000)*((1/Math.pow(T,2))-(1/Math.pow(To,2)))))*4.1861;
-        double DSSO2 = ((valores[2][0]*Math.log(T/To))+((2*valores[2][1]/1000)*(T-To))+(((valores[2][2]/2)*100000)*((1/Math.pow(T,2))-(1/Math.pow(To,2)))))*4.1861;
-        double DSO2 = ((valores[3][0]*Math.log(T/To))+((2*valores[3][1]/1000)*(T-To))+(((valores[3][2]/2)*100000)*((1/Math.pow(T,2))-(1/Math.pow(To,2)))))*4.1861;
-        double DSN2 = ((valores[4][0]*Math.log(T/To))+((2*valores[4][1]/1000)*(T-To))+(((valores[4][2]/2)*100000)*((1/Math.pow(T,2))-(1/Math.pow(To,2)))))*4.1861;
+        double DSCO2 = ((((ModelConsExeMatA)results.get(0)).getValores()[0]*Math.log(T/To))+((2*((ModelConsExeMatA)results.get(0)).getValores()[1]/1000)*(T-To))+(((((ModelConsExeMatA)results.get(0)).getValores()[2]/2)*100000)*((1/Math.pow(T,2))-(1/Math.pow(To,2)))))*4.1861;
+        double DSH2O = ((((ModelConsExeMatA)results.get(1)).getValores()[0]*Math.log(T/To))+((2*((ModelConsExeMatA)results.get(1)).getValores()[1]/1000)*(T-To))+(((((ModelConsExeMatA)results.get(1)).getValores()[2]/2)*100000)*((1/Math.pow(T,2))-(1/Math.pow(To,2)))))*4.1861;
+        double DSSO2 = ((((ModelConsExeMatA)results.get(2)).getValores()[0]*Math.log(T/To))+((2*((ModelConsExeMatA)results.get(2)).getValores()[1]/1000)*(T-To))+(((((ModelConsExeMatA)results.get(2)).getValores()[2]/2)*100000)*((1/Math.pow(T,2))-(1/Math.pow(To,2)))))*4.1861;
+        double DSO2 = ((((ModelConsExeMatA)results.get(3)).getValores()[0]*Math.log(T/To))+((2*((ModelConsExeMatA)results.get(3)).getValores()[1]/1000)*(T-To))+(((((ModelConsExeMatA)results.get(3)).getValores()[2]/2)*100000)*((1/Math.pow(T,2))-(1/Math.pow(To,2)))))*4.1861;
+        double DSN2 = ((((ModelConsExeMatA)results.get(4)).getValores()[0]*Math.log(T/To))+((2*((ModelConsExeMatA)results.get(4)).getValores()[1]/1000)*(T-To))+(((((ModelConsExeMatA)results.get(4)).getValores()[2]/2)*100000)*((1/Math.pow(T,2))-(1/Math.pow(To,2)))))*4.1861;
         
-        double DSCO = ((valores[5][0]*Math.log(T/To))+((2*valores[5][1]/1000)*(T-To))+(((valores[5][2]/2)*100000)*((1/Math.pow(T,2))-(1/Math.pow(To,2)))))*4.1861;
-        double DSH2 = ((valores[6][0]*Math.log(T/To))+((2*valores[6][1]/1000)*(T-To))+(((valores[6][2]/2)*100000)*((1/Math.pow(T,2))-(1/Math.pow(To,2)))))*4.1861;
-        double DSNO = ((valores[7][0]*Math.log(T/To))+((2*valores[7][1]/1000)*(T-To))+(((valores[7][2]/2)*100000)*((1/Math.pow(T,2))-(1/Math.pow(To,2)))))*4.1861;
+        double DSCO = ((((ModelConsExeMatA)results.get(5)).getValores()[0]*Math.log(T/To))+((2*((ModelConsExeMatA)results.get(5)).getValores()[1]/1000)*(T-To))+(((((ModelConsExeMatA)results.get(5)).getValores()[2]/2)*100000)*((1/Math.pow(T,2))-(1/Math.pow(To,2)))))*4.1861;
+        double DSH2 = ((((ModelConsExeMatA)results.get(6)).getValores()[0]*Math.log(T/To))+((2*((ModelConsExeMatA)results.get(6)).getValores()[1]/1000)*(T-To))+(((((ModelConsExeMatA)results.get(6)).getValores()[2]/2)*100000)*((1/Math.pow(T,2))-(1/Math.pow(To,2)))))*4.1861;
+        double DSNO = ((((ModelConsExeMatA)results.get(7)).getValores()[0]*Math.log(T/To))+((2*((ModelConsExeMatA)results.get(7)).getValores()[1]/1000)*(T-To))+(((((ModelConsExeMatA)results.get(7)).getValores()[2]/2)*100000)*((1/Math.pow(T,2))-(1/Math.pow(To,2)))))*4.1861;
         
         double[] y = {X[1]/XTOTAL, X[2]/XTOTAL, X[3]/XTOTAL,  X[4]/XTOTAL, X[5]/XTOTAL,  X[6]/XTOTAL,  X[7]/XTOTAL,  X[8]/XTOTAL};
         

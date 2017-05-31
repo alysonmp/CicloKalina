@@ -20,8 +20,8 @@ public class ControlH_Dep {
         ControlZeta zeta = new ControlZeta(constantes.getBeta(), constantes.getEps(), constantes.getDelta());
         ControlPdeVapor pdevapor = new ControlPdeVapor(T, ii, session);
         
-        double da_dT= (-0.457235*(Math.pow(constantes.getR(),2))*constantes.getTc()/constantes.getPc())*(1+constantes.getK0()*(1-(Math.pow(constantes.getTr(),0.5)))+constantes.getK1()*(1-constantes.getTr())*(0.7-constantes.getTr()))*((constantes.getK0()/(Math.pow(constantes.getTr(),0.5)))+(constantes.getK1()*(3.4-4*constantes.getTr())));
-        double dif= Math.abs((pdevapor.getPs2()-P)/P);
+        double da_dT = (-0.457235*(Math.pow(constantes.getR(),2))*constantes.getTc()/constantes.getPc())*(1+constantes.getK0()*(1-(Math.pow(constantes.getTr(),0.5)))+constantes.getK1()*(1-constantes.getTr())*(0.7-constantes.getTr()))*((constantes.getK0()/(Math.pow(constantes.getTr(),0.5)))+(constantes.getK1()*(3.4-4*constantes.getTr())));
+        double dif = Math.abs((pdevapor.getPs2()-P)/P);
         if(dif >= 0.0001 && pdevapor.getPs2() < P){
             //Z=Zl;
             HDL=-((T*(da_dT)-constantes.geta())/(2*constantes.getb()*(Math.pow(2,0.5))))*Math.log((zeta.getZl()+constantes.getB()*(1-(Math.pow(2,0.5))))/(zeta.getZl()+constantes.getB()*(1+(Math.pow(2,0.5)))))+ (zeta.getZl()-1)*constantes.getR()*T;
@@ -31,6 +31,9 @@ public class ControlH_Dep {
                 HDL=0;
                 HDV=-((T*(da_dT)-constantes.geta())/(2*constantes.getb()*(Math.pow(2,0.5))))*Math.log((zeta.getZv()+constantes.getB()*(1-(Math.pow(2,0.5))))/(zeta.getZv()+constantes.getB()*(1+(Math.pow(2,0.5)))))+ (zeta.getZv()-1)*constantes.getR()*T;
         }else if(dif < 0.0001){
+    //        
+      //      HDV=-((T*(da_dT)-a)/(2*b*(2^0.5)))*log((Zv+B*(1-(2^0.5)))/(Zv+B*(1+(2^0.5))))+ (Zv-1)*R*T;
+                
                 HDL=-((T*(da_dT)-constantes.geta())/(2*constantes.getb()*(Math.pow(2,0.5))))*Math.log((zeta.getZl()+constantes.getB()*(1-(Math.pow(2,0.5))))/(zeta.getZl()+constantes.getB()*(1+(Math.pow(2,0.5)))))+ (zeta.getZl()-1)*constantes.getR()*T;
                 HDV=-((T*(da_dT)-constantes.geta())/(2*constantes.getb()*(Math.pow(2,0.5))))*Math.log((zeta.getZv()+constantes.getB()*(1-(Math.pow(2,0.5))))/(zeta.getZv()+constantes.getB()*(1+(Math.pow(2,0.5)))))+ (zeta.getZv()-1)*constantes.getR()*T;
         }
