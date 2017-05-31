@@ -125,5 +125,7 @@ Contributor(s):
     <mapping class="Model.ModelDRT80"/>
     <mapping class="Model.ModelEqro"/>
     <mapping class="Model.ModelEqrs"/>
+    <mapping class="Model.ModelConsExeMatA"/>
+    <mapping class="Model.ModelConsExeMatB"/>
   </session-factory>
 </hibernate-configuration>

@@ -16,7 +16,7 @@ public class ControlH_Sistema {
     private double HL, HV;
     
     public ControlH_Sistema(double T, double P, double Pref, double Tref, int ii,Session session) {
-        ControlH_Dep hDep = new ControlH_Dep(T, Pref, ii, session);
+        ControlH_Dep hDep = new ControlH_Dep(Tref, Pref, ii, session);
         ControlH_Ideal_Gas hidelGas = new ControlH_Ideal_Gas(T, Tref, ii, session);
         
         double HDrefL = hDep.getHDL();
@@ -25,7 +25,7 @@ public class ControlH_Sistema {
         hDep = new ControlH_Dep(T, P, ii, session);
         
         HL = -HDrefL + hidelGas.getHig()+ hDep.getHDL();
-        HV = -HDrefV + hidelGas.getHig() + hDep.getHDV();
+        HV = -HDrefL + hidelGas.getHig() + hDep.getHDV();
     }
 
     public double getHL() {

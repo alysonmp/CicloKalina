@@ -90,7 +90,7 @@ public class ControlRegenerador {
             }else{
                 if(G == 1){
                     System.out.println("Não é possivél fazer Regeneração");
-                    System.out.println("T2 È menor o igual que T5");
+                    System.out.println("T2 é menor o igual que T5");
                 }
                 H3 = H2;
                 T3 = T2;
@@ -101,6 +101,10 @@ public class ControlRegenerador {
                 IHR = 0;
                 //kkk*pppp*ttrfgd*iogffdgfjhj
             }
+            
+            /*
+            
+            COLOCAR MENSAGEM PARA USUÁRIO
             
             DT11 = T6+10;
             DT12 = T5+10;
@@ -128,6 +132,7 @@ public class ControlRegenerador {
             
             DT13 = T6-T5;
             if(DT13 <= 10){ 
+                //COLOCAR MENSAGEM PARA USUÁRIO
                 H3 = H2;
                 T3 = T2;
                 S3 = S2;
@@ -136,7 +141,7 @@ public class ControlRegenerador {
                 S6 = S5;
                 IHR = 0;
                 //kkk*pppp*ttrfgd*iogffdgfjhj
-            }
+            }*/
         }
     }
 
