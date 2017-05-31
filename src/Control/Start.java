@@ -58,7 +58,7 @@ public class Start {
         }else{
             mf = 1.5375; //%kmol/s
         }
-        Pf = 101.325;
+        
         P1 = Pe*0.8;
         P2 = Pconop;
         ii = flu;
@@ -162,12 +162,20 @@ public class Start {
         m = massa.getM();
         Q = massa.getQ();
         Tfout = massa.getTfout();
-        PP = massa.getPINCH();
         Hlat = massa.getHlat();
         Hsen = massa.getHsen();
         Hsup = massa.getHsup();
         T1s = massa.getT1s();
 
+        ControlSF sf = new ControlSF(T2, P2, ii, m, DH2s, session);
+        sp = sf.getSp();
+        v2 = sf.getV2();
+        DHT = sf.getDHT();
+
+        ControlDiamTH17 diamTH17 = new ControlDiamTH17(v2, DHT, session);
+        Dr = diamTH17.getDr();
+        Teff = diamTH17.getTeff();
+        
         ControlBalanco balanco = new ControlBalanco(T1, H1, H2, H3, H4, H5, H6, S1, S2, S3, S4, S5, S6, m, Pref, Tref);
         Wt = balanco.getWt();
         Wb = balanco.getWb();

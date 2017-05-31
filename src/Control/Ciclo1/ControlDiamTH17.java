@@ -38,14 +38,14 @@ public class ControlDiamTH17 {
         ArrayList<Double> Dis_80 = new ArrayList<>();
         
         Criteria cr = session.createCriteria(ModelDRT70.class); 
-        List results = cr.list();
-        double[] dr70 = ((ModelDRT70)results.get(0)).getValores();
+        List resultsT70 = cr.list();
         
         cr = session.createCriteria(ModelEqrs.class); 
-        results = cr.list();
+        List results = cr.list();
         
-        for(int k=0;k<108;k++){    
-            Nsa = dr70[k];
+        for(int k=0;k<108;k++){   
+            double[] dr70 = ((ModelDRT70)resultsT70.get(k)).getValores();
+            Nsa = dr70[0];
             if(k>=0 && k < 4){
                 e = 0;
                 double[] eqrs = ((ModelEqrs)results.get(e)).getValores();
@@ -70,10 +70,9 @@ public class ControlDiamTH17 {
             //hold on;
         }
         
-        dr70 = ((ModelDRT70)results.get(2)).getValores();
-        
         for(int k=0;k<84;k++){
-            Nsa = dr70[k];
+            double[] dr70 = ((ModelDRT70)resultsT70.get(2)).getValores();
+            Nsa = dr70[2];
             if(k>=0 && k< 80){
                 e = 2;
                 double[] eqrs = ((ModelEqrs)results.get(e)).getValores();
@@ -91,14 +90,14 @@ public class ControlDiamTH17 {
         }
         
         cr = session.createCriteria(ModelDRT80.class); 
-        results = cr.list();
-        double[] dr80 = ((ModelDRT80)results.get(0)).getValores();
+        List resultsT80 = cr.list();
         
         cr = session.createCriteria(ModelEqro.class); 
         results = cr.list();
         
         for(int k=0; k < 67;k++){//Curva Inferior (Restante)
-            Nsa=dr80[k];
+            double[] dr80 = ((ModelDRT80)resultsT80.get(k)).getValores();
+            Nsa=dr80[0];
             if(k >= 0 && k < 63){
                 e = 0;
                 double[] eqro = ((ModelEqro)results.get(e)).getValores();
@@ -114,10 +113,9 @@ public class ControlDiamTH17 {
             //hold on
         }
         
-        dr80 = ((ModelDRT80)results.get(2)).getValores();
-        
         for(int k=0; k < 70;k++){//Curva Superior (Restante)
-            Nsa=dr80[k];
+            double[] dr80 = ((ModelDRT80)resultsT80.get(k)).getValores();
+            Nsa=dr80[2];
             if(k >= 0 && k < 66){
                 e = 1;
                 double[] eqro = ((ModelEqro)results.get(e)).getValores();
@@ -138,13 +136,13 @@ public class ControlDiamTH17 {
         double MNRa = NRi_70.get(0);
         
         for(int i=1;i< NRi_70.size();i++){
-            if(MNRa > NRi_70.get(i)){
+            if(MNRa < NRi_70.get(i)){
                 MNRa = NRi_70.get(i);
             }
         }
         
-        for(int i=1;i< NRs_70.size();i++){
-            if(MNRb < NRs_70.get(i)){
+        for(int i=1;i < NRs_70.size();i++){
+            if(MNRb > NRs_70.get(i)){
                 MNRb = NRs_70.get(i);
             }
         }
@@ -179,13 +177,13 @@ public class ControlDiamTH17 {
             double MNRc = NRi_80.get(0);
 
             for(int i=1;i< NRi_80.size();i++){
-                if(MNRc > NRi_80.get(i)){
+                if(MNRc < NRi_80.get(i)){
                     MNRc = NRi_80.get(i);
                 }
             }
 
             for(int i=1;i< NRs_80.size();i++){
-                if(MNRd < NRs_80.get(i)){
+                if(MNRd > NRs_80.get(i)){
                     MNRd = NRs_80.get(i);
                 }
             }

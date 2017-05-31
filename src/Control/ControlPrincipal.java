@@ -386,14 +386,12 @@ public class ControlPrincipal {
             String line = "";
             String csvSplitBy = ";";
            
-            double[][] valoresM = new double[5][12];
-            double[] valoresV = new double[12];
-            int linha = 0;
             try{
                 cr = this.session.createCriteria(ModelQfpsoKCSMat.class);
                 results = cr.list();
                 br = new BufferedReader(new FileReader(csvFile));
                 while((line = br.readLine()) != null){
+                    double[] valoresV = new double[12];
                     String[] table_c = line.split(csvSplitBy);
                     for(int i = 0; i < table_c.length; i++){
                         valoresV[i] = Double.parseDouble(table_c[i]);
@@ -422,38 +420,31 @@ public class ControlPrincipal {
         
         if(results.isEmpty()){
             tx = session.beginTransaction();
-            double[] valores = {10.57, 1.05, 2.06, -3936.0};
-            this.session.save(new ModelConsExeMatA(valores));
+            this.session.save(new ModelConsExeMatA(new double[]{10.57, 1.05, 2.06, -3936.0}));
+             
+            this.session.save(new ModelConsExeMatA(new double[] {7.3, 1.23, 0.0, -2286.0}));
             
-            double[] valores2 = {7.3, 1.23, 0.0, -2286.0}; 
-            this.session.save(new ModelConsExeMatA(valores2));
+            this.session.save(new ModelConsExeMatA(new double[] {11.4, 0.94, 1.84, -3992.0}));
             
-            double[] valores3 = {11.4, 0.94, 1.84, -3992.0};
-            this.session.save(new ModelConsExeMatA(valores3));
+            this.session.save(new ModelConsExeMatA(new double[] {7.16, 0.5, 0.4, -2313.0}));
             
-            double[] valores4 = {7.16, 0.5, 0.4, -2313.0};
-            this.session.save(new ModelConsExeMatA(valores4));
+            this.session.save(new ModelConsExeMatA(new double[] {6.83, 0.45, 0.12, -2127.0}));
             
-            double[] valores5 = {6.83, 0.45, 0.12, -2127.0};
-            this.session.save(new ModelConsExeMatA(valores5));
+            this.session.save(new ModelConsExeMatA(new double[] {6.79, 0.49, 0.11, -2105.0}));
             
-            double[] valores6 = {6.79, 0.49, 0.11, -2105.0};
-            this.session.save(new ModelConsExeMatA(valores6));
+            this.session.save(new ModelConsExeMatA(new double[] {7.3, 1.23, 0.0, -5379.0}));
             
-            double[] valores7 = {7.3, 1.23, 0.0, -5379.0};
-            this.session.save(new ModelConsExeMatA(valores));
-            
-            double[] valores8 = {7.03, 0.46, 0.14, -2184.0};
-            this.session.save(new ModelConsExeMatA(valores));
+            this.session.save(new ModelConsExeMatA(new double[] {7.03, 0.46, 0.14, -2184.0}));
             
             double[] valoresB = {20140.0, 11710.0, 303500.0, 3970.0, 720.0, 275430.0, 238490.0, 89040.0};
             
             for(int i = 0; i < valoresB.length; i++){
                 this.session.save(new ModelConsExeMatB(valoresB[i]));
             }
+            
+            tx.commit();
         }
         
-        tx.commit();
         
         cr = this.session.createCriteria(ModelCVA.class);
         results = cr.list();
@@ -536,12 +527,12 @@ public class ControlPrincipal {
             String line = "";
             String csvSplitBy = ";";
            
-            double[] valoresV = new double[5];
             try{
                 cr = this.session.createCriteria(ModelDRT70.class);
                 results = cr.list();
                 br = new BufferedReader(new FileReader(csvFile));
                 while((line = br.readLine()) != null){
+                    double[] valoresV = new double[5];
                     String[] table_c = line.split(csvSplitBy);
                     for(int i = 0; i < table_c.length; i++){
                         valoresV[i] = Double.parseDouble(table_c[i]);
@@ -568,12 +559,12 @@ public class ControlPrincipal {
             line = "";
             csvSplitBy = ";";
            
-            valoresV = new double[4];
             try{
                 cr = this.session.createCriteria(ModelDRT80.class);
                 results = cr.list();
                 br = new BufferedReader(new FileReader(csvFile));
                 while((line = br.readLine()) != null){
+                    double[] valoresV = new double[4];
                     String[] table_c = line.split(csvSplitBy);
                     for(int i = 0; i < table_c.length; i++){
                         valoresV[i] = Double.parseDouble(table_c[i]);
@@ -600,12 +591,12 @@ public class ControlPrincipal {
             line = "";
             csvSplitBy = ";";
            
-            valoresV = new double[3];
             try{
                 cr = this.session.createCriteria(ModelEqro.class);
                 results = cr.list();
                 br = new BufferedReader(new FileReader(csvFile));
                 while((line = br.readLine()) != null){
+                    double[] valoresV = new double[3];
                     String[] table_c = line.split(csvSplitBy);
                     for(int i = 0; i < table_c.length; i++){
                         valoresV[i] = Double.parseDouble(table_c[i]);
@@ -632,12 +623,12 @@ public class ControlPrincipal {
             line = "";
             csvSplitBy = ";";
            
-            valoresV = new double[3];
             try{
                 cr = this.session.createCriteria(ModelEqrs.class);
                 results = cr.list();
                 br = new BufferedReader(new FileReader(csvFile));
                 while((line = br.readLine()) != null){
+                    double[] valoresV = new double[3];
                     String[] table_c = line.split(csvSplitBy);
                     for(int i = 0; i < table_c.length; i++){
                         valoresV[i] = Double.parseDouble(table_c[i]);
@@ -710,7 +701,7 @@ public class ControlPrincipal {
     //FUNÇÃO QUE CRIA O DESENHO DO SEGUNDO CICLO E INDICA OS LOCAIS DOS JPANELS INSERIDOS
     public void criaCiclo2(){        
         //ControlS_Sistema c = new ControlS_Sistema(500, 45, 20, 200, 0.2, session);
-        Start start = new Start(1, 14, 415.25, 1144.4, 25, 1, 313.15, 0.3, session);
+        Start start = new Start(1, 14, 415.25, 1144.4, 25, 10, 313.15, 0.3, session);
         //System.exit(0);
         
         viewPrincipal.getPainelCiclos().removeAll();
