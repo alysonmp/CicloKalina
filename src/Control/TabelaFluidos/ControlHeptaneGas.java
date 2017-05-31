@@ -24,8 +24,8 @@ import org.hibernate.transform.Transformers;
 public class ControlHeptaneGas {
     private Session session;
     private double kv, Cpv, Prv, Muv, Vcv;
-    private double kv1, kv2, Cpv1, Cpv2, Prv1, Prv2, Muv1, Muv2, Vcv1, Vcv2;
-
+    private double Cpv1, Cpv2, Prv1, Prv2, kv1, kv2, Muv1, Muv2, Vcv1, Vcv2;
+    
     public ControlHeptaneGas(Session session) {
         this.session = session;
     }
@@ -92,9 +92,9 @@ public class ControlHeptaneGas {
         double t1 = ((temperatura - heptane_gas1.getTEMPERATURA())/(heptane_gas2.getTEMPERATURA() - heptane_gas1.getTEMPERATURA()));
         double t2 = ((temperatura - heptane_gas3.getTEMPERATURA())/(heptane_gas4.getTEMPERATURA() - heptane_gas3.getTEMPERATURA()));
 
-        Cpv2 = heptane_gas1.getCPV() + (heptane_gas2.getCPV() - heptane_gas1.getCPV()) * t1;
+        Cpv1 = heptane_gas1.getCPV() + (heptane_gas2.getCPV() - heptane_gas1.getCPV()) * t1;
         Cpv2 = heptane_gas3.getCPV() + (heptane_gas4.getCPV() - heptane_gas3.getCPV()) * t2;
-        Cpv = Cpv2 + (Cpv2 - Cpv2) * p;
+        Cpv = Cpv1 + (Cpv2 - Cpv1) * p;
         
         Prv1 = heptane_gas1.getPRV() + (heptane_gas2.getPRV() - heptane_gas1.getPRV()) * t1;
         Prv2 = heptane_gas3.getPRV() + (heptane_gas4.getPRV() - heptane_gas3.getPRV()) * t2;

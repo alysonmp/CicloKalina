@@ -94,7 +94,7 @@ public class ControlD6Gas {
 
         Cpv2 = d6_gas1.getCPV() + (d6_gas2.getCPV() - d6_gas1.getCPV()) * t1;
         Cpv2 = d6_gas3.getCPV() + (d6_gas4.getCPV() - d6_gas3.getCPV()) * t2;
-        Cpv = Cpv2 + (Cpv2 - Cpv2) * p;
+        Cpv = Cpv1 + (Cpv2 - Cpv1) * p;
         
         Prv1 = d6_gas1.getPRV() + (d6_gas2.getPRV() - d6_gas1.getPRV()) * t1;
         Prv2 = d6_gas3.getPRV() + (d6_gas4.getPRV() - d6_gas3.getPRV()) * t2;

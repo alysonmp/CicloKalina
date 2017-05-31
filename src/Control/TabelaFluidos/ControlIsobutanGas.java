@@ -94,7 +94,7 @@ public class ControlIsobutanGas {
 
         Cpv2 = isobutan_gas1.getCPV() + (isobutan_gas2.getCPV() - isobutan_gas1.getCPV()) * t1;
         Cpv2 = isobutan_gas3.getCPV() + (isobutan_gas4.getCPV() - isobutan_gas3.getCPV()) * t2;
-        Cpv = Cpv2 + (Cpv2 - Cpv2) * p;
+        Cpv = Cpv1 + (Cpv2 - Cpv1) * p;
         
         Prv1 = isobutan_gas1.getPRV() + (isobutan_gas2.getPRV() - isobutan_gas1.getPRV()) * t1;
         Prv2 = isobutan_gas3.getPRV() + (isobutan_gas4.getPRV() - isobutan_gas3.getPRV()) * t2;

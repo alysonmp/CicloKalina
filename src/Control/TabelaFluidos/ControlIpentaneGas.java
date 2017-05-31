@@ -94,7 +94,7 @@ public class ControlIpentaneGas {
 
         Cpv2 = ipentane_gas1.getCPV() + (ipentane_gas2.getCPV() - ipentane_gas1.getCPV()) * t1;
         Cpv2 = ipentane_gas3.getCPV() + (ipentane_gas4.getCPV() - ipentane_gas3.getCPV()) * t2;
-        Cpv = Cpv2 + (Cpv2 - Cpv2) * p;
+        Cpv = Cpv1 + (Cpv2 - Cpv1) * p;
         
         Prv1 = ipentane_gas1.getPRV() + (ipentane_gas2.getPRV() - ipentane_gas1.getPRV()) * t1;
         Prv2 = ipentane_gas3.getPRV() + (ipentane_gas4.getPRV() - ipentane_gas3.getPRV()) * t2;
