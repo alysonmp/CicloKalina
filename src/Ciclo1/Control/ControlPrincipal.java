@@ -655,11 +655,14 @@ public class ControlPrincipal {
     
     //FUNÇÃO QUE CRIA O DESENHO DO PRIMEIRO CICLO E INDICA OS LOCAIS DOS JPANELS INSERIDOS
     public void criaCiclo1() {
+        
+        Start start = new Start(1, 14, 415.25, 1144.4, 25, 10, 313.15, 0.3, session);
+        
         viewPrincipal.getPainelCiclos().removeAll();
         viewPrincipal.getTabbedPanel().removeAll();
         panel_usado.clear();
         
-        ViewCiclos ciclo = new ViewCiclos(this, "src/Images/Ciclo1/ciclo1.png", (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.3), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.9));
+        ViewCiclos ciclo = new ViewCiclos(this, "src/Ciclo1/Images/ciclo1.png", (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.3), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.9));
         ciclo.setLayout(null);
         ciclo.setBounds((int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.1), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.05), 
                           (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.3), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.9));
