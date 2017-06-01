@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package Ciclo1.View;
 
-import Control.ControlPrincipal;
+import Ciclo1.Control.ControlPrincipal;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;

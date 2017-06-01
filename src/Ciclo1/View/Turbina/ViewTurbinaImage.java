@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View.Turbina;
+package Ciclo1.View.Turbina;
 
-import Control.ControlPrincipal;
-import Control.Turbina.ControlTurbinaPanelRankine;
+import Ciclo1.Control.ControlPrincipal;
+import Ciclo1.Control.Turbina.ControlTurbinaPanelRankine;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;

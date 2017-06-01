@@ -3,21 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Control;
+package Ciclo1.Control;
 
-import Control.Ciclo1.ControlAreas;
-import Control.Ciclo1.ControlBalanco;
-import Control.Ciclo1.ControlBomba;
-import Control.Ciclo1.ControlDiamTH17;
-import Control.Ciclo1.ControlInterpolacao;
-import Control.Ciclo1.ControlMassa;
-import Control.Ciclo1.ControlParametros;
-import Control.Ciclo1.ControlRegenerador;
-import Control.Ciclo1.ControlSF;
-import Control.Ciclo1.ControlT_Ref;
-import Control.Ciclo1.ControlTurbina;
-import Control.TabelaFluidos.ControlWaterGas;
-import Model.TabelasFluidos.ModelWaterGas;
+import Ciclo1.Control.Ciclo1.ControlAreas;
+import Ciclo1.Control.Ciclo1.ControlBalanco;
+import Ciclo1.Control.Ciclo1.ControlBomba;
+import Ciclo1.Control.Ciclo1.ControlDiamTH17;
+import Ciclo1.Control.Ciclo1.ControlInterpolacao;
+import Ciclo1.Control.Ciclo1.ControlMassa;
+import Ciclo1.Control.Ciclo1.ControlParametros;
+import Ciclo1.Control.Ciclo1.ControlRegenerador;
+import Ciclo1.Control.Ciclo1.ControlSF;
+import Ciclo1.Control.Ciclo1.ControlT_Ref;
+import Ciclo1.Control.Ciclo1.ControlTurbina;
+import Ciclo1.Control.TabelaFluidos.ControlWaterGas;
+import Ciclo1.Model.TabelasFluidos.ModelWaterGas;
 import java.lang.reflect.Field;
 import java.util.logging.Level;
 import java.util.logging.Logger;

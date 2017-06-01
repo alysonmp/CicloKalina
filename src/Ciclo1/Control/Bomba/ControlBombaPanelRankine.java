@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Control.Bomba;
+package Ciclo1.Control.Bomba;
 
 import Ciclo1.Model.Ciclo1.ModelBomba;
 import Ciclo1.Model.Ciclo1.ModelMassa;
-import View.Bomba.ViewBombaPanelRankine;
+import Ciclo1.View.Bomba.ViewBombaPanelRankine;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;

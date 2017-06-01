@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Control.Ciclo1;
+package Ciclo1.Control.Ciclo1;
 
-import Model.ModelConstantesKCSMat_C;
+import Ciclo1.Model.ModelConstantesKCSMat_C;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;

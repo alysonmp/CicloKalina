@@ -3,16 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View.Turbina;
+package Ciclo1.View.Turbina;
 
-import Control.ControlPrincipal;
-import Control.Turbina.ControlTurbinaPanelRankine;
-import Util.DropdownComboBox;
+import Ciclo1.Control.ControlPrincipal;
+import Ciclo1.Control.Turbina.ControlTurbinaPanelRankine;
+import Ciclo1.Util.DropdownComboBox;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
@@ -21,7 +20,6 @@ import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 /**
  *

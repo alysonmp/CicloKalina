@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Control.Ciclo1;
+package Ciclo1.Control.Ciclo1;
 
-import Model.ModelCriticasKCSMat_K1;
-import Model.ModelCriticasKCSMat_Pc;
-import Model.ModelCriticasKCSMat_Tc;
-import Model.ModelCriticasKCSMat_w;
+import Ciclo1.Model.ModelCriticasKCSMat_K1;
+import Ciclo1.Model.ModelCriticasKCSMat_Pc;
+import Ciclo1.Model.ModelCriticasKCSMat_Tc;
+import Ciclo1.Model.ModelCriticasKCSMat_w;
 import java.util.List;
 import org.apache.derby.vti.Restriction;
 import org.hibernate.Criteria;
