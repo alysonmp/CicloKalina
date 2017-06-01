@@ -5,7 +5,7 @@
  */
 package Ciclo1.View.Bomba;
 
-import Ciclo1.Control.Bomba.ControlBombaPanelRankine;
+import Ciclo1.Control.Bomba.ControlBombaPanelKCS;
 import Ciclo1.Control.ControlPrincipal;
 import java.awt.Color;
 import java.awt.Component;
@@ -59,24 +59,12 @@ public class ViewBombaImage extends JPanel{
                 int x = (int) (ctrlPrincipal.getViewPrincipal().getPainelLateral().getWidth()*0.9);
                 int y = (int) (ctrlPrincipal.getViewPrincipal().getPainelLateral().getHeight()*0.86);
                 
-                //CASO O CICLO SEJA O PRIMEIRO CHAMA A CLASSE VIEWBOMBAPANELKCS
-                if(ciclo == 1){
-                    ViewBombaPanelKCS viewBombaPanel = new ViewBombaPanelKCS();
-                    viewBombaPanel.setPreferredSize(new Dimension(x, y));
-                    ViewBombaImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().addTab("Bomba", null, viewBombaPanel);
-                    ViewBombaImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().setSelectedComponent(viewBombaPanel);
-                    ViewBombaImage.this.setBorder(BorderFactory.createLineBorder(Color.black, 1));
-                }else{
-                    //CASO O CICLO SEJA O SEGUNDO, CHAMA A CLASSE VIEWBOMBAPANELKALINA
-                    if(ciclo == 2){
-                        ControlBombaPanelRankine Bomba = new ControlBombaPanelRankine(ViewBombaImage.this.ctrlPrincipal.getSession());
-                        Bomba.getViewBomba().setPreferredSize(new Dimension(x, y));
-                        ViewBombaImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().addTab("Bomba", null, Bomba.getViewBomba());
-                        ViewBombaImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().setSelectedComponent(Bomba.getViewBomba());
-                        ViewBombaImage.this.setBorder(BorderFactory.createLineBorder(Color.black, 1));
-                        Bomba.criaComboBoxes();
-                    }
-                }
+                ControlBombaPanelKCS Bomba = new ControlBombaPanelKCS(ViewBombaImage.this.ctrlPrincipal.getSession());
+                Bomba.getViewBomba().setPreferredSize(new Dimension(x, y));
+                ViewBombaImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().addTab("Bomba", null, Bomba.getViewBomba());
+                ViewBombaImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().setSelectedComponent(Bomba.getViewBomba());
+                ViewBombaImage.this.setBorder(BorderFactory.createLineBorder(Color.black, 1));
+                Bomba.criaComboBoxes();
             }
 
             //NÃO UTILIZADOS

@@ -5,9 +5,9 @@
  */
 package Ciclo2.Control.Bomba;
 
-import Ciclo2.Model.Ciclo2.ModelBomba;
-import Ciclo2.Model.Ciclo2.ModelMassa;
-import Ciclo2.View.Bomba.ViewBombaPanelRankine;
+import Ciclo1.Model.Ciclo1.ModelBomba;
+import Ciclo1.Model.Ciclo1.ModelMassa;
+import Ciclo1.View.Bomba.ViewBombaPanelKCS;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -25,23 +25,23 @@ import org.hibernate.criterion.Projections;
  * @author alysonmp
  */
 public class ControlBombaPanelRankine {
-    private ViewBombaPanelRankine viewBomba;
+    private ViewBombaPanelKCS viewBomba;
     private Session session;
     
     public ControlBombaPanelRankine(Session session){
         this.session = session;
-        viewBomba = new ViewBombaPanelRankine(this);
+        viewBomba = new ViewBombaPanelKCS(this);
     }
 
-    public ViewBombaPanelRankine getViewBomba() {
+    public ViewBombaPanelKCS getViewBomba() {
         return viewBomba;
     }
 
-    public void setViewBomba(ViewBombaPanelRankine viewBomba) {
+    public void setViewBomba(ViewBombaPanelKCS viewBomba) {
         this.viewBomba = viewBomba;
     }
     
-    public void atualizaMassa(){
+    /*public void atualizaMassa(){
         if(viewBomba.getFieldMassa().getSelectedItem().equals("")){
             return;
         }
@@ -351,5 +351,5 @@ public class ControlBombaPanelRankine {
             this.viewBomba.getFieldTempSai().addItem(m.getTemperaturaSai());
             this.viewBomba.getFieldEfic().addItem(m.getEficiencia());
         }
-    }
+    }*/
 }

@@ -9,27 +9,23 @@ import org.hibernate.Session;
 
 /**
  *
- * @author alysonmp
+ * @author leonardo
  */
 public class ControlH_Sistema {
     
-    private double HDrefL, HDrefV, Hig, HDL, HDV, HL, HV;
+    private double HL, HV;
     
-    public ControlH_Sistema(double T, double P, double Pref, double Tref, double x, Session session){
-        ControlH_Dep Hdep = new ControlH_Dep(Tref, Pref, x, session);
-        HDrefL = Hdep.getHDL();
-        HDrefV = Hdep.getHDV();
+    public ControlH_Sistema(double T, double P, double Pref, double Tref, int ii,Session session) {
+        ControlH_Dep hDep = new ControlH_Dep(Tref, Pref, ii, session);
+        ControlH_Ideal_Gas hidelGas = new ControlH_Ideal_Gas(T, Tref, ii, session);
         
-        ControlH_Ideal_Gas HIdealgas = new ControlH_Ideal_Gas(T, Tref, x, session);
-        Hig = HIdealgas.getHig();
-
-        Hdep = new ControlH_Dep(T, P, x, session);
-        HDL = Hdep.getHDL();
-        HDV = Hdep.getHDV();
-                
-        HL = -HDrefL+Hig+HDL;
-        HV = -HDrefL+Hig+HDV;
-
+        double HDrefL = hDep.getHDL();
+        double HDrefV = hDep.getHDV();
+        
+        hDep = new ControlH_Dep(T, P, ii, session);
+        
+        HL = -HDrefL + hidelGas.getHig()+ hDep.getHDL();
+        HV = -HDrefL + hidelGas.getHig() + hDep.getHDV();
     }
 
     public double getHL() {
@@ -47,4 +43,7 @@ public class ControlH_Sistema {
     public void setHV(double HV) {
         this.HV = HV;
     }
+    
+    
+    
 }

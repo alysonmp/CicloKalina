@@ -49,7 +49,7 @@ Contributor(s):
     <property name="hibernate.query.factory_class">org.hibernate.hql.internal.classic.ClassicQueryTranslatorFactory</property>
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.hbm2ddl.auto">update</property>
-    <mapping class="Ciclo1.Model.Ciclo1.ModelBomba"/>
+    <!--mapping class="Ciclo1.Model.Ciclo1.ModelBomba"/>
     <mapping class="Ciclo1.Model.Ciclo1.ModelCondensador"/>
     <mapping class="Ciclo1.Model.Ciclo1.ModelEvaporador"/>
     <mapping class="Ciclo1.Model.Ciclo1.ModelMassa"/>
@@ -126,9 +126,9 @@ Contributor(s):
     <mapping class="Ciclo1.Model.ModelEqro"/>
     <mapping class="Ciclo1.Model.ModelEqrs"/>
     <mapping class="Ciclo1.Model.ModelConsExeMatA"/>
-    <mapping class="Ciclo1.Model.ModelConsExeMatB"/>
+    <mapping class="Ciclo1.Model.ModelConsExeMatB"/-->
     
-    <!--mapping class="Ciclo2.Model.Ciclo2.ModelBomba"/>
+    <mapping class="Ciclo2.Model.Ciclo2.ModelBomba"/>
     <mapping class="Ciclo2.Model.Ciclo2.ModelCondensador"/>
     <mapping class="Ciclo2.Model.Ciclo2.ModelEvaporador"/>
     <mapping class="Ciclo2.Model.Ciclo2.ModelMassa"/>
@@ -205,6 +205,6 @@ Contributor(s):
     <mapping class="Ciclo2.Model.ModelEqro"/>
     <mapping class="Ciclo2.Model.ModelEqrs"/>
     <mapping class="Ciclo2.Model.ModelConsExeMatA"/>
-    <mapping class="Ciclo2.Model.ModelConsExeMatB"/-->
+    <mapping class="Ciclo2.Model.ModelConsExeMatB"/>
   </session-factory>
 </hibernate-configuration>

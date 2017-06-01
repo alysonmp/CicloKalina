@@ -5,7 +5,7 @@
  */
 package Ciclo1.Control;
 
-import Ciclo1.Control.Ciclo1.ControlT_Ref;
+import Ciclo2.Control.Ciclo2.ControlT_Ref;
 import Ciclo1.Control.TabelaFluidos.ControlButanoGas;
 import Ciclo1.Control.TabelaFluidos.ControlButanoLiquido;
 import Ciclo1.Control.TabelaFluidos.ControlD4Gas;
@@ -64,9 +64,7 @@ import Ciclo1.Model.ModelCVA;
 import Ciclo1.Model.ModelCVB;
 import Ciclo1.Model.ModelConsExeMatA;
 import Ciclo1.Model.ModelConsExeMatB;
-import Ciclo1.Model.ModelConstantesKCSMat_C;
-import Ciclo1.Model.ModelConstantesKCSMat_CC;
-import Ciclo1.Model.ModelConstantesRankineMat;
+import Ciclo1.Model.ModelConstantesMat;
 import Ciclo1.Model.ModelCriticasKCSMat_K1;
 import Ciclo1.Model.ModelCriticasKCSMat_PM;
 import Ciclo1.Model.ModelCriticasKCSMat_Pc;
@@ -78,22 +76,22 @@ import Ciclo1.Model.ModelEqro;
 import Ciclo1.Model.ModelEqrs;
 import Ciclo1.Model.ModelLinear;
 import Ciclo1.Model.ModelQfpsoKCSMat;
-import Ciclo1.Model.ModelQfpsoRankineMat;
+import Ciclo1.Model.ModelQfpsoKCSMat;
 import Ciclo1.Model.TabelasFluidos.ModelButanoGas;
 import Ciclo1.Util.HibernateUtil;
 import Ciclo1.View.Condensador.ViewCondensadorImage;
 import Ciclo1.View.Evaporador.ViewEvaporadorImage;
 import Ciclo1.View.Bomba.ViewBombaImage;
-import Ciclo1.View.Bomba.ViewBombaPanelRankine;
-import Ciclo1.View.Condensador.ViewCondensadorPanelRankine;
-import Ciclo1.View.Evaporador.ViewEvaporadorPanelRankine;
+import Ciclo1.View.Bomba.ViewBombaPanelKCS;
+import Ciclo1.View.Condensador.ViewCondensadorPanelKCS;
+import Ciclo1.View.Evaporador.ViewEvaporadorPanelKCS;
 import Ciclo1.View.Recuperador.ViewRecuperadorImage;
 import Ciclo1.View.Regenerador.ViewRegeneradorImage;
-import Ciclo1.View.Regenerador.ViewRegeneradorPanelRankine;
+import Ciclo1.View.Regenerador.ViewRegeneradorPanelKCS;
 import Ciclo1.View.Separador.ViewSeparadorImage;
 import Ciclo1.View.ViewPrincipal;
 import Ciclo1.View.Turbina.ViewTurbinaImage;
-import Ciclo1.View.Turbina.ViewTurbinaPanelRankine;
+import Ciclo1.View.Turbina.ViewTurbinaPanelKCS;
 import Ciclo1.View.ViewCiclos;
 import java.awt.Color;
 import java.awt.Component;
@@ -168,20 +166,20 @@ public class ControlPrincipal {
             tx.commit();
         }
         
-        cr = this.session.createCriteria(ModelConstantesRankineMat.class);
+        cr = this.session.createCriteria(ModelConstantesMat.class);
         results = cr.list();
         if(results.isEmpty()){
             Transaction tx = session.beginTransaction();
             
             double[][] valoresC1 = {{90.483, -4669.7, -11.607, 0.017194, 1.0}};
-            session.save(new ModelConstantesRankineMat("C1", valoresC1));
+            session.save(new ModelConstantesMat("C1", valoresC1));
             
             double[][] valoresC2 = {{73.649, -7258.2, -7.3037, 4.1653E-6, 2.0}};
-            session.save(new ModelConstantesRankineMat("C2", valoresC2));
+            session.save(new ModelConstantesMat("C2", valoresC2));
 
             double[][] valoresCC = {{33.60134, -0.002145, -3.999E-6, 4.752E-8, -3.533E-11, 0.0, 0.0}, 
                                     {33.573, -0.012581, 8.8906E-5, -7.1783E-8, 1.8569E-11, 0.0, 0.0}};
-            session.save(new ModelConstantesRankineMat("CC", valoresCC));
+            session.save(new ModelConstantesMat("CC", valoresCC));
             
             tx.commit();
         }
@@ -202,16 +200,16 @@ public class ControlPrincipal {
             tx.commit();
         }
         
-        cr = this.session.createCriteria(ModelQfpsoRankineMat.class);
+        cr = this.session.createCriteria(ModelQfpsoKCSMat.class);
         results = cr.list();
         if(results.isEmpty()){
             Transaction tx = session.beginTransaction();
             
-            session.save(new ModelQfpsoRankineMat(new double[]{-5.0989335E-5, 66.250549, -0.024244439, 1.4359252E-5, -3.1287299E-9, 2.7938016E-10, 3.1938551E-11, -8.6058944E-13, 1.0138024E-14, -5.7854786E-17, 1.3108388E-19, 0.0}));
-            session.save(new ModelQfpsoRankineMat(new double[]{-7.6520373E-5, 68.996718, -0.015276822, 4.4519632E-5, 3.2384275E-7, -9.5543181E-9, 3.1876871E-10, -5.3692223E-12, 5.1514164E-14, -2.6095697E-16, 5.4962813E-19, 0.0}));
-            session.save(new ModelQfpsoRankineMat(new double[]{7.875352E-5, -0.04698885, 77.569376, 7.5518527E-4, -3.6218838, -4.6157586E-6, 0.05773998, 8.645757E-9, -3.5076036E-4, 3.2457331E-12, 6.9448062E-7, 0.0}));
-            session.save(new ModelQfpsoRankineMat(new double[]{-0.0025970942, 99.279743, 0.12007259, 8.0406572E-4, -1.1669656E-5, 4.9266436E-7, -1.169747E-8, 1.6715254E-10, -1.5243562E-12, 7.6811009E-15, -1.5862785E-17, 0.0}));
-            session.save(new ModelQfpsoRankineMat(new double[]{1.5353958, 162.37375, 0.11646613, -0.0086520143, 1.3170876E-4, 5.772981E-6, -3.037534E-7, 6.0681698E-9, -6.2711257E-11, 3.3117369E-13, -7.0587574E-16, 0.0}));
+            session.save(new ModelQfpsoKCSMat(new double[]{-5.0989335E-5, 66.250549, -0.024244439, 1.4359252E-5, -3.1287299E-9, 2.7938016E-10, 3.1938551E-11, -8.6058944E-13, 1.0138024E-14, -5.7854786E-17, 1.3108388E-19, 0.0}));
+            session.save(new ModelQfpsoKCSMat(new double[]{-7.6520373E-5, 68.996718, -0.015276822, 4.4519632E-5, 3.2384275E-7, -9.5543181E-9, 3.1876871E-10, -5.3692223E-12, 5.1514164E-14, -2.6095697E-16, 5.4962813E-19, 0.0}));
+            session.save(new ModelQfpsoKCSMat(new double[]{7.875352E-5, -0.04698885, 77.569376, 7.5518527E-4, -3.6218838, -4.6157586E-6, 0.05773998, 8.645757E-9, -3.5076036E-4, 3.2457331E-12, 6.9448062E-7, 0.0}));
+            session.save(new ModelQfpsoKCSMat(new double[]{-0.0025970942, 99.279743, 0.12007259, 8.0406572E-4, -1.1669656E-5, 4.9266436E-7, -1.169747E-8, 1.6715254E-10, -1.5243562E-12, 7.6811009E-15, -1.5862785E-17, 0.0}));
+            session.save(new ModelQfpsoKCSMat(new double[]{1.5353958, 162.37375, 0.11646613, -0.0086520143, 1.3170876E-4, 5.772981E-6, -3.037534E-7, 6.0681698E-9, -6.2711257E-11, 3.3117369E-13, -7.0587574E-16, 0.0}));
   
             tx.commit();
         }
@@ -277,74 +275,11 @@ public class ControlPrincipal {
             tx.commit();
         }
         
-        cr = this.session.createCriteria(ModelConstantesKCSMat_C.class);
-        results = cr.list();
-        Transaction tx = session.beginTransaction();
-        
-        if(results.isEmpty()){
-            String csvFile = "src/Csv/C.csv";
-            BufferedReader br = null;
-            String line = "";
-            String csvSplitBy = ";";
-            
-            try{
-                br = new BufferedReader(new FileReader(csvFile));
-                while((line = br.readLine()) != null){
-                    double[] valoresV = new double[6];
-                    String[] table_c = line.split(csvSplitBy);
-                    for(int i = 0; i < table_c.length; i++){
-                        valoresV[i] = Double.parseDouble(table_c[i]);
-                    }
-                    this.session.save(new ModelConstantesKCSMat_C(valoresV));
-                }
-            }catch(FileNotFoundException e){
-                e.printStackTrace();
-            }catch(IOException e){
-                e.printStackTrace();
-            }finally {
-                if (br != null) {
-                    try {
-                        br.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-            
-            csvFile = "src/Csv/CC.csv";
-            br = null;
-            
-            try{
-                br = new BufferedReader(new FileReader(csvFile));
-                while((line = br.readLine()) != null){
-                    double[] valoresV = new double[7];
-                    String[] table_c = line.split(csvSplitBy);
-                    for(int i = 0; i < table_c.length; i++){
-                        valoresV[i] = Double.parseDouble(table_c[i]);
-                    }
-                    this.session.save(new ModelConstantesKCSMat_CC(valoresV)); 
-                }
-            }catch(FileNotFoundException e){
-                e.printStackTrace();
-            }catch(IOException e){
-                e.printStackTrace();
-            }finally {
-                if (br != null) {
-                    try {
-                        br.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }
-        tx.commit();
-        
         cr = this.session.createCriteria(ModelCriticasKCSMat_K1.class);
         results = cr.list();
         
         if(results.isEmpty()){
-            tx = session.beginTransaction();
+            Transaction tx = session.beginTransaction();
             
             double[] valores = {-0.06635, 0.03849, 0.03994, 0.02715, 0.01277, 0.12634,0.03079,0.16431,0.09627,0.03781,0.0284,0.02222,0.03521,-0.0103,0.19724,0.00689,-0.24609,0.0304,-0.0528,0.0346,0.1568,0.0388,0.02574,0.02752,0.10833,0.02818,0.05949,-0.1459,0.00689,0.06998,0.07222,0.07233,0.02623};
             for(int i = 0; i < valores.length; i++){
@@ -378,7 +313,7 @@ public class ControlPrincipal {
         results = cr.list();
         
         if(results.isEmpty()){
-            tx = session.beginTransaction();
+            Transaction tx = session.beginTransaction();
             String csvFile = "src/Csv/Qfpso.csv";
             BufferedReader br = null;
             String line = "";
@@ -417,7 +352,7 @@ public class ControlPrincipal {
         results = cr.list();
         
         if(results.isEmpty()){
-            tx = session.beginTransaction();
+            Transaction tx = session.beginTransaction();
             this.session.save(new ModelConsExeMatA(new double[]{10.57, 1.05, 2.06, -3936.0}));
              
             this.session.save(new ModelConsExeMatA(new double[] {7.3, 1.23, 0.0, -2286.0}));
@@ -446,7 +381,7 @@ public class ControlPrincipal {
         
         cr = this.session.createCriteria(ModelCVA.class);
         results = cr.list();
-        tx = session.beginTransaction();
+        Transaction tx = session.beginTransaction();
         
         if(results.isEmpty()){
             String csvFile = "src/Csv/Cva.csv";
@@ -656,7 +591,7 @@ public class ControlPrincipal {
     //FUNÇÃO QUE CRIA O DESENHO DO PRIMEIRO CICLO E INDICA OS LOCAIS DOS JPANELS INSERIDOS
     public void criaCiclo1() {
         
-        Start start = new Start(1, 14, 415.25, 1144.4, 25, 10, 313.15, 0.3, session);
+        //Start start = new Start(1, 14, 415.25, 1144.4, 25, 10, 313.15, 0.3, session);
         
         viewPrincipal.getPainelCiclos().removeAll();
         viewPrincipal.getTabbedPanel().removeAll();
@@ -711,28 +646,28 @@ public class ControlPrincipal {
             System.out.println(c);
             switch(c.getName()){
                 case "Evaporador":
-                    ViewEvaporadorPanelRankine painelE = (ViewEvaporadorPanelRankine)c;
-                    painelE.getFieldMassa().setSelectedItem(valor);
+                    ViewEvaporadorPanelKCS painelE = (ViewEvaporadorPanelKCS)c;
+                    //painelE.getFieldMassa().setSelectedItem(valor);
                     break;
                 
                 case "Condensador":
-                    ViewCondensadorPanelRankine painelC = (ViewCondensadorPanelRankine)c;
-                    painelC.getFieldMassa().setSelectedItem(valor);
+                    ViewCondensadorPanelKCS painelC = (ViewCondensadorPanelKCS)c;
+                    //painelC.getFieldMassa().setSelectedItem(valor);
                     break;
                     
                 case "Bomba":
-                    ViewBombaPanelRankine painelB = (ViewBombaPanelRankine)c;
-                    painelB.getFieldMassa().setSelectedItem(valor);
+                    ViewBombaPanelKCS painelB = (ViewBombaPanelKCS)c;
+                    //painelB.getFieldMassa().setSelectedItem(valor);
                     break;
                     
                 case "Regenerador":
-                    ViewRegeneradorPanelRankine painelR = (ViewRegeneradorPanelRankine)c;
-                    painelR.getFieldMassa().setSelectedItem(valor);
+                    ViewRegeneradorPanelKCS painelR = (ViewRegeneradorPanelKCS)c;
+                    //painelR.getFieldMassa().setSelectedItem(valor);
                     break;
                     
                 case "Turbina":
-                    ViewTurbinaPanelRankine painelT = (ViewTurbinaPanelRankine)c;
-                    painelT.getFieldMassa().setSelectedItem(valor);
+                    ViewTurbinaPanelKCS painelT = (ViewTurbinaPanelKCS)c;
+                    //painelT.getFieldMassa().setSelectedItem(valor);
                     break;
             }
             

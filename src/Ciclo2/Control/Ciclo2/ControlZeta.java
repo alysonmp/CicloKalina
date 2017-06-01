@@ -1,31 +1,35 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Ciclo2.Control.Ciclo2;
 
-public class ControlZeta {
+import Ciclo2.Control.Ciclo2.ControlCubica;
 
-    ControlCubica cubica;
+/**
+ *
+ * @author leonardo
+ */
+public class ControlZeta {
     
-    private double Zl;
-    private double Zv;
-    private double C;
-    
+    private ControlCubica cubica;
+    private double Zl, Zv, Z;
     private double ter1, ter2, ter3, ter4, Z1m, Z2m;
 
-    public ControlZeta(double A, double B, double C) {
-
+    public ControlZeta(double beta, double eps, double delta) {          
         ter1 = 1;
-        ter2 = (C-1);
-        //ter3=((-2*B*C)-(B^2)-B-C+A);
-        ter3 = (-2*B*C)-(Math.pow(B, 2))-B-C+A;
-        //ter4=((B^2)*C)+(B*C)-(A*B);
-        ter4 = (Math.pow(B, 2)*C)+(B*C)-(A*B);
-
+        ter2 = beta;
+        ter3 = eps;
+        ter4 = delta;
+        
         cubica = new ControlCubica();
-        cubica.solve(ter1, ter2, ter3, ter4);
-
+        cubica.solve(ter1,ter2,ter3,ter4);
+        
         double x1 = cubica.getX1();
         double x2 = cubica.getX2();
         double x3 = cubica.getX3();
-            
+        
         if (!Double.isNaN(x1) && !Double.isNaN(x2) && !Double.isNaN(x3)) {
             if(x1 > x2 && x1 > x3){
                 Z1m = x1;
@@ -63,10 +67,10 @@ public class ControlZeta {
                 Z2m = 0;
             }
         }
-        Zl = Z2m;
-        Zv = Z1m;
+        Zl=Z2m;
+        Zv=Z1m;
     }
-    
+
     public double getZl() {
         return Zl;
     }
@@ -83,19 +87,14 @@ public class ControlZeta {
         this.Zv = Zv;
     }
 
-    public double getZ1m() {
-        return Z1m;
+    public double getZ() {
+        return Z;
     }
 
-    public void setZ1m(double Z1m) {
-        this.Z1m = Z1m;
+    public void setZ(double Z) {
+        this.Z = Z;
     }
-
-    public double getZ2m() {
-        return Z2m;
-    }
-
-    public void setZ2m(double Z2m) {
-        this.Z2m = Z2m;
-    }
+    
+    
+    
 }

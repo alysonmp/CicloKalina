@@ -702,6 +702,8 @@ public class ControlPrincipal {
         //Start start = new Start(1, 14, 415.25, 1144.4, 25, 10, 313.15, 0.3, session);
         //System.exit(0);
         
+        Start start = new Start(1, 14, 415.25, 1144.4, 25, 10, 313.15, 0.3, session);
+        
         viewPrincipal.getPainelCiclos().removeAll();
         viewPrincipal.getTabbedPanel().removeAll();
         panel_usado.clear();
