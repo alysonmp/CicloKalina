@@ -6,7 +6,7 @@
 package Ciclo1.View.Regenerador;
 
 import Ciclo1.Control.ControlPrincipal;
-import Ciclo1.Control.Regenerador.ControlRegeneradorPanelRankine;
+import Ciclo1.Control.Regenerador.ControlRegeneradorPanelKCS;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -59,20 +59,12 @@ public class ViewRegeneradorImage extends JPanel{
                 int x = (int) (ctrlPrincipal.getViewPrincipal().getPainelLateral().getWidth()*0.9);
                 int y = (int) (ctrlPrincipal.getViewPrincipal().getPainelLateral().getHeight()*0.86);
                 
-                //CASO O CICLO SEJA O PRIMEIRO CHAMA A CLASSE VIEWTURBINAPANELKCS
-                if(ciclo == 1){
-                    
-                }else{
-                    //CASO O CICLO SEJA O SEGUNDO CHAMA A CLASSE VIEWTURBINAPANELKCS
-                    if(ciclo == 2){
-                        ControlRegeneradorPanelRankine controlRegeneradorPanel = new ControlRegeneradorPanelRankine(ViewRegeneradorImage.this.ctrlPrincipal);
-                        controlRegeneradorPanel.getViewRegeneradorPanel().setPreferredSize(new Dimension(x, y));
-                        ViewRegeneradorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().addTab("Regenerador", null, controlRegeneradorPanel.getViewRegeneradorPanel());
-                        ViewRegeneradorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().setSelectedComponent(controlRegeneradorPanel.getViewRegeneradorPanel());
-                        ViewRegeneradorImage.this.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-                        controlRegeneradorPanel.getValuesComboBox();
-                    }
-                }
+                ControlRegeneradorPanelKCS controlRegeneradorPanel = new ControlRegeneradorPanelKCS(ViewRegeneradorImage.this.ctrlPrincipal);
+                controlRegeneradorPanel.getViewRegenerador().setPreferredSize(new Dimension(x, y));
+                ViewRegeneradorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().addTab("Regenerador", null, controlRegeneradorPanel.getViewRegenerador());
+                ViewRegeneradorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().setSelectedComponent(controlRegeneradorPanel.getViewRegenerador());
+                ViewRegeneradorImage.this.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+                //controlRegeneradorPanel.getValuesComboBox();
             }
 
             //NÃO UTILIZADOS

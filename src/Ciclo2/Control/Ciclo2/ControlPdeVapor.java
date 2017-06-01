@@ -5,115 +5,60 @@
  */
 package Ciclo2.Control.Ciclo2;
 
-import Ciclo2.Model.Ciclo2.ModelFluidos;
-import Ciclo2.Model.ModelConstantesRankineMat;
-import Ciclo2.Util.HibernateUtil;
+import Ciclo2.Model.ModelConstantesKCSMat_C;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 
 /**
  *
- * @author alysonmp
+ * @author leonardo
  */
 public class ControlPdeVapor {
     
-    double Psi, Psj, P, Pmax, Pmin, erro, burbuja, Pest, DP;
-    private Session session;
+    private double Ps2;
     
-    public ControlPdeVapor(double T, double x, Session session){
-        this.session = session;
+    public ControlPdeVapor(double T, int ii, Session session) {
+        double P = 1000;
         
         //RECUPERA TODOS OS DADOS DA TABELA DE CONSTANTES
-        Criteria cr = this.session.createCriteria(ModelConstantesRankineMat.class); 
+        Criteria cr = session.createCriteria(ModelConstantesKCSMat_C.class); 
+        cr.add(Restrictions.eq("cod", ii));
         List results = cr.list();
         
-        //UTILIZA A PRIMEIRA LINHA BUSCADA, VARIÁVEL C1
-        ModelConstantesRankineMat constantesMat = (ModelConstantesRankineMat)results.get(0); 
-        double[][] valores = constantesMat.getValores();
+        ModelConstantesKCSMat_C constantesKCS = (ModelConstantesKCSMat_C)results.get(0); 
+        double[] valores = constantesKCS.getValores();
         
-        //Psi=(exp(C1(1)+(C1(2)/T)+(C1(3)*log(T))+(C1(4)*(T^C1(5)))))/100000; %bar
-        Psi = (Math.exp(valores[0][0] + (valores[0][1]/T) + (valores[0][2]*Math.log(T)) + (valores[0][3]*(Math.pow(T, valores[0][4])))))/100000;
-        
-        //UTILIZA A SEGUNDA LINHA BUSCADA, VARIÁVEL C2
-        results = cr.list();
-        constantesMat = (ModelConstantesRankineMat)results.get(1); 
-        valores = constantesMat.getValores();
-        
-        //Psj=(exp(C2(1)+(C2(2)/T)+(C2(3)*log(T))+(C2(4)*(T^C2(5)))))/100000; %bar
-        Psj = (Math.exp(valores[0][0] + (valores[0][1]/T) + (valores[0][2]*Math.log(T)) + (valores[0][3]*(Math.pow(T, valores[0][4])))))/100000;
-        
-        if(x==0){
-            P = Psj;
-            Pmax = 210.23; //%bar
+        if(ii >= 1 && ii <= 5){
+            //Ps2=(exp(C(ii,1)+(C(ii,2)/T)+(C(ii,3)*log(T))+(C(ii,4)*(T^C(ii,5)))))/1000;
+            Ps2 = (Math.exp(valores[0]+(valores[1]/T)+(valores[2]*Math.log(T))+(valores[3]*(Math.pow(T,valores[4])))))/1000;
+        }else if(ii >= 10 && ii <= 18){
+            //Ps2=(exp(C(ii,1)+(C(ii,2)/T)+(C(ii,3)*log(T))+(C(ii,4)*(T^C(ii,5)))));
+            Ps2 = (Math.exp(valores[0]+(valores[1]/T)+(valores[2]*Math.log(T))+(valores[3]*(Math.pow(T,valores[4])))));
         }else{
-            P=Psi;
-            Pmax=109.34; //%bar
+            ControlConstantes constantes = new ControlConstantes(T, P, ii, session);
+            //Ps2=Pc*exp(((C(ii,1)*(1-(T/Tc)))+ (C(ii,2)*((1-(T/Tc))^1.5))+(C(ii,3)*((1-(T/Tc))^2.5))+(C(ii,4)*((1-(T/Tc))^5)))/(T/Tc));
+            Ps2=constantes.getPc()*Math.exp(((valores[0])*(1-(T/constantes.getTc()))+(valores[1])*Math.pow((1-(T/constantes.getTc())),1.5)+(valores[2]*Math.pow((1-(T/constantes.getTc())),2.5))+(valores[3])*(Math.pow(1-(T/constantes.getTc()),5)))/(T/constantes.getTc()));
         }
-        
-        if(P < Pmax){
-            ControlFug fug = new ControlFug(T, P, x);
-            
-            erro = Math.abs(fug.getFil()-fug.getFiv());
-            Pest = P;
-            DP = P*1/100;
-            
-            while(erro >= 0.00001){
-                fug = new ControlFug(T, Pest, x);
-                erro = Math.abs(fug.getFil()-fug.getFiv());
-                burbuja = fug.getFil()-fug.getFiv();
-                if(erro > 0.00001 && burbuja < 0){
-                    Pest = Pest-DP;
-                    DP = DP/2;
-                    if(DP<0.0025){
-                        DP=0.00214987569731;
-                    }
-                }else if(erro > 0.00001 && burbuja > 0){
-                    Pest = Pest+DP;
-                    DP = DP/2;
-                    if(DP < 0.0025){
-                        DP=0.00219332541;
-                    }
-                }
-                //System.out.println("while");
-            }
-            
-            if(x==0){
-                Psi=0;
-                Psj=Pest;
-            }else{
-                Psi=Pest;
-                Psj=0;
-            }
-        }else{
-            if(x == 0){
-                Psi=0;
-                Psj=Pmax;
-            }
-            else{
-                Psi=Pmax;
-                Psj=0;
-            }
+   
+        if(ii == 10){
+            //Ps2=(exp(C(ii,1)+(C(ii,2)/T)+(C(ii,3)*log(T))+(C(ii,4)*(T^C(ii,5)))))/1000;
+            Ps2=(Math.exp(valores[0]+(valores[1])/T)+(valores[2]*Math.log(T))+(valores[3]*(Math.pow(T,valores[4]))))/1000;
         }
+        if(ii >= 23){
+            //Ps2=exp(C(ii,1)+(C(ii,2)/(T+C(ii,3)))+(C(ii,4)*log(T))+(C(ii,5)*T^C(ii,6)));
+            Ps2 = Math.exp(valores[0]+(valores[1]/(T+valores[2]))+(valores[3]*Math.log(T))+(valores[4]*Math.pow(T,valores[5])));
+        }    
     }
 
-    public double getPsi() {
-        return Psi;
+    public double getPs2() {
+        return Ps2;
     }
 
-    public void setPsi(double Psi) {
-        this.Psi = Psi;
+    public void setPs2(double Ps2) {
+        this.Ps2 = Ps2;
     }
-
-    public double getPsj() {
-        return Psj;
-    }
-
-    public void setPsj(double Psj) {
-        this.Psj = Psj;
-    }
-
+    
     
 }

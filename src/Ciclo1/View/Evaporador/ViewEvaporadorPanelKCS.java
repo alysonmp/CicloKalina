@@ -5,6 +5,7 @@
  */
 package Ciclo1.View.Evaporador;
 
+import Ciclo1.Control.Evaporador.ControlEvaporadorPanelKCS;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -24,7 +25,7 @@ public class ViewEvaporadorPanelKCS extends JPanel{
     
     private JPanel painelDados;
     
-    public ViewEvaporadorPanelKCS(){
+    public ViewEvaporadorPanelKCS(ControlEvaporadorPanelKCS ctrlEvaporador){
         painelDados = new JPanel(new GridBagLayout());
         
         this.setLayout(new FlowLayout(FlowLayout.LEADING));

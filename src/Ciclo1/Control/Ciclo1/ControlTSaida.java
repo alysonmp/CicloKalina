@@ -5,7 +5,7 @@
  */
 package Ciclo1.Control.Ciclo1;
 
-import Ciclo1.Model.ModelLinear;
+import Ciclo2.Model.ModelLinear;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;

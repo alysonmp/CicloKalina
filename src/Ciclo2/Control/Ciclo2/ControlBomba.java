@@ -9,79 +9,94 @@ import org.hibernate.Session;
 
 /**
  *
- * @author alysonmp
+ * @author leonardo
  */
 public class ControlBomba {
+    private double S4, H4, S5, H5, T5;
+
+    public ControlBomba(double Beff, double  P1, double  T1, double  Pconop, double  Tconop, double  Pref, double  Tref, int ii, Session session) {        
+        ControlConstantes constantes = new ControlConstantes(Tconop, Pconop, ii, session);
+        ControlZeta zeta = new ControlZeta(constantes.getBeta(), constantes.getEps(), constantes.getDelta());
+        ControlH_Sistema hSistema = new ControlH_Sistema(Tconop, Pconop, Pref, Tref, ii, session);
+        ControlS_Sistema sSistema = new ControlS_Sistema(Tconop, Pconop, Pref, Tref, ii, session);
+        
+        double P4 = Pconop;
+        double P5 = P1;
+        
+        S4 = sSistema.getSL();
+        H4= hSistema.getHL();
+        double v4 = (zeta.getZl()*constantes.getR()*Tconop)/Pconop;
+        H5 = (v4*(P5-P4)/Beff)+H4;
+        
+        double Test = Tconop ;
+        double erro=1;
+        double DT=10;
+        double H,Burbuja;
+        
+        while (erro>0.0005){
+            hSistema = new ControlH_Sistema(Test, P1, Pref, Tref, ii, session);
+            H = hSistema.getHL();
+            erro = Math.abs((H5-H)/H5);
+            Burbuja = H5-H;
+            if(erro>0.0005 && Burbuja<0){
+                Test=Test-DT;
+                DT=DT/2;
+                if (DT<0.0005)
+                    DT=0.0005456321;
+            }else if(erro>0.0005 && Burbuja>0){
+                    Test=Test+DT;
+                    DT=DT/2;
+                    if(DT<0.0005)
+                        DT=0.0003975313;
+                    
+            }
+        }
+        
+        T5=Test;
+        sSistema = new ControlS_Sistema(T5, P1, Pref, Tref, ii,session); 
+        S5= sSistema.getSL();
+        
+    }
+
+    public double getS4() {
+        return S4;
+    }
+
+    public void setS4(double S4) {
+        this.S4 = S4;
+    }
+
+    public double getH4() {
+        return H4;
+    }
+
+    public void setH4(double H4) {
+        this.H4 = H4;
+    }
+
+    public double getS5() {
+        return S5;
+    }
+
+    public void setS5(double S5) {
+        this.S5 = S5;
+    }
+
+    public double getH5() {
+        return H5;
+    }
+
+    public void setH5(double H5) {
+        this.H5 = H5;
+    }
+
+    public double getT5() {
+        return T5;
+    }
+
+    public void setT5(double T5) {
+        this.T5 = T5;
+    }
     
-    private double T9, P9, P10, H9, S9, T10s, S10, H10s, H10, T10;
     
-    public ControlBomba(double Beff, double P1, double Pcon, double Tcon, double Pref, double Tref, double zi, Session session){
-        T9 = Tcon;
-        P9 = Pcon;
-        P10 = P1;
-        
-        ControlH_Sistemamix HSistemamix = new ControlH_Sistemamix(T9, P9, Pref, Tref, zi, session);
-        H9 = HSistemamix.getHL();
-        
-        ControlS_SistemaMix SSistemamix = new ControlS_SistemaMix(T9, P9, Pref, Tref, zi, session);
-        S9 = SSistemamix.getSL();
-        
-        ControlIsoentropiaBomba isoBomba = new ControlIsoentropiaBomba(Beff, P10, Pref, Tref, S9, H9, zi, T9, session);
-        T10s = isoBomba.getT10();
-        S10 = isoBomba.getS10();
-        
-        HSistemamix = new ControlH_Sistemamix(T10s, P10, Pref, Tref, zi, session);
-        H10s = HSistemamix.getHL();
-        H10 = ((H10s-H9)/Beff)+H9;
-        
-        T10 = T10s;
-    }
-
-    public double getP10() {
-        return P10;
-    }
-
-    public void setP10(double P10) {
-        this.P10 = P10;
-    }
-
-    public double getH9() {
-        return H9;
-    }
-
-    public void setH9(double H9) {
-        this.H9 = H9;
-    }
-
-    public double getS9() {
-        return S9;
-    }
-
-    public void setS9(double S9) {
-        this.S9 = S9;
-    }
-
-    public double getS10() {
-        return S10;
-    }
-
-    public void setS10(double S10) {
-        this.S10 = S10;
-    }
-
-    public double getH10() {
-        return H10;
-    }
-
-    public void setH10(double H10) {
-        this.H10 = H10;
-    }
-
-    public double getT10() {
-        return T10;
-    }
-
-    public void setT10(double T10) {
-        this.T10 = T10;
-    }    
 }
