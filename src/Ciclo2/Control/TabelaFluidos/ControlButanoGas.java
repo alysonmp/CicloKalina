@@ -1,6 +1,6 @@
-package Control.TabelaFluidos;
+package Ciclo2.Control.TabelaFluidos;
 
-import Model.TabelasFluidos.ModelButanoGas;
+import Ciclo2.Model.TabelasFluidos.ModelButanoGas;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;

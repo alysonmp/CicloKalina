@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package Ciclo2.View;
 
-import Control.ControlPrincipal;
+import Ciclo2.Control.ControlPrincipal;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -137,7 +137,7 @@ public class ViewPrincipal {
         subItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ctrlPrincipal.criaCiclo1();
+                //ctrlPrincipal.criaCiclo1();
             }
         });
         

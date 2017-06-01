@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View.Regenerador;
+package Ciclo2.View.Regenerador;
 
-import Control.ControlPrincipal;
-import Control.Regenerador.ControlRegeneradorPanelRankine;
+import Ciclo2.Control.ControlPrincipal;
+import Ciclo2.Control.Regenerador.ControlRegeneradorPanelRankine;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;

@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View.Bomba;
+package Ciclo2.View.Bomba;
 
-import Control.Bomba.ControlBombaPanelRankine;
-import Util.DropdownComboBox;
+import Ciclo2.Control.Bomba.ControlBombaPanelRankine;
+import Ciclo2.Util.DropdownComboBox;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;

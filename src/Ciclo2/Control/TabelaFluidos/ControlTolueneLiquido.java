@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Control.TabelaFluidos;
+package Ciclo2.Control.TabelaFluidos;
 
-import Model.TabelasFluidos.ModelTolueneLiquido;
-import Model.TabelasFluidos.ModelTolueneLiquido;
+import Ciclo2.Model.TabelasFluidos.ModelTolueneLiquido;
+import Ciclo2.Model.TabelasFluidos.ModelTolueneLiquido;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;

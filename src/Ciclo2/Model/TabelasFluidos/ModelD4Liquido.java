@@ -1,4 +1,4 @@
-package Model.TabelasFluidos;
+package Ciclo2.Model.TabelasFluidos;
 
 import java.io.Serializable;
 import javax.persistence.Column;
