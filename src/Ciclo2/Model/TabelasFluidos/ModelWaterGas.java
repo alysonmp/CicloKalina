@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Model.TabelasFluidos;
+package Ciclo2.Model.TabelasFluidos;
 
 import java.io.Serializable;
 import javax.persistence.Column;

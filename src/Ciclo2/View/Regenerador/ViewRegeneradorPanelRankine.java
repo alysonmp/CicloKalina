@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View.Regenerador;
+package Ciclo2.View.Regenerador;
 
-import Control.Regenerador.ControlRegeneradorPanelRankine;
-import Util.DropdownComboBox;
+import Ciclo2.Control.Regenerador.ControlRegeneradorPanelRankine;
+import Ciclo2.Util.DropdownComboBox;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;

@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View.Condensador;
+package Ciclo2.View.Condensador;
 
-import Control.Condensador.ControlCondensadorPanelRankine;
-import Util.DropdownComboBox;
+import Ciclo2.Control.Condensador.ControlCondensadorPanelRankine;
+import Ciclo2.Util.DropdownComboBox;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;

@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Control.Condensador;
+package Ciclo2.Control.Condensador;
 
-import Control.ControlPrincipal;
-import Ciclo1.Model.Ciclo1.ModelCondensador;
-import Ciclo1.Model.Ciclo1.ModelMassa;
-import View.Condensador.ViewCondensadorPanelRankine;
+import Ciclo2.Control.ControlPrincipal;
+import Ciclo2.Model.Ciclo2.ModelCondensador;
+import Ciclo2.Model.Ciclo2.ModelMassa;
+import Ciclo2.View.Condensador.ViewCondensadorPanelRankine;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;

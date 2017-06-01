@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Control.Ciclo2;
+package Ciclo2.Control.Ciclo2;
 
-import Model.Ciclo2.ModelFluidos;
-import Model.ModelConstantesRankineMat;
-import Util.HibernateUtil;
+import Ciclo2.Model.Ciclo2.ModelFluidos;
+import Ciclo2.Model.ModelConstantesRankineMat;
+import Ciclo2.Util.HibernateUtil;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;

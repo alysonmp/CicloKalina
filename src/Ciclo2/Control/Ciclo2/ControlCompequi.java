@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Control.Ciclo2;
+package Ciclo2.Control.Ciclo2;
 
 import javax.swing.JOptionPane;
 import org.hibernate.Session;

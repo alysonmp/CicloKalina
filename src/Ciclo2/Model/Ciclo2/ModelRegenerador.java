@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Model.Ciclo2;
+package Ciclo2.Model.Ciclo2;
 
 import java.io.Serializable;
 import javax.persistence.Column;
