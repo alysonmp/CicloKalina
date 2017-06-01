@@ -520,7 +520,7 @@ public class ControlPrincipal {
         tx = session.beginTransaction();
         
         if(results.isEmpty()){
-            String csvFile = "src/Csv/drT70.csv";
+            String csvFile = "src/Csv/drt70.csv";
             BufferedReader br = null;
             String line = "";
             String csvSplitBy = ";";
@@ -552,7 +552,7 @@ public class ControlPrincipal {
                 }
             }
             
-            csvFile = "src/Csv/drT80.csv";
+            csvFile = "src/Csv/drt80.csv";
             br = null;
             line = "";
             csvSplitBy = ";";
@@ -628,7 +628,9 @@ public class ControlPrincipal {
                 while((line = br.readLine()) != null){
                     double[] valoresV = new double[3];
                     String[] table_c = line.split(csvSplitBy);
+                    System.out.println(table_c.length);
                     for(int i = 0; i < table_c.length; i++){
+                        
                         valoresV[i] = Double.parseDouble(table_c[i]);
                     }
                     this.session.save(new ModelEqrs(valoresV));
@@ -708,7 +710,7 @@ public class ControlPrincipal {
         viewPrincipal.getTabbedPanel().removeAll();
         panel_usado.clear();
         
-        ViewCiclos ciclo = new ViewCiclos(this, "src/Ciclo2/Images/ciclo2.png", (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.3), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.7));
+        ViewCiclos ciclo = new ViewCiclos(this, "src/Images/Ciclo2/ciclo2.png", (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.3), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.7));
         ciclo.setLayout(null);
         ciclo.setBounds((int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.1), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.05), 
                           (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.3), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.7));
