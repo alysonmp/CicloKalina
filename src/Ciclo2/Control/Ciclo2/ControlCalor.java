@@ -5,7 +5,7 @@
  */
 package Ciclo2.Control.Ciclo2;
 
-import Ciclo1.Model.ModelQfpsoKCSMat;
+import Ciclo2.Model.ModelQfpsoKCSMat;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;

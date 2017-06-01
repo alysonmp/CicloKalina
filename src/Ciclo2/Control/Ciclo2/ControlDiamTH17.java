@@ -5,10 +5,10 @@
  */
 package Ciclo2.Control.Ciclo2;
 
-import Ciclo1.Model.ModelDRT70;
-import Ciclo1.Model.ModelDRT80;
-import Ciclo1.Model.ModelEqro;
-import Ciclo1.Model.ModelEqrs;
+import Ciclo2.Model.ModelDRT70;
+import Ciclo2.Model.ModelDRT80;
+import Ciclo2.Model.ModelEqro;
+import Ciclo2.Model.ModelEqrs;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Criteria;
