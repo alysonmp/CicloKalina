@@ -699,7 +699,7 @@ public class ControlPrincipal {
     //FUNÇÃO QUE CRIA O DESENHO DO SEGUNDO CICLO E INDICA OS LOCAIS DOS JPANELS INSERIDOS
     public void criaCiclo2(){        
         //ControlS_Sistema c = new ControlS_Sistema(500, 45, 20, 200, 0.2, session);
-        Start start = new Start(1, 14, 415.25, 1144.4, 25, 10, 313.15, 0.3, session);
+        //Start start = new Start(1, 14, 415.25, 1144.4, 25, 10, 313.15, 0.3, session);
         //System.exit(0);
         
         viewPrincipal.getPainelCiclos().removeAll();

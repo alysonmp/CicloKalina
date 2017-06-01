@@ -5,7 +5,7 @@
  */
 package Ciclo2.Control.Ciclo2;
 
-import Model.ModelQfpsoRankineMat;
+import Ciclo2.Model.ModelQfpsoRankineMat;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
