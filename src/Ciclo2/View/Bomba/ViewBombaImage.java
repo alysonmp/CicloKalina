@@ -5,7 +5,7 @@
  */
 package Ciclo2.View.Bomba;
 
-import Ciclo1.Control.Bomba.ControlBombaPanelKCS;
+import Ciclo2.Control.Bomba.ControlBombaPanelRankine;
 import Ciclo2.Control.ControlPrincipal;
 import java.awt.Color;
 import java.awt.Component;
@@ -59,7 +59,7 @@ public class ViewBombaImage extends JPanel{
                 int x = (int) (ctrlPrincipal.getViewPrincipal().getPainelLateral().getWidth()*0.9);
                 int y = (int) (ctrlPrincipal.getViewPrincipal().getPainelLateral().getHeight()*0.86);
                 
-                ControlBombaPanelKCS Bomba = new ControlBombaPanelKCS(ViewBombaImage.this.ctrlPrincipal.getSession());
+                ControlBombaPanelRankine Bomba = new ControlBombaPanelRankine(ViewBombaImage.this.ctrlPrincipal.getSession());
                 Bomba.getViewBomba().setPreferredSize(new Dimension(x, y));
                 ViewBombaImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().addTab("Bomba", null, Bomba.getViewBomba());
                 ViewBombaImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().setSelectedComponent(Bomba.getViewBomba());

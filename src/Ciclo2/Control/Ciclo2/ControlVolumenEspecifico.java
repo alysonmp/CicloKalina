@@ -5,8 +5,8 @@
  */
 package Ciclo2.Control.Ciclo2;
 
-import Ciclo1.Model.ModelCriticasKCSMat_PM;
-import Ciclo1.Model.ModelCriticasKCSMat_Tc;
+import Ciclo2.Model.ModelCriticasKCSMat_PM;
+import Ciclo2.Model.ModelCriticasKCSMat_Tc;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;

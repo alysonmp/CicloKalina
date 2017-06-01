@@ -5,7 +5,7 @@
  */
 package Ciclo2.Control.Ciclo2;
 
-import Ciclo1.Model.ModelCriticasKCSMat_Tc;
+import Ciclo2.Model.ModelCriticasKCSMat_Tc;
 import java.util.List;
 import javax.swing.JOptionPane;
 import org.hibernate.Criteria;
