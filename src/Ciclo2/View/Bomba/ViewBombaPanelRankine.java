@@ -5,7 +5,7 @@
  */
 package Ciclo2.View.Bomba;
 
-import Ciclo1.Control.Bomba.ControlBombaPanelKCS;
+import Ciclo2.Control.Bomba.ControlBombaPanelRankine;
 import Ciclo2.Util.DropdownComboBox;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -66,9 +66,9 @@ public class ViewBombaPanelRankine extends JPanel{
     private JPanel painelEntrada;
     private JPanel painelSaida;
     
-    private ControlBombaPanelKCS ctrlBomba;
+    private ControlBombaPanelRankine ctrlBomba;
     
-    public ViewBombaPanelRankine(ControlBombaPanelKCS ctrlBomba){
+    public ViewBombaPanelRankine(ControlBombaPanelRankine ctrlBomba){
         this.ctrlBomba = ctrlBomba;
         
         painelDados = new JPanel(new GridBagLayout());

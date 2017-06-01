@@ -5,10 +5,10 @@
  */
 package Ciclo2.Control.Ciclo2;
 
-import Ciclo1.Model.ModelCriticasKCSMat_K1;
-import Ciclo1.Model.ModelCriticasKCSMat_Pc;
-import Ciclo1.Model.ModelCriticasKCSMat_Tc;
-import Ciclo1.Model.ModelCriticasKCSMat_w;
+import Ciclo2.Model.ModelCriticasKCSMat_K1;
+import Ciclo2.Model.ModelCriticasKCSMat_Pc;
+import Ciclo2.Model.ModelCriticasKCSMat_Tc;
+import Ciclo2.Model.ModelCriticasKCSMat_w;
 import java.util.List;
 import org.apache.derby.vti.Restriction;
 import org.hibernate.Criteria;
