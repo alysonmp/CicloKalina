@@ -22,8 +22,8 @@ public class ModelEthylbenzeneGas implements Serializable{
     
     @Id
     @GeneratedValue
-    private int cod;
-    
+    private int ID;
+
     @Column
     private double pressao;
     
@@ -31,36 +31,44 @@ public class ModelEthylbenzeneGas implements Serializable{
     private double temperatura;
     
     @Column
-    private double Titulov;
+    private double kv;
     
     @Column
     private double Cpv;
     
-    @Column 
-    private double Vav; 
+    @Column
+    private double Prv;
     
+    @Column
+    private double Muv;
+
     @Column
     private double Vcv;
 
-    public ModelEthylbenzeneGas(int cod, double pressao, double temperatura, double Titulov, double Cpv, double Vav, double Vcv) {
-        this.cod = cod;
+    public ModelEthylbenzeneGas(double pressao, double temperatura, double kv, double Cpv, double Prv, double Muv, double Vcv) {
         this.pressao = pressao;
         this.temperatura = temperatura;
-        this.Titulov = Titulov;
+        this.kv = kv;
         this.Cpv = Cpv;
-        this.Vav = Vav;
+        this.Prv = Prv;
+        this.Muv = Muv;
         this.Vcv = Vcv;
     }
 
+    public ModelEthylbenzeneGas(double pressao, double temperatura) {
+        this.pressao = pressao;
+        this.temperatura = temperatura;
+    }
+    
     public ModelEthylbenzeneGas() {
     }
-
-    public int getCOD() {
-        return cod;
+    
+    public int getID() {
+        return ID;
     }
 
-    public void setCOD(int cod) {
-        this.cod = cod;
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
     public double getPRESSAO() {
@@ -79,12 +87,12 @@ public class ModelEthylbenzeneGas implements Serializable{
         this.temperatura = temperatura;
     }
 
-    public double getTITULOV() {
-        return Titulov;
+    public double getKV() {
+        return kv;
     }
 
-    public void setTITULOV(double Titulov) {
-        this.Titulov = Titulov;
+    public void setKV(double kv) {
+        this.kv = kv;
     }
 
     public double getCPV() {
@@ -94,15 +102,23 @@ public class ModelEthylbenzeneGas implements Serializable{
     public void setCPV(double Cpv) {
         this.Cpv = Cpv;
     }
-
-    public double getVAV() {
-        return Vav;
+    
+    public double getPRV() {
+        return Prv;
     }
 
-    public void setVAV(double Vav) {
-        this.Vav = Vav;
+    public void setPRV(double Prv) {
+        this.Prv = Prv;
+    }
+    
+    public double getMUV() {
+        return Muv;
     }
 
+    public void setMUV(double Muv) {
+        this.Muv = Muv;
+    }
+    
     public double getVCV() {
         return Vcv;
     }

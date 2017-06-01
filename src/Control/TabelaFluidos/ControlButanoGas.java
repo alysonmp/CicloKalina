@@ -90,7 +90,7 @@ public class ControlButanoGas {
 
         Cpv2 = butano_gas1.getCPV() + (butano_gas2.getCPV() - butano_gas1.getCPV()) * t1;
         Cpv2 = butano_gas3.getCPV() + (butano_gas4.getCPV() - butano_gas3.getCPV()) * t2;
-        Cpv = Cpv2 + (Cpv2 - Cpv2) * p;
+        Cpv = Cpv1 + (Cpv2 - Cpv1) * p;
         
         Prv1 = butano_gas1.getPRV() + (butano_gas2.getPRV() - butano_gas1.getPRV()) * t1;
         Prv2 = butano_gas3.getPRV() + (butano_gas4.getPRV() - butano_gas3.getPRV()) * t2;

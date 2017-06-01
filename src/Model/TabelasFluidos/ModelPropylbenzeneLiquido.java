@@ -21,7 +21,7 @@ import javax.persistence.Table;
 public class ModelPropylbenzeneLiquido implements Serializable{
     @Id
     @GeneratedValue
-    private int cod;
+    private int ID;
     
     @Column
     private double pressao;
@@ -30,36 +30,44 @@ public class ModelPropylbenzeneLiquido implements Serializable{
     private double temperatura;
     
     @Column
-    private double Titulol;
+    private double kl;
     
     @Column
     private double Cpl;
     
-    @Column 
-    private double Val; 
+    @Column
+    private double Prl;
     
+    @Column
+    private double Mul;
+
     @Column
     private double Vcl;
 
-    public ModelPropylbenzeneLiquido(int cod, double pressao, double temperatura, double Titulol, double Cpl, double Val, double Vcl) {
-        this.cod = cod;
+    public ModelPropylbenzeneLiquido(double pressao, double temperatura, double kl, double Cpl, double Prl, double Mul, double Vcl) {
         this.pressao = pressao;
         this.temperatura = temperatura;
-        this.Titulol = Titulol;
+        this.kl = kl;
         this.Cpl = Cpl;
-        this.Val = Val;
+        this.Prl = Prl;
+        this.Mul = Mul;
         this.Vcl = Vcl;
     }
-
+    
+    public ModelPropylbenzeneLiquido(double pressao, double temperatura) {
+        this.pressao = pressao;
+        this.temperatura = temperatura;
+    }
+    
     public ModelPropylbenzeneLiquido() {
     }
 
-    public int getCOD() {
-        return cod;
+    public int getID() {
+        return ID;
     }
 
-    public void setCOD(int cod) {
-        this.cod = cod;
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
     public double getPRESSAO() {
@@ -78,14 +86,6 @@ public class ModelPropylbenzeneLiquido implements Serializable{
         this.temperatura = temperatura;
     }
 
-    public double getTITULOL() {
-        return Titulol;
-    }
-
-    public void setTITULOL(double Titulol) {
-        this.Titulol = Titulol;
-    }
-
     public double getCPL() {
         return Cpl;
     }
@@ -94,12 +94,28 @@ public class ModelPropylbenzeneLiquido implements Serializable{
         this.Cpl = Cpl;
     }
 
-    public double getVAL() {
-        return Val;
+    public double getPRL() {
+        return Prl;
     }
 
-    public void setVAL(double Val) {
-        this.Val = Val;
+    public void setPRL(double Prl) {
+        this.Prl = Prl;
+    }
+
+    public double getKL() {
+        return kl;
+    }
+
+    public void setKL(double kl) {
+        this.kl = kl;
+    }
+
+    public double getMUL() {
+        return Mul;
+    }
+
+    public void setMUL(double Mul) {
+        this.Mul = Mul;
     }
 
     public double getVCL() {
