@@ -3,99 +3,98 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Control;
+package Ciclo1.Control;
 
-import Control.Ciclo1.ControlT_Ref;
-import Control.TabelaFluidos.ControlButanoGas;
-import Control.TabelaFluidos.ControlButanoLiquido;
-import Control.TabelaFluidos.ControlD4Gas;
-import Control.TabelaFluidos.ControlD4Liquido;
-import Control.TabelaFluidos.ControlD5Gas;
-import Control.TabelaFluidos.ControlD5Liquido;
-import Control.TabelaFluidos.ControlD6Gas;
-import Control.TabelaFluidos.ControlD6Liquido;
-import Control.TabelaFluidos.ControlHeptaneGas;
-import Control.TabelaFluidos.ControlHeptaneLiquido;
-import Control.TabelaFluidos.ControlHexaneGas;
-import Control.TabelaFluidos.ControlHexaneLiquido;
-import Control.TabelaFluidos.ControlIpentaneGas;
-import Control.TabelaFluidos.ControlIpentaneLiquido;
-import Control.TabelaFluidos.ControlIsobutanGas;
-import Control.TabelaFluidos.ControlIsobutanLiquido;
-import Control.TabelaFluidos.ControlMD2MGas;
-import Control.TabelaFluidos.ControlMD2MLiquido;
-import Control.TabelaFluidos.ControlMD3MGas;
-import Control.TabelaFluidos.ControlMD3MLiquido;
-import Control.TabelaFluidos.ControlMD4MGas;
-import Control.TabelaFluidos.ControlMD4MLiquido;
-import Control.TabelaFluidos.ControlMDMGas;
-import Control.TabelaFluidos.ControlMDMLiquido;
-import Control.TabelaFluidos.ControlMMGas;
-import Control.TabelaFluidos.ControlMMLiquido;
-import Control.TabelaFluidos.ControlOctaneGas;
-import Control.TabelaFluidos.ControlOctaneLiquido;
-import Control.TabelaFluidos.ControlPentaneGas;
-import Control.TabelaFluidos.ControlPentaneLiquido;
-import Control.TabelaFluidos.ControlPropaneGas;
-import Control.TabelaFluidos.ControlPropaneLiquido;
-import Control.TabelaFluidos.ControlR114Gas;
+import Ciclo1.Control.Ciclo1.ControlT_Ref;
+import Ciclo1.Control.TabelaFluidos.ControlButanoGas;
+import Ciclo1.Control.TabelaFluidos.ControlButanoLiquido;
+import Ciclo1.Control.TabelaFluidos.ControlD4Gas;
+import Ciclo1.Control.TabelaFluidos.ControlD4Liquido;
+import Ciclo1.Control.TabelaFluidos.ControlD5Gas;
+import Ciclo1.Control.TabelaFluidos.ControlD5Liquido;
+import Ciclo1.Control.TabelaFluidos.ControlD6Gas;
+import Ciclo1.Control.TabelaFluidos.ControlD6Liquido;
+import Ciclo1.Control.TabelaFluidos.ControlHeptaneGas;
+import Ciclo1.Control.TabelaFluidos.ControlHeptaneLiquido;
+import Ciclo1.Control.TabelaFluidos.ControlHexaneGas;
+import Ciclo1.Control.TabelaFluidos.ControlHexaneLiquido;
+import Ciclo1.Control.TabelaFluidos.ControlIpentaneGas;
+import Ciclo1.Control.TabelaFluidos.ControlIpentaneLiquido;
+import Ciclo1.Control.TabelaFluidos.ControlIsobutanGas;
+import Ciclo1.Control.TabelaFluidos.ControlIsobutanLiquido;
+import Ciclo1.Control.TabelaFluidos.ControlMD2MGas;
+import Ciclo1.Control.TabelaFluidos.ControlMD2MLiquido;
+import Ciclo1.Control.TabelaFluidos.ControlMD3MGas;
+import Ciclo1.Control.TabelaFluidos.ControlMD3MLiquido;
+import Ciclo1.Control.TabelaFluidos.ControlMD4MGas;
+import Ciclo1.Control.TabelaFluidos.ControlMD4MLiquido;
+import Ciclo1.Control.TabelaFluidos.ControlMDMGas;
+import Ciclo1.Control.TabelaFluidos.ControlMDMLiquido;
+import Ciclo1.Control.TabelaFluidos.ControlMMGas;
+import Ciclo1.Control.TabelaFluidos.ControlMMLiquido;
+import Ciclo1.Control.TabelaFluidos.ControlOctaneGas;
+import Ciclo1.Control.TabelaFluidos.ControlOctaneLiquido;
+import Ciclo1.Control.TabelaFluidos.ControlPentaneGas;
+import Ciclo1.Control.TabelaFluidos.ControlPentaneLiquido;
+import Ciclo1.Control.TabelaFluidos.ControlPropaneGas;
+import Ciclo1.Control.TabelaFluidos.ControlPropaneLiquido;
+import Ciclo1.Control.TabelaFluidos.ControlR114Gas;
 import Control.TabelaFluidos.ControlR114Liquido;
-import Control.TabelaFluidos.ControlR11Gas;
-import Control.TabelaFluidos.ControlR11Liquido;
-import Control.TabelaFluidos.ControlR12Gas;
-import Control.TabelaFluidos.ControlR12Liquido;
-import Control.TabelaFluidos.ControlR134AGas;
-import Control.TabelaFluidos.ControlR134ALiquido;
-import Control.TabelaFluidos.ControlR141BGas;
-import Control.TabelaFluidos.ControlR141BLiquido;
-import Control.TabelaFluidos.ControlR142BGas;
-import Control.TabelaFluidos.ControlR142BLiquido;
-import Control.TabelaFluidos.ControlR152AGas;
-import Control.TabelaFluidos.ControlR152ALiquido;
-import Control.TabelaFluidos.ControlR22Gas;
-import Control.TabelaFluidos.ControlR22Liquido;
-import Control.TabelaFluidos.ControlTolueneGas;
-import Control.TabelaFluidos.ControlTolueneLiquido;
-import Control.TabelaFluidos.ControlWaterGas;
-import Control.TabelaFluidos.ControlWaterLiquido;
+import Ciclo1.Control.TabelaFluidos.ControlR11Gas;
+import Ciclo1.Control.TabelaFluidos.ControlR11Liquido;
+import Ciclo1.Control.TabelaFluidos.ControlR12Gas;
+import Ciclo1.Control.TabelaFluidos.ControlR12Liquido;
+import Ciclo1.Control.TabelaFluidos.ControlR134AGas;
+import Ciclo1.Control.TabelaFluidos.ControlR134ALiquido;
+import Ciclo1.Control.TabelaFluidos.ControlR141BGas;
+import Ciclo1.Control.TabelaFluidos.ControlR141BLiquido;
+import Ciclo1.Control.TabelaFluidos.ControlR142BGas;
+import Ciclo1.Control.TabelaFluidos.ControlR142BLiquido;
+import Ciclo1.Control.TabelaFluidos.ControlR152AGas;
+import Ciclo1.Control.TabelaFluidos.ControlR152ALiquido;
+import Ciclo1.Control.TabelaFluidos.ControlR22Gas;
+import Ciclo1.Control.TabelaFluidos.ControlR22Liquido;
+import Ciclo1.Control.TabelaFluidos.ControlTolueneGas;
+import Ciclo1.Control.TabelaFluidos.ControlTolueneLiquido;
+import Ciclo1.Control.TabelaFluidos.ControlWaterGas;
+import Ciclo1.Control.TabelaFluidos.ControlWaterLiquido;
 import Ciclo1.Model.Ciclo1.ModelFluidos;
 import Ciclo1.Model.Ciclo1.ModelMassa;
-import Model.ModelCVA;
-import Model.ModelCVB;
-import Model.ModelConsExeMatA;
-import Model.ModelConsExeMatB;
-import Model.ModelConstantesKCSMat_C;
-import Model.ModelConstantesKCSMat_CC;
-import Model.ModelConstantesRankineMat;
-import Model.ModelCriticasKCSMat_K1;
-import Model.ModelCriticasKCSMat_PM;
-import Model.ModelCriticasKCSMat_Pc;
-import Model.ModelCriticasKCSMat_Tc;
-import Model.ModelCriticasKCSMat_w;
-import Model.ModelDRT70;
-import Model.ModelDRT80;
-import Model.ModelEqro;
-import Model.ModelEqrs;
-import Model.ModelLinear;
-import Model.ModelQfpsoKCSMat;
-import Model.ModelQfpsoRankineMat;
-import Model.TabelasFluidos.ModelButanoGas;
-import Model.TabelasFluidos.ModelHexaneGas;
+import Ciclo1.Model.ModelCVA;
+import Ciclo1.Model.ModelCVB;
+import Ciclo1.Model.ModelConsExeMatA;
+import Ciclo1.Model.ModelConsExeMatB;
+import Ciclo1.Model.ModelConstantesKCSMat_C;
+import Ciclo1.Model.ModelConstantesKCSMat_CC;
+import Ciclo1.Model.ModelConstantesRankineMat;
+import Ciclo1.Model.ModelCriticasKCSMat_K1;
+import Ciclo1.Model.ModelCriticasKCSMat_PM;
+import Ciclo1.Model.ModelCriticasKCSMat_Pc;
+import Ciclo1.Model.ModelCriticasKCSMat_Tc;
+import Ciclo1.Model.ModelCriticasKCSMat_w;
+import Ciclo1.Model.ModelDRT70;
+import Ciclo1.Model.ModelDRT80;
+import Ciclo1.Model.ModelEqro;
+import Ciclo1.Model.ModelEqrs;
+import Ciclo1.Model.ModelLinear;
+import Ciclo1.Model.ModelQfpsoKCSMat;
+import Ciclo1.Model.ModelQfpsoRankineMat;
+import Ciclo1.Model.TabelasFluidos.ModelButanoGas;
 import Util.HibernateUtil;
-import View.Condensador.ViewCondensadorImage;
-import View.Evaporador.ViewEvaporadorImage;
-import View.Recuperador.ViewRecuperadorImage;
-import View.Separador.ViewSeparadorImage;
-import View.Bomba.ViewBombaImage;
-import View.Bomba.ViewBombaPanelRankine;
-import View.Condensador.ViewCondensadorPanelRankine;
-import View.Evaporador.ViewEvaporadorPanelRankine;
-import View.Regenerador.ViewRegeneradorImage;
-import View.Regenerador.ViewRegeneradorPanelRankine;
-import View.ViewPrincipal;
-import View.Turbina.ViewTurbinaImage;
-import View.Turbina.ViewTurbinaPanelRankine;
-import View.ViewCiclos;
+import Ciclo1.View.Condensador.ViewCondensadorImage;
+import Ciclo1.View.Evaporador.ViewEvaporadorImage;
+import Ciclo1.View.Bomba.ViewBombaImage;
+import Ciclo1.View.Bomba.ViewBombaPanelRankine;
+import Ciclo1.View.Condensador.ViewCondensadorPanelRankine;
+import Ciclo1.View.Evaporador.ViewEvaporadorPanelRankine;
+import Ciclo1.View.Recuperador.ViewRecuperadorImage;
+import Ciclo1.View.Regenerador.ViewRegeneradorImage;
+import Ciclo1.View.Regenerador.ViewRegeneradorPanelRankine;
+import Ciclo1.View.Separador.ViewSeparadorImage;
+import Ciclo1.View.ViewPrincipal;
+import Ciclo1.View.Turbina.ViewTurbinaImage;
+import Ciclo1.View.Turbina.ViewTurbinaPanelRankine;
+import Ciclo1.View.ViewCiclos;
 import java.awt.Color;
 import java.awt.Component;
 import java.io.BufferedReader;
@@ -103,7 +102,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -687,52 +685,9 @@ public class ControlPrincipal {
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.184), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.35), 
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.069), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.15));
         
-        criaPanel(new ViewRecuperadorImage(this, 1), 
-                 (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.268), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.558), 
-                 (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.069), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.15));
-        
         criaPanel(new ViewBombaImage(this, 1), 
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.205), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.875), 
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.035), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.04));
-        
-        viewPrincipal.getFramePrincipal().repaint();
-    }
-    
-    //FUNÇÃO QUE CRIA O DESENHO DO SEGUNDO CICLO E INDICA OS LOCAIS DOS JPANELS INSERIDOS
-    public void criaCiclo2(){        
-        //ControlS_Sistema c = new ControlS_Sistema(500, 45, 20, 200, 0.2, session);
-        Start start = new Start(1, 14, 415.25, 1144.4, 25, 10, 313.15, 0.3, session);
-        //System.exit(0);
-        
-        viewPrincipal.getPainelCiclos().removeAll();
-        viewPrincipal.getTabbedPanel().removeAll();
-        panel_usado.clear();
-        
-        ViewCiclos ciclo = new ViewCiclos(this, "src/Images/Ciclo2/ciclo2.png", (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.3), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.7));
-        ciclo.setLayout(null);
-        ciclo.setBounds((int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.1), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.05), 
-                          (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.3), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.7));
-        viewPrincipal.getPainelCiclos().add(ciclo);
-        
-        criaPanel(new ViewTurbinaImage(this, 2), 
-                 (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.224), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.1), 
-                 (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.05), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.13));
-        
-        criaPanel(new ViewRegeneradorImage(this, 2), 
-                 (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.236), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.288), 
-                 (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.06), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.13));
-        
-        criaPanel(new ViewEvaporadorImage(this, 2), 
-                 (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.15), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.148), 
-                 (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.055), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.16));
-        
-        criaPanel(new ViewCondensadorImage(this, 2, session), 
-                 (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.275), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.61), 
-                 (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.075), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.11));
-        
-        criaPanel(new ViewBombaImage(this, 2), 
-                 (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.326), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.38), 
-                 (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.065), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.14));
         
         viewPrincipal.getFramePrincipal().repaint();
     }

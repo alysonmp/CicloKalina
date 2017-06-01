@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View.Turbina;
+package Ciclo1.View.Turbina;
 
 import java.awt.Color;
 import java.awt.Dimension;

@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View.Condensador;
+package Ciclo1.View.Condensador;
 
-import Control.Condensador.ControlCondensadorPanelRankine;
-import Control.ControlPrincipal;
+import Ciclo1.Control.Condensador.ControlCondensadorPanelRankine;
+import Ciclo1.Control.ControlPrincipal;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;

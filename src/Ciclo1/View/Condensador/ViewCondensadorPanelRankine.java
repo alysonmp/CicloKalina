@@ -3,16 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View.Condensador;
+package Ciclo1.View.Condensador;
 
-import Control.Condensador.ControlCondensadorPanelRankine;
-import Util.DropdownComboBox;
+import Ciclo1.Control.Condensador.ControlCondensadorPanelRankine;
+import Ciclo1.Util.DropdownComboBox;
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
@@ -21,7 +19,6 @@ import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 /**
  *

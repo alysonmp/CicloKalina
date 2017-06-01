@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View.Evaporador;
+package Ciclo1.View.Evaporador;
 
-import Control.ControlPrincipal;
-import Control.Evaporador.ControlEvaporadorPanelRankine;
+import Ciclo1.Control.ControlPrincipal;
+import Ciclo1.Control.Evaporador.ControlEvaporadorPanelRankine;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;

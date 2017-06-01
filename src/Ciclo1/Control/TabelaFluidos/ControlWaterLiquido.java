@@ -3,12 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Control.TabelaFluidos;
+package Ciclo1.Control.TabelaFluidos;
 
 import Ciclo1.Model.Ciclo1.ModelFluidos;
-import Model.TabelasFluidos.ModelWaterLiquido;
-import Model.TabelasFluidos.ModelWaterLiquido;
-import Model.TabelasFluidos.ModelWaterLiquido;
+import Ciclo1.Model.TabelasFluidos.ModelWaterLiquido;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -17,8 +15,6 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.criterion.Restrictions;
 import org.hibernate.transform.Transformers;
 
 /**
