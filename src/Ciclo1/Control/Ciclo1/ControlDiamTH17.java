@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Control.Ciclo1;
+package Ciclo1.Control.Ciclo1;
 
-import Model.ModelDRT70;
-import Model.ModelDRT80;
-import Model.ModelEqro;
-import Model.ModelEqrs;
+import Ciclo1.Model.ModelDRT70;
+import Ciclo1.Model.ModelDRT80;
+import Ciclo1.Model.ModelEqro;
+import Ciclo1.Model.ModelEqrs;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Criteria;

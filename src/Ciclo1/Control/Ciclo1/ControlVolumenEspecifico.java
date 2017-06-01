@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Control.Ciclo1;
+package Ciclo1.Control.Ciclo1;
 
-import Model.ModelCriticasKCSMat_PM;
-import Model.ModelCriticasKCSMat_Tc;
+import Ciclo1.Model.ModelCriticasKCSMat_PM;
+import Ciclo1.Model.ModelCriticasKCSMat_Tc;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;

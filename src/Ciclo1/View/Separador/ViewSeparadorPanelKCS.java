@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View.Separador;
+package Ciclo1.View.Separador;
 
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;

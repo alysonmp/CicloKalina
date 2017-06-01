@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Util;
+package Ciclo1.Util;
 
 import java.awt.Color;
 import javax.swing.BorderFactory;

@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View.Recuperador;
+package Ciclo1.View.Recuperador;
 
-import Control.ControlPrincipal;
+import Ciclo1.Control.ControlPrincipal;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;

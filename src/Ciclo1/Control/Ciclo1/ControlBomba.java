@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Control.Ciclo1;
+package Ciclo1.Control.Ciclo1;
 
 import org.hibernate.Session;
 

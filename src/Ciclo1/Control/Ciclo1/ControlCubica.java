@@ -1,5 +1,6 @@
-package Control.Ciclo2;
+package Ciclo1.Control.Ciclo1;
 
+import Ciclo1.Control.Ciclo1.*;
 import javax.swing.JOptionPane;
 
 public class ControlCubica {
