@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View.Evaporador;
+package Ciclo2.View.Evaporador;
 
-import Control.ControlPrincipal;
-import Control.Evaporador.ControlEvaporadorPanelRankine;
+import Ciclo2.Control.ControlPrincipal;
+import Ciclo2.Control.Evaporador.ControlEvaporadorPanelRankine;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -63,24 +63,12 @@ public class ViewEvaporadorImage extends JPanel{
                 int x = (int) (ctrlPrincipal.getViewPrincipal().getPainelLateral().getWidth()*0.9);
                 int y = (int) (ctrlPrincipal.getViewPrincipal().getPainelLateral().getHeight()*0.86);
                 
-                //CASO O CICLO SEJA O PRIMEIRO CHAMA A CLASSE VIEWEVAPORADORPANELKCS
-                if(ciclo == 1){
-                    ViewEvaporadorPanelKCS viewEvaporadorPanel = new ViewEvaporadorPanelKCS();
-                    viewEvaporadorPanel.setPreferredSize(new Dimension(x, y));
-                    ViewEvaporadorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().addTab("Evaporador", null, viewEvaporadorPanel);
-                    ViewEvaporadorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().setSelectedComponent(viewEvaporadorPanel);
-                    ViewEvaporadorImage.this.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-                }else{
-                    //CASO O CICLO SEJA O SEGUNDO CHAMA A CLASSE VIEWEVAPORADORPANELKCS
-                    if(ciclo == 2){
-                        ControlEvaporadorPanelRankine controlEvaporadorPanel = new ControlEvaporadorPanelRankine(ViewEvaporadorImage.this.ctrlPrincipal);
-                        controlEvaporadorPanel.getViewEvaporadorPanel().setPreferredSize(new Dimension(x, y));
-                        ViewEvaporadorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().addTab("Evaporador", null, controlEvaporadorPanel.getViewEvaporadorPanel());
-                        ViewEvaporadorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().setSelectedComponent(controlEvaporadorPanel.getViewEvaporadorPanel());
-                        ViewEvaporadorImage.this.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-                        controlEvaporadorPanel.getValuesComboBox();
-                    }
-                }
+                ControlEvaporadorPanelRankine controlEvaporadorPanel = new ControlEvaporadorPanelRankine(ViewEvaporadorImage.this.ctrlPrincipal);
+                controlEvaporadorPanel.getViewEvaporadorPanel().setPreferredSize(new Dimension(x, y));
+                ViewEvaporadorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().addTab("Evaporador", null, controlEvaporadorPanel.getViewEvaporadorPanel());
+                ViewEvaporadorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().setSelectedComponent(controlEvaporadorPanel.getViewEvaporadorPanel());
+                ViewEvaporadorImage.this.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+                controlEvaporadorPanel.getValuesComboBox();
             }
 
             //NÃO UTILIZADOS

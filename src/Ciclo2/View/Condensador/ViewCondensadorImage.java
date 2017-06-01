@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View.Condensador;
+package Ciclo2.View.Condensador;
 
-import Control.Condensador.ControlCondensadorPanelRankine;
-import Control.ControlPrincipal;
+import Ciclo2.Control.Condensador.ControlCondensadorPanelRankine;
+import Ciclo2.Control.ControlPrincipal;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -63,24 +63,13 @@ public class ViewCondensadorImage extends JPanel{
                 int x = (int) (ctrlPrincipal.getViewPrincipal().getPainelLateral().getWidth()*0.9);
                 int y = (int) (ctrlPrincipal.getViewPrincipal().getPainelLateral().getHeight()*0.86);
                 
-                //CASO O CICLO SEJA O PRIMEIRO CHAMA A CLASSE VIEWCONDENSADORPANELKCS
-                if(ciclo == 1){
-                    ViewCondensadorPanelKCS viewCondensadorPanel = new ViewCondensadorPanelKCS();
-                    viewCondensadorPanel.setPreferredSize(new Dimension(x, y));
-                    ViewCondensadorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().addTab("Condensador", null, viewCondensadorPanel);
-                    ViewCondensadorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().setSelectedComponent(viewCondensadorPanel);
-                    ViewCondensadorImage.this.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-                }else{
-                    //CASO O CICLO SEJA O SEGUNDO CHAMA A CLASSE VIEWCONDENSADORPANELKCS
-                    if(ciclo == 2){
-                        ControlCondensadorPanelRankine Condensador = new ControlCondensadorPanelRankine(ViewCondensadorImage.this.ctrlPrincipal, ViewCondensadorImage.this.session);
-                        Condensador.getViewCondensador().setPreferredSize(new Dimension(x, y));
-                        ViewCondensadorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().addTab("Condensador", null, Condensador.getViewCondensador());
-                        ViewCondensadorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().setSelectedComponent(Condensador.getViewCondensador());
-                        ViewCondensadorImage.this.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-                        Condensador.criaComboBoxes();
-                    }
-                }
+                
+                ControlCondensadorPanelRankine Condensador = new ControlCondensadorPanelRankine(ViewCondensadorImage.this.ctrlPrincipal, ViewCondensadorImage.this.session);
+                Condensador.getViewCondensador().setPreferredSize(new Dimension(x, y));
+                ViewCondensadorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().addTab("Condensador", null, Condensador.getViewCondensador());
+                ViewCondensadorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().setSelectedComponent(Condensador.getViewCondensador());
+                ViewCondensadorImage.this.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+                Condensador.criaComboBoxes();
             }
 
             //NÃO UTILIZADOS

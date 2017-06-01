@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Control.Turbina;
+package Ciclo2.Control.Turbina;
 
-import Control.ControlPrincipal;
-import Ciclo1.Model.Ciclo1.ModelMassa;
-import Ciclo1.Model.Ciclo1.ModelTurbina;
-import View.Turbina.ViewTurbinaPanelRankine;
+import Ciclo2.Control.ControlPrincipal;
+import Ciclo2.Model.Ciclo2.ModelMassa;
+import Ciclo2.Model.Ciclo2.ModelTurbina;
+import Ciclo2.View.Turbina.ViewTurbinaPanelRankine;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;

@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Control.TabelaFluidos;
+package Ciclo2.Control.TabelaFluidos;
 
-import Model.TabelasFluidos.ModelMD2MLiquido;
+import Ciclo2.Model.TabelasFluidos.ModelMD2MLiquido;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;

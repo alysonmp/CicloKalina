@@ -1,4 +1,4 @@
-package Control.Ciclo2;
+package Ciclo2.Control.Ciclo2;
 
 public class ControlZetamix {
 

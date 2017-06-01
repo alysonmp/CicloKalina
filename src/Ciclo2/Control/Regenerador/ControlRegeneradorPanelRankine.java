@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Control.Regenerador;
+package Ciclo2.Control.Regenerador;
 
-import Control.ControlPrincipal;
-import Ciclo1.Model.Ciclo1.ModelMassa;
-import Ciclo1.Model.Ciclo1.ModelRegenerador;
-import View.Regenerador.ViewRegeneradorPanelRankine;
+import Ciclo2.Control.ControlPrincipal;
+import Ciclo2.Model.Ciclo2.ModelMassa;
+import Ciclo2.Model.Ciclo2.ModelRegenerador;
+import Ciclo2.View.Regenerador.ViewRegeneradorPanelRankine;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;

@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Control.Evaporador;
+package Ciclo2.Control.Evaporador;
 
-import Control.ControlPrincipal;
-import Model.Ciclo2.ModelEvaporador;
-import Model.Ciclo2.ModelMassa;
-import View.Evaporador.ViewEvaporadorPanelRankine;
+import Ciclo2.Control.ControlPrincipal;
+import Ciclo2.Model.Ciclo2.ModelEvaporador;
+import Ciclo2.Model.Ciclo2.ModelMassa;
+import Ciclo2.View.Evaporador.ViewEvaporadorPanelRankine;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
