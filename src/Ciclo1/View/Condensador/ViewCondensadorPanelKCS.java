@@ -5,6 +5,7 @@
  */
 package Ciclo1.View.Condensador;
 
+import Ciclo1.Control.Condensador.ControlCondensadorPanelKCS;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -24,7 +25,7 @@ public class ViewCondensadorPanelKCS extends JPanel{
     
     private JPanel painelDados;
     
-    public ViewCondensadorPanelKCS(){
+    public ViewCondensadorPanelKCS(ControlCondensadorPanelKCS ctrlCondensador){
         painelDados = new JPanel(new GridBagLayout());
         
         this.setLayout(new FlowLayout(FlowLayout.LEADING));

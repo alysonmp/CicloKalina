@@ -6,7 +6,7 @@
 package Ciclo1.View.Turbina;
 
 import Ciclo1.Control.ControlPrincipal;
-import Ciclo1.Control.Turbina.ControlTurbinaPanelRankine;
+import Ciclo1.Control.Turbina.ControlTurbinaPanelKCS;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -59,24 +59,13 @@ public class ViewTurbinaImage extends JPanel{
                 int x = (int) (ctrlPrincipal.getViewPrincipal().getPainelLateral().getWidth()*0.9);
                 int y = (int) (ctrlPrincipal.getViewPrincipal().getPainelLateral().getHeight()*0.86);
                 
-                //CASO O CICLO SEJA O PRIMEIRO CHAMA A CLASSE VIEWTURBINAPANELKCS
-                if(ciclo == 1){
-                    ViewTurbinaPanelKCS viewTurbinaPanel = new ViewTurbinaPanelKCS();
-                    viewTurbinaPanel.setPreferredSize(new Dimension(x, y));
-                    ViewTurbinaImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().addTab("Turbina", null, viewTurbinaPanel);
-                    ViewTurbinaImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().setSelectedComponent(viewTurbinaPanel);
-                    ViewTurbinaImage.this.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-                }else{
-                    //CASO O CICLO SEJA O SEGUNDO CHAMA A CLASSE VIEWTURBINAPANELKCS
-                    if(ciclo == 2){
-                        ControlTurbinaPanelRankine controlTurbinaPanel = new ControlTurbinaPanelRankine(ViewTurbinaImage.this.ctrlPrincipal);
-                        controlTurbinaPanel.getViewTurbinaPanel().setPreferredSize(new Dimension(x, y));
-                        ViewTurbinaImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().addTab("Turbina", null, controlTurbinaPanel.getViewTurbinaPanel());
-                        ViewTurbinaImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().setSelectedComponent(controlTurbinaPanel.getViewTurbinaPanel());
-                        ViewTurbinaImage.this.setBorder(BorderFactory.createLineBorder(Color.black, 2)); 
-                        controlTurbinaPanel.getValuesComboBox();
-                    }
-                }
+                
+                ControlTurbinaPanelKCS controlTurbinaPanel = new ControlTurbinaPanelKCS(ViewTurbinaImage.this.ctrlPrincipal);
+                controlTurbinaPanel.getViewTurbinaPanel().setPreferredSize(new Dimension(x, y));
+                ViewTurbinaImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().addTab("Turbina", null, controlTurbinaPanel.getViewTurbinaPanel());
+                ViewTurbinaImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().setSelectedComponent(controlTurbinaPanel.getViewTurbinaPanel());
+                ViewTurbinaImage.this.setBorder(BorderFactory.createLineBorder(Color.black, 2)); 
+                //controlTurbinaPanel.getValuesComboBox();
             }
 
             //NÃO UTILIZADOS

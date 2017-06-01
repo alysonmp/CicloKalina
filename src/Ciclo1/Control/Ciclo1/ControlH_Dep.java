@@ -9,36 +9,90 @@ import org.hibernate.Session;
 
 /**
  *
- * @author leonardo
+ * @author alysonmp
  */
 public class ControlH_Dep {
-
-    private double HDL,HDV;
     
-    public ControlH_Dep(double T, double P, int ii,Session session) {
-        ControlConstantes constantes = new ControlConstantes(T, P, ii, session);
-        ControlZeta zeta = new ControlZeta(constantes.getBeta(), constantes.getEps(), constantes.getDelta());
-        ControlPdeVapor pdevapor = new ControlPdeVapor(T, ii, session);
+    private double Pc, Tc, Tr, Pr, F, Omegab, Omegaa, Omegac, A, B, C, N, M, Q, 
+                   alfa ,a, da_dT, Ps2, dif, HDL, HDV;
+    private Session session;
+    private ControlZeta zetamix;
+    
+    public ControlH_Dep(double T, double P, double x, Session session){
+        this.session = session;
+        ControlConstantes constantes = new ControlConstantes(T, P);
         
-        double da_dT = (-0.457235*(Math.pow(constantes.getR(),2))*constantes.getTc()/constantes.getPc())*(1+constantes.getK0()*(1-(Math.pow(constantes.getTr(),0.5)))+constantes.getK1()*(1-constantes.getTr())*(0.7-constantes.getTr()))*((constantes.getK0()/(Math.pow(constantes.getTr(),0.5)))+(constantes.getK1()*(3.4-4*constantes.getTr())));
-        double dif = Math.abs((pdevapor.getPs2()-P)/P);
-        if(dif >= 0.0001 && pdevapor.getPs2() < P){
-            //Z=Zl;
-            HDL=-((T*(da_dT)-constantes.geta())/(2*constantes.getb()*(Math.pow(2,0.5))))*Math.log((zeta.getZl()+constantes.getB()*(1-(Math.pow(2,0.5))))/(zeta.getZl()+constantes.getB()*(1+(Math.pow(2,0.5)))))+ (zeta.getZl()-1)*constantes.getR()*T;
-            HDV=0;
-        }else if(dif >= 0.0001 && pdevapor.getPs2() > P){
-                //Z=Zv;
-                HDL=0;
-                HDV=-((T*(da_dT)-constantes.geta())/(2*constantes.getb()*(Math.pow(2,0.5))))*Math.log((zeta.getZv()+constantes.getB()*(1-(Math.pow(2,0.5))))/(zeta.getZv()+constantes.getB()*(1+(Math.pow(2,0.5)))))+ (zeta.getZv()-1)*constantes.getR()*T;
-        }else if(dif < 0.0001){
-    //        
-      //      HDV=-((T*(da_dT)-a)/(2*b*(2^0.5)))*log((Zv+B*(1-(2^0.5)))/(Zv+B*(1+(2^0.5))))+ (Zv-1)*R*T;
-                
-                HDL=-((T*(da_dT)-constantes.geta())/(2*constantes.getb()*(Math.pow(2,0.5))))*Math.log((zeta.getZl()+constantes.getB()*(1-(Math.pow(2,0.5))))/(zeta.getZl()+constantes.getB()*(1+(Math.pow(2,0.5)))))+ (zeta.getZl()-1)*constantes.getR()*T;
-                HDV=-((T*(da_dT)-constantes.geta())/(2*constantes.getb()*(Math.pow(2,0.5))))*Math.log((zeta.getZv()+constantes.getB()*(1-(Math.pow(2,0.5))))/(zeta.getZv()+constantes.getB()*(1+(Math.pow(2,0.5)))))+ (zeta.getZv()-1)*constantes.getR()*T;
+        if(x == 0){
+            zetamix = new ControlZeta(constantes.getAj(), constantes.getBj(), constantes.getCj());
+            
+            Pc = constantes.getPcj();
+            Tc = constantes.getTcj();
+            Tr = constantes.getTrj();
+            Pr = constantes.getPrj();
+            F = constantes.getFj();
+            Omegab = constantes.getOmegabj();
+            Omegaa = constantes.getOmegaaj();
+            Omegac = constantes.getOmegacj();
+            A = constantes.getAj();
+            B = constantes.getBj();
+            C = constantes.getCj();
+            N = constantes.getNj();
+            M = constantes.getMj();
+            Q = constantes.getQj();
+            alfa = constantes.getAlfaj();   
+            a = constantes.getaj();
+        }else{
+            zetamix = new ControlZeta(constantes.getAi(), constantes.getBi(), constantes.getCi());
+           
+            Pc = constantes.getPci();
+            Tc = constantes.getTci();
+            Tr = constantes.getTri();
+            Pr = constantes.getPri();
+            F = constantes.getFi();
+            Omegab = constantes.getOmegabi();
+            Omegaa = constantes.getOmegaai();
+            Omegac = constantes.getOmegaci();
+            A = constantes.getAi();
+            B = constantes.getBi();
+            C = constantes.getCi();
+            N = constantes.getNi();
+            M = constantes.getMi();
+            Q = constantes.getQi();
+            alfa = constantes.getAlfai();   
+            a = constantes.getai();
         }
-
-    }
+        
+        //da_dT=Omegaa*(R^2*Tc/Pc)*(-F*(alfa^0.5)/(Tr^0.5));
+        da_dT=Omegaa*(Math.pow(constantes.getR(), 2)*Tc/Pc)*(-F*(Math.pow(alfa, 0.5))/(Math.pow(Tr,0.5)));
+        
+        ControlPdeVapor pVapor = new ControlPdeVapor(T, x, this.session);
+        
+        if(x == 0)
+            Ps2 = pVapor.getPsj();
+        else
+            Ps2 = pVapor.getPsi();
+        
+        dif = Math.abs((Ps2-P)/P);
+        
+        if(dif >= 0.0001 & Ps2 < P){
+            //HDL=(R*T*(Zl-1)-((T*da_dT)-a)*((1/(2*N))*(log((Zl+M)/(Zl+Q)))))*100000;
+            HDL = (constantes.getR()*T*(zetamix.getZl()-1)-((T*da_dT)-a)*((1/(2*N))*(Math.log((zetamix.getZl()+M)/(zetamix.getZl()+Q)))))*100000;
+            HDV = 0;
+        }else{
+            if(dif >= 0.0001 & Ps2 > P){
+                HDL=0;
+                //HDV=(R*T*(Zv-1)-((T*da_dT)-a)*((1/(2*N))*(log((Zv+M)/(Zv+Q)))))*100000;
+                HDV=(constantes.getR()*T*(zetamix.getZv()-1)-((T*da_dT)-a)*((1/(2*N))*(Math.log((zetamix.getZv()+M)/(zetamix.getZv()+Q)))))*100000;
+            }else{
+                if(dif<0.0001){
+                    //HDL=(R*T*(Zl-1)-((T*da_dT)-a)*((1/(2*N))*(log((Zl+M)/(Zl+Q)))))*100000;
+                    HDL=(constantes.getR()*T*(zetamix.getZl()-1)-((T*da_dT)-a)*((1/(2*N))*(Math.log((zetamix.getZl()+M)/(zetamix.getZl()+Q)))))*100000;
+                    //HDV=(R*T*(Zv-1)-((T*da_dT)-a)*((1/(2*N))*(log((Zv+M)/(Zv+Q)))))*100000;
+                    HDV=(constantes.getR()*T*(zetamix.getZv()-1)-((T*da_dT)-a)*((1/(2*N))*(Math.log((zetamix.getZv()+M)/(zetamix.getZv()+Q)))))*100000;
+                }
+            }
+        }
+    }   
 
     public double getHDL() {
         return HDL;
@@ -55,5 +109,4 @@ public class ControlH_Dep {
     public void setHDV(double HDV) {
         this.HDV = HDV;
     }
-    
 }

@@ -5,12 +5,8 @@
  */
 package Ciclo1.Control.Ciclo1;
 
-import Ciclo1.Model.ModelCriticasKCSMat_Tc;
-import java.util.List;
 import javax.swing.JOptionPane;
-import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -18,47 +14,63 @@ import org.hibernate.criterion.Restrictions;
  */
 public class ControlT_Ref {
     
-    private double Te;
-    private Session session;
-    private double erro, DT, Ps2, burbuja, Tref;
+    double P, Te, erro, DT, burbuja, Tref;
+    private ControlPdeVapor pdevapor;
     
-    public ControlT_Ref(double P, int ii, Session session){
-        this.session = session;
+    public ControlT_Ref(double P, double x, Session session){
+        this.P = P;
         
-        Criteria cr = this.session.createCriteria(ModelCriticasKCSMat_Tc.class);
-        cr.add(Restrictions.eq("cod", ii));
-        List results = cr.list();
-        
-        ModelCriticasKCSMat_Tc Tc = (ModelCriticasKCSMat_Tc) results.get(0);
-        
-        Te = Tc.getValor()-150;
-        
-        erro = 1;
-        DT = 80;
-        
-        while(erro > 0.0001){
-            ControlPdeVapor pdevapor = new ControlPdeVapor(Te, ii, session);
-            Ps2 = pdevapor.getPs2();
-            burbuja = Ps2-P;
-            erro = Math.abs((Ps2-P)/Ps2);
-            if(erro > 0.0001 && burbuja > 0){
-                Te = Te-DT;
-                DT = DT/2;
-                if(DT < 0.005){
-                   DT = 0.0047953543;
-                }
-            }else{
-                if(erro > 0.0001 && burbuja < 0){
-                    Te = Te+DT;
+        if(x == 0){
+            Te = 647.1-206; //%K
+            erro = 1;
+            DT = 80;
+            while(erro > 0.0001){
+                pdevapor = new ControlPdeVapor(Te, x, session);
+                burbuja = pdevapor.getPsj()-P;
+                erro = Math.abs((pdevapor.getPsj()-P)/pdevapor.getPsj());
+                if(erro > 0.0001 && burbuja > 0){
+                    Te = Te-DT;
                     DT = DT/2;
                     if(DT < 0.005){
-                       DT = 0.00393845211111;
+                        DT = 0.0047953543;
+                    }
+                }else{
+                    if(erro > 0.0001 && burbuja < 0){
+                        Te = Te+DT;
+                        DT = DT/2;
+                        if(DT<0.005){
+                            DT=0.00393845211111;
+                        }
+                    }
+                }
+            }
+        }else{
+            Te = 405.4-100;
+            erro = 1;
+            DT = 80;
+            while(erro > 0.0001){
+                pdevapor = new ControlPdeVapor(Te, x, session);
+                burbuja = pdevapor.getPsi() - P;
+                erro = Math.abs((pdevapor.getPsi()-P)/pdevapor.getPsi());
+                if(erro > 0.0001 && burbuja > 0){
+                    Te = Te-DT;
+                    DT = DT/2;
+                    if(DT<0.005){
+                        DT=0.0047953543;
+                    }
+                }else{
+                    if(erro > 0.0001 && burbuja < 0){
+                        Te=Te+DT;
+                        DT=DT/2;
+                        if(DT<0.005){
+                            DT=0.00393845211111;
+                        }
                     }
                 }
             }
         }
         Tref = Te;
-    } 
+    }
 
     public double getTref() {
         return Tref;

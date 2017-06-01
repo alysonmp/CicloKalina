@@ -5,124 +5,83 @@
  */
 package Ciclo1.Control.Ciclo1;
 
-import org.hibernate.Session;
-
 /**
  *
- * @author leonardo
+ * @author alysonmp
  */
 public class ControlAreas {
-
-    private double Acon, Areg, Aevp;
     
-    public ControlAreas(double T1, double T2, double T3, double T4, double T5, double T6, double Tf, double Tfout, double Qevp, double Qcon, double Qreg, double eff, double Hlat, double Hsen, double Hsup, double T1s, double PP, double SUP, double m, double Pref, double Tref, double P4, int ii, double H3,int compressor,Session session) {
-        double Ucon = 0.75;
-        double Uevp = 0.75;
-        double Ureg = 0.75;
-        double Toile=Tf;
-        double Toils=Tfout;
-        double Toil1=T1s+PP;
-        double Toil2=Tf;
-        
-        double Qsen=m*Hsen;
-        double Qlat=m*Hlat;
-        double Qsup=m*Hsup;
-        
-        double Tmevp3 = 0;
-        if(SUP > 0){
-            ControlTSaida tSaida = new ControlTSaida(compressor, Tf, Qsup, session);
-            Toil2 = tSaida.getTfout();
-            Tmevp3= ((Toile-T1)-(Toil2-T1s))/(Math.log((Toile-T1)/(Toil2-T1s)));
-        }
-        
-        double Ten=25+273.15;
-        double Pen=101.325;
-        double Ten1=35+273.15;
-        double Ps=101.325;
-        
-        ControlH_Sistema h_Sistema = new ControlH_Sistema(Ten, Pen, 10, 273, 1, session);
-        double HLen = h_Sistema.getHL();
-        //double HVen = h_Sistema.getHV();
-        h_Sistema = new ControlH_Sistema(Ten1, Ps, 10, 273, 1, session);
-        double HLs = h_Sistema.getHL();
-        //double HVs = h_Sistema.getHV();
-        h_Sistema = new ControlH_Sistema(T4, P4,  Pref, Tref, ii, session);
-        double HLsat = h_Sistema.getHL();
-        double HVsat = h_Sistema.getHV();
-        
-        double HCONlat=HVsat-HLsat;
-        double HCONsen=H3-HVsat;
+    private double Ucon, Uevp, Ureg, Toile, Toils, Toil1, Toil2, Tmevp1, Tmevp2, Aevp, TmRLT1, ALHR,
+                   Ten, Pen, Ten1, Ps, Tmcon1, Acon, TmRHT1, AHHR, AT;
+    
+    public ControlAreas(double QLHR, double QHHR, double Qcon, double Qsen, double Qlat, double PP, double Tf, double Tfout, double T1max, double T12, double TbolA, double T9, double T8, double T11, double T7, double T10, double T3, double T5){
+        Ucon=0.75; //%%0.4
+        Uevp=0.75; //%%0.4
+        Ureg=0.75; //%%0.3
 
-        double Qconlat=m*HCONlat;
-        double Qconsen=m*HCONsen;
-        double mH2O=Qconlat/(HLs-HLen);
+        Toile = Tf;
+        Toils = Tfout;
+        Toil1 = T1max+PP;
+        Toil2 = Tf;
         
-        double Tcon3=T3-T4;
-        double Ts;
-        if(Tcon3 < 2){
-            Qconsen=0;
-            Ts=Ten1;
-        }else{
-            double Hin = HLen;
-            double Test = Ten1;
-            double erro = 1;
-            double DT = 4.7;
-            int it = 0;
-            while(erro > 0.0005){
-                it +=1;
-                if(it > 10000)
-                    break;
-                
-                h_Sistema = new ControlH_Sistema(Test, Pen, 10, 273, 1, session);
-                double Hout = h_Sistema.getHL();
-                double Q = (Hout - Hin)*mH2O;
-                erro = Math.abs((Qcon-Q)/Qcon);
-                double Burbuja = Q - Qcon;
-                if(erro > 0.0005 && Burbuja < 0){
-                    Test += DT;
-                    DT /= 2;
-                    if(DT < 0.0005)
-                        DT=0.0005456321;
-                }else if(erro>0.0005 && Burbuja>0){
-                    Test=Test-DT;
-                    DT=DT/2;
-                    if (DT<0.0005)
-                        DT=0.0003975313;
-                }
-            }
-            
-            Ts = Test + 3;
-        }
+        /*%%%% Evaporador %%%%%%%%%%%%%%%%%%%%%
+        %1 Calor sensible
+        %2 Calor Latente*/
         
-        if(eff == 0){
-            double Tmevp1= ((Toil1-T1s)-(Toils-T6))/(Math.log((Toil1-T1s)/(Toils-T6)));
-            double Tmevp2= ((Toil2-T1s)-(Toil1-T1s))/(Math.log((Toil2-T1s)/(Toil1-T1s)));
-            double Aevp= (Qsen/(Tmevp1*Uevp))+(Qlat/(Tmevp2*Uevp))+(Qsup/(Tmevp3*Uevp));
+        //Tmevp1= ((Toil1-TbolA)-(Toils-T12))/(log((Toil1-TbolA)/(Toils-T12)));
+        Tmevp1= ((Toil1-TbolA)-(Toils-T12))/(Math.log((Toil1-TbolA)/(Toils-T12)));
+
+        //Tmevp2= ((Toil2-T1max)-(Toil1-TbolA))/(log((Toil2-T1max)/(Toil1-TbolA)));
+        Tmevp2= ((Toil2-T1max)-(Toil1-TbolA))/(Math.log((Toil2-T1max)/(Toil1-TbolA)));
+
+        //Aevp= (Qsen/(Tmevp1*Uevp))+(Qlat/(Tmevp2*Uevp));
+        Aevp= (Qsen/(Tmevp1*Uevp))+(Qlat/(Tmevp2*Uevp));
         
-            double Tmcon1= ((T4-Ten1)-(T4-Ten))/(Math.log((T4-Ten1)/(T4-Ten)));
-            double Tmcon2= ((T3-Ts)-(T4-Ten1))/(Math.log((T3-Ts)/(T4-Ten1)));
+        /*%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %%%%%%%%Calculo da agua do condensador%%%%*/
+        Ten = 25+273.15;
+        Pen = 101.325;
+        Ten1 = 35+273.15;
+        Ps = 101.325;
 
-            double Acon= Qconlat/(Tmcon1*Ucon)%+Qconsen/(Tmcon2*Ucon);
-            double Areg = 0;
-            
-            if(T3 == T4 & Acon < 10){
-                Acon = 0;
-            }
-        }else{
-            double Tmcon1= ((T4-Ten1)-(T4-Ten))/(Math.log((T4-Ten1)/(T4-Ten)));
-            double Tmcon2= ((T3-Ts)-(T4-Ten1))/(Math.log((T3-Ts)/(T4-Ten1)));
-            Acon= Qconlat/(Tmcon1*Ucon);
+        //Tmcon1 = ((T8-Ten1)-(T9-Ten))/(log((T8-Ten1)/(T9-Ten)));
+        Tmcon1 = ((T8-Ten1)-(T9-Ten))/(Math.log((T8-Ten1)/(T9-Ten)));
 
-            double Tmreg= ((T2-T6)-(T3-T5))/(Math.log((T2-T6)/(T3-T5)));
-            Areg= Qreg/(Tmreg*Ureg);
+        Acon = Qcon/(Tmcon1*Ucon);
+        
+        /*%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %%%%%%%%Calculo Recuperador LT%%%%*/
 
-            double Tmevp1= ((Toil1-T1s)-(Toils-T6))/(Math.log((Toil1-T1s)/(Toils-T6)));
-            double Tmevp2= ((Toil2-T1s)-(Toil1-T1s))/(Math.log((Toil2-T1s)/(Toil1-T1s)));
-            Aevp= (Qsen/(Tmevp1*Uevp))+(Qlat/(Tmevp2*Uevp))+(Qsup/(Tmevp3*Uevp));
+        //TmRLT1= ((T7-T11)-(T8-T10))/(log((T7-T11)/(T8-T10)));
+        TmRLT1= ((T7-T11)-(T8-T10))/(Math.log((T7-T11)/(T8-T10)));
 
-            if(T3==T4 && Acon<10)
-                Acon = 0;
-        }
+        ALHR= QLHR/(TmRLT1*Ureg);
+
+        /*%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %%%%%%%%Calculo Recuperador HT%%%%*/
+        
+        //TmRHT1=((T3-T12)-(T5-T11))/(log((T3-T12)/(T5-T11)));
+        TmRHT1=((T3-T12)-(T5-T11))/(Math.log((T3-T12)/(T5-T11)));
+
+        AHHR = QHHR/(TmRHT1*Ureg);
+        AT = Acon+Aevp+ALHR+AHHR;
+
+    }
+
+    public double getAevp() {
+        return Aevp;
+    }
+
+    public void setAevp(double Aevp) {
+        this.Aevp = Aevp;
+    }
+
+    public double getALHR() {
+        return ALHR;
+    }
+
+    public void setALHR(double ALHR) {
+        this.ALHR = ALHR;
     }
 
     public double getAcon() {
@@ -133,19 +92,19 @@ public class ControlAreas {
         this.Acon = Acon;
     }
 
-    public double getAreg() {
-        return Areg;
+    public double getAHHR() {
+        return AHHR;
     }
 
-    public void setAreg(double Areg) {
-        this.Areg = Areg;
+    public void setAHHR(double AHHR) {
+        this.AHHR = AHHR;
     }
 
-    public double getAevp() {
-        return Aevp;
+    public double getAT() {
+        return AT;
     }
 
-    public void setAevp(double Aevp) {
-        this.Aevp = Aevp;
+    public void setAT(double AT) {
+        this.AT = AT;
     }
 }

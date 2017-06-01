@@ -13,82 +13,46 @@ import org.hibernate.Session;
  */
 public class ControlTurbina {
     
-    private double S2, T4, S4, H4, H4s, xx4, xi4, yi4, P4, RP;
+    private double HL1, HV1, SL1, SV1, H1, S1, P2;
+    private ControlIsoentropiaTurbine isoTurbina;
     
-    public ControlTurbina(double H2, double Teff, double P2, double T2, double Pcon, double Pref, double Tref, double yi, Session session){
-        ControlH_Sistemamix sistemaMix = new ControlH_Sistemamix(T2, P2, Pref, Tref, yi, session);
+    public ControlTurbina(double Teff, double P1, double T1, double Pconop, double Pref, double Tref, int ii, Session session){
+        ControlH_Sistema HSistema = new ControlH_Sistema(T1, P1, Pref, Tref, ii, session);
+        HL1 = HSistema.getHL();
+        HV1 = HSistema.getHV();
         
-        S2 = sistemaMix.getHV();
-        P4 = Pcon;
-        RP = P2/P4;
-        if(RP<1.5){
-            //hdhdh*kfhf
-        }
+        ControlS_Sistema SSistema = new ControlS_Sistema(T1, P1, Pref, Tref, ii, session);
+        SL1 = SSistema.getSL();
+        SV1 = SSistema.getSV();
         
-        ControlIsoentropiaTurbina controlIsoTurbina = new ControlIsoentropiaTurbina(Teff, P4, Pref, Tref, S2, H2, yi, T2, session);
+        H1 = HV1;
+        S1 = SV1;
+        P2 = Pconop;
         
-        T4 = controlIsoTurbina.getT4();
-        S4 = controlIsoTurbina.getS4();
-        H4 = controlIsoTurbina.getH4();
-        H4s = controlIsoTurbina.getH4s();
-        xx4 = controlIsoTurbina.getXx4();
-        xi4 = controlIsoTurbina.getXi4();
-        yi4 = controlIsoTurbina.getYi4();
+        isoTurbina = new ControlIsoentropiaTurbine(Teff, P2, Pref, Tref, S1, H1, ii, session);
     }
 
-    public double getT4() {
-        return T4;
+    public ControlIsoentropiaTurbine getIsoTurbina() {
+        return isoTurbina;
     }
 
-    public void setT4(double T4) {
-        this.T4 = T4;
+    public void setIsoTurbina(ControlIsoentropiaTurbine isoTurbina) {
+        this.isoTurbina = isoTurbina;
+    }   
+
+    public double getH1() {
+        return H1;
     }
 
-    public double getS4() {
-        return S4;
+    public void setH1(double H1) {
+        this.H1 = H1;
     }
 
-    public void setS4(double S4) {
-        this.S4 = S4;
+    public double getS1() {
+        return S1;
     }
 
-    public double getH4() {
-        return H4;
-    }
-
-    public void setH4(double H4) {
-        this.H4 = H4;
-    }
-
-    public double getH4s() {
-        return H4s;
-    }
-
-    public void setH4s(double H4s) {
-        this.H4s = H4s;
-    }
-
-    public double getXx4() {
-        return xx4;
-    }
-
-    public void setXx4(double xx4) {
-        this.xx4 = xx4;
-    }
-
-    public double getXi4() {
-        return xi4;
-    }
-
-    public void setXi4(double xi4) {
-        this.xi4 = xi4;
-    }
-
-    public double getYi4() {
-        return yi4;
-    }
-
-    public void setYi4(double yi4) {
-        this.yi4 = yi4;
+    public void setS1(double S1) {
+        this.S1 = S1;
     }
 }

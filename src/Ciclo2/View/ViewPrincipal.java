@@ -132,30 +132,12 @@ public class ViewPrincipal {
         
         menuItem = new JMenu("Open");
         
-        subItem = new JMenuItem("Ciclo 1");
-        menuItem.add(subItem);
-        subItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //ctrlPrincipal.criaCiclo1();
-            }
-        });
-        
         subItem = new JMenuItem("Ciclo 2");
         menuItem.add(subItem);
         subItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ctrlPrincipal.criaCiclo2();
-            }
-        });
-        
-        subItem = new JMenuItem("Ciclo 3");
-        menuItem.add(subItem);
-        subItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //ctrlPrincipal.criaCiclo3();
             }
         });
         

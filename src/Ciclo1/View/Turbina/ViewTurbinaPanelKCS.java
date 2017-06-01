@@ -5,6 +5,7 @@
  */
 package Ciclo1.View.Turbina;
 
+import Ciclo1.Control.Turbina.ControlTurbinaPanelKCS;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -28,7 +29,7 @@ public class ViewTurbinaPanelKCS extends JPanel{
     
     private JPanel painelDados;
     
-    public ViewTurbinaPanelKCS(){
+    public ViewTurbinaPanelKCS(ControlTurbinaPanelKCS ctrlTurbina){
         painelDados = new JPanel(new GridBagLayout());
         
         this.setLayout(new FlowLayout(FlowLayout.LEADING));

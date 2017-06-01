@@ -9,38 +9,25 @@ import org.hibernate.Session;
 
 /**
  *
- * @author leonardo
+ * @author alysonmp
  */
 public class ControlS_Sistema {
-    private double SL, SV;
-
-    public ControlS_Sistema(double T, double P, double Pref, double Tref, int ii, Session session) {
-        ControlS_Dep sDep = new ControlS_Dep(Tref, Pref, ii, session);
-        ControlS_Ideal_Gas sIdealGas = new ControlS_Ideal_Gas(T, Tref, P, Pref, ii, session);
-        
-        double SDrefL = sDep.getSDL();
-        double SDrefV = sDep.getSDV();
-        
-        sDep = new ControlS_Dep(T, P, ii, session);
-        SL = -SDrefL+sIdealGas.getSig()+sDep.getSDL();
-        SV = -SDrefL+sIdealGas.getSig()+sDep.getSDV();
-    }
-
-    public double getSL() {
-        return SL;
-    }
-
-    public void setSL(double SL) {
-        this.SL = SL;
-    }
-
-    public double getSV() {
-        return SV;
-    }
-
-    public void setSV(double SV) {
-        this.SV = SV;
-    }
+    private double SDrefL, SDrefV, Sig, SDL, SDV, SL, SV;
     
-    
+    public ControlS_Sistema(double T, double P, double Pref, double Tref, double x, Session session){
+        
+        ControlS_Dep Sdep = new ControlS_Dep(Tref, Pref, x, session);
+        SDrefL = Sdep.getSDL();
+        SDrefV = Sdep.getSDV();
+        
+        ControlS_Ideal_Gas SIdealgas = new ControlS_Ideal_Gas(T, Tref, x, P, Pref, session);
+        Sig = SIdealgas.getSig();
+        
+        Sdep = new ControlS_Dep(T, P, x, session);
+        SDL = Sdep.getSDL();
+        SDV = Sdep.getSDV();
+        
+        SL = -SDrefL+Sig+SDL;
+        SV = -SDrefL+Sig+SDV;
+    }
 }
