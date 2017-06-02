@@ -109,19 +109,19 @@ public class ViewLateral extends JPanel{
         g.gridy = 2;
         g.gridwidth = 2;
         g.fill = GridBagConstraints.HORIZONTAL;
-        painelDados.add(labelMassa, g);
+        //painelDados.add(labelMassa, g);
         
         g.gridx = 1;
         g.gridy = 2;
         g.gridwidth = 1;
         g.fill = GridBagConstraints.HORIZONTAL;
-        painelDados.add(fieldMassa, g);
+        //painelDados.add(fieldMassa, g);
         
         g.gridx = 3;
         g.gridy = 2;
         g.gridwidth = 1;
         g.fill = GridBagConstraints.HORIZONTAL;
-        painelDados.add(comboMassa, g);
+        //painelDados.add(comboMassa, g);
 
         g.gridx = 0;
         g.gridy = 3;
@@ -225,11 +225,12 @@ public class ViewLateral extends JPanel{
         g.anchor = GridBagConstraints.PAGE_START;
         this.add(painelDados, g);
         
-        ViewLateral.this.fieldPinch.getEditor().setItem("0");
-        ViewLateral.this.fieldPinch.setEnabled(false);
+        fieldPinch.getEditor().setItem("0");
+        fieldPinch.setEnabled(false);
 
-        ViewLateral.this.fieldSup.getEditor().setItem("0");
-        ViewLateral.this.fieldSup.setEnabled(false);
+        fieldSup.getEditor().setItem("0");
+        fieldSup.setEnabled(false);
+        
         
         fieldMassa.getEditor().getEditorComponent().addFocusListener(new FocusListener() {
             @Override
