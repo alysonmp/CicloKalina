@@ -54,11 +54,11 @@ public class ViewEvaporadorPanelRankine extends JPanel{
     private final String[] massas = {"kg/s", "kg/m", "kg/h", "lb/s", "lb/m", "lb/h"};
     private JComboBox<String> comboMassa = new JComboBox<>(massas);
     
-    private final String[] temps = {"°C", "°F", "K"};
+    private final String[] temps = {"K", "°C", "°F"};
     private JComboBox<String> comboTempEntr = new JComboBox<>(temps);
     private JComboBox<String> comboTempSai = new JComboBox<>(temps);
     
-    private final String[] pressoes = {"atm", "kPa", "bar"};
+    private final String[] pressoes = {"kPa", "atm", "bar"};
     private JComboBox<String> comboPressaoEntr = new JComboBox<>(pressoes);
     private JComboBox<String> comboPressaoSai = new JComboBox<>(pressoes);
     

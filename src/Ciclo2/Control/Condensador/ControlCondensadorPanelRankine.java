@@ -32,7 +32,7 @@ public class ControlCondensadorPanelRankine {
     
     public ControlCondensadorPanelRankine(ControlPrincipal ctrlPrincipal, Session session){
         this.session = session;
-        viewCondensador = new ViewCondensadorPanelRankine(this);
+        //viewCondensador = new ViewCondensadorPanelRankine(this);
         this.ctrlPrincipal = ctrlPrincipal;
     }
 

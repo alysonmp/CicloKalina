@@ -94,6 +94,7 @@ import Ciclo2.View.Turbina.ViewTurbinaPanelRankine;
 import Ciclo2.View.ViewCiclos;
 import Ciclo2.View.Regenerador.ViewRegeneradorImage;
 import Ciclo2.View.Regenerador.ViewRegeneradorPanelRankine;
+import Ciclo2.View.ViewLateral;
 import java.awt.Color;
 import java.awt.Component;
 import java.io.BufferedReader;
@@ -103,6 +104,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import org.hibernate.Criteria;
@@ -651,6 +654,13 @@ public class ControlPrincipal {
         }
         
         viewPrincipal = new ViewPrincipal(this);
+        
+        try {
+            Thread.sleep(400);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(ControlPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        criaCiclo2();
     }
     
     //FUNÇÃO QUE CRIA O DESENHO DO PRIMEIRO CICLO E INDICA OS LOCAIS DOS JPANELS INSERIDOS
@@ -702,11 +712,11 @@ public class ControlPrincipal {
         //Start start = new Start(1, 14, 415.25, 1144.4, 25, 10, 313.15, 0.3, session);
         //System.exit(0);
         
-        Start start = new Start(1, 14, 415.25, 1144.4, 25, 10, 313.15, 0.3, session);
+        //Start start = new Start(1, 14, 415.25, 1144.4, 25, 10, 313.15, 0.3, session);
         
-        viewPrincipal.getPainelCiclos().removeAll();
-        viewPrincipal.getTabbedPanel().removeAll();
-        panel_usado.clear();
+        //viewPrincipal.getPainelCiclos().removeAll();
+        //viewPrincipal.getTabbedPanel().removeAll();
+        //panel_usado.clear();
         
         ViewCiclos ciclo = new ViewCiclos(this, "src/Ciclo2/Images/ciclo2.png", (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.3), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.7));
         ciclo.setLayout(null);
@@ -733,6 +743,9 @@ public class ControlPrincipal {
         criaPanel(new ViewBombaImage(this, 2), 
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.326), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.38), 
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.065), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.14));
+        
+        ViewLateral lateral = new ViewLateral(this);
+        viewPrincipal.getTabbedPanel().add(lateral);
         
         viewPrincipal.getFramePrincipal().repaint();
     }
