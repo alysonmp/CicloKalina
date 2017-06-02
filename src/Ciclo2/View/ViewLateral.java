@@ -5,7 +5,6 @@
  */
 package Ciclo2.View;
 
-
 import Control.ControlPrincipal;
 import Control.Conversao.ControlConverte;
 import Util.DropdownComboBox;
@@ -516,6 +515,50 @@ public class ViewLateral extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 ctrlPrincipal.iniciaCalculos();
+            }
+        });
+        
+        comboMassa.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                //Conversao
+                String valor = fieldMassa.getSelectedItem().toString();
+                if(!valor.isEmpty()){
+                    fieldMassa.setSelectedItem(String.valueOf(controlConverte.converte(comboMassa.getSelectedItem().toString(),Double.parseDouble(valor))));
+                }           
+            }
+        });
+        
+        comboPressao.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                //Conversao
+                String valor = fieldPressao.getSelectedItem().toString();
+                if(!valor.isEmpty()){
+                    fieldPressao.setSelectedItem(String.valueOf(controlConverte.converte(comboPressao.getSelectedItem().toString(),Double.parseDouble(valor))));
+                }           
+            }
+        });
+        
+        comboTemp.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                //Conversao
+                String valor = fieldTemp.getSelectedItem().toString();
+                if(!valor.isEmpty()){
+                    fieldTemp.setSelectedItem(String.valueOf(controlConverte.converte(comboTemp.getSelectedItem().toString(),Double.parseDouble(valor))));
+                }         
+            }
+        });
+        
+        comboTempCond.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                //Conversao
+                String valor = fieldTempCond.getSelectedItem().toString();
+                if(!valor.isEmpty()){
+                    fieldTempCond.setSelectedItem(String.valueOf(controlConverte.converte(comboTempCond.getSelectedItem().toString(),Double.parseDouble(valor))));
+                } 
             }
         });
     }
