@@ -26,7 +26,7 @@ public class ControlIpentaneLiquido {
     
     private double Cpl, Prl, kl, Mul, Vcl;
     private double Cpl1, Cpl2, Prl1, Prl2,kl1 , kl2, Mul1, Mul2, Vcl1, Vcl2;
-    ModelIpentaneLiquido ipentane_liquido1, ipentane_liquido2, ipentane_liquido3, ipentane_liquido4;
+    private ModelIpentaneLiquido ipentane_liquido1, ipentane_liquido2, ipentane_liquido3, ipentane_liquido4;
     
     public ControlIpentaneLiquido(Session session) {
         this.session = session;

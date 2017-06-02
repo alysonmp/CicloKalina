@@ -24,7 +24,7 @@ public class ControlEthylbenzeneLiquido {
     Session session;
     private double Cpl, Prl, kl, Mul, Vcl;
     private double Cpl1, Cpl2, Prl1, Prl2, kl1, kl2, Mul1, Mul2, Vcl1, Vcl2;
-    ModelEthylbenzeneLiquido ethylbenzene_l1, ethylbenzene_l2, ethylbenzene_l3, ethylbenzene_l4;
+    private ModelEthylbenzeneLiquido ethylbenzene_l1, ethylbenzene_l2, ethylbenzene_l3, ethylbenzene_l4;
     
     public ControlEthylbenzeneLiquido(Session session){
         this.session = session;

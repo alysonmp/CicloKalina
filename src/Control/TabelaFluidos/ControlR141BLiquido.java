@@ -26,7 +26,7 @@ public class ControlR141BLiquido {
     Session session;
     private double Cpl, Prl, kl, Mul, Vcl;
     private double Cpl1, Cpl2, Prl1, Prl2, kl1, kl2, Mul1, Mul2, Vcl1, Vcl2;
-    ModelR141BLiquido R141B1, R141B2, R141B3, R141B4;
+    private ModelR141BLiquido R141B1, R141B2, R141B3, R141B4;
     
     public ControlR141BLiquido(Session session){
         this.session = session;

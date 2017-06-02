@@ -29,6 +29,11 @@ public class ControlWaterGas {
     private double Cpv, Prv, kv, Muv, Vcv;
     private double cpv1, cpv2, Prv1, Prv2, kv1, kv2, Muv1, Muv2, Vcv1, Vcv2;
     
+    private ModelWaterGas water1;
+    private ModelWaterGas water2;
+    private ModelWaterGas water3;
+    private ModelWaterGas water4;
+    
     public ControlWaterGas(Session session){
         this.session = session;
     }
@@ -76,29 +81,33 @@ public class ControlWaterGas {
         Criteria cr = this.session.createCriteria(ModelWaterGas.class);
         //cr = this.session.createCriteria(ModelwaterGas.class);
         
-        SQLQuery consulta = this.session.createSQLQuery("select * from water_gas where pressao <= " +pressao+ "and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelWaterGas.class));//Sem isso aqui impossível de retornar
-	List<ModelWaterGas> waters = consulta.list(); 
-        ModelWaterGas water1 = waters.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from water_gas where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelWaterGas.class));//Sem isso aqui impossível de retornar
-	waters = consulta.list(); 
-        ModelWaterGas water2 = waters.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from water_gas where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelWaterGas.class));//Sem isso aqui impossível de retornar
-	waters = consulta.list(); 
-        ModelWaterGas water3 = waters.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from water_gas where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelWaterGas.class));//Sem isso aqui impossível de retornar
-	waters = consulta.list(); 
-        ModelWaterGas water4 = waters.get(0);
+        do{
+            SQLQuery consulta = this.session.createSQLQuery("select * from water_gas where pressao <= " +pressao+ "and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelWaterGas.class));//Sem isso aqui impossível de retornar
+            List<ModelWaterGas> waters = consulta.list(); 
+            water1 = waters.get(0);
+
+            consulta = this.session.createSQLQuery("select * from water_gas where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelWaterGas.class));//Sem isso aqui impossível de retornar
+            waters = consulta.list(); 
+            water2 = waters.get(0);
+
+            consulta = this.session.createSQLQuery("select * from water_gas where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelWaterGas.class));//Sem isso aqui impossível de retornar
+            waters = consulta.list(); 
+            water3 = waters.get(0);
+
+            consulta = this.session.createSQLQuery("select * from water_gas where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelWaterGas.class));//Sem isso aqui impossível de retornar
+            waters = consulta.list(); 
+            water4 = waters.get(0);
+
+            temperatura += 1;
+        }while(water1 != null || water2 != null || water3 != null || water4 != null);
         
         cpv1 = water1.getCPV() + (water2.getCPV() - water1.getCPV()) * ((temperatura-water1.getTEMPERATURA())/(water2.getTEMPERATURA()-water1.getTEMPERATURA()));
         cpv2 = water3.getCPV() + (water4.getCPV() - water3.getCPV()) * ((temperatura-water3.getTEMPERATURA())/(water4.getTEMPERATURA()-water3.getTEMPERATURA()));

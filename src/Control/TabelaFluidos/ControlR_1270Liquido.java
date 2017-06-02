@@ -25,7 +25,7 @@ public class ControlR_1270Liquido {
     Session session;
     private double Cpl, Prl, kl, Mul, Vcl;
     private double Cpl1, Cpl2, Prl1, Prl2, kl1, kl2, Mul1, Mul2, Vcl1, Vcl2;
-    ModelR_1270Liquido r_1270_l1, r_1270_l2, r_1270_l3, r_1270_l4;
+    private ModelR_1270Liquido r_1270_l1, r_1270_l2, r_1270_l3, r_1270_l4;
     
     public ControlR_1270Liquido(Session session){
         this.session = session;

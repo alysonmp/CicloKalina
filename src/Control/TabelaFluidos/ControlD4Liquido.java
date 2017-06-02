@@ -21,7 +21,7 @@ public class ControlD4Liquido {
     
     private double Cpl, Prl, kl, Mul, Vcl;
     private double Cpl1, Cpl2, Prl1, Prl2,kl1 , kl2, Mul1, Mul2, Vcl1, Vcl2;
-    ModelD4Liquido d4_liquido1, d4_liquido2, d4_liquido3, d4_liquido4;
+    private ModelD4Liquido d4_liquido1, d4_liquido2, d4_liquido3, d4_liquido4;
     
     public ControlD4Liquido(Session session) {
         this.session = session;

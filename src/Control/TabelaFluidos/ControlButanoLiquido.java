@@ -28,7 +28,7 @@ public class ControlButanoLiquido {
     Session session;
     private double Cpl, Prl, kl, Mul, Vcl;
     private double Cpl1, Cpl2, Prl1, Prl2, kl1, kl2, Mul1, Mul2, Vcl1, Vcl2;
-    ModelButanoLiquido butano_l1, butano_l2, butano_l3, butano_l4;
+    private ModelButanoLiquido butano_l1, butano_l2, butano_l3, butano_l4;
     
     public ControlButanoLiquido(Session session){
         this.session = session;

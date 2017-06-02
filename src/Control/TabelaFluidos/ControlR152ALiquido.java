@@ -27,7 +27,7 @@ public class ControlR152ALiquido {
     Session session;
     private double Cpl, Prl, kl, Mul, Vcl;
     private double Cpl1, Cpl2, Prl1, Prl2, kl1, kl2, Mul1, Mul2, Vcl1, Vcl2;
-    ModelR152ALiquido R152A1, R152A2, R152A3, R152A4;
+    private ModelR152ALiquido R152A1, R152A2, R152A3, R152A4;
     
     public ControlR152ALiquido(Session session){
         this.session = session;

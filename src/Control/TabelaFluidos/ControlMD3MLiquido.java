@@ -26,7 +26,7 @@ public class ControlMD3MLiquido {
     Session session;
     private double Cpl, Prl, kl, Mul, Vcl;
     private double Cpl1, Cpl2, Prl1, Prl2,kl1 , kl2, Mul1, Mul2, Vcl1, Vcl2;
-    ModelMD3MLiquido MD3M1, MD3M2, MD3M3, MD3M4;
+    private ModelMD3MLiquido MD3M1, MD3M2, MD3M3, MD3M4;
             
     public ControlMD3MLiquido(Session session){
         this.session = session;

@@ -26,7 +26,7 @@ public class ControlHexaneLiquido {
     
     private double Cpl, Prl, kl, Mul, Vcl;
     private double Cpl1, Cpl2, Prl1, Prl2,kl1 , kl2, Mul1, Mul2, Vcl1, Vcl2;
-    ModelHexaneLiquido hexane_liquido1, hexane_liquido2, hexane_liquido3, hexane_liquido4;
+    private ModelHexaneLiquido hexane_liquido1, hexane_liquido2, hexane_liquido3, hexane_liquido4;
     
     public ControlHexaneLiquido(Session session) {
         this.session = session;

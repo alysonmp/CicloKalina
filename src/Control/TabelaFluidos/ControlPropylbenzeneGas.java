@@ -25,6 +25,11 @@ public class ControlPropylbenzeneGas {
     private double kv, Cpv, Prv, Muv, Vcv;
     private double kv1, kv2, Cpv1, Cpv2, Prv1, Prv2, Muv1, Muv2, Vcv1, Vcv2;
 
+    private ModelPropylbenzeneGas propylbenzene_g1;
+    private ModelPropylbenzeneGas propylbenzene_g2;
+    private ModelPropylbenzeneGas propylbenzene_g3;
+    private ModelPropylbenzeneGas propylbenzene_g4;
+    
     public ControlPropylbenzeneGas(Session session) {
         this.session = session;
     }
@@ -67,30 +72,34 @@ public class ControlPropylbenzeneGas {
     public void interpolacao(double pressao,double temperatura){
         Criteria cr = this.session.createCriteria(ModelPropylbenzeneGas.class);
         
-        SQLQuery consulta = this.session.createSQLQuery("select * from propylbenzene_gas where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelPropylbenzeneGas.class));
-        List<ModelPropylbenzeneGas> propylbenzene_g = consulta.list();
-        ModelPropylbenzeneGas propylbenzene_g1 = propylbenzene_g.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from propylbenzene_gas where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelPropylbenzeneGas.class));
-        propylbenzene_g = consulta.list();
-        ModelPropylbenzeneGas propylbenzene_g2 = propylbenzene_g.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from propylbenzene_gas where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelPropylbenzeneGas.class));
-        propylbenzene_g = consulta.list();
-        ModelPropylbenzeneGas propylbenzene_g3 = propylbenzene_g.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from propylbenzene_gas where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelPropylbenzeneGas.class));
-        propylbenzene_g = consulta.list();
-        ModelPropylbenzeneGas propylbenzene_g4 = propylbenzene_g.get(0);
-               
+        do{
+            SQLQuery consulta = this.session.createSQLQuery("select * from propylbenzene_gas where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelPropylbenzeneGas.class));
+            List<ModelPropylbenzeneGas> propylbenzene_g = consulta.list();
+            propylbenzene_g1 = propylbenzene_g.get(0);
+
+            consulta = this.session.createSQLQuery("select * from propylbenzene_gas where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelPropylbenzeneGas.class));
+            propylbenzene_g = consulta.list();
+            propylbenzene_g2 = propylbenzene_g.get(0);
+
+            consulta = this.session.createSQLQuery("select * from propylbenzene_gas where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelPropylbenzeneGas.class));
+            propylbenzene_g = consulta.list();
+            propylbenzene_g3 = propylbenzene_g.get(0);
+
+            consulta = this.session.createSQLQuery("select * from propylbenzene_gas where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelPropylbenzeneGas.class));
+            propylbenzene_g = consulta.list();
+            propylbenzene_g4 = propylbenzene_g.get(0);
+
+            temperatura += 1;
+        }while(propylbenzene_g1 != null || propylbenzene_g2 != null || propylbenzene_g3 != null || propylbenzene_g4 != null);
+            
         double p = ((pressao - propylbenzene_g1.getPRESSAO())/(propylbenzene_g3.getPRESSAO() - propylbenzene_g1.getPRESSAO()));
         double t1 = ((temperatura - propylbenzene_g1.getTEMPERATURA())/(propylbenzene_g2.getTEMPERATURA() - propylbenzene_g1.getTEMPERATURA()));
         double t2 = ((temperatura - propylbenzene_g3.getTEMPERATURA())/(propylbenzene_g4.getTEMPERATURA() - propylbenzene_g3.getTEMPERATURA()));
-
+        
         Cpv2 = propylbenzene_g1.getCPV() + (propylbenzene_g2.getCPV() - propylbenzene_g1.getCPV()) * t1;
         Cpv2 = propylbenzene_g3.getCPV() + (propylbenzene_g4.getCPV() - propylbenzene_g3.getCPV()) * t2;
         Cpv = Cpv1 + (Cpv2 - Cpv1) * p;

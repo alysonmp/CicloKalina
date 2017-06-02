@@ -26,6 +26,11 @@ public class ControlR216_CAGas {
     private double kv, Cpv, Prv, Muv, Vcv;
     private double kv1, kv2, Cpv1, Cpv2, Prv1, Prv2, Muv1, Muv2, Vcv1, Vcv2;
 
+    private ModelR216_CAGas r216_ca_g1;
+    private ModelR216_CAGas r216_ca_g2;
+    private ModelR216_CAGas r216_ca_g3;
+    private ModelR216_CAGas r216_ca_g4;
+    
     public ControlR216_CAGas(Session session) {
         this.session = session;
     }
@@ -68,25 +73,29 @@ public class ControlR216_CAGas {
     public void interpolacao(double pressao,double temperatura){
         Criteria cr = this.session.createCriteria(ModelR216_CAGas.class);
         
-        SQLQuery consulta = this.session.createSQLQuery("select * from r216_ca_gas where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelR216_CAGas.class));
-        List<ModelR216_CAGas> r216_ca_g = consulta.list();
-        ModelR216_CAGas r216_ca_g1 = r216_ca_g.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from r216_ca_gas where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelR216_CAGas.class));
-        r216_ca_g = consulta.list();
-        ModelR216_CAGas r216_ca_g2 = r216_ca_g.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from r216_ca_gas where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelR216_CAGas.class));
-        r216_ca_g = consulta.list();
-        ModelR216_CAGas r216_ca_g3 = r216_ca_g.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from r216_ca_gas where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelR216_CAGas.class));
-        r216_ca_g = consulta.list();
-        ModelR216_CAGas r216_ca_g4 = r216_ca_g.get(0);
+        do{
+            SQLQuery consulta = this.session.createSQLQuery("select * from r216_ca_gas where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelR216_CAGas.class));
+            List<ModelR216_CAGas> r216_ca_g = consulta.list();
+            r216_ca_g1 = r216_ca_g.get(0);
+
+            consulta = this.session.createSQLQuery("select * from r216_ca_gas where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelR216_CAGas.class));
+            r216_ca_g = consulta.list();
+            r216_ca_g2 = r216_ca_g.get(0);
+
+            consulta = this.session.createSQLQuery("select * from r216_ca_gas where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelR216_CAGas.class));
+            r216_ca_g = consulta.list();
+            r216_ca_g3 = r216_ca_g.get(0);
+
+            consulta = this.session.createSQLQuery("select * from r216_ca_gas where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelR216_CAGas.class));
+            r216_ca_g = consulta.list();
+            r216_ca_g4 = r216_ca_g.get(0);
+
+            temperatura += 1;
+        }while(r216_ca_g1 != null || r216_ca_g2 != null || r216_ca_g3 != null || r216_ca_g4 != null);
         
         double p = ((pressao - r216_ca_g1.getPRESSAO())/(r216_ca_g3.getPRESSAO() - r216_ca_g1.getPRESSAO()));
         double t1 = ((temperatura - r216_ca_g1.getTEMPERATURA())/(r216_ca_g2.getTEMPERATURA() - r216_ca_g1.getTEMPERATURA()));

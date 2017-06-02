@@ -26,6 +26,11 @@ public class ControlEthylbenzeneGas {
     private double kv, Cpv, Prv, Muv, Vcv;
     private double kv1, kv2, Cpv1, Cpv2, Prv1, Prv2, Muv1, Muv2, Vcv1, Vcv2;
 
+    private ModelEthylbenzeneGas ethylbenzene_g1;
+    private ModelEthylbenzeneGas ethylbenzene_g2;
+    private ModelEthylbenzeneGas ethylbenzene_g3;
+    private ModelEthylbenzeneGas ethylbenzene_g4;
+    
     public ControlEthylbenzeneGas(Session session) {
         this.session = session;
     }
@@ -68,25 +73,29 @@ public class ControlEthylbenzeneGas {
     public void interpolacao(double pressao,double temperatura){
         Criteria cr = this.session.createCriteria(ModelEthylbenzeneGas.class);
         
-        SQLQuery consulta = this.session.createSQLQuery("select * from ethylbenzene_gas where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelEthylbenzeneGas.class));
-        List<ModelEthylbenzeneGas> ethylbenzene_g = consulta.list();
-        ModelEthylbenzeneGas ethylbenzene_g1 = ethylbenzene_g.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from ethylbenzene_gas where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelEthylbenzeneGas.class));
-        ethylbenzene_g = consulta.list();
-        ModelEthylbenzeneGas ethylbenzene_g2 = ethylbenzene_g.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from ethylbenzene_gas where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelEthylbenzeneGas.class));
-        ethylbenzene_g = consulta.list();
-        ModelEthylbenzeneGas ethylbenzene_g3 = ethylbenzene_g.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from ethylbenzene_gas where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelEthylbenzeneGas.class));
-        ethylbenzene_g = consulta.list();
-        ModelEthylbenzeneGas ethylbenzene_g4 = ethylbenzene_g.get(0);
+        do{
+            SQLQuery consulta = this.session.createSQLQuery("select * from ethylbenzene_gas where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelEthylbenzeneGas.class));
+            List<ModelEthylbenzeneGas> ethylbenzene_g = consulta.list();
+            ethylbenzene_g1 = ethylbenzene_g.get(0);
+
+            consulta = this.session.createSQLQuery("select * from ethylbenzene_gas where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelEthylbenzeneGas.class));
+            ethylbenzene_g = consulta.list();
+            ModelEthylbenzeneGas ethylbenzene_g2 = ethylbenzene_g.get(0);
+
+            consulta = this.session.createSQLQuery("select * from ethylbenzene_gas where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelEthylbenzeneGas.class));
+            ethylbenzene_g = consulta.list();
+            ModelEthylbenzeneGas ethylbenzene_g3 = ethylbenzene_g.get(0);
+
+            consulta = this.session.createSQLQuery("select * from ethylbenzene_gas where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelEthylbenzeneGas.class));
+            ethylbenzene_g = consulta.list();
+            ModelEthylbenzeneGas ethylbenzene_g4 = ethylbenzene_g.get(0);
+
+            temperatura += 1;
+        }while(ethylbenzene_g1 != null || ethylbenzene_g2 != null || ethylbenzene_g3 != null || ethylbenzene_g4 != null);
         
         double p = ((pressao - ethylbenzene_g1.getPRESSAO())/(ethylbenzene_g3.getPRESSAO() - ethylbenzene_g1.getPRESSAO()));
         double t1 = ((temperatura - ethylbenzene_g1.getTEMPERATURA())/(ethylbenzene_g2.getTEMPERATURA() - ethylbenzene_g1.getTEMPERATURA()));

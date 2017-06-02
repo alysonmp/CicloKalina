@@ -26,7 +26,7 @@ public class ControlR22Liquido {
     Session session;
     private double Cpl, Prl, kl, Mul, Vcl;
     private double Cpl1, Cpl2, Prl1, Prl2, kl1, kl2, Mul1, Mul2, Vcl1, Vcl2;
-    ModelR22Liquido R221, R222, R223, R224;
+    private ModelR22Liquido R221, R222, R223, R224;
             
     public ControlR22Liquido(Session session){
         this.session = session;

@@ -26,7 +26,7 @@ public class ControlOctaneLiquido {
     Session session;
     private double Cpl, Prl, kl, Mul, Vcl;
     private double Cpl1, Cpl2, Prl1, Prl2, kl1, kl2, Mul1, Mul2, Vcl1, Vcl2;
-    ModelOctaneLiquido Octane1, Octane2, Octane3, Octane4;
+    private ModelOctaneLiquido Octane1, Octane2, Octane3, Octane4;
     
     public ControlOctaneLiquido(Session session){
         this.session = session;

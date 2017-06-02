@@ -27,7 +27,7 @@ public class ControlTolueneLiquido {
     Session session;
     private double Cpl, Prl, kl, Mul, Vcl;
     private double Cpl1, Cpl2, Prl1, Prl2, kl1, kl2, Mul1, Mul2, Vcl1, Vcl2;
-    ModelTolueneLiquido toluene1, toluene2, toluene3, toluene4;
+    private ModelTolueneLiquido toluene1, toluene2, toluene3, toluene4;
             
     public ControlTolueneLiquido(Session session){
         this.session = session;

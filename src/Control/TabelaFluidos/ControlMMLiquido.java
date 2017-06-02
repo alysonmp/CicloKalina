@@ -26,7 +26,7 @@ public class ControlMMLiquido {
     Session session;
     private double Cpl, Prl, kl, Mul, Vcl;
     private double Cpl1, Cpl2, Prl1, Prl2, kl1, kl2, Mul1, Mul2, Vcl1, Vcl2;
-    ModelMMLiquido MM1, MM2, MM3, MM4;
+    private ModelMMLiquido MM1, MM2, MM3, MM4;
     
     public ControlMMLiquido(Session session){
         this.session = session;

@@ -26,6 +26,11 @@ public class ControlDimetylbenzeneGas {
     private double kv, Cpv, Prv, Muv, Vcv;
     private double kv1, kv2, Cpv1, Cpv2, Prv1, Prv2, Muv1, Muv2, Vcv1, Vcv2;
 
+    private ModelDimetylbenzeneGas dimetylbenzene_g1;
+    private ModelDimetylbenzeneGas dimetylbenzene_g2;
+    private ModelDimetylbenzeneGas dimetylbenzene_g3;
+    private ModelDimetylbenzeneGas dimetylbenzene_g4;
+    
     public ControlDimetylbenzeneGas(Session session) {
         this.session = session;
     }
@@ -68,25 +73,29 @@ public class ControlDimetylbenzeneGas {
     public void interpolacao(double pressao,double temperatura){
         Criteria cr = this.session.createCriteria(ModelDimetylbenzeneGas.class);
         
-        SQLQuery consulta = this.session.createSQLQuery("select * from dimetylbenzene_gas where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelDimetylbenzeneGas.class));
-        List<ModelDimetylbenzeneGas> dimetylbenzene_g = consulta.list();
-        ModelDimetylbenzeneGas dimetylbenzene_g1 = dimetylbenzene_g.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from dimetylbenzene_gas where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelDimetylbenzeneGas.class));
-        dimetylbenzene_g = consulta.list();
-        ModelDimetylbenzeneGas dimetylbenzene_g2 = dimetylbenzene_g.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from dimetylbenzene_gas where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelDimetylbenzeneGas.class));
-        dimetylbenzene_g = consulta.list();
-        ModelDimetylbenzeneGas dimetylbenzene_g3 = dimetylbenzene_g.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from dimetylbenzene_gas where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelDimetylbenzeneGas.class));
-        dimetylbenzene_g = consulta.list();
-        ModelDimetylbenzeneGas dimetylbenzene_g4 = dimetylbenzene_g.get(0);
+        do{
+            SQLQuery consulta = this.session.createSQLQuery("select * from dimetylbenzene_gas where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelDimetylbenzeneGas.class));
+            List<ModelDimetylbenzeneGas> dimetylbenzene_g = consulta.list();
+            dimetylbenzene_g1 = dimetylbenzene_g.get(0);
+
+            consulta = this.session.createSQLQuery("select * from dimetylbenzene_gas where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelDimetylbenzeneGas.class));
+            dimetylbenzene_g = consulta.list();
+            dimetylbenzene_g2 = dimetylbenzene_g.get(0);
+
+            consulta = this.session.createSQLQuery("select * from dimetylbenzene_gas where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelDimetylbenzeneGas.class));
+            dimetylbenzene_g = consulta.list();
+            dimetylbenzene_g3 = dimetylbenzene_g.get(0);
+
+            consulta = this.session.createSQLQuery("select * from dimetylbenzene_gas where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelDimetylbenzeneGas.class));
+            dimetylbenzene_g = consulta.list();
+            dimetylbenzene_g4 = dimetylbenzene_g.get(0);
+
+            temperatura += 1;
+        }while(dimetylbenzene_g1 != null || dimetylbenzene_g2 != null || dimetylbenzene_g3 != null || dimetylbenzene_g4 != null);
         
         double p = ((pressao - dimetylbenzene_g1.getPRESSAO())/(dimetylbenzene_g3.getPRESSAO() - dimetylbenzene_g1.getPRESSAO()));
         double t1 = ((temperatura - dimetylbenzene_g1.getTEMPERATURA())/(dimetylbenzene_g2.getTEMPERATURA() - dimetylbenzene_g1.getTEMPERATURA()));

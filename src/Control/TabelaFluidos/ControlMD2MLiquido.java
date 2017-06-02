@@ -26,8 +26,7 @@ public class ControlMD2MLiquido {
     
     private double Cpl, Prl, kl, Mul, Vcl;
     private double Cpl1, Cpl2, Prl1, Prl2,kl1 , kl2, Mul1, Mul2, Vcl1, Vcl2;
-    ModelMD2MLiquido md2m_liquido1, md2m_liquido2, md2m_liquido3, md2m_liquido4;
-    
+    private ModelMD2MLiquido md2m_liquido1, md2m_liquido2, md2m_liquido3, md2m_liquido4;
     
     public ControlMD2MLiquido(Session session) {
         this.session = session;

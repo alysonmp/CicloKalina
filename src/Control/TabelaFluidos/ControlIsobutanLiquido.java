@@ -26,7 +26,7 @@ public class ControlIsobutanLiquido {
     
     private double Cpl, Prl, kl, Mul, Vcl;
     private double Cpl1, Cpl2, Prl1, Prl2,kl1 , kl2, Mul1, Mul2, Vcl1, Vcl2;
-    ModelIsobutanLiquido isobutan_liquido1, isobutan_liquido2, isobutan_liquido3, isobutan_liquido4;
+    private ModelIsobutanLiquido isobutan_liquido1, isobutan_liquido2, isobutan_liquido3, isobutan_liquido4;
             
     public ControlIsobutanLiquido(Session session) {
         this.session = session;

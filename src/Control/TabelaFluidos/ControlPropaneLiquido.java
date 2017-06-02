@@ -26,7 +26,7 @@ public class ControlPropaneLiquido {
     Session session;
     private double Cpl, Prl, kl, Mul, Vcl;
     private double Cpl1, Cpl2, Prl1, Prl2, kl1, kl2, Mul1, Mul2, Vcl1, Vcl2;
-    ModelPropaneLiquido Propane1, Propane2, Propane3, Propane4;
+    private ModelPropaneLiquido Propane1, Propane2, Propane3, Propane4;
     
     public ControlPropaneLiquido(Session session){
         this.session = session;

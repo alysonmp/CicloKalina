@@ -25,7 +25,7 @@ public class ControlR216_CALiquido {
     Session session;
     private double Cpl, Prl, kl, Mul, Vcl;
     private double Cpl1, Cpl2, Prl1, Prl2, kl1, kl2, Mul1, Mul2, Vcl1, Vcl2;
-    ModelR216_CALiquido r216_ca_l1, r216_ca_l2, r216_ca_l3, r216_ca_l4;
+    private ModelR216_CALiquido r216_ca_l1, r216_ca_l2, r216_ca_l3, r216_ca_l4;
     
     public ControlR216_CALiquido(Session session){
         this.session = session;

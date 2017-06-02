@@ -20,7 +20,7 @@ public class ControlD5Liquido {
     
     private double Cpl, Prl, kl, Mul, Vcl;
     private double Cpl1, Cpl2, Prl1, Prl2,kl1 , kl2, Mul1, Mul2, Vcl1, Vcl2;
-    ModelD5Liquido d5_liquido1, d5_liquido2, d5_liquido3, d5_liquido4;
+    private ModelD5Liquido d5_liquido1, d5_liquido2, d5_liquido3, d5_liquido4;
     
     public ControlD5Liquido(Session session) {
         this.session = session;

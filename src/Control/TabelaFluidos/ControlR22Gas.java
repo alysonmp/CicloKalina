@@ -29,6 +29,11 @@ public class ControlR22Gas {
     private double Cpv, Prv, kv, Muv, Vcv;
     private double cpv1, cpv2, Prv1, Prv2, kv1, kv2, Muv1, Muv2, Vcv1, Vcv2;
     
+    private ModelR22Gas R221;
+    private ModelR22Gas R222;
+    private ModelR22Gas R223;
+    private ModelR22Gas R224;
+    
     public ControlR22Gas(Session session){
         this.session = session;
     }
@@ -76,29 +81,33 @@ public class ControlR22Gas {
         Criteria cr = this.session.createCriteria(ModelR22Gas.class);
         //cr = this.session.createCriteria(ModelR22Gas.class);
         
-        SQLQuery consulta = this.session.createSQLQuery("select * from R22_gas where pressao <= " +pressao+ "and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelR22Gas.class));//Sem isso aqui impossível de retornar
-	List<ModelR22Gas> R22s = consulta.list(); 
-        ModelR22Gas R221 = R22s.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from R22_gas where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelR22Gas.class));//Sem isso aqui impossível de retornar
-	R22s = consulta.list(); 
-        ModelR22Gas R222 = R22s.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from R22_gas where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelR22Gas.class));//Sem isso aqui impossível de retornar
-	R22s = consulta.list(); 
-        ModelR22Gas R223 = R22s.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from R22_gas where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelR22Gas.class));//Sem isso aqui impossível de retornar
-	R22s = consulta.list(); 
-        ModelR22Gas R224 = R22s.get(0);
+        do{
+            SQLQuery consulta = this.session.createSQLQuery("select * from R22_gas where pressao <= " +pressao+ "and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelR22Gas.class));//Sem isso aqui impossível de retornar
+            List<ModelR22Gas> R22s = consulta.list(); 
+            R221 = R22s.get(0);
+
+            consulta = this.session.createSQLQuery("select * from R22_gas where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelR22Gas.class));//Sem isso aqui impossível de retornar
+            R22s = consulta.list(); 
+            R222 = R22s.get(0);
+
+            consulta = this.session.createSQLQuery("select * from R22_gas where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelR22Gas.class));//Sem isso aqui impossível de retornar
+            R22s = consulta.list(); 
+            R223 = R22s.get(0);
+
+            consulta = this.session.createSQLQuery("select * from R22_gas where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelR22Gas.class));//Sem isso aqui impossível de retornar
+            R22s = consulta.list(); 
+            R224 = R22s.get(0);
+
+            temperatura += 1;
+        }while(R221 != null || R222 != null || R223 != null || R224 != null);
         
         cpv1 = R221.getCPV() + (R222.getCPV() - R221.getCPV()) * ((temperatura-R221.getTEMPERATURA())/(R222.getTEMPERATURA()-R221.getTEMPERATURA()));
         cpv2 = R223.getCPV() + (R224.getCPV() - R223.getCPV()) * ((temperatura-R223.getTEMPERATURA())/(R224.getTEMPERATURA()-R223.getTEMPERATURA()));

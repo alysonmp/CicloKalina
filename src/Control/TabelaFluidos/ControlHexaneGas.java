@@ -29,6 +29,11 @@ public class ControlHexaneGas {
     private double kv, Cpv, Prv, Muv, Vcv;
     private double cpv1, cpv2, Prv1, Prv2, kv1, kv2, Muv1, Muv2, Vcv1, Vcv2;
     
+    private ModelHexaneGas hexane1;
+    private ModelHexaneGas hexane2;
+    private ModelHexaneGas hexane3;
+    private ModelHexaneGas hexane4;
+    
     public ControlHexaneGas(Session session){
         this.session = session;
     }
@@ -74,29 +79,33 @@ public class ControlHexaneGas {
     public void interpolacao(double pressao, double temperatura){
         Criteria cr = this.session.createCriteria(ModelHexaneGas.class);
         
-        SQLQuery consulta = this.session.createSQLQuery("select * from Hexane_gas where pressao <= " +pressao+ " and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelHexaneGas.class));
-	List<ModelHexaneGas> hexanes = consulta.list(); 
-        ModelHexaneGas hexane1 = hexanes.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from Hexane_gas where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelHexaneGas.class));
-	hexanes = consulta.list(); 
-        ModelHexaneGas hexane2 = hexanes.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from Hexane_gas where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelHexaneGas.class));
-	hexanes = consulta.list(); 
-        ModelHexaneGas hexane3 = hexanes.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from Hexane_gas where pressao >= " +pressao+ " and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelHexaneGas.class));
-	hexanes = consulta.list(); 
-        ModelHexaneGas hexane4 = hexanes.get(0);
+        do{
+            SQLQuery consulta = this.session.createSQLQuery("select * from Hexane_gas where pressao <= " +pressao+ " and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelHexaneGas.class));
+            List<ModelHexaneGas> hexanes = consulta.list(); 
+            hexane1 = hexanes.get(0);
+
+            consulta = this.session.createSQLQuery("select * from Hexane_gas where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelHexaneGas.class));
+            hexanes = consulta.list(); 
+            hexane2 = hexanes.get(0);
+
+            consulta = this.session.createSQLQuery("select * from Hexane_gas where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelHexaneGas.class));
+            hexanes = consulta.list(); 
+            hexane3 = hexanes.get(0);
+
+            consulta = this.session.createSQLQuery("select * from Hexane_gas where pressao >= " +pressao+ " and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelHexaneGas.class));
+            hexanes = consulta.list(); 
+            hexane4 = hexanes.get(0);
+
+            temperatura += 1;
+        }while(hexane1 != null || hexane2 != null || hexane3 != null || hexane4 != null);
         
         cpv1 = hexane1.getCPV() + (hexane2.getCPV() - hexane1.getCPV()) * ((temperatura-hexane1.getTEMPERATURA())/(hexane2.getTEMPERATURA()-hexane1.getTEMPERATURA()));
         cpv2 = hexane3.getCPV() + (hexane4.getCPV() - hexane3.getCPV()) * ((temperatura-hexane3.getTEMPERATURA())/(hexane4.getTEMPERATURA()-hexane3.getTEMPERATURA()));

@@ -26,7 +26,7 @@ public class ControlHeptaneLiquido {
     
     private double Cpl, Prl, kl, Mul, Vcl;
     private double Cpl1, Cpl2, Prl1, Prl2,kl1 , kl2, Mul1, Mul2, Vcl1, Vcl2;
-    ModelHeptaneLiquido heptane_liquido1, heptane_liquido2, heptane_liquido3, heptane_liquido4;
+    private ModelHeptaneLiquido heptane_liquido1, heptane_liquido2, heptane_liquido3, heptane_liquido4;
     
     public ControlHeptaneLiquido(Session session) {
         this.session = session;

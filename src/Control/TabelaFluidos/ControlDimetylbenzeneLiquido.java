@@ -25,7 +25,7 @@ public class ControlDimetylbenzeneLiquido {
     Session session;
     private double Cpl, Prl, kl, Mul, Vcl;
     private double Cpl1, Cpl2, Prl1, Prl2, kl1, kl2, Mul1, Mul2, Vcl1, Vcl2;
-    ModelDimetylbenzeneLiquido dimetylbenzene_l1, dimetylbenzene_l2, dimetylbenzene_l3, dimetylbenzene_l4;
+    private ModelDimetylbenzeneLiquido dimetylbenzene_l1, dimetylbenzene_l2, dimetylbenzene_l3, dimetylbenzene_l4;
     
     public ControlDimetylbenzeneLiquido(Session session){
         this.session = session;

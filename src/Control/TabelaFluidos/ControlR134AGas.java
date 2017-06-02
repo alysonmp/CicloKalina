@@ -29,6 +29,11 @@ public class ControlR134AGas {
     private double Cpv, Prv, kv, Muv, Vcv;
     private double cpv1, cpv2, Prv1, Prv2, kv1, kv2, Muv1, Muv2, Vcv1, Vcv2;
     
+    private ModelR134AGas R134A1;
+    private ModelR134AGas R134A2;
+    private ModelR134AGas R134A3;
+    private ModelR134AGas R134A4;
+    
     public ControlR134AGas(Session session){
         this.session = session;
     }
@@ -76,29 +81,33 @@ public class ControlR134AGas {
         Criteria cr = this.session.createCriteria(ModelR134AGas.class);
         //cr = this.session.createCriteria(ModelR134AGas.class);
         
-        SQLQuery consulta = this.session.createSQLQuery("select * from R134A_gas where pressao <= " +pressao+ "and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelR134AGas.class));//Sem isso aqui impossível de retornar
-	List<ModelR134AGas> R134As = consulta.list(); 
-        ModelR134AGas R134A1 = R134As.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from R134A_gas where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelR134AGas.class));//Sem isso aqui impossível de retornar
-	R134As = consulta.list(); 
-        ModelR134AGas R134A2 = R134As.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from R134A_gas where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelR134AGas.class));//Sem isso aqui impossível de retornar
-	R134As = consulta.list(); 
-        ModelR134AGas R134A3 = R134As.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from R134A_gas where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelR134AGas.class));//Sem isso aqui impossível de retornar
-	R134As = consulta.list(); 
-        ModelR134AGas R134A4 = R134As.get(0);
+        do{
+            SQLQuery consulta = this.session.createSQLQuery("select * from R134A_gas where pressao <= " +pressao+ "and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelR134AGas.class));//Sem isso aqui impossível de retornar
+            List<ModelR134AGas> R134As = consulta.list(); 
+            R134A1 = R134As.get(0);
+
+            consulta = this.session.createSQLQuery("select * from R134A_gas where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelR134AGas.class));//Sem isso aqui impossível de retornar
+            R134As = consulta.list(); 
+            R134A2 = R134As.get(0);
+
+            consulta = this.session.createSQLQuery("select * from R134A_gas where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelR134AGas.class));//Sem isso aqui impossível de retornar
+            R134As = consulta.list(); 
+            R134A3 = R134As.get(0);
+
+            consulta = this.session.createSQLQuery("select * from R134A_gas where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelR134AGas.class));//Sem isso aqui impossível de retornar
+            R134As = consulta.list(); 
+            R134A4 = R134As.get(0);
+
+            temperatura += 1;
+        }while(R134A1 != null || R134A2 != null || R134A3 != null || R134A4 != null);
         
         cpv1 = R134A1.getCPV() + (R134A2.getCPV() - R134A1.getCPV()) * ((temperatura-R134A1.getTEMPERATURA())/(R134A2.getTEMPERATURA()-R134A1.getTEMPERATURA()));
         cpv2 = R134A3.getCPV() + (R134A4.getCPV() - R134A3.getCPV()) * ((temperatura-R134A3.getTEMPERATURA())/(R134A4.getTEMPERATURA()-R134A3.getTEMPERATURA()));

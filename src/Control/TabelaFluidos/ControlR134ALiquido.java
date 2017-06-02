@@ -26,7 +26,7 @@ public class ControlR134ALiquido {
     Session session;
     private double Cpl, Prl, kl, Mul, Vcl;
     private double Cpl1, Cpl2, Prl1, Prl2, kl1, kl2, Mul1, Mul2, Vcl1, Vcl2;
-    ModelR134ALiquido R134A1, R134A2, R134A3,R134A4;
+    private ModelR134ALiquido R134A1, R134A2, R134A3,R134A4;
     
     public ControlR134ALiquido(Session session){
         this.session = session;

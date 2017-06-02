@@ -29,6 +29,11 @@ public class ControlMDMGas {
     private double Cpv, Prv, kv, Muv, Vcv;
     private double cpv1, cpv2, Prv1, Prv2, kv1, kv2, Muv1, Muv2, Vcv1, Vcv2;
     
+    private ModelMDMGas MDM1;
+    private ModelMDMGas MDM2;
+    private ModelMDMGas MDM3;
+    private ModelMDMGas MDM4;
+    
     public ControlMDMGas(Session session){
         this.session = session;
     }
@@ -76,29 +81,33 @@ public class ControlMDMGas {
         Criteria cr = this.session.createCriteria(ModelMDMGas.class);
         //cr = this.session.createCriteria(ModelMDMGas.class);
         
-        SQLQuery consulta = this.session.createSQLQuery("select * from MDM_gas where pressao <= " +pressao+ "and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelMDMGas.class));//Sem isso aqui impossível de retornar
-	List<ModelMDMGas> MDMs = consulta.list(); 
-        ModelMDMGas MDM1 = MDMs.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from MDM_gas where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelMDMGas.class));//Sem isso aqui impossível de retornar
-	MDMs = consulta.list(); 
-        ModelMDMGas MDM2 = MDMs.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from MDM_gas where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelMDMGas.class));//Sem isso aqui impossível de retornar
-	MDMs = consulta.list(); 
-        ModelMDMGas MDM3 = MDMs.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from MDM_gas where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelMDMGas.class));//Sem isso aqui impossível de retornar
-	MDMs = consulta.list(); 
-        ModelMDMGas MDM4 = MDMs.get(0);
+        do{
+            SQLQuery consulta = this.session.createSQLQuery("select * from MDM_gas where pressao <= " +pressao+ "and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelMDMGas.class));//Sem isso aqui impossível de retornar
+            List<ModelMDMGas> MDMs = consulta.list(); 
+            MDM1 = MDMs.get(0);
+
+            consulta = this.session.createSQLQuery("select * from MDM_gas where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelMDMGas.class));//Sem isso aqui impossível de retornar
+            MDMs = consulta.list(); 
+            ModelMDMGas MDM2 = MDMs.get(0);
+
+            consulta = this.session.createSQLQuery("select * from MDM_gas where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelMDMGas.class));//Sem isso aqui impossível de retornar
+            MDMs = consulta.list(); 
+            ModelMDMGas MDM3 = MDMs.get(0);
+
+            consulta = this.session.createSQLQuery("select * from MDM_gas where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelMDMGas.class));//Sem isso aqui impossível de retornar
+            MDMs = consulta.list(); 
+            ModelMDMGas MDM4 = MDMs.get(0);
+
+            temperatura += 1;
+        }while(MDM1 != null || MDM2 != null || MDM3 != null || MDM4 != null);
         
         cpv1 = MDM1.getCPV() + (MDM2.getCPV() - MDM1.getCPV()) * ((temperatura-MDM1.getTEMPERATURA())/(MDM2.getTEMPERATURA()-MDM1.getTEMPERATURA()));
         cpv2 = MDM3.getCPV() + (MDM4.getCPV() - MDM3.getCPV()) * ((temperatura-MDM3.getTEMPERATURA())/(MDM4.getTEMPERATURA()-MDM3.getTEMPERATURA()));

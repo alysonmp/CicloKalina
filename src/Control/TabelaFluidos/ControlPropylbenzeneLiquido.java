@@ -25,7 +25,7 @@ public class ControlPropylbenzeneLiquido {
     Session session;
     private double Cpl, Prl, kl, Mul, Vcl;
     private double Cpl1, Cpl2, Prl1, Prl2, kl1, kl2, Mul1, Mul2, Vcl1, Vcl2;
-    ModelPropylbenzeneLiquido propylbenze_l1, propylbenze_l2, propylbenze_l3, propylbenze_l4;
+    private ModelPropylbenzeneLiquido propylbenze_l1, propylbenze_l2, propylbenze_l3, propylbenze_l4;
     
     public ControlPropylbenzeneLiquido(Session session){
         this.session = session;
