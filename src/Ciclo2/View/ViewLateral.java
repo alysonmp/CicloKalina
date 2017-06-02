@@ -5,9 +5,10 @@
  */
 package Ciclo2.View;
 
-import Ciclo2.Control.ControlPrincipal;
-import Ciclo2.Control.Start;
-import Ciclo2.Util.DropdownComboBox;
+
+import Control.ControlPrincipal;
+import Control.Conversao.ControlConverte;
+import Util.DropdownComboBox;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -17,6 +18,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Iterator;
@@ -82,6 +85,8 @@ public class ViewLateral extends JPanel{
     private JPanel painelDados;
     
     private ControlPrincipal ctrlPrincipal;
+    
+    private ControlConverte controlConverte = new ControlConverte();
     
     public ViewLateral(ControlPrincipal ctrlPrincipal){
         this.ctrlPrincipal = ctrlPrincipal;
@@ -460,6 +465,50 @@ public class ViewLateral extends JPanel{
                     ViewLateral.this.fieldPinch.getEditor().setItem("0");
                     ViewLateral.this.fieldPinch.setEnabled(false);
                 }
+            }
+        });
+        
+        comboMassa.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                //Conversao
+                String valor = fieldMassa.getSelectedItem().toString();
+                if(!valor.isEmpty()){
+                    fieldMassa.setSelectedItem(String.valueOf(controlConverte.converte(comboMassa.getSelectedItem().toString(),Double.parseDouble(valor))));
+                }           
+            }
+        });
+        
+        comboPressao.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                //Conversao
+                String valor = fieldPressao.getSelectedItem().toString();
+                if(!valor.isEmpty()){
+                    fieldPressao.setSelectedItem(String.valueOf(controlConverte.converte(comboPressao.getSelectedItem().toString(),Double.parseDouble(valor))));
+                }           
+            }
+        });
+        
+        comboTemp.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                //Conversao
+                String valor = fieldTemp.getSelectedItem().toString();
+                if(!valor.isEmpty()){
+                    fieldTemp.setSelectedItem(String.valueOf(controlConverte.converte(comboTemp.getSelectedItem().toString(),Double.parseDouble(valor))));
+                }         
+            }
+        });
+        
+        comboTempCond.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                //Conversao
+                String valor = fieldTempCond.getSelectedItem().toString();
+                if(!valor.isEmpty()){
+                    fieldTempCond.setSelectedItem(String.valueOf(controlConverte.converte(comboTempCond.getSelectedItem().toString(),Double.parseDouble(valor))));
+                } 
             }
         });
         
