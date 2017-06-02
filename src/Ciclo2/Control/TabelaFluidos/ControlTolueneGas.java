@@ -29,6 +29,11 @@ public class ControlTolueneGas {
     private double Cpv, Prv, kv, Muv, Vcv;
     private double cpv1, cpv2, Prv1, Prv2, kv1, kv2, Muv1, Muv2, Vcv1, Vcv2;
     
+    private ModelTolueneGas Toluene1;
+    private ModelTolueneGas Toluene2;
+    private ModelTolueneGas Toluene3;
+    private ModelTolueneGas Toluene4;
+    
     public ControlTolueneGas(Session session){
         this.session = session;
     }
@@ -76,29 +81,33 @@ public class ControlTolueneGas {
         Criteria cr = this.session.createCriteria(ModelTolueneGas.class);
         //cr = this.session.createCriteria(ModelTolueneGas.class);
         
-        SQLQuery consulta = this.session.createSQLQuery("select * from Toluene_gas where pressao <= " +pressao+ "and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelTolueneGas.class));//Sem isso aqui impossível de retornar
-	List<ModelTolueneGas> Toluenes = consulta.list(); 
-        ModelTolueneGas Toluene1 = Toluenes.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from Toluene_gas where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelTolueneGas.class));//Sem isso aqui impossível de retornar
-	Toluenes = consulta.list(); 
-        ModelTolueneGas Toluene2 = Toluenes.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from Toluene_gas where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelTolueneGas.class));//Sem isso aqui impossível de retornar
-	Toluenes = consulta.list(); 
-        ModelTolueneGas Toluene3 = Toluenes.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from Toluene_gas where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelTolueneGas.class));//Sem isso aqui impossível de retornar
-	Toluenes = consulta.list(); 
-        ModelTolueneGas Toluene4 = Toluenes.get(0);
+        do{
+            SQLQuery consulta = this.session.createSQLQuery("select * from Toluene_gas where pressao <= " +pressao+ "and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelTolueneGas.class));//Sem isso aqui impossível de retornar
+            List<ModelTolueneGas> Toluenes = consulta.list(); 
+            Toluene1 = Toluenes.get(0);
+
+            consulta = this.session.createSQLQuery("select * from Toluene_gas where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelTolueneGas.class));//Sem isso aqui impossível de retornar
+            Toluenes = consulta.list(); 
+            Toluene2 = Toluenes.get(0);
+
+            consulta = this.session.createSQLQuery("select * from Toluene_gas where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelTolueneGas.class));//Sem isso aqui impossível de retornar
+            Toluenes = consulta.list(); 
+            Toluene3 = Toluenes.get(0);
+
+            consulta = this.session.createSQLQuery("select * from Toluene_gas where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelTolueneGas.class));//Sem isso aqui impossível de retornar
+            Toluenes = consulta.list(); 
+            Toluene4 = Toluenes.get(0);
+
+            temperatura += 1;
+        }while(Toluene1 != null || Toluene2 != null || Toluene3 != null || Toluene4 != null);
         
         cpv1 = Toluene1.getCPV() + (Toluene2.getCPV() - Toluene1.getCPV()) * ((temperatura-Toluene1.getTEMPERATURA())/(Toluene2.getTEMPERATURA()-Toluene1.getTEMPERATURA()));
         cpv2 = Toluene3.getCPV() + (Toluene4.getCPV() - Toluene3.getCPV()) * ((temperatura-Toluene3.getTEMPERATURA())/(Toluene4.getTEMPERATURA()-Toluene3.getTEMPERATURA()));

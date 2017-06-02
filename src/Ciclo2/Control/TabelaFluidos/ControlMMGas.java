@@ -29,6 +29,11 @@ public class ControlMMGas {
     private double Cpv, Prv, kv, Muv, Vcv;
     private double cpv1, cpv2, Prv1, Prv2, kv1, kv2, Muv1, Muv2, Vcv1, Vcv2;
     
+    private ModelMMGas MM1;
+    private ModelMMGas MM2;
+    private ModelMMGas MM3;
+    private ModelMMGas MM4;
+    
     public ControlMMGas(Session session){
         this.session = session;
     }
@@ -76,29 +81,33 @@ public class ControlMMGas {
         Criteria cr = this.session.createCriteria(ModelMMGas.class);
         //cr = this.session.createCriteria(ModelMMGas.class);
         
-        SQLQuery consulta = this.session.createSQLQuery("select * from MM_gas where pressao <= " +pressao+ "and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelMMGas.class));//Sem isso aqui impossível de retornar
-	List<ModelMMGas> MMs = consulta.list(); 
-        ModelMMGas MM1 = MMs.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from MM_gas where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelMMGas.class));//Sem isso aqui impossível de retornar
-	MMs = consulta.list(); 
-        ModelMMGas MM2 = MMs.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from MM_gas where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelMMGas.class));//Sem isso aqui impossível de retornar
-	MMs = consulta.list(); 
-        ModelMMGas MM3 = MMs.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from MM_gas where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelMMGas.class));//Sem isso aqui impossível de retornar
-	MMs = consulta.list(); 
-        ModelMMGas MM4 = MMs.get(0);
+        do{
+            SQLQuery consulta = this.session.createSQLQuery("select * from MM_gas where pressao <= " +pressao+ "and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelMMGas.class));//Sem isso aqui impossível de retornar
+            List<ModelMMGas> MMs = consulta.list(); 
+            MM1 = MMs.get(0);
+
+            consulta = this.session.createSQLQuery("select * from MM_gas where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelMMGas.class));//Sem isso aqui impossível de retornar
+            MMs = consulta.list(); 
+            ModelMMGas MM2 = MMs.get(0);
+
+            consulta = this.session.createSQLQuery("select * from MM_gas where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelMMGas.class));//Sem isso aqui impossível de retornar
+            MMs = consulta.list(); 
+            ModelMMGas MM3 = MMs.get(0);
+
+            consulta = this.session.createSQLQuery("select * from MM_gas where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelMMGas.class));//Sem isso aqui impossível de retornar
+            MMs = consulta.list(); 
+            ModelMMGas MM4 = MMs.get(0);
+
+            temperatura += 1;
+        }while(MM1 != null || MM2 != null || MM2 != null || MM2 != null);
         
         cpv1 = MM1.getCPV() + (MM2.getCPV() - MM1.getCPV()) * ((temperatura-MM1.getTEMPERATURA())/(MM2.getTEMPERATURA()-MM1.getTEMPERATURA()));
         cpv2 = MM3.getCPV() + (MM4.getCPV() - MM3.getCPV()) * ((temperatura-MM3.getTEMPERATURA())/(MM4.getTEMPERATURA()-MM3.getTEMPERATURA()));

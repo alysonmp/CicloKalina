@@ -25,6 +25,11 @@ public class ControlD4Gas {
     private Session session;
     private double kv, Cpv, Prv, Muv, Vcv;
     private double kv1, kv2, Cpv1, Cpv2, Prv1, Prv2, Muv1, Muv2, Vcv1, Vcv2;
+    
+    private ModelD4Gas d4_gas1;
+    private ModelD4Gas d4_gas2;
+    private ModelD4Gas d4_gas3;
+    private ModelD4Gas d4_gas4;
 
     public ControlD4Gas(Session session) {
         this.session = session;
@@ -69,25 +74,29 @@ public class ControlD4Gas {
     
         Criteria cr = this.session.createCriteria(ModelD4Gas.class);
         
-        SQLQuery consulta = this.session.createSQLQuery("select * from d4_gas where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelD4Gas.class));
-        List<ModelD4Gas> d4_gas = consulta.list();
-        ModelD4Gas d4_gas1 = d4_gas.get(0);
+        do{
+            SQLQuery consulta = this.session.createSQLQuery("select * from d4_gas where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelD4Gas.class));
+            List<ModelD4Gas> d4_gas = consulta.list();
+            d4_gas1 = d4_gas.get(0);
+
+            consulta = this.session.createSQLQuery("select * from d4_gas where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelD4Gas.class));
+            d4_gas = consulta.list();
+            d4_gas2 = d4_gas.get(0);
+
+            consulta = this.session.createSQLQuery("select * from d4_gas where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelD4Gas.class));
+            d4_gas = consulta.list();
+            d4_gas3 = d4_gas.get(0);
+
+            consulta = this.session.createSQLQuery("select * from d4_gas where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelD4Gas.class));
+            d4_gas = consulta.list();
+            d4_gas4 = d4_gas.get(0);
         
-        consulta = this.session.createSQLQuery("select * from d4_gas where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelD4Gas.class));
-        d4_gas = consulta.list();
-        ModelD4Gas d4_gas2 = d4_gas.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from d4_gas where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelD4Gas.class));
-        d4_gas = consulta.list();
-        ModelD4Gas d4_gas3 = d4_gas.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from d4_gas where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelD4Gas.class));
-        d4_gas = consulta.list();
-        ModelD4Gas d4_gas4 = d4_gas.get(0);
+            temperatura += 1;
+        }while(d4_gas1 != null || d4_gas2 != null || d4_gas3 != null || d4_gas4 != null);
         
         double p = ((pressao - d4_gas1.getPRESSAO())/(d4_gas3.getPRESSAO() - d4_gas1.getPRESSAO()));
         double t1 = ((temperatura - d4_gas1.getTEMPERATURA())/(d4_gas2.getTEMPERATURA() - d4_gas1.getTEMPERATURA()));
