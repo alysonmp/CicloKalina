@@ -29,6 +29,11 @@ public class ControlR152AGas {
     private double Cpv, Prv, kv, Muv, Vcv;
     private double cpv1, cpv2, Prv1, Prv2, kv1, kv2, Muv1, Muv2, Vcv1, Vcv2;
     
+    private ModelR152AGas R152A1;
+    private ModelR152AGas R152A2;
+    private ModelR152AGas R152A3;
+    private ModelR152AGas R152A4;
+    
     public ControlR152AGas(Session session){
         this.session = session;
     }
@@ -76,29 +81,33 @@ public class ControlR152AGas {
         Criteria cr = this.session.createCriteria(ModelR152AGas.class);
         //cr = this.session.createCriteria(ModelR152AGas.class);
         
-        SQLQuery consulta = this.session.createSQLQuery("select * from R152A_gas where pressao <= " +pressao+ "and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelR152AGas.class));//Sem isso aqui impossível de retornar
-	List<ModelR152AGas> R152As = consulta.list(); 
-        ModelR152AGas R152A1 = R152As.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from R152A_gas where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelR152AGas.class));//Sem isso aqui impossível de retornar
-	R152As = consulta.list(); 
-        ModelR152AGas R152A2 = R152As.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from R152A_gas where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelR152AGas.class));//Sem isso aqui impossível de retornar
-	R152As = consulta.list(); 
-        ModelR152AGas R152A3 = R152As.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from R152A_gas where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelR152AGas.class));//Sem isso aqui impossível de retornar
-	R152As = consulta.list(); 
-        ModelR152AGas R152A4 = R152As.get(0);
+        do{
+            SQLQuery consulta = this.session.createSQLQuery("select * from R152A_gas where pressao <= " +pressao+ "and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelR152AGas.class));//Sem isso aqui impossível de retornar
+            List<ModelR152AGas> R152As = consulta.list(); 
+            R152A1 = R152As.get(0);
+
+            consulta = this.session.createSQLQuery("select * from R152A_gas where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelR152AGas.class));//Sem isso aqui impossível de retornar
+            R152As = consulta.list(); 
+            R152A2 = R152As.get(0);
+
+            consulta = this.session.createSQLQuery("select * from R152A_gas where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelR152AGas.class));//Sem isso aqui impossível de retornar
+            R152As = consulta.list(); 
+            R152A3 = R152As.get(0);
+
+            consulta = this.session.createSQLQuery("select * from R152A_gas where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelR152AGas.class));//Sem isso aqui impossível de retornar
+            R152As = consulta.list(); 
+            R152A4 = R152As.get(0);
+
+            temperatura += 1;
+        }while(R152A1 != null || R152A2 != null || R152A3 != null || R152A4 != null);
         
         cpv1 = R152A1.getCPV() + (R152A2.getCPV() - R152A1.getCPV()) * ((temperatura-R152A1.getTEMPERATURA())/(R152A2.getTEMPERATURA()-R152A1.getTEMPERATURA()));
         cpv2 = R152A3.getCPV() + (R152A4.getCPV() - R152A3.getCPV()) * ((temperatura-R152A3.getTEMPERATURA())/(R152A4.getTEMPERATURA()-R152A3.getTEMPERATURA()));

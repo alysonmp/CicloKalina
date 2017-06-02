@@ -22,6 +22,11 @@ public class ControlButanoGas {
     private double kv, Cpv, Prv, Muv, Vcv;
     private double kv1, kv2, Cpv1, Cpv2, Prv1, Prv2, Muv1, Muv2, Vcv1, Vcv2;
 
+    private ModelButanoGas butano_gas1;
+    private ModelButanoGas butano_gas2;
+    private ModelButanoGas butano_gas3;
+    private ModelButanoGas butano_gas4;
+    
     public ControlButanoGas(Session session) {
         this.session = session;
     }
@@ -63,26 +68,29 @@ public class ControlButanoGas {
     
     public void interpolacao(double pressao,double temperatura){
         Criteria cr = this.session.createCriteria(ModelButanoGas.class);
-        
-        SQLQuery consulta = this.session.createSQLQuery("select * from butano_gas where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelButanoGas.class));
-        List<ModelButanoGas> butano_gas = consulta.list();
-        ModelButanoGas butano_gas1 = butano_gas.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from butano_gas where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelButanoGas.class));
-        butano_gas = consulta.list();
-        ModelButanoGas butano_gas2 = butano_gas.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from butano_gas where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelButanoGas.class));
-        butano_gas = consulta.list();
-        ModelButanoGas butano_gas3 = butano_gas.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from butano_gas where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelButanoGas.class));
-        butano_gas = consulta.list();
-        ModelButanoGas butano_gas4 = butano_gas.get(0);
+        do{
+            SQLQuery consulta = this.session.createSQLQuery("select * from butano_gas where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelButanoGas.class));
+            List<ModelButanoGas> butano_gas = consulta.list();
+            butano_gas1 = butano_gas.get(0);
+
+            consulta = this.session.createSQLQuery("select * from butano_gas where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelButanoGas.class));
+            butano_gas = consulta.list();
+            butano_gas2 = butano_gas.get(0);
+
+            consulta = this.session.createSQLQuery("select * from butano_gas where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelButanoGas.class));
+            butano_gas = consulta.list();
+            butano_gas3 = butano_gas.get(0);
+
+            consulta = this.session.createSQLQuery("select * from butano_gas where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelButanoGas.class));
+            butano_gas = consulta.list();
+            butano_gas4 = butano_gas.get(0);
+
+            temperatura += 1;
+        }while(butano_gas1 != null || butano_gas2 != null || butano_gas3 != null || butano_gas4 != null);
         
         double p = ((pressao - butano_gas1.getPRESSAO())/(butano_gas3.getPRESSAO() - butano_gas1.getPRESSAO()));
         double t1 = ((temperatura - butano_gas1.getTEMPERATURA())/(butano_gas2.getTEMPERATURA() - butano_gas1.getTEMPERATURA()));
