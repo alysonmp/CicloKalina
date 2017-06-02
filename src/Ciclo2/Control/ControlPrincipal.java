@@ -122,6 +122,8 @@ import org.hibernate.criterion.Restrictions;
 public class ControlPrincipal {
     private ViewPrincipal viewPrincipal;
     private ArrayList<JPanel> panel_usado = new ArrayList();
+    ViewLateral viewLateral;
+    
     Session session;
     
     @SuppressWarnings("empty-statement")
@@ -708,16 +710,6 @@ public class ControlPrincipal {
     
     //FUNÇÃO QUE CRIA O DESENHO DO SEGUNDO CICLO E INDICA OS LOCAIS DOS JPANELS INSERIDOS
     public void criaCiclo2(){        
-        //ControlS_Sistema c = new ControlS_Sistema(500, 45, 20, 200, 0.2, session);
-        //Start start = new Start(1, 14, 415.25, 1144.4, 25, 10, 313.15, 0.3, session);
-        //System.exit(0);
-        
-        //Start start = new Start(1, 14, 415.25, 1144.4, 25, 10, 313.15, 0.3, session);
-        
-        //viewPrincipal.getPainelCiclos().removeAll();
-        //viewPrincipal.getTabbedPanel().removeAll();
-        //panel_usado.clear();
-        
         ViewCiclos ciclo = new ViewCiclos(this, "src/Ciclo2/Images/ciclo2.png", (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.3), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.7));
         ciclo.setLayout(null);
         ciclo.setBounds((int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.1), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.05), 
@@ -744,9 +736,8 @@ public class ControlPrincipal {
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.326), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.38), 
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.065), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.14));
         
-        ViewLateral lateral = new ViewLateral(this);
-        viewPrincipal.getTabbedPanel().add(lateral);
-        
+        viewLateral = new ViewLateral(this);
+        viewPrincipal.getTabbedPanel().add(viewLateral);
         viewPrincipal.getFramePrincipal().repaint();
     }
     
@@ -818,6 +809,72 @@ public class ControlPrincipal {
         List results = cr.list();
         
         return results;
+    }
+    
+    public int getFluidoCod(String fluido){
+        SessionFactory sf = HibernateUtil.getSessionFactory();
+        this.session = sf.openSession();
+        
+        Criteria cr = this.session.createCriteria(ModelFluidos.class);
+        cr.add(Restrictions.eq("nome", fluido));
+        
+        List results = cr.list();
+        ModelFluidos fluidos = (ModelFluidos) results.get(0);
+        
+        return fluidos.getCod();
+    }
+    
+    public void iniciaCalculos(){
+        double Tf = 0;
+        double Pf = 0;
+        double sup = 0;
+        double pinch = 0;
+        double Tconop = 0;
+        double eff = 0;
+        
+        int comp = Integer.parseInt(viewLateral.getComboCompressores().getSelectedItem().toString());
+                
+        String fluNome = viewPrincipal.getComboFluidos().getSelectedItem().toString();
+        int flu = getFluidoCod(fluNome);
+
+        if(viewLateral.getFieldTemp().getEditor().getItem().toString().isEmpty()){
+            JOptionPane.showMessageDialog(null, "É necessário inserir a temperatura");
+            return;
+        }
+        Tf = Double.parseDouble(viewLateral.getFieldTemp().getEditor().getItem().toString());
+        
+        if(viewLateral.getFieldPressao().getEditor().getItem().toString().isEmpty()){
+            JOptionPane.showMessageDialog(null, "É necessário inserir a pressão");
+            return;
+        }
+        Pf = Double.parseDouble(viewLateral.getFieldPressao().getEditor().getItem().toString());
+
+        if(viewLateral.getFieldSup().getEditor().getItem().toString().isEmpty()){
+            JOptionPane.showMessageDialog(null, "É necessário inserir o valor do superaquecimento");
+            return;
+        }
+        sup = Double.parseDouble(viewLateral.getFieldSup().getEditor().getItem().toString());
+        
+        if(viewLateral.getFieldPinch().getEditor().getItem().toString().isEmpty()){
+            JOptionPane.showMessageDialog(null, "É necessário inserir o valor de pinch");
+            return;
+        }
+        pinch = Double.parseDouble(viewLateral.getFieldPinch().getEditor().getItem().toString());
+
+        if(viewLateral.getFieldTempCond().getEditor().getItem().toString().isEmpty()){
+            JOptionPane.showMessageDialog(null, "É necessário inserir a temperatura de condensação");
+            return;
+        }
+        Tconop = Double.parseDouble(viewLateral.getFieldTempCond().getEditor().getItem().toString());
+        
+        if(viewLateral.getFieldEfetiv().getEditor().getItem().toString().isEmpty()){
+            JOptionPane.showMessageDialog(null, "É necessário inserir a efetividade");
+            return;
+        }
+        eff = Double.parseDouble(viewLateral.getFieldEfetiv().getEditor().getItem().toString());
+        
+        //Start start = new Start(1, 14, 415.25, 1144.4, 25, 10, 313.15, 0.3, session);
+        Start start = new Start(comp, flu, Tf, Pf, sup, pinch, Tconop, eff, session);
     }
     
     public void calculaLimites() {
