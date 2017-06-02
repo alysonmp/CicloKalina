@@ -26,6 +26,7 @@ public class ControlPentaneLiquido {
     Session session;
     private double Cpl, Prl, kl, Mul, Vcl;
     private double Cpl1, Cpl2, Prl1, Prl2, kl1, kl2, Mul1, Mul2, Vcl1, Vcl2;
+    ModelPentaneLiquido Pentane1, Pentane2, Pentane3, Pentane4;
     
     public ControlPentaneLiquido(Session session){
         this.session = session;
@@ -73,30 +74,33 @@ public class ControlPentaneLiquido {
     public void interpolacao(double pressao, double temperatura){
         Criteria cr = this.session.createCriteria(ModelPentaneLiquido.class);
         //cr = this.session.createCriteria(ModelPentaneLiquido.class);
-        
-        SQLQuery consulta = this.session.createSQLQuery("select * from Pentane where pressao <= " +pressao+ "and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelPentaneLiquido.class));//Sem isso aqui impossível de retornar
-	List<ModelPentaneLiquido> Pentanes = consulta.list(); 
-        ModelPentaneLiquido Pentane1 = Pentanes.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from Pentane where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelPentaneLiquido.class));//Sem isso aqui impossível de retornar
-	Pentanes = consulta.list(); 
-        ModelPentaneLiquido Pentane2 = Pentanes.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from Pentane where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelPentaneLiquido.class));//Sem isso aqui impossível de retornar
-	Pentanes = consulta.list(); 
-        ModelPentaneLiquido Pentane3 = Pentanes.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from Pentane where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelPentaneLiquido.class));//Sem isso aqui impossível de retornar
-	Pentanes = consulta.list(); 
-        ModelPentaneLiquido Pentane4 = Pentanes.get(0);
+        do{
+            SQLQuery consulta = this.session.createSQLQuery("select * from Pentane where pressao <= " +pressao+ "and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelPentaneLiquido.class));//Sem isso aqui impossível de retornar
+            List<ModelPentaneLiquido> Pentanes = consulta.list(); 
+            Pentane1 = Pentanes.get(0);
+
+            consulta = this.session.createSQLQuery("select * from Pentane where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelPentaneLiquido.class));//Sem isso aqui impossível de retornar
+            Pentanes = consulta.list(); 
+            Pentane2 = Pentanes.get(0);
+
+            consulta = this.session.createSQLQuery("select * from Pentane where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelPentaneLiquido.class));//Sem isso aqui impossível de retornar
+            Pentanes = consulta.list(); 
+            Pentane3 = Pentanes.get(0);
+
+            consulta = this.session.createSQLQuery("select * from Pentane where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelPentaneLiquido.class));//Sem isso aqui impossível de retornar
+            Pentanes = consulta.list(); 
+            Pentane4 = Pentanes.get(0);
+
+            temperatura -= 1;
+        }while(Pentane1 == null || Pentane2 == null || Pentane3 == null || Pentane4 == null);
         
         double p  = ((pressao - Pentane1.getPRESSAO())/(Pentane3.getPRESSAO() - Pentane1.getPRESSAO()));
         double t1 = ((temperatura - Pentane1.getTEMPERATURA())/(Pentane2.getTEMPERATURA() - Pentane1.getTEMPERATURA()));

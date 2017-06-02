@@ -28,6 +28,7 @@ public class ControlButanoLiquido {
     Session session;
     private double Cpl, Prl, kl, Mul, Vcl;
     private double Cpl1, Cpl2, Prl1, Prl2, kl1, kl2, Mul1, Mul2, Vcl1, Vcl2;
+    ModelButanoLiquido butano_l1, butano_l2, butano_l3, butano_l4;
     
     public ControlButanoLiquido(Session session){
         this.session = session;
@@ -73,30 +74,33 @@ public class ControlButanoLiquido {
     
     public void interpolacao(double pressao, double temperatura){
         Criteria cr = this.session.createCriteria(ModelButanoLiquido.class);
-        
-        SQLQuery consulta = this.session.createSQLQuery("select * from butano_liquido where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelButanoLiquido.class));//Sem isso aqui impossível de retornar
-	List<ModelButanoLiquido> butano_l = consulta.list(); 
-        ModelButanoLiquido butano_l1 = butano_l.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from butano_liquido where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelButanoLiquido.class));//Sem isso aqui impossível de retornar
-	butano_l = consulta.list(); 
-        ModelButanoLiquido butano_l2 = butano_l.get(0);
+        do{
+            SQLQuery consulta = this.session.createSQLQuery("select * from butano_liquido where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
 
-        consulta = this.session.createSQLQuery("select * from butano_liquido where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelButanoLiquido.class));//Sem isso aqui impossível de retornar
-	butano_l = consulta.list(); 
-        ModelButanoLiquido butano_l3 = butano_l.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from butano_liquido where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelButanoLiquido.class));//Sem isso aqui impossível de retornar
-	butano_l = consulta.list(); 
-        ModelButanoLiquido butano_l4 = butano_l.get(0);
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelButanoLiquido.class));//Sem isso aqui impossível de retornar
+            List<ModelButanoLiquido> butano_l = consulta.list(); 
+            butano_l1 = butano_l.get(0);
+
+            consulta = this.session.createSQLQuery("select * from butano_liquido where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelButanoLiquido.class));//Sem isso aqui impossível de retornar
+            butano_l = consulta.list(); 
+            butano_l2 = butano_l.get(0);
+
+            consulta = this.session.createSQLQuery("select * from butano_liquido where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelButanoLiquido.class));//Sem isso aqui impossível de retornar
+            butano_l = consulta.list(); 
+            butano_l3 = butano_l.get(0);
+
+            consulta = this.session.createSQLQuery("select * from butano_liquido where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelButanoLiquido.class));//Sem isso aqui impossível de retornar
+            butano_l = consulta.list(); 
+            butano_l4 = butano_l.get(0);
+            
+            temperatura -= 1;
+        }while(butano_l1 == null || butano_l2 == null || butano_l3 == null || butano_l4 == null);
         
         double p  = ((pressao - butano_l1.getPRESSAO())/(butano_l3.getPRESSAO() - butano_l1.getPRESSAO()));
         double t1 = ((temperatura - butano_l1.getTEMPERATURA())/(butano_l2.getTEMPERATURA() - butano_l1.getTEMPERATURA()));

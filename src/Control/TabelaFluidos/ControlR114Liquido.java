@@ -26,6 +26,7 @@ public class ControlR114Liquido {
     Session session;
     private double Cpl, Prl, kl, Mul, Vcl;
     private double Cpl1, Cpl2, Prl1, Prl2, kl1, kl2, Mul1, Mul2, Vcl1, Vcl2;
+    ModelR114Liquido R1141, R1142, R1143, R1144;
     
     public ControlR114Liquido(Session session){
         this.session = session;
@@ -74,30 +75,34 @@ public class ControlR114Liquido {
         Criteria cr = this.session.createCriteria(ModelR114Liquido.class);
         //cr = this.session.createCriteria(ModelR114Liquido.class);
         
-        SQLQuery consulta = this.session.createSQLQuery("select * from R114 where pressao <= " +pressao+ "and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
+        do{
+            SQLQuery consulta = this.session.createSQLQuery("select * from R114 where pressao <= " +pressao+ "and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelR114Liquido.class));//Sem isso aqui impossível de retornar
+            List<ModelR114Liquido> R114s = consulta.list(); 
+            R1141 = R114s.get(0);
+
+            consulta = this.session.createSQLQuery("select * from R114 where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelR114Liquido.class));//Sem isso aqui impossível de retornar
+            R114s = consulta.list(); 
+            R1142 = R114s.get(0);
+
+            consulta = this.session.createSQLQuery("select * from R114 where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelR114Liquido.class));//Sem isso aqui impossível de retornar
+            R114s = consulta.list(); 
+            R1143 = R114s.get(0);
+
+            consulta = this.session.createSQLQuery("select * from R114 where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelR114Liquido.class));//Sem isso aqui impossível de retornar
+            R114s = consulta.list(); 
+            R1144 = R114s.get(0);
         
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelR114Liquido.class));//Sem isso aqui impossível de retornar
-	List<ModelR114Liquido> R114s = consulta.list(); 
-        ModelR114Liquido R1141 = R114s.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from R114 where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelR114Liquido.class));//Sem isso aqui impossível de retornar
-	R114s = consulta.list(); 
-        ModelR114Liquido R1142 = R114s.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from R114 where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelR114Liquido.class));//Sem isso aqui impossível de retornar
-	R114s = consulta.list(); 
-        ModelR114Liquido R1143 = R114s.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from R114 where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelR114Liquido.class));//Sem isso aqui impossível de retornar
-	R114s = consulta.list(); 
-        ModelR114Liquido R1144 = R114s.get(0);
-        
+            temperatura -= 1;
+        }while(R1141 == null || R1142 == null || R1143 == null || R1144 == null);
+            
         double p  = ((pressao - R1141.getPRESSAO())/(R1143.getPRESSAO() - R1141.getPRESSAO()));
         double t1 = ((temperatura - R1141.getTEMPERATURA())/(R1142.getTEMPERATURA() - R1141.getTEMPERATURA()));
         double t2 = ((temperatura - R1143.getTEMPERATURA())/(R1144.getTEMPERATURA() - R1143.getTEMPERATURA()));

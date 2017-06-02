@@ -26,6 +26,7 @@ public class ControlPropaneLiquido {
     Session session;
     private double Cpl, Prl, kl, Mul, Vcl;
     private double Cpl1, Cpl2, Prl1, Prl2, kl1, kl2, Mul1, Mul2, Vcl1, Vcl2;
+    ModelPropaneLiquido Propane1, Propane2, Propane3, Propane4;
     
     public ControlPropaneLiquido(Session session){
         this.session = session;
@@ -73,30 +74,33 @@ public class ControlPropaneLiquido {
     public void interpolacao(double pressao, double temperatura){
         Criteria cr = this.session.createCriteria(ModelPropaneLiquido.class);
         //cr = this.session.createCriteria(ModelPropaneLiquido.class);
-        
-        SQLQuery consulta = this.session.createSQLQuery("select * from Propane where pressao <= " +pressao+ "and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelPropaneLiquido.class));//Sem isso aqui impossível de retornar
-	List<ModelPropaneLiquido> Propanes = consulta.list(); 
-        ModelPropaneLiquido Propane1 = Propanes.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from Propane where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelPropaneLiquido.class));//Sem isso aqui impossível de retornar
-	Propanes = consulta.list(); 
-        ModelPropaneLiquido Propane2 = Propanes.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from Propane where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelPropaneLiquido.class));//Sem isso aqui impossível de retornar
-	Propanes = consulta.list(); 
-        ModelPropaneLiquido Propane3 = Propanes.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from Propane where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelPropaneLiquido.class));//Sem isso aqui impossível de retornar
-	Propanes = consulta.list(); 
-        ModelPropaneLiquido Propane4 = Propanes.get(0);
+        do{
+            SQLQuery consulta = this.session.createSQLQuery("select * from Propane where pressao <= " +pressao+ "and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelPropaneLiquido.class));//Sem isso aqui impossível de retornar
+            List<ModelPropaneLiquido> Propanes = consulta.list(); 
+            Propane1 = Propanes.get(0);
+
+            consulta = this.session.createSQLQuery("select * from Propane where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelPropaneLiquido.class));//Sem isso aqui impossível de retornar
+            Propanes = consulta.list(); 
+            Propane2 = Propanes.get(0);
+
+            consulta = this.session.createSQLQuery("select * from Propane where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelPropaneLiquido.class));//Sem isso aqui impossível de retornar
+            Propanes = consulta.list(); 
+            Propane3 = Propanes.get(0);
+
+            consulta = this.session.createSQLQuery("select * from Propane where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelPropaneLiquido.class));//Sem isso aqui impossível de retornar
+            Propanes = consulta.list(); 
+            Propane4 = Propanes.get(0);
+
+            temperatura -= 1;
+        }while(Propane1 == null || Propane2 == null || Propane3 == null || Propane4 == null);
         
         double p  = ((pressao - Propane1.getPRESSAO())/(Propane3.getPRESSAO() - Propane1.getPRESSAO()));
         double t1 = ((temperatura - Propane1.getTEMPERATURA())/(Propane2.getTEMPERATURA() - Propane1.getTEMPERATURA()));

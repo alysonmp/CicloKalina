@@ -26,7 +26,8 @@ public class ControlIsobutanLiquido {
     
     private double Cpl, Prl, kl, Mul, Vcl;
     private double Cpl1, Cpl2, Prl1, Prl2,kl1 , kl2, Mul1, Mul2, Vcl1, Vcl2;
-
+    ModelIsobutanLiquido isobutan_liquido1, isobutan_liquido2, isobutan_liquido3, isobutan_liquido4;
+            
     public ControlIsobutanLiquido(Session session) {
         this.session = session;
     }
@@ -69,30 +70,34 @@ public class ControlIsobutanLiquido {
     public void interpolacao(double pressao, double temperatura){
         Criteria cr = this.session.createCriteria(ModelIsobutanLiquido.class);
         
-        SQLQuery consulta = this.session.createSQLQuery("select * from isobutan_liquido where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelIsobutanLiquido.class));//Sem isso aqui impossível de retornar
-	List<ModelIsobutanLiquido> isobutan_liquido = consulta.list(); 
-        ModelIsobutanLiquido isobutan_liquido1 = isobutan_liquido.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from isobutan_liquido where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelIsobutanLiquido.class));//Sem isso aqui impossível de retornar
-	isobutan_liquido = consulta.list(); 
-        ModelIsobutanLiquido isobutan_liquido2 = isobutan_liquido.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from isobutan_liquido where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelIsobutanLiquido.class));//Sem isso aqui impossível de retornar
-	isobutan_liquido = consulta.list(); 
-        ModelIsobutanLiquido isobutan_liquido3 = isobutan_liquido.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from isobutan_liquido where pressao >= " +pressao+ " and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelIsobutanLiquido.class));//Sem isso aqui impossível de retornar
-	isobutan_liquido = consulta.list(); 
-        ModelIsobutanLiquido isobutan_liquido4 = isobutan_liquido.get(0);
-     
+        do{
+            SQLQuery consulta = this.session.createSQLQuery("select * from isobutan_liquido where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelIsobutanLiquido.class));//Sem isso aqui impossível de retornar
+            List<ModelIsobutanLiquido> isobutan_liquido = consulta.list(); 
+            isobutan_liquido1 = isobutan_liquido.get(0);
+
+            consulta = this.session.createSQLQuery("select * from isobutan_liquido where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelIsobutanLiquido.class));//Sem isso aqui impossível de retornar
+            isobutan_liquido = consulta.list(); 
+            isobutan_liquido2 = isobutan_liquido.get(0);
+
+            consulta = this.session.createSQLQuery("select * from isobutan_liquido where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelIsobutanLiquido.class));//Sem isso aqui impossível de retornar
+            isobutan_liquido = consulta.list(); 
+            isobutan_liquido3 = isobutan_liquido.get(0);
+
+            consulta = this.session.createSQLQuery("select * from isobutan_liquido where pressao >= " +pressao+ " and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelIsobutanLiquido.class));//Sem isso aqui impossível de retornar
+            isobutan_liquido = consulta.list(); 
+            isobutan_liquido4 = isobutan_liquido.get(0);
+         
+            temperatura -= 1;
+        }while(isobutan_liquido1 == null || isobutan_liquido2 == null || isobutan_liquido3 == null || isobutan_liquido4 == null);    
+            
         double p  = ((pressao - isobutan_liquido1.getPRESSAO())/(isobutan_liquido3.getPRESSAO() - isobutan_liquido1.getPRESSAO()));
         double t1 = ((temperatura - isobutan_liquido1.getTEMPERATURA())/(isobutan_liquido2.getTEMPERATURA() - isobutan_liquido1.getTEMPERATURA()));
         double t2 = ((temperatura - isobutan_liquido3.getTEMPERATURA())/(isobutan_liquido4.getTEMPERATURA() - isobutan_liquido3.getTEMPERATURA()));

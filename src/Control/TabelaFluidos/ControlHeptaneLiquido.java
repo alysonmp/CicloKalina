@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -14,7 +15,6 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.transform.Transformers;
 
 /**
@@ -26,7 +26,8 @@ public class ControlHeptaneLiquido {
     
     private double Cpl, Prl, kl, Mul, Vcl;
     private double Cpl1, Cpl2, Prl1, Prl2,kl1 , kl2, Mul1, Mul2, Vcl1, Vcl2;
-
+    ModelHeptaneLiquido heptane_liquido1, heptane_liquido2, heptane_liquido3, heptane_liquido4;
+    
     public ControlHeptaneLiquido(Session session) {
         this.session = session;
     }
@@ -69,29 +70,33 @@ public class ControlHeptaneLiquido {
     public void interpolacao(double pressao, double temperatura){
         Criteria cr = this.session.createCriteria(ModelHeptaneLiquido.class);
         
-        SQLQuery consulta = this.session.createSQLQuery("select * from heptane_liquido where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
+        do{
+            SQLQuery consulta = this.session.createSQLQuery("select * from heptane_liquido where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelHeptaneLiquido.class));//Sem isso aqui impossível de retornar
+            List<ModelHeptaneLiquido> heptane_liquido = consulta.list(); 
+            heptane_liquido1 = heptane_liquido.get(0);
+
+            consulta = this.session.createSQLQuery("select * from heptane_liquido where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelHeptaneLiquido.class));//Sem isso aqui impossível de retornar
+            heptane_liquido = consulta.list(); 
+            heptane_liquido2 = heptane_liquido.get(0);
+
+            consulta = this.session.createSQLQuery("select * from heptane_liquido where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelHeptaneLiquido.class));//Sem isso aqui impossível de retornar
+            heptane_liquido = consulta.list(); 
+            heptane_liquido3 = heptane_liquido.get(0);
+            
+            consulta = this.session.createSQLQuery("select * from heptane_liquido where pressao >= " +pressao+ " and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelHeptaneLiquido.class));//Sem isso aqui impossível de retornar
+            heptane_liquido = consulta.list(); 
+            heptane_liquido4 = heptane_liquido.get(0);
         
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelHeptaneLiquido.class));//Sem isso aqui impossível de retornar
-	List<ModelHeptaneLiquido> heptane_liquido = consulta.list(); 
-        ModelHeptaneLiquido heptane_liquido1 = heptane_liquido.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from heptane_liquido where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelHeptaneLiquido.class));//Sem isso aqui impossível de retornar
-	heptane_liquido = consulta.list(); 
-        ModelHeptaneLiquido heptane_liquido2 = heptane_liquido.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from heptane_liquido where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelHeptaneLiquido.class));//Sem isso aqui impossível de retornar
-	heptane_liquido = consulta.list(); 
-        ModelHeptaneLiquido heptane_liquido3 = heptane_liquido.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from heptane_liquido where pressao >= " +pressao+ " and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelHeptaneLiquido.class));//Sem isso aqui impossível de retornar
-	heptane_liquido = consulta.list(); 
-        ModelHeptaneLiquido heptane_liquido4 = heptane_liquido.get(0);
+           temperatura -= 1;
+        }while(heptane_liquido1 == null || heptane_liquido2 == null || heptane_liquido3 == null || heptane_liquido4 == null);
      
         double p  = ((pressao - heptane_liquido1.getPRESSAO())/(heptane_liquido3.getPRESSAO() - heptane_liquido1.getPRESSAO()));
         double t1 = ((temperatura - heptane_liquido1.getTEMPERATURA())/(heptane_liquido2.getTEMPERATURA() - heptane_liquido1.getTEMPERATURA()));

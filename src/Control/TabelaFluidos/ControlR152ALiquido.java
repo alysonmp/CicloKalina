@@ -27,6 +27,7 @@ public class ControlR152ALiquido {
     Session session;
     private double Cpl, Prl, kl, Mul, Vcl;
     private double Cpl1, Cpl2, Prl1, Prl2, kl1, kl2, Mul1, Mul2, Vcl1, Vcl2;
+    ModelR152ALiquido R152A1, R152A2, R152A3, R152A4;
     
     public ControlR152ALiquido(Session session){
         this.session = session;
@@ -74,30 +75,33 @@ public class ControlR152ALiquido {
     public void interpolacao(double pressao, double temperatura){
         Criteria cr = this.session.createCriteria(ModelR152ALiquido.class);
         //cr = this.session.createCriteria(ModelR152ALiquido.class);
-        
-        SQLQuery consulta = this.session.createSQLQuery("select * from R152A where pressao <= " +pressao+ "and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelR152ALiquido.class));//Sem isso aqui impossível de retornar
-	List<ModelR152ALiquido> R152As = consulta.list(); 
-        ModelR152ALiquido R152A1 = R152As.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from R152A where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelR152ALiquido.class));//Sem isso aqui impossível de retornar
-	R152As = consulta.list(); 
-        ModelR152ALiquido R152A2 = R152As.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from R152A where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelR152ALiquido.class));//Sem isso aqui impossível de retornar
-	R152As = consulta.list(); 
-        ModelR152ALiquido R152A3 = R152As.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from R152A where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelR152ALiquido.class));//Sem isso aqui impossível de retornar
-	R152As = consulta.list(); 
-        ModelR152ALiquido R152A4 = R152As.get(0);
+        do{
+            SQLQuery consulta = this.session.createSQLQuery("select * from R152A where pressao <= " +pressao+ "and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelR152ALiquido.class));//Sem isso aqui impossível de retornar
+            List<ModelR152ALiquido> R152As = consulta.list(); 
+            R152A1 = R152As.get(0);
+
+            consulta = this.session.createSQLQuery("select * from R152A where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelR152ALiquido.class));//Sem isso aqui impossível de retornar
+            R152As = consulta.list(); 
+            R152A2 = R152As.get(0);
+
+            consulta = this.session.createSQLQuery("select * from R152A where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelR152ALiquido.class));//Sem isso aqui impossível de retornar
+            R152As = consulta.list(); 
+            R152A3 = R152As.get(0);
+
+            consulta = this.session.createSQLQuery("select * from R152A where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelR152ALiquido.class));//Sem isso aqui impossível de retornar
+            R152As = consulta.list(); 
+            R152A4 = R152As.get(0);
+
+            temperatura -= 1;
+        }while(R152A1 == null || R152A2 == null || R152A3 == null || R152A4 == null);
         
         double p  = ((pressao - R152A1.getPRESSAO())/(R152A3.getPRESSAO() - R152A1.getPRESSAO()));
         double t1 = ((temperatura - R152A1.getTEMPERATURA())/(R152A2.getTEMPERATURA() - R152A1.getTEMPERATURA()));

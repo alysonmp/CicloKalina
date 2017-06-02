@@ -26,7 +26,7 @@ public class ControlD6Liquido {
     
     private double Cpl, Prl, kl, Mul, Vcl;
     private double Cpl1, Cpl2, Prl1, Prl2,kl1 , kl2, Mul1, Mul2, Vcl1, Vcl2;
-
+    ModelD6Liquido d6_liquido1, d6_liquido2, d6_liquido3, d6_liquido4; 
     public ControlD6Liquido(Session session) {
         this.session = session;
     }
@@ -68,31 +68,34 @@ public class ControlD6Liquido {
     
     public void interpolacao(double pressao, double temperatura){
         Criteria cr = this.session.createCriteria(ModelD6Liquido.class);
+        do{
+            SQLQuery consulta = this.session.createSQLQuery("select * from d6_liquido where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelD6Liquido.class));//Sem isso aqui impossível de retornar
+            List<ModelD6Liquido> d6_liquido = consulta.list(); 
+            d6_liquido1 = d6_liquido.get(0);
+
+            consulta = this.session.createSQLQuery("select * from d6_liquido where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelD6Liquido.class));//Sem isso aqui impossível de retornar
+            d6_liquido = consulta.list(); 
+            d6_liquido2 = d6_liquido.get(0);
+
+            consulta = this.session.createSQLQuery("select * from d6_liquido where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelD6Liquido.class));//Sem isso aqui impossível de retornar
+            d6_liquido = consulta.list(); 
+            d6_liquido3 = d6_liquido.get(0);
+
+            consulta = this.session.createSQLQuery("select * from d6_liquido where pressao >= " +pressao+ " and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelD6Liquido.class));//Sem isso aqui impossível de retornar
+            d6_liquido = consulta.list(); 
+            d6_liquido4 = d6_liquido.get(0);
+       
+            temperatura -= 1;
+        }while(d6_liquido1 == null || d6_liquido2 == null || d6_liquido3 == null || d6_liquido4 == null);
         
-        SQLQuery consulta = this.session.createSQLQuery("select * from d6_liquido where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelD6Liquido.class));//Sem isso aqui impossível de retornar
-	List<ModelD6Liquido> d6_liquido = consulta.list(); 
-        ModelD6Liquido d6_liquido1 = d6_liquido.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from d6_liquido where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelD6Liquido.class));//Sem isso aqui impossível de retornar
-	d6_liquido = consulta.list(); 
-        ModelD6Liquido d6_liquido2 = d6_liquido.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from d6_liquido where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelD6Liquido.class));//Sem isso aqui impossível de retornar
-	d6_liquido = consulta.list(); 
-        ModelD6Liquido d6_liquido3 = d6_liquido.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from d6_liquido where pressao >= " +pressao+ " and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelD6Liquido.class));//Sem isso aqui impossível de retornar
-	d6_liquido = consulta.list(); 
-        ModelD6Liquido d6_liquido4 = d6_liquido.get(0);
-     
         double p = ((pressao - d6_liquido1.getPRESSAO())/(d6_liquido3.getPRESSAO() - d6_liquido1.getPRESSAO()));
         double t1 = ((temperatura - d6_liquido1.getTEMPERATURA())/(d6_liquido2.getTEMPERATURA() - d6_liquido1.getTEMPERATURA()));
         double t2 = ((temperatura - d6_liquido3.getTEMPERATURA())/(d6_liquido4.getTEMPERATURA() - d6_liquido3.getTEMPERATURA()));

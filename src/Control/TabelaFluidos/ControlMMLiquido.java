@@ -26,6 +26,7 @@ public class ControlMMLiquido {
     Session session;
     private double Cpl, Prl, kl, Mul, Vcl;
     private double Cpl1, Cpl2, Prl1, Prl2, kl1, kl2, Mul1, Mul2, Vcl1, Vcl2;
+    ModelMMLiquido MM1, MM2, MM3, MM4;
     
     public ControlMMLiquido(Session session){
         this.session = session;
@@ -74,30 +75,34 @@ public class ControlMMLiquido {
         Criteria cr = this.session.createCriteria(ModelMMLiquido.class);
         //cr = this.session.createCriteria(ModelMMLiquido.class);
         
-        SQLQuery consulta = this.session.createSQLQuery("select * from MM where pressao <= " +pressao+ "and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
+        do{
+            SQLQuery consulta = this.session.createSQLQuery("select * from MM where pressao <= " +pressao+ "and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelMMLiquido.class));//Sem isso aqui impossível de retornar
+            List<ModelMMLiquido> MMs = consulta.list(); 
+            MM1 = MMs.get(0);
+
+            consulta = this.session.createSQLQuery("select * from MM where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelMMLiquido.class));//Sem isso aqui impossível de retornar
+            MMs = consulta.list(); 
+            MM2 = MMs.get(0);
+
+            consulta = this.session.createSQLQuery("select * from MM where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelMMLiquido.class));//Sem isso aqui impossível de retornar
+            MMs = consulta.list(); 
+            MM3 = MMs.get(0);
+
+            consulta = this.session.createSQLQuery("select * from MM where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelMMLiquido.class));//Sem isso aqui impossível de retornar
+            MMs = consulta.list(); 
+            MM4 = MMs.get(0);
         
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelMMLiquido.class));//Sem isso aqui impossível de retornar
-	List<ModelMMLiquido> MMs = consulta.list(); 
-        ModelMMLiquido MM1 = MMs.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from MM where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelMMLiquido.class));//Sem isso aqui impossível de retornar
-	MMs = consulta.list(); 
-        ModelMMLiquido MM2 = MMs.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from MM where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelMMLiquido.class));//Sem isso aqui impossível de retornar
-	MMs = consulta.list(); 
-        ModelMMLiquido MM3 = MMs.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from MM where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelMMLiquido.class));//Sem isso aqui impossível de retornar
-	MMs = consulta.list(); 
-        ModelMMLiquido MM4 = MMs.get(0);
-        
+            temperatura -= 1;
+        }while(MM1 == null || MM2 == null || MM3 == null || MM4 == null);   
+         
         double p  = ((pressao - MM1.getPRESSAO())/(MM3.getPRESSAO() - MM1.getPRESSAO()));
         double t1 = ((temperatura - MM1.getTEMPERATURA())/(MM2.getTEMPERATURA() - MM1.getTEMPERATURA()));
         double t2 = ((temperatura - MM3.getTEMPERATURA())/(MM4.getTEMPERATURA() - MM3.getTEMPERATURA()));

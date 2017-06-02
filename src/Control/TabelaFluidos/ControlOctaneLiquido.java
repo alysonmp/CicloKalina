@@ -26,6 +26,7 @@ public class ControlOctaneLiquido {
     Session session;
     private double Cpl, Prl, kl, Mul, Vcl;
     private double Cpl1, Cpl2, Prl1, Prl2, kl1, kl2, Mul1, Mul2, Vcl1, Vcl2;
+    ModelOctaneLiquido Octane1, Octane2, Octane3, Octane4;
     
     public ControlOctaneLiquido(Session session){
         this.session = session;
@@ -73,30 +74,33 @@ public class ControlOctaneLiquido {
     public void interpolacao(double pressao, double temperatura){
         Criteria cr = this.session.createCriteria(ModelOctaneLiquido.class);
         //cr = this.session.createCriteria(ModelOctaneLiquido.class);
-        
-        SQLQuery consulta = this.session.createSQLQuery("select * from Octane where pressao <= " +pressao+ "and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelOctaneLiquido.class));//Sem isso aqui impossível de retornar
-	List<ModelOctaneLiquido> Octanes = consulta.list(); 
-        ModelOctaneLiquido Octane1 = Octanes.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from Octane where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelOctaneLiquido.class));//Sem isso aqui impossível de retornar
-	Octanes = consulta.list(); 
-        ModelOctaneLiquido Octane2 = Octanes.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from Octane where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelOctaneLiquido.class));//Sem isso aqui impossível de retornar
-	Octanes = consulta.list(); 
-        ModelOctaneLiquido Octane3 = Octanes.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from Octane where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelOctaneLiquido.class));//Sem isso aqui impossível de retornar
-	Octanes = consulta.list(); 
-        ModelOctaneLiquido Octane4 = Octanes.get(0);
+        do{
+            SQLQuery consulta = this.session.createSQLQuery("select * from Octane where pressao <= " +pressao+ "and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelOctaneLiquido.class));//Sem isso aqui impossível de retornar
+            List<ModelOctaneLiquido> Octanes = consulta.list(); 
+            Octane1 = Octanes.get(0);
+
+            consulta = this.session.createSQLQuery("select * from Octane where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelOctaneLiquido.class));//Sem isso aqui impossível de retornar
+            Octanes = consulta.list(); 
+            Octane2 = Octanes.get(0);
+
+            consulta = this.session.createSQLQuery("select * from Octane where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelOctaneLiquido.class));//Sem isso aqui impossível de retornar
+            Octanes = consulta.list(); 
+            Octane3 = Octanes.get(0);
+
+            consulta = this.session.createSQLQuery("select * from Octane where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelOctaneLiquido.class));//Sem isso aqui impossível de retornar
+            Octanes = consulta.list(); 
+            Octane4 = Octanes.get(0);
+
+            temperatura -= 1;
+        }while(Octane1 == null || Octane2 == null || Octane3 == null || Octane4 == null);
         
         double p  = ((pressao - Octane1.getPRESSAO())/(Octane3.getPRESSAO() - Octane1.getPRESSAO()));
         double t1 = ((temperatura - Octane1.getTEMPERATURA())/(Octane2.getTEMPERATURA() - Octane1.getTEMPERATURA()));

@@ -26,7 +26,8 @@ public class ControlMD3MLiquido {
     Session session;
     private double Cpl, Prl, kl, Mul, Vcl;
     private double Cpl1, Cpl2, Prl1, Prl2,kl1 , kl2, Mul1, Mul2, Vcl1, Vcl2;
-    
+    ModelMD3MLiquido MD3M1, MD3M2, MD3M3, MD3M4;
+            
     public ControlMD3MLiquido(Session session){
         this.session = session;
     }
@@ -73,30 +74,33 @@ public class ControlMD3MLiquido {
     public void interpolacao(double pressao, double temperatura){
         Criteria cr = this.session.createCriteria(ModelMD3MLiquido.class);
         //cr = this.session.createCriteria(ModelMD3MLiquido.class);
-        
-        SQLQuery consulta = this.session.createSQLQuery("select * from MD3M where pressao <= " +pressao+ "and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelMD3MLiquido.class));//Sem isso aqui impossível de retornar
-	List<ModelMD3MLiquido> MD3Ms = consulta.list(); 
-        ModelMD3MLiquido MD3M1 = MD3Ms.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from MD3M where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelMD3MLiquido.class));//Sem isso aqui impossível de retornar
-	MD3Ms = consulta.list(); 
-        ModelMD3MLiquido MD3M2 = MD3Ms.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from MD3M where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelMD3MLiquido.class));//Sem isso aqui impossível de retornar
-	MD3Ms = consulta.list(); 
-        ModelMD3MLiquido MD3M3 = MD3Ms.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from MD3M where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelMD3MLiquido.class));//Sem isso aqui impossível de retornar
-	MD3Ms = consulta.list(); 
-        ModelMD3MLiquido MD3M4 = MD3Ms.get(0);
+        do{
+            SQLQuery consulta = this.session.createSQLQuery("select * from MD3M where pressao <= " +pressao+ "and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelMD3MLiquido.class));//Sem isso aqui impossível de retornar
+            List<ModelMD3MLiquido> MD3Ms = consulta.list(); 
+            MD3M1 = MD3Ms.get(0);
+
+            consulta = this.session.createSQLQuery("select * from MD3M where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelMD3MLiquido.class));//Sem isso aqui impossível de retornar
+            MD3Ms = consulta.list(); 
+            MD3M2 = MD3Ms.get(0);
+
+            consulta = this.session.createSQLQuery("select * from MD3M where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelMD3MLiquido.class));//Sem isso aqui impossível de retornar
+            MD3Ms = consulta.list(); 
+            MD3M3 = MD3Ms.get(0);
+
+            consulta = this.session.createSQLQuery("select * from MD3M where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelMD3MLiquido.class));//Sem isso aqui impossível de retornar
+            MD3Ms = consulta.list(); 
+            MD3M4 = MD3Ms.get(0);
+
+            temperatura -= 1;
+        }while(MD3M1 == null || MD3M2 == null || MD3M3 == null || MD3M4 == null);
         
         double p  = ((pressao - MD3M1.getPRESSAO())/(MD3M3.getPRESSAO() - MD3M1.getPRESSAO()));
         double t1 = ((temperatura - MD3M1.getTEMPERATURA())/(MD3M2.getTEMPERATURA() - MD3M1.getTEMPERATURA()));

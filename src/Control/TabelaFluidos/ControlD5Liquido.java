@@ -9,7 +9,6 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.transform.Transformers;
 
 /**
@@ -21,7 +20,8 @@ public class ControlD5Liquido {
     
     private double Cpl, Prl, kl, Mul, Vcl;
     private double Cpl1, Cpl2, Prl1, Prl2,kl1 , kl2, Mul1, Mul2, Vcl1, Vcl2;
-
+    ModelD5Liquido d5_liquido1, d5_liquido2, d5_liquido3, d5_liquido4;
+    
     public ControlD5Liquido(Session session) {
         this.session = session;
     }
@@ -63,31 +63,34 @@ public class ControlD5Liquido {
     
     public void interpolacao(double pressao, double temperatura){
         Criteria cr = this.session.createCriteria(ModelD5Liquido.class);
-        
-        SQLQuery consulta = this.session.createSQLQuery("select * from d5_liquido where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelD5Liquido.class));//Sem isso aqui impossível de retornar
-	List<ModelD5Liquido> d5_liquido = consulta.list(); 
-        ModelD5Liquido d5_liquido1 = d5_liquido.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from d5_liquido where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelD5Liquido.class));//Sem isso aqui impossível de retornar
-	d5_liquido = consulta.list(); 
-        ModelD5Liquido d5_liquido2 = d5_liquido.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from d5_liquido where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelD5Liquido.class));//Sem isso aqui impossível de retornar
-	d5_liquido = consulta.list(); 
-        ModelD5Liquido d5_liquido3 = d5_liquido.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from d5_liquido where pressao >= " +pressao+ " and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelD5Liquido.class));//Sem isso aqui impossível de retornar
-	d5_liquido = consulta.list(); 
-        ModelD5Liquido d5_liquido4 = d5_liquido.get(0);
-     
+        do{
+            SQLQuery consulta = this.session.createSQLQuery("select * from d5_liquido where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelD5Liquido.class));//Sem isso aqui impossível de retornar
+            List<ModelD5Liquido> d5_liquido = consulta.list(); 
+            d5_liquido1 = d5_liquido.get(0);
+
+            consulta = this.session.createSQLQuery("select * from d5_liquido where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelD5Liquido.class));//Sem isso aqui impossível de retornar
+            d5_liquido = consulta.list(); 
+            d5_liquido2 = d5_liquido.get(0);
+
+            consulta = this.session.createSQLQuery("select * from d5_liquido where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelD5Liquido.class));//Sem isso aqui impossível de retornar
+            d5_liquido = consulta.list(); 
+            d5_liquido3 = d5_liquido.get(0);
+
+            consulta = this.session.createSQLQuery("select * from d5_liquido where pressao >= " +pressao+ " and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelD5Liquido.class));//Sem isso aqui impossível de retornar
+            d5_liquido = consulta.list(); 
+            d5_liquido4 = d5_liquido.get(0);
+            
+            temperatura -= 1;
+        }while(d5_liquido1 == null || d5_liquido2 == null || d5_liquido3 == null || d5_liquido4 == null);
+                
         double p = ((pressao - d5_liquido1.getPRESSAO())/(d5_liquido3.getPRESSAO() - d5_liquido1.getPRESSAO()));
         double t1 = ((temperatura - d5_liquido1.getTEMPERATURA())/(d5_liquido2.getTEMPERATURA() - d5_liquido1.getTEMPERATURA()));
         double t2 = ((temperatura - d5_liquido3.getTEMPERATURA())/(d5_liquido4.getTEMPERATURA() - d5_liquido3.getTEMPERATURA()));

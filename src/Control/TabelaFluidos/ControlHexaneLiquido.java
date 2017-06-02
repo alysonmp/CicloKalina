@@ -26,7 +26,8 @@ public class ControlHexaneLiquido {
     
     private double Cpl, Prl, kl, Mul, Vcl;
     private double Cpl1, Cpl2, Prl1, Prl2,kl1 , kl2, Mul1, Mul2, Vcl1, Vcl2;
-
+    ModelHexaneLiquido hexane_liquido1, hexane_liquido2, hexane_liquido3, hexane_liquido4;
+    
     public ControlHexaneLiquido(Session session) {
         this.session = session;
     }
@@ -69,30 +70,34 @@ public class ControlHexaneLiquido {
     public void interpolacao(double pressao, double temperatura){
         Criteria cr = this.session.createCriteria(ModelHexaneLiquido.class);
         
-        SQLQuery consulta = this.session.createSQLQuery("select * from hexane_liquido where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelHexaneLiquido.class));//Sem isso aqui impossível de retornar
-	List<ModelHexaneLiquido> hexane_liquido = consulta.list(); 
-        ModelHexaneLiquido hexane_liquido1 = hexane_liquido.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from hexane_liquido where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelHexaneLiquido.class));//Sem isso aqui impossível de retornar
-	hexane_liquido = consulta.list(); 
-        ModelHexaneLiquido hexane_liquido2 = hexane_liquido.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from hexane_liquido where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelHexaneLiquido.class));//Sem isso aqui impossível de retornar
-	hexane_liquido = consulta.list(); 
-        ModelHexaneLiquido hexane_liquido3 = hexane_liquido.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from hexane_liquido where pressao >= " +pressao+ " and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelHexaneLiquido.class));//Sem isso aqui impossível de retornar
-	hexane_liquido = consulta.list(); 
-        ModelHexaneLiquido hexane_liquido4 = hexane_liquido.get(0);
-     
+        do{
+            SQLQuery consulta = this.session.createSQLQuery("select * from hexane_liquido where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelHexaneLiquido.class));//Sem isso aqui impossível de retornar
+            List<ModelHexaneLiquido> hexane_liquido = consulta.list(); 
+            hexane_liquido1 = hexane_liquido.get(0);
+
+            consulta = this.session.createSQLQuery("select * from hexane_liquido where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelHexaneLiquido.class));//Sem isso aqui impossível de retornar
+            hexane_liquido = consulta.list(); 
+            hexane_liquido2 = hexane_liquido.get(0);
+
+            consulta = this.session.createSQLQuery("select * from hexane_liquido where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelHexaneLiquido.class));//Sem isso aqui impossível de retornar
+            hexane_liquido = consulta.list(); 
+            hexane_liquido3 = hexane_liquido.get(0);
+
+            consulta = this.session.createSQLQuery("select * from hexane_liquido where pressao >= " +pressao+ " and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelHexaneLiquido.class));//Sem isso aqui impossível de retornar
+            hexane_liquido = consulta.list(); 
+            hexane_liquido4 = hexane_liquido.get(0);
+            
+            temperatura -= 1;
+        }while(hexane_liquido1 == null || hexane_liquido2 == null || hexane_liquido3 == null || hexane_liquido4 == null);
+            
         double p  = ((pressao - hexane_liquido1.getPRESSAO())/(hexane_liquido3.getPRESSAO() - hexane_liquido1.getPRESSAO()));
         double t1 = ((temperatura - hexane_liquido1.getTEMPERATURA())/(hexane_liquido2.getTEMPERATURA() - hexane_liquido1.getTEMPERATURA()));
         double t2 = ((temperatura - hexane_liquido3.getTEMPERATURA())/(hexane_liquido4.getTEMPERATURA() - hexane_liquido3.getTEMPERATURA()));

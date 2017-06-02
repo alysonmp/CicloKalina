@@ -26,6 +26,7 @@ public class ControlMDMLiquido {
     Session session;
     private double Cpl, Prl, kl, Mul, Vcl;
     private double Cpl1, Cpl2, Prl1, Prl2, kl1, kl2, Mul1, Mul2, Vcl1, Vcl2;
+    ModelMDMLiquido MDM1,MDM2, MDM3, MDM4;
     
     public ControlMDMLiquido(Session session){
         this.session = session;
@@ -73,30 +74,33 @@ public class ControlMDMLiquido {
     public void interpolacao(double pressao, double temperatura){
         Criteria cr = this.session.createCriteria(ModelMDMLiquido.class);
         //cr = this.session.createCriteria(ModelMDMLiquido.class);
-        
-        SQLQuery consulta = this.session.createSQLQuery("select * from MDM where pressao <= " +pressao+ "and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelMDMLiquido.class));//Sem isso aqui impossível de retornar
-	List<ModelMDMLiquido> MDMs = consulta.list(); 
-        ModelMDMLiquido MDM1 = MDMs.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from MDM where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelMDMLiquido.class));//Sem isso aqui impossível de retornar
-	MDMs = consulta.list(); 
-        ModelMDMLiquido MDM2 = MDMs.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from MDM where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelMDMLiquido.class));//Sem isso aqui impossível de retornar
-	MDMs = consulta.list(); 
-        ModelMDMLiquido MDM3 = MDMs.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from MDM where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelMDMLiquido.class));//Sem isso aqui impossível de retornar
-	MDMs = consulta.list(); 
-        ModelMDMLiquido MDM4 = MDMs.get(0);
+        do{
+            SQLQuery consulta = this.session.createSQLQuery("select * from MDM where pressao <= " +pressao+ "and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelMDMLiquido.class));//Sem isso aqui impossível de retornar
+            List<ModelMDMLiquido> MDMs = consulta.list(); 
+            MDM1 = MDMs.get(0);
+
+            consulta = this.session.createSQLQuery("select * from MDM where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelMDMLiquido.class));//Sem isso aqui impossível de retornar
+            MDMs = consulta.list(); 
+            MDM2 = MDMs.get(0);
+
+            consulta = this.session.createSQLQuery("select * from MDM where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelMDMLiquido.class));//Sem isso aqui impossível de retornar
+            MDMs = consulta.list(); 
+            MDM3 = MDMs.get(0);
+
+            consulta = this.session.createSQLQuery("select * from MDM where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelMDMLiquido.class));//Sem isso aqui impossível de retornar
+            MDMs = consulta.list(); 
+            MDM4 = MDMs.get(0);
+
+            temperatura -= 1;
+        }while(MDM1 == null || MDM2 == null || MDM3 == null || MDM4 == null);
         
         double p  = ((pressao - MDM1.getPRESSAO())/(MDM3.getPRESSAO() - MDM1.getPRESSAO()));
         double t1 = ((temperatura - MDM1.getTEMPERATURA())/(MDM2.getTEMPERATURA() - MDM1.getTEMPERATURA()));

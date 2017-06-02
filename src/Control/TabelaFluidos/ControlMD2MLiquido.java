@@ -26,7 +26,9 @@ public class ControlMD2MLiquido {
     
     private double Cpl, Prl, kl, Mul, Vcl;
     private double Cpl1, Cpl2, Prl1, Prl2,kl1 , kl2, Mul1, Mul2, Vcl1, Vcl2;
-
+    ModelMD2MLiquido md2m_liquido1, md2m_liquido2, md2m_liquido3, md2m_liquido4;
+    
+    
     public ControlMD2MLiquido(Session session) {
         this.session = session;
     }
@@ -69,30 +71,34 @@ public class ControlMD2MLiquido {
     public void interpolacao(double pressao, double temperatura){
         Criteria cr = this.session.createCriteria(ModelMD2MLiquido.class);
         
-        SQLQuery consulta = this.session.createSQLQuery("select * from md2m_liquido where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelMD2MLiquido.class));//Sem isso aqui impossível de retornar
-	List<ModelMD2MLiquido> md2m_liquido = consulta.list(); 
-        ModelMD2MLiquido md2m_liquido1 = md2m_liquido.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from md2m_liquido where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelMD2MLiquido.class));//Sem isso aqui impossível de retornar
-	md2m_liquido = consulta.list(); 
-        ModelMD2MLiquido md2m_liquido2 = md2m_liquido.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from md2m_liquido where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelMD2MLiquido.class));//Sem isso aqui impossível de retornar
-	md2m_liquido = consulta.list(); 
-        ModelMD2MLiquido md2m_liquido3 = md2m_liquido.get(0);
-        
-        consulta = this.session.createSQLQuery("select * from md2m_liquido where pressao >= " +pressao+ " and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
-        
-        consulta.setResultTransformer(Transformers.aliasToBean(ModelMD2MLiquido.class));//Sem isso aqui impossível de retornar
-	md2m_liquido = consulta.list(); 
-        ModelMD2MLiquido md2m_liquido4 = md2m_liquido.get(0);
-     
+        do{
+            SQLQuery consulta = this.session.createSQLQuery("select * from md2m_liquido where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelMD2MLiquido.class));//Sem isso aqui impossível de retornar
+            List<ModelMD2MLiquido> md2m_liquido = consulta.list(); 
+            md2m_liquido1 = md2m_liquido.get(0);
+
+            consulta = this.session.createSQLQuery("select * from md2m_liquido where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelMD2MLiquido.class));//Sem isso aqui impossível de retornar
+            md2m_liquido = consulta.list(); 
+            md2m_liquido2 = md2m_liquido.get(0);
+
+            consulta = this.session.createSQLQuery("select * from md2m_liquido where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelMD2MLiquido.class));//Sem isso aqui impossível de retornar
+            md2m_liquido = consulta.list(); 
+            md2m_liquido3 = md2m_liquido.get(0);
+
+            consulta = this.session.createSQLQuery("select * from md2m_liquido where pressao >= " +pressao+ " and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelMD2MLiquido.class));//Sem isso aqui impossível de retornar
+            md2m_liquido = consulta.list(); 
+            md2m_liquido4 = md2m_liquido.get(0);
+
+            temperatura -= 1;
+        }while(md2m_liquido1 == null || md2m_liquido2 == null || md2m_liquido3 == null || md2m_liquido4 == null);    
+            
         double p  = ((pressao - md2m_liquido1.getPRESSAO())/(md2m_liquido3.getPRESSAO() - md2m_liquido1.getPRESSAO()));
         double t1 = ((temperatura - md2m_liquido1.getTEMPERATURA())/(md2m_liquido2.getTEMPERATURA() - md2m_liquido1.getTEMPERATURA()));
         double t2 = ((temperatura - md2m_liquido3.getTEMPERATURA())/(md2m_liquido4.getTEMPERATURA() - md2m_liquido3.getTEMPERATURA()));
