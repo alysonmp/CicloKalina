@@ -31,7 +31,7 @@ public class ControlTurbinaPanelRankine {
 
     public ControlTurbinaPanelRankine(ControlPrincipal ctrlPrincipal) {
         this.session = ctrlPrincipal.getSession();
-        viewTurbinaPanel = new ViewTurbinaPanelRankine(ctrlPrincipal,this);
+        //viewTurbinaPanel = new ViewTurbinaPanelRankine(ctrlPrincipal,this);
     }
     
     public void atualizaComboBox(Vector valor,JComboBox combo){

@@ -31,7 +31,7 @@ public class ControlEvaporadorPanelRankine {
         
     public ControlEvaporadorPanelRankine(ControlPrincipal ctrlPrincipal) {
         this.session = ctrlPrincipal.getSession();
-        viewEvaporadorPanel = new ViewEvaporadorPanelRankine(this);
+        //viewEvaporadorPanel = new ViewEvaporadorPanelRankine(this);
     }
     
     public void atualizaComboBox(Vector valor,JComboBox combo){

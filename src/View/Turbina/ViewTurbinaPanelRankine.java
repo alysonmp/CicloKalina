@@ -6,6 +6,7 @@
 package View.Turbina;
 
 import Control.ControlPrincipal;
+import Control.Conversao.ControlConverte;
 import Control.Turbina.ControlTurbinaPanelRankine;
 import Util.DropdownComboBox;
 import java.awt.Color;
@@ -15,6 +16,8 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.BorderFactory;
@@ -22,6 +25,8 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 /**
  *
@@ -57,11 +62,11 @@ public class ViewTurbinaPanelRankine extends JPanel{
     private String[] massas = {"kg/s", "kg/m", "kg/h", "lb/s", "lb/m", "lb/h"};
     private JComboBox<String> comboMassa = new JComboBox<>(massas);
     
-    private String[] temps = {"°C", "°F", "K"};
+    private String[] temps = {"K", "°C", "°F"};
     private JComboBox<String> comboTempEntr = new JComboBox<>(temps);
     private JComboBox<String> comboTempSai = new JComboBox<>(temps);
     
-    private String[] pressoes = {"atm", "kPa", "bar"};
+    private String[] pressoes = {"kPa", "atm", "bar"};
     private JComboBox<String> comboPressaoEntr = new JComboBox<>(pressoes);
     private JComboBox<String> comboPressaoSai = new JComboBox<>(pressoes);
     
@@ -88,6 +93,134 @@ public class ViewTurbinaPanelRankine extends JPanel{
         
         GridBagConstraints g = new GridBagConstraints();
         
+        //INSERINDOS OS ELEMENTOS NO JPANEL DE ENTRADA
+        g.gridx = 0;
+        g.gridy = 0;
+        g.gridwidth = 1;
+        g.weighty = 1;
+        g.weightx = 1;
+        g.fill = GridBagConstraints.HORIZONTAL;
+        painelEntrada.add(labelTempEntr, g);
+        
+        g.gridx = 1;
+        g.gridy = 0;
+        g.gridwidth = 2;
+        g.fill = GridBagConstraints.HORIZONTAL;
+        painelEntrada.add(fieldTempEntr, g);
+        
+        g.gridx = 3;
+        g.gridy = 0;
+        g.gridwidth = 1;
+        g.fill = GridBagConstraints.HORIZONTAL;
+        painelEntrada.add(comboTempEntr, g);
+        
+        g.gridx = 0;
+        g.gridy = 1;
+        g.gridwidth = 1;
+        g.fill = GridBagConstraints.HORIZONTAL;
+        painelEntrada.add(labelPressaoEntr, g);
+        
+        g.gridx = 1;
+        g.gridy = 1;
+        g.gridwidth = 2;
+        g.fill = GridBagConstraints.HORIZONTAL;
+        painelEntrada.add(fieldPressaoEntr, g);
+        
+        g.gridx = 3;
+        g.gridy = 1;
+        g.gridwidth = 1;
+        g.fill = GridBagConstraints.HORIZONTAL;
+        painelEntrada.add(comboPressaoEntr, g);
+
+        
+        //INSERINDO OS ELEMENTOS NO JPANEL DE SAÍDA
+        g.gridx = 0;
+        g.gridy = 0;
+        g.gridwidth = 1;
+        g.fill = GridBagConstraints.HORIZONTAL;
+        painelSaida.add(labelTempSai, g);
+        
+        g.gridx = 1;
+        g.gridy = 0;
+        g.gridwidth = 2;
+        g.fill = GridBagConstraints.HORIZONTAL;
+        painelSaida.add(fieldTempSai, g);
+        
+        g.gridx = 3;
+        g.gridy = 0;
+        g.gridwidth = 1;
+        g.fill = GridBagConstraints.HORIZONTAL;
+        painelSaida.add(comboTempSai, g);
+        
+        g.gridx = 0;
+        g.gridy = 1;
+        g.gridwidth = 1;
+        g.fill = GridBagConstraints.HORIZONTAL;
+        painelSaida.add(labelPressaoSai, g);
+        
+        g.gridx = 1;
+        g.gridy = 1;
+        g.gridwidth = 2;
+        g.fill = GridBagConstraints.HORIZONTAL;
+        painelSaida.add(fieldPressaoSai, g);
+        
+        g.gridx = 3;
+        g.gridy = 1;
+        g.gridwidth = 1;
+        g.fill = GridBagConstraints.HORIZONTAL;
+        painelSaida.add(comboPressaoSai, g);
+        
+        //DADOS DA TEMPERATURA
+        g.gridx = 0;
+        g.gridy = 0;
+        g.gridwidth = 4;
+        g.fill = GridBagConstraints.HORIZONTAL;
+        painelDados.add(painelEntrada, g);
+        
+        //DADOS DA PRESSÃO
+        g.gridx = 0;
+        g.gridy = 1;
+        g.gridwidth = 4;
+        g.fill = GridBagConstraints.HORIZONTAL;
+        painelDados.add(painelSaida, g);
+        
+        //DADOS DA MASSA
+        g.gridx = 0;
+        g.gridy = 2;
+        g.gridwidth = 1;
+        g.fill = GridBagConstraints.HORIZONTAL;
+        painelDados.add(labelMassa, g);
+        
+        g.gridx = 1;
+        g.gridy = 2;
+        g.gridwidth = 2;
+        painelDados.add(fieldMassa, g);
+        
+        g.gridx = 3;
+        g.gridy = 2;
+        g.gridwidth = 1;
+        painelDados.add(comboMassa, g);
+        
+        //DADOS DA EFICIÊNCIA
+        g.gridx = 0;
+        g.gridy = 3;
+        g.gridwidth = 1;
+        g.fill = GridBagConstraints.HORIZONTAL;
+        painelDados.add(labelEfici, g);
+        
+        g.gridx = 1;
+        g.gridy = 3;
+        g.gridwidth = 2;
+        painelDados.add(fieldEfici, g);
+        
+        g.gridx = 0;
+        g.gridy = 0;
+        g.gridwidth = 1;
+        g.fill = GridBagConstraints.HORIZONTAL;
+        g.anchor = GridBagConstraints.PAGE_START;
+        g.weighty = 1;
+        this.add(painelDados, g);
+        
         fieldTempEntr.getEditor().getEditorComponent().addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent fe) {
@@ -111,9 +244,34 @@ public class ViewTurbinaPanelRankine extends JPanel{
             @Override
             public void focusLost(FocusEvent fe) {
                 controlTurbinaPanel.atualizaTempEntrada();
+                
+                if(fieldPressaoEntr.getSelectedItem().toString().isEmpty()){
+                
+                    ControlConverte converte = new ControlConverte();
+
+                    String tipo = comboTempEntr.getSelectedItem().toString();
+                    double valor = Double.parseDouble(fieldTempEntr.getSelectedItem().toString());
+
+                    double resp = converte.converte(tipo, valor);
+                    
+                    //realizaCalculos
+                }
             }
         });
-        
+        comboTempEntr.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                System.out.println();
+                ControlConverte converte = new ControlConverte();
+                
+                String tipo = comboTempEntr.getSelectedItem().toString();
+                double valor = Double.parseDouble(fieldTempEntr.getSelectedItem().toString());
+                
+                double resp = converte.converte(tipo, valor);
+                
+                comboTempEntr.getEditor().setItem(resp);
+            }
+        });
         
         fieldTempSai.getEditor().getEditorComponent().addFocusListener(new FocusListener() {
             @Override
@@ -253,135 +411,6 @@ public class ViewTurbinaPanelRankine extends JPanel{
                 controlTurbinaPanel.atualizaMassa();
             }
         });
-        
-        
-        //INSERINDOS OS ELEMENTOS NO JPANEL DE ENTRADA
-        g.gridx = 0;
-        g.gridy = 0;
-        g.gridwidth = 1;
-        g.weighty = 1;
-        g.weightx = 1;
-        g.fill = GridBagConstraints.HORIZONTAL;
-        painelEntrada.add(labelTempEntr, g);
-        
-        g.gridx = 1;
-        g.gridy = 0;
-        g.gridwidth = 2;
-        g.fill = GridBagConstraints.HORIZONTAL;
-        painelEntrada.add(fieldTempEntr, g);
-        
-        g.gridx = 3;
-        g.gridy = 0;
-        g.gridwidth = 1;
-        g.fill = GridBagConstraints.HORIZONTAL;
-        painelEntrada.add(comboTempEntr, g);
-        
-        g.gridx = 0;
-        g.gridy = 1;
-        g.gridwidth = 1;
-        g.fill = GridBagConstraints.HORIZONTAL;
-        painelEntrada.add(labelPressaoEntr, g);
-        
-        g.gridx = 1;
-        g.gridy = 1;
-        g.gridwidth = 2;
-        g.fill = GridBagConstraints.HORIZONTAL;
-        painelEntrada.add(fieldPressaoEntr, g);
-        
-        g.gridx = 3;
-        g.gridy = 1;
-        g.gridwidth = 1;
-        g.fill = GridBagConstraints.HORIZONTAL;
-        painelEntrada.add(comboPressaoEntr, g);
-
-        
-        //INSERINDO OS ELEMENTOS NO JPANEL DE SAÍDA
-        g.gridx = 0;
-        g.gridy = 0;
-        g.gridwidth = 1;
-        g.fill = GridBagConstraints.HORIZONTAL;
-        painelSaida.add(labelTempSai, g);
-        
-        g.gridx = 1;
-        g.gridy = 0;
-        g.gridwidth = 2;
-        g.fill = GridBagConstraints.HORIZONTAL;
-        painelSaida.add(fieldTempSai, g);
-        
-        g.gridx = 3;
-        g.gridy = 0;
-        g.gridwidth = 1;
-        g.fill = GridBagConstraints.HORIZONTAL;
-        painelSaida.add(comboTempSai, g);
-        
-        g.gridx = 0;
-        g.gridy = 1;
-        g.gridwidth = 1;
-        g.fill = GridBagConstraints.HORIZONTAL;
-        painelSaida.add(labelPressaoSai, g);
-        
-        g.gridx = 1;
-        g.gridy = 1;
-        g.gridwidth = 2;
-        g.fill = GridBagConstraints.HORIZONTAL;
-        painelSaida.add(fieldPressaoSai, g);
-        
-        g.gridx = 3;
-        g.gridy = 1;
-        g.gridwidth = 1;
-        g.fill = GridBagConstraints.HORIZONTAL;
-        painelSaida.add(comboPressaoSai, g);
-        
-        //DADOS DA TEMPERATURA
-        g.gridx = 0;
-        g.gridy = 0;
-        g.gridwidth = 4;
-        g.fill = GridBagConstraints.HORIZONTAL;
-        painelDados.add(painelEntrada, g);
-        
-        //DADOS DA PRESSÃO
-        g.gridx = 0;
-        g.gridy = 1;
-        g.gridwidth = 4;
-        g.fill = GridBagConstraints.HORIZONTAL;
-        painelDados.add(painelSaida, g);
-        
-        //DADOS DA MASSA
-        g.gridx = 0;
-        g.gridy = 2;
-        g.gridwidth = 1;
-        g.fill = GridBagConstraints.HORIZONTAL;
-        painelDados.add(labelMassa, g);
-        
-        g.gridx = 1;
-        g.gridy = 2;
-        g.gridwidth = 2;
-        painelDados.add(fieldMassa, g);
-        
-        g.gridx = 3;
-        g.gridy = 2;
-        g.gridwidth = 1;
-        painelDados.add(comboMassa, g);
-        
-        //DADOS DA EFICIÊNCIA
-        g.gridx = 0;
-        g.gridy = 3;
-        g.gridwidth = 1;
-        g.fill = GridBagConstraints.HORIZONTAL;
-        painelDados.add(labelEfici, g);
-        
-        g.gridx = 1;
-        g.gridy = 3;
-        g.gridwidth = 2;
-        painelDados.add(fieldEfici, g);
-        
-        g.gridx = 0;
-        g.gridy = 0;
-        g.gridwidth = 1;
-        g.fill = GridBagConstraints.HORIZONTAL;
-        g.anchor = GridBagConstraints.PAGE_START;
-        g.weighty = 1;
-        this.add(painelDados, g);
         
         //ADICIONA OS LISTENERS AOS FIELDS
         fieldMassa.addFocusListener(new FocusListener() {
