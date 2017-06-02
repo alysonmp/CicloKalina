@@ -54,11 +54,11 @@ public class ViewBombaPanelRankine extends JPanel{
     private String[] massas = {"kg/s", "kg/m", "kg/h", "lb/s", "lb/m", "lb/h"};
     private JComboBox<String> comboMassa = new JComboBox<>(massas);
     
-    private String[] temps = {"°C", "°F", "K"};
+    private String[] temps = {"K", "°C", "°F"};
     private JComboBox<String> comboTempEntr = new JComboBox<>(temps);
     private JComboBox<String> comboTempSai = new JComboBox<>(temps);
     
-    private String[] pressoes = {"atm", "kPa", "bar"};
+    private String[] pressoes = {"kPa", "atm", "bar"};
     private JComboBox<String> comboPressaoEntr = new JComboBox<>(pressoes);
     private JComboBox<String> comboPressaoSai = new JComboBox<>(pressoes);
     
