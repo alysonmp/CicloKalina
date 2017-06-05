@@ -127,7 +127,6 @@ Contributor(s):
     <mapping class="Ciclo1.Model.ModelEqrs"/>
     <mapping class="Ciclo1.Model.ModelConsExeMatA"/>
     <mapping class="Ciclo1.Model.ModelConsExeMatB"/-->
-    
     <mapping class="Model.Ciclo2.ModelBomba"/>
     <mapping class="Model.Ciclo2.ModelCondensador"/>
     <mapping class="Model.Ciclo2.ModelEvaporador"/>
@@ -206,5 +205,6 @@ Contributor(s):
     <mapping class="Model.ModelEqrs"/>
     <mapping class="Model.ModelConsExeMatA"/>
     <mapping class="Model.ModelConsExeMatB"/>
+    <mapping class="Ciclo2.Model.ModelLateral"/>
   </session-factory>
 </hibernate-configuration>

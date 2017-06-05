@@ -7,6 +7,7 @@ package Ciclo2.View;
 
 import Control.ControlPrincipal;
 import Control.Conversao.ControlConverte;
+import Ciclo2.Control.ControlLateral;
 import Util.DropdownComboBox;
 import java.awt.Color;
 import java.awt.Font;
@@ -86,9 +87,11 @@ public class ViewLateral extends JPanel{
     private ControlPrincipal ctrlPrincipal;
     
     private ControlConverte controlConverte = new ControlConverte();
+    private ControlLateral controlLateral = null;
     
     public ViewLateral(ControlPrincipal ctrlPrincipal){
         this.ctrlPrincipal = ctrlPrincipal;
+        controlLateral = new ControlLateral(ctrlPrincipal,this);
         
         painelDados = new JPanel(new GridBagLayout());
         
@@ -244,7 +247,9 @@ public class ViewLateral extends JPanel{
             }
 
             @Override
-            public void focusLost(FocusEvent e) {
+            public void focusLost(FocusEvent e) {    
+                controlLateral.atualizaMassa();
+              
             }
         });
         fieldMassa.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
@@ -322,6 +327,7 @@ public class ViewLateral extends JPanel{
 
             @Override
             public void focusLost(FocusEvent e) {
+                
             }
         });
         fieldMassa.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
