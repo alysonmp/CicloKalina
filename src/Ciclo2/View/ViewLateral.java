@@ -5,6 +5,7 @@
  */
 package Ciclo2.View;
 
+
 import Control.ControlPrincipal;
 import Control.Conversao.ControlConverte;
 import Ciclo2.Control.ControlLateral;
@@ -13,6 +14,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -25,6 +27,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -37,10 +40,6 @@ import javax.swing.event.ChangeListener;
  * @author alysonmp
  */
 public class ViewLateral extends JPanel{
-    
-    //int compressor, int flu, double Tf, double Pf, double SUP, double PINCH, double Tconop, double eff, Session session
-    
-    private JLabel labelFluidos = new JLabel("Fluído");
             
     private JLabel labelCompressor = new JLabel("Compressor");
             
@@ -64,9 +63,6 @@ public class ViewLateral extends JPanel{
     private DropdownComboBox fieldSup = new DropdownComboBox();
     private DropdownComboBox fieldPinch = new DropdownComboBox();
     
-    //COMBOBOX
-    JComboBox<String> comboFluidos;
-    
     private String[] compressores = {"1", "2", "3", "4", "5"};
     private JComboBox comboCompressores = new JComboBox(compressores);
     
@@ -83,6 +79,9 @@ public class ViewLateral extends JPanel{
     //CHECKBOX
     JCheckBox checkSup = new JCheckBox("Superaquecimento");
     JCheckBox checkPinch = new JCheckBox("Pinch");
+    
+    //JBUTTON
+    JButton botaoInicia = new JButton("Cálculos");
     
     private JPanel painelDados;
     
@@ -103,18 +102,6 @@ public class ViewLateral extends JPanel{
         GridBagConstraints g = new GridBagConstraints();
         
         g.gridx = 0;
-        g.gridy = 0;
-        g.gridwidth = 1;
-        g.fill = GridBagConstraints.HORIZONTAL;
-        //painelDados.add(labelFluidos, g);
-        
-        g.gridx = 1;
-        g.gridy = 0;
-        g.gridwidth = 2;
-        g.fill = GridBagConstraints.HORIZONTAL;
-        //painelDados.add(comboFluidos, g);
-        
-        g.gridx = 0;
         g.gridy = 1;
         g.gridwidth = 1;
         g.fill = GridBagConstraints.HORIZONTAL;
@@ -130,19 +117,19 @@ public class ViewLateral extends JPanel{
         g.gridy = 2;
         g.gridwidth = 2;
         g.fill = GridBagConstraints.HORIZONTAL;
-        painelDados.add(labelMassa, g);
+        //painelDados.add(labelMassa, g);
         
         g.gridx = 1;
         g.gridy = 2;
         g.gridwidth = 1;
         g.fill = GridBagConstraints.HORIZONTAL;
-        painelDados.add(fieldMassa, g);
+        //painelDados.add(fieldMassa, g);
         
         g.gridx = 3;
         g.gridy = 2;
         g.gridwidth = 1;
         g.fill = GridBagConstraints.HORIZONTAL;
-        painelDados.add(comboMassa, g);
+        //painelDados.add(comboMassa, g);
 
         g.gridx = 0;
         g.gridy = 3;
@@ -232,6 +219,13 @@ public class ViewLateral extends JPanel{
         g.fill = GridBagConstraints.HORIZONTAL;
         painelDados.add(fieldPinch, g);
         
+        g.gridx = 3;
+        g.gridy = 9;
+        g.gridwidth = 1;
+        g.insets = new Insets(20, 0, 10, 0);
+        g.fill = GridBagConstraints.HORIZONTAL;
+        painelDados.add(botaoInicia, g);
+        
         g.gridx = 0;
         g.gridy = 0;
         g.gridwidth = 1;
@@ -239,11 +233,12 @@ public class ViewLateral extends JPanel{
         g.anchor = GridBagConstraints.PAGE_START;
         this.add(painelDados, g);
         
-        ViewLateral.this.fieldPinch.getEditor().setItem("0");
-        ViewLateral.this.fieldPinch.setEnabled(false);
+        fieldPinch.getEditor().setItem("0");
+        fieldPinch.setEnabled(false);
 
-        ViewLateral.this.fieldSup.getEditor().setItem("0");
-        ViewLateral.this.fieldSup.setEnabled(false);
+        fieldSup.getEditor().setItem("0");
+        fieldSup.setEnabled(false);
+        
         
         fieldMassa.getEditor().getEditorComponent().addFocusListener(new FocusListener() {
             @Override
@@ -479,7 +474,6 @@ public class ViewLateral extends JPanel{
             }
         });
         
-        
         comboMassa.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -524,7 +518,12 @@ public class ViewLateral extends JPanel{
             }
         });
         
-       
+        botaoInicia.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ctrlPrincipal.iniciaCalculos();
+            }
+        });
     }
     
     public DropdownComboBox getFieldMassa() {
@@ -589,14 +588,6 @@ public class ViewLateral extends JPanel{
 
     public void setFieldPinch(DropdownComboBox fieldPinch) {
         this.fieldPinch = fieldPinch;
-    }
-
-    public JComboBox<String> getComboFluidos() {
-        return comboFluidos;
-    }
-
-    public void setComboFluidos(JComboBox<String> comboFluidos) {
-        this.comboFluidos = comboFluidos;
     }
 
     public JComboBox getComboCompressores() {
