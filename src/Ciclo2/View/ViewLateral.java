@@ -238,34 +238,7 @@ public class ViewLateral extends JPanel{
         fieldSup.getEditor().setItem("0");
         fieldSup.setEnabled(false);
         
-        
-        fieldMassa.getEditor().getEditorComponent().addFocusListener(new FocusListener() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                fieldMassa.showPopup();
-                fieldMassa.getEditor().selectAll();
-            }
-
-            @Override
-            public void focusLost(FocusEvent e) {    
-                controlLateral.atualizaMassa();
-              
-            }
-        });
-        fieldMassa.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                fieldMassa.hidePopup();
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-            }
-        });
+        controlLateral.getValues();
         
         fieldTemp.getEditor().getEditorComponent().addFocusListener(new FocusListener() {
             @Override
@@ -276,6 +249,7 @@ public class ViewLateral extends JPanel{
 
             @Override
             public void focusLost(FocusEvent e) {
+                controlLateral.atualizaTemperatura();
             }
         });fieldTemp.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
             @Override
@@ -301,6 +275,7 @@ public class ViewLateral extends JPanel{
 
             @Override
             public void focusLost(FocusEvent e) {
+                controlLateral.atualizaPressao();
             }
         });
         fieldPressao.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
@@ -354,6 +329,7 @@ public class ViewLateral extends JPanel{
 
             @Override
             public void focusLost(FocusEvent e) {
+                controlLateral.atualizaTemperaturaCond();
             }
         });
         fieldTempCond.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
@@ -380,6 +356,7 @@ public class ViewLateral extends JPanel{
 
             @Override
             public void focusLost(FocusEvent e) {
+                controlLateral.atualizaEfetividade();
             }
         });
         fieldEfetiv.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
@@ -406,6 +383,7 @@ public class ViewLateral extends JPanel{
 
             @Override
             public void focusLost(FocusEvent e) {
+                controlLateral.atualizaSuperaquecimento();
             }
         });
         fieldSup.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
@@ -444,6 +422,7 @@ public class ViewLateral extends JPanel{
 
             @Override
             public void focusLost(FocusEvent e) {
+                controlLateral.atualizaPinch();
             }
         });
         fieldPinch.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
@@ -473,50 +452,6 @@ public class ViewLateral extends JPanel{
             }
         });
         
-        comboMassa.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                //Conversao
-                String valor = fieldMassa.getSelectedItem().toString();
-                if(!valor.isEmpty()){
-                    fieldMassa.setSelectedItem(String.valueOf(controlConverte.converte(comboMassa.getSelectedItem().toString(),Double.parseDouble(valor))));
-                }           
-            }
-        });
-        
-        comboPressao.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                //Conversao
-                String valor = fieldPressao.getSelectedItem().toString();
-                if(!valor.isEmpty()){
-                    fieldPressao.setSelectedItem(String.valueOf(controlConverte.converte(comboPressao.getSelectedItem().toString(),Double.parseDouble(valor))));
-                }           
-            }
-        });
-        
-        comboTemp.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                //Conversao
-                String valor = fieldTemp.getSelectedItem().toString();
-                if(!valor.isEmpty()){
-                    fieldTemp.setSelectedItem(String.valueOf(controlConverte.converte(comboTemp.getSelectedItem().toString(),Double.parseDouble(valor))));
-                }         
-            }
-        });
-        
-        comboTempCond.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                //Conversao
-                String valor = fieldTempCond.getSelectedItem().toString();
-                if(!valor.isEmpty()){
-                    fieldTempCond.setSelectedItem(String.valueOf(controlConverte.converte(comboTempCond.getSelectedItem().toString(),Double.parseDouble(valor))));
-                } 
-            }
-        });
-        
         botaoInicia.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -524,7 +459,7 @@ public class ViewLateral extends JPanel{
             }
         });
         
-        comboMassa.addActionListener(new ActionListener() {
+        /*comboMassa.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 //Conversao
@@ -533,38 +468,65 @@ public class ViewLateral extends JPanel{
                     fieldMassa.setSelectedItem(String.valueOf(controlConverte.converte(comboMassa.getSelectedItem().toString(),Double.parseDouble(valor))));
                 }           
             }
-        });
+        });*/
         
-        comboPressao.addActionListener(new ActionListener() {
+        comboTemp.addItemListener(new ItemListener() {
+            
+            String[] tipo = new String[2];
+            int tip = 0;
+            
             @Override
-            public void actionPerformed(ActionEvent ae) {
-                //Conversao
-                String valor = fieldPressao.getSelectedItem().toString();
-                if(!valor.isEmpty()){
-                    fieldPressao.setSelectedItem(String.valueOf(controlConverte.converte(comboPressao.getSelectedItem().toString(),Double.parseDouble(valor))));
-                }           
+            public void itemStateChanged(ItemEvent ie) {
+                
+                tipo[tip] = ie.getItem().toString();
+                tip++;
+                if(tip == 2){
+                    String valor = fieldTemp.getSelectedItem().toString();
+                    if(!valor.isEmpty()){
+                        fieldTemp.setSelectedItem(String.valueOf(controlConverte.converte(tipo[0],tipo[1],Double.parseDouble(valor))));
+                    } 
+                    tip = 0;
+                }
             }
         });
         
-        comboTemp.addActionListener(new ActionListener() {
+        comboPressao.addItemListener(new ItemListener() {
+            
+            String[] tipo = new String[2];
+            int tip = 0;
+            
             @Override
-            public void actionPerformed(ActionEvent ae) {
-                //Conversao
-                String valor = fieldTemp.getSelectedItem().toString();
-                if(!valor.isEmpty()){
-                    fieldTemp.setSelectedItem(String.valueOf(controlConverte.converte(comboTemp.getSelectedItem().toString(),Double.parseDouble(valor))));
-                }         
+            public void itemStateChanged(ItemEvent ie) {
+                
+                tipo[tip] = ie.getItem().toString();
+                tip++;
+                if(tip == 2){
+                    String valor = fieldPressao.getSelectedItem().toString();
+                    if(!valor.isEmpty()){
+                        fieldPressao.setSelectedItem(String.valueOf(controlConverte.converte(tipo[0],tipo[1],Double.parseDouble(valor))));
+                    } 
+                    tip = 0;
+                }
             }
         });
         
-        comboTempCond.addActionListener(new ActionListener() {
+        comboTempCond.addItemListener(new ItemListener() {
+            
+            String[] tipo = new String[2];
+            int tip = 0;
+            
             @Override
-            public void actionPerformed(ActionEvent ae) {
-                //Conversao
-                String valor = fieldTempCond.getSelectedItem().toString();
-                if(!valor.isEmpty()){
-                    fieldTempCond.setSelectedItem(String.valueOf(controlConverte.converte(comboTempCond.getSelectedItem().toString(),Double.parseDouble(valor))));
-                } 
+            public void itemStateChanged(ItemEvent ie) {
+                
+                tipo[tip] = ie.getItem().toString();
+                tip++;
+                if(tip == 2){
+                    String valor = fieldTempCond.getSelectedItem().toString();
+                    if(!valor.isEmpty()){
+                        fieldTempCond.setSelectedItem(String.valueOf(controlConverte.converte(tipo[0],tipo[1],Double.parseDouble(valor))));
+                    } 
+                    tip = 0;
+                }
             }
         });
     }
