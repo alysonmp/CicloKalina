@@ -118,9 +118,9 @@ public class ViewPrincipal {
             }
         });
         
-        comboFluidos.addItemListener(new ItemListener() {
+        comboFluidos.addActionListener(new ActionListener() {
             @Override
-            public void itemStateChanged(ItemEvent e) {
+            public void actionPerformed(ActionEvent e) {
                 ViewPrincipal.this.ctrlPrincipal.calculaLimites();
             }
         });

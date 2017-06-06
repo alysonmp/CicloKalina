@@ -48,7 +48,7 @@ public class ViewLateral extends JPanel{
     private JLabel labelPressao = new JLabel("Pressão: ");
     
     private JLabel labelTempCond = new JLabel("<html><body>Temperatura <br>de Condensação: </html></body> ");
-    private JLabel labelEfetiv = new JLabel("Efetividade: "); 
+    private JLabel labelEfetiv = new JLabel("Efetividade (%): "); 
     
     //TEXTFIELDS
     private DropdownComboBox fieldMassa = new DropdownComboBox();
@@ -239,6 +239,7 @@ public class ViewLateral extends JPanel{
         fieldSup.setEnabled(false);
         
         controlLateral.getValues();
+
         
         fieldTemp.getEditor().getEditorComponent().addFocusListener(new FocusListener() {
             @Override
@@ -527,6 +528,50 @@ public class ViewLateral extends JPanel{
                     } 
                     tip = 0;
                 }
+            }
+        });
+        
+        comboMassa.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                //Conversao
+                String valor = fieldMassa.getSelectedItem().toString();
+                if(!valor.isEmpty()){
+                    fieldMassa.setSelectedItem(String.valueOf(controlConverte.converte(comboMassa.getSelectedItem().toString(),Double.parseDouble(valor))));
+                }           
+            }
+        });
+        
+        comboPressao.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                //Conversao
+                String valor = fieldPressao.getSelectedItem().toString();
+                if(!valor.isEmpty()){
+                    fieldPressao.setSelectedItem(String.valueOf(controlConverte.converte(comboPressao.getSelectedItem().toString(),Double.parseDouble(valor))));
+                }           
+            }
+        });
+        
+        comboTemp.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                //Conversao
+                String valor = fieldTemp.getSelectedItem().toString();
+                if(!valor.isEmpty()){
+                    fieldTemp.setSelectedItem(String.valueOf(controlConverte.converte(comboTemp.getSelectedItem().toString(),Double.parseDouble(valor))));
+                }         
+            }
+        });
+        
+        comboTempCond.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                //Conversao
+                String valor = fieldTempCond.getSelectedItem().toString();
+                if(!valor.isEmpty()){
+                    fieldTempCond.setSelectedItem(String.valueOf(controlConverte.converte(comboTempCond.getSelectedItem().toString(),Double.parseDouble(valor))));
+                } 
             }
         });
     }
