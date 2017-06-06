@@ -48,7 +48,7 @@ public class ViewLateral extends JPanel{
     private JLabel labelPressao = new JLabel("Pressão: ");
     
     private JLabel labelTempCond = new JLabel("<html><body>Temperatura <br>de Condensação: </html></body> ");
-    private JLabel labelEfetiv = new JLabel("Efetividade: "); 
+    private JLabel labelEfetiv = new JLabel("Efetividade (%): "); 
     
     //TEXTFIELDS
     private DropdownComboBox fieldMassa = new DropdownComboBox();
@@ -237,7 +237,6 @@ public class ViewLateral extends JPanel{
 
         fieldSup.getEditor().setItem("0");
         fieldSup.setEnabled(false);
-        
         
         fieldMassa.getEditor().getEditorComponent().addFocusListener(new FocusListener() {
             @Override
