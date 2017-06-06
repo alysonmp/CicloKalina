@@ -6,7 +6,9 @@
 package View.Condensador;
 
 import Control.Condensador.ControlCondensadorPanelRankine;
+import Control.ControlCaixaResposta;
 import Control.ControlPrincipal;
+import View.Bomba.ViewBombaImage;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -25,6 +27,7 @@ public class ViewCondensadorImage extends JPanel{
     
     private ControlPrincipal ctrlPrincipal;
     private Session session;
+    private ControlCaixaResposta ctrlResposta;
     
     //CONSTRUTOR DO CONDENSADOR
     public ViewCondensadorImage(ControlPrincipal ctrlPrincipal, int ciclo, Session session){
@@ -64,12 +67,12 @@ public class ViewCondensadorImage extends JPanel{
                 int y = (int) (ctrlPrincipal.getViewPrincipal().getPainelLateral().getHeight()*0.86);
                 
                 
-                ControlCondensadorPanelRankine Condensador = new ControlCondensadorPanelRankine(ViewCondensadorImage.this.ctrlPrincipal, ViewCondensadorImage.this.session);
+                /*ControlCondensadorPanelRankine Condensador = new ControlCondensadorPanelRankine(ViewCondensadorImage.this.ctrlPrincipal, ViewCondensadorImage.this.session);
                 Condensador.getViewCondensador().setPreferredSize(new Dimension(x, y));
                 ViewCondensadorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().addTab("Condensador", null, Condensador.getViewCondensador());
                 ViewCondensadorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().setSelectedComponent(Condensador.getViewCondensador());
                 ViewCondensadorImage.this.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-                Condensador.criaComboBoxes();
+                Condensador.criaComboBoxes();*/
             }
 
             //NÃO UTILIZADOS
@@ -81,12 +84,16 @@ public class ViewCondensadorImage extends JPanel{
             public void mouseReleased(MouseEvent e) {
             }
 
-            @Override
             public void mouseEntered(MouseEvent e) {
+                int x = e.getX();
+                int y = e.getY();
+                //ctrlResposta = new ControlCaixaResposta(x, y, ctrlPrincipal.getSession());
+                //ctrlResposta.getViewCaixa().getFrameCaixa().setBounds(ViewCondensadorImage.this.getLocationOnScreen().x+ViewCondensadorImage.this.getWidth(), ViewCondensadorImage.this.getLocationOnScreen().y-ViewCondensadorImage.this.getHeight(), 200, 100);
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
+                //ctrlResposta.getViewCaixa().getFrameCaixa().dispose();
             }
         });
     }

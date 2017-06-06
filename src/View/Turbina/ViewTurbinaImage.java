@@ -5,6 +5,7 @@
  */
 package View.Turbina;
 
+import Control.ControlCaixaResposta;
 import Control.ControlPrincipal;
 import Control.Turbina.ControlTurbinaPanelRankine;
 import java.awt.Color;
@@ -22,6 +23,7 @@ import javax.swing.JPanel;
 public class ViewTurbinaImage extends JPanel{
     
     private ControlPrincipal ctrlPrincipal;
+    private ControlCaixaResposta ctrlResposta;
     
     //CONSTRUTOR DA TURBINA
     public ViewTurbinaImage(ControlPrincipal ctrlPrincipal, int ciclo){
@@ -76,12 +78,16 @@ public class ViewTurbinaImage extends JPanel{
             public void mouseReleased(MouseEvent e) {
             }
 
-            @Override
             public void mouseEntered(MouseEvent e) {
+                int x = e.getX();
+                int y = e.getY();
+                //ctrlResposta = new ControlCaixaResposta(x, y, ctrlPrincipal.getSession());
+                //ctrlResposta.getViewCaixa().getFrameCaixa().setBounds(ViewTurbinaImage.this.getLocationOnScreen().x+ViewTurbinaImage.this.getWidth(), ViewTurbinaImage.this.getLocationOnScreen().y-ViewTurbinaImage.this.getHeight(), 200, 100);
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
+                //ctrlResposta.getViewCaixa().getFrameCaixa().dispose();
             }
         });
     }

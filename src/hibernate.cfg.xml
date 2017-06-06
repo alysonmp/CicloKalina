@@ -206,5 +206,6 @@ Contributor(s):
     <mapping class="Model.ModelConsExeMatA"/>
     <mapping class="Model.ModelConsExeMatB"/>
     <mapping class="Ciclo2.Model.ModelLateral"/>
+    <mapping class="Model.ModelStart"/>
   </session-factory>
 </hibernate-configuration>

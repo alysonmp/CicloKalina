@@ -1,0 +1,11 @@
+Test$1
+Test
+AutoSuggestor
+Teste
+AutoSuggestor$2
+SuggestionLabel$2
+Test$2
+AutoSuggestor$3
+SuggestionLabel
+AutoSuggestor$1
+SuggestionLabel$1
