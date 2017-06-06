@@ -5,6 +5,7 @@
  */
 package View.Regenerador;
 
+import Control.ControlCaixaResposta;
 import Control.ControlPrincipal;
 import Control.Regenerador.ControlRegeneradorPanelRankine;
 import java.awt.Color;
@@ -22,6 +23,7 @@ import javax.swing.JPanel;
 public class ViewRegeneradorImage extends JPanel{
     
     private ControlPrincipal ctrlPrincipal;
+    private ControlCaixaResposta ctrlResposta;
     
     //CONSTRUTOR DA TURBINA
     public ViewRegeneradorImage(ControlPrincipal ctrlPrincipal, int ciclo){
@@ -59,20 +61,12 @@ public class ViewRegeneradorImage extends JPanel{
                 int x = (int) (ctrlPrincipal.getViewPrincipal().getPainelLateral().getWidth()*0.9);
                 int y = (int) (ctrlPrincipal.getViewPrincipal().getPainelLateral().getHeight()*0.86);
                 
-                //CASO O CICLO SEJA O PRIMEIRO CHAMA A CLASSE VIEWTURBINAPANELKCS
-                if(ciclo == 1){
-                    
-                }else{
-                    //CASO O CICLO SEJA O SEGUNDO CHAMA A CLASSE VIEWTURBINAPANELKCS
-                    if(ciclo == 2){
-                        ControlRegeneradorPanelRankine controlRegeneradorPanel = new ControlRegeneradorPanelRankine(ViewRegeneradorImage.this.ctrlPrincipal);
-                        controlRegeneradorPanel.getViewRegeneradorPanel().setPreferredSize(new Dimension(x, y));
-                        ViewRegeneradorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().addTab("Regenerador", null, controlRegeneradorPanel.getViewRegeneradorPanel());
-                        ViewRegeneradorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().setSelectedComponent(controlRegeneradorPanel.getViewRegeneradorPanel());
-                        ViewRegeneradorImage.this.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-                        controlRegeneradorPanel.getValuesComboBox();
-                    }
-                }
+                /*ControlRegeneradorPanelRankine controlRegeneradorPanel = new ControlRegeneradorPanelRankine(ViewRegeneradorImage.this.ctrlPrincipal);
+                controlRegeneradorPanel.getViewRegeneradorPanel().setPreferredSize(new Dimension(x, y));
+                ViewRegeneradorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().addTab("Regenerador", null, controlRegeneradorPanel.getViewRegeneradorPanel());
+                ViewRegeneradorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().setSelectedComponent(controlRegeneradorPanel.getViewRegeneradorPanel());
+                ViewRegeneradorImage.this.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+                controlRegeneradorPanel.getValuesComboBox();*/
             }
 
             //NÃO UTILIZADOS
@@ -84,12 +78,16 @@ public class ViewRegeneradorImage extends JPanel{
             public void mouseReleased(MouseEvent e) {
             }
 
-            @Override
             public void mouseEntered(MouseEvent e) {
+                int x = e.getX();
+                int y = e.getY();
+                //ctrlResposta = new ControlCaixaResposta(x, y, ctrlPrincipal.getSession());
+                //ctrlResposta.getViewCaixa().getFrameCaixa().setBounds(ViewRegeneradorImage.this.getLocationOnScreen().x+ViewRegeneradorImage.this.getWidth(), ViewRegeneradorImage.this.getLocationOnScreen().y-ViewRegeneradorImage.this.getHeight(), 200, 100);
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
+                //ctrlResposta.getViewCaixa().getFrameCaixa().dispose();
             }
         });
     }

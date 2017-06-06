@@ -80,6 +80,7 @@ import Model.ModelEqrs;
 import Model.ModelLinear;
 import Model.ModelQfpsoKCSMat;
 import Model.ModelQfpsoRankineMat;
+import Model.ModelStart;
 import Model.TabelasFluidos.ModelButanoGas;
 import Model.TabelasFluidos.ModelHexaneGas;
 import Util.HibernateUtil;
@@ -88,6 +89,7 @@ import View.Evaporador.ViewEvaporadorImage;
 import View.Bomba.ViewBombaImage;
 import View.Bomba.ViewBombaPanelRankine;
 import View.Condensador.ViewCondensadorPanelRankine;
+import View.Etapas.ViewEtapaImage;
 import View.Evaporador.ViewEvaporadorPanelRankine;
 import View.ViewPrincipal;
 import View.Turbina.ViewTurbinaImage;
@@ -123,6 +125,7 @@ public class ControlPrincipal {
     private ViewPrincipal viewPrincipal;
     private ArrayList<JPanel> panel_usado = new ArrayList();
     ViewLateral viewLateral;
+    Start start;
     
     Session session;
     
@@ -633,7 +636,6 @@ public class ControlPrincipal {
                 while((line = br.readLine()) != null){
                     double[] valoresV = new double[3];
                     String[] table_c = line.split(csvSplitBy);
-                    System.out.println(table_c.length);
                     for(int i = 0; i < table_c.length; i++){
                         
                         valoresV[i] = Double.parseDouble(table_c[i]);
@@ -654,6 +656,15 @@ public class ControlPrincipal {
                     }
                 }
             }
+        }
+        tx.commit();
+        
+        cr = this.session.createCriteria(ModelStart.class);
+        results = cr.list();
+        if(!results.isEmpty()){
+            tx = session.beginTransaction();
+            ModelStart start = (ModelStart)results.get(0);
+            session.delete(start);
             tx.commit();
         }
         
@@ -712,7 +723,8 @@ public class ControlPrincipal {
     
     //FUNÇÃO QUE CRIA O DESENHO DO SEGUNDO CICLO E INDICA OS LOCAIS DOS JPANELS INSERIDOS
     public void criaCiclo2(){                
-        ViewCiclos ciclo = new ViewCiclos(this, "src/Images/ciclo2.png", (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.3), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.7));
+        ViewCiclos ciclo = new ViewCiclos(this, "src/Images/Ciclo2/ciclo2.png", (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.3), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.7));
+
         ciclo.setLayout(null);
         ciclo.setBounds((int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.1), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.05), 
                           (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.3), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.7));
@@ -738,6 +750,30 @@ public class ControlPrincipal {
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.326), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.38), 
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.065), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.14));
         
+        criaPanel(new ViewEtapaImage(this, 2, 1, start), 
+                 (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.195), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.06), 
+                 (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.03), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.065));
+        
+        criaPanel(new ViewEtapaImage(this, 2, 2, start),
+                 (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.25), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.21), 
+                 (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.03), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.065));
+        
+        criaPanel(new ViewEtapaImage(this, 2, 3, start),
+                 (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.25), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.49), 
+                 (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.03), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.065));
+        
+        criaPanel(new ViewEtapaImage(this, 2, 4, start),
+                 (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.345), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.53), 
+                 (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.03), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.065));
+        
+        criaPanel(new ViewEtapaImage(this, 2, 5, start),
+                 (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.314), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.32), 
+                 (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.03), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.065));
+        
+        criaPanel(new ViewEtapaImage(this, 2, 6, start),
+                 (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.192), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.32), 
+                 (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.03), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.065));
+        
         viewLateral = new ViewLateral(this);
         viewPrincipal.getTabbedPanel().add(viewLateral);
         viewPrincipal.getFramePrincipal().repaint();
@@ -756,7 +792,6 @@ public class ControlPrincipal {
     public void ajustaMassa(String valor) {
         Component[] components = viewPrincipal.getTabbedPanel().getComponents();
         for(Component c: components){
-            System.out.println(c);
             switch(c.getName()){
                 case "Evaporador":
                     ViewEvaporadorPanelRankine painelE = (ViewEvaporadorPanelRankine)c;
@@ -873,10 +908,11 @@ public class ControlPrincipal {
             JOptionPane.showMessageDialog(null, "É necessário inserir a efetividade");
             return;
         }
-        eff = Double.parseDouble(viewLateral.getFieldEfetiv().getEditor().getItem().toString());
+        eff = (Double.parseDouble(viewLateral.getFieldEfetiv().getEditor().getItem().toString()))/100;
         
         //Start start = new Start(1, 14, 415.25, 1144.4, 25, 10, 313.15, 0.3, session);
-        Start start = new Start(comp, flu, Tf, Pf, sup, pinch, Tconop, eff, session);
+        start = new Start(comp, flu, Tf, Pf, sup, pinch, Tconop, eff, session, this);
+        adicionaValoresCaixas();
     }
     
     public void calculaLimites() {
@@ -902,6 +938,76 @@ public class ControlPrincipal {
         
         JOptionPane.showMessageDialog(null, "A pressão máxima para esse fluido é "+PMax+
                                             "\nA temperatura máxima para esse fluido é "+TMax);
+    }
+    
+    public void adicionaValoresCaixas(){
+        Criteria cr = this.session.createCriteria(ModelStart.class);
+        List results = cr.list();
+        ModelStart start_l = null;
+        
+        if(results.isEmpty()){
+            start_l = new ModelStart();
+        }else{
+            start_l = (ModelStart) results.get(0);
+        }
+        
+        start_l.setT1(start.getT1());
+        start_l.setT2(start.getT2());
+        start_l.setT3(start.getT3());
+        start_l.setT4(start.getT4());
+        start_l.setT5(start.getT5());
+        start_l.setT6(start.getT6());
+
+        start_l.setP1(start.getP1());
+        start_l.setP2(start.getP2());
+        start_l.setP3(start.getP3());
+        start_l.setP4(start.getP4());
+        start_l.setP5(start.getP5());
+        start_l.setP6(start.getP6());
+
+        start_l.setH1(start.getH1());
+        start_l.setH2(start.getH2());
+        start_l.setH3(start.getH3());
+        start_l.setH4(start.getH4());
+        start_l.setH5(start.getH5());
+        start_l.setH6(start.getH6());
+
+        start_l.setS1(start.getS1());
+        start_l.setS2(start.getS2());
+        start_l.setS3(start.getS3());
+        start_l.setS4(start.getS4());
+        start_l.setS5(start.getS5());
+        start_l.setS6(start.getS6());
+
+        start_l.setM(start.getM());
+
+        Transaction tx = this.session.beginTransaction();
+        session.saveOrUpdate(start_l);
+        tx.commit();
+        
+        criaPanel(new ViewEtapaImage(this, 2, 1, start), 
+                 (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.195), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.06), 
+                 (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.03), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.065));
+        
+        criaPanel(new ViewEtapaImage(this, 2, 2, start),
+                 (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.25), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.21), 
+                 (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.03), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.065));
+        
+        criaPanel(new ViewEtapaImage(this, 2, 3, start),
+                 (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.25), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.49), 
+                 (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.03), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.065));
+        
+        criaPanel(new ViewEtapaImage(this, 2, 4, start),
+                 (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.345), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.53), 
+                 (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.03), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.065));
+        
+        criaPanel(new ViewEtapaImage(this, 2, 5, start),
+                 (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.314), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.32), 
+                 (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.03), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.065));
+        
+        criaPanel(new ViewEtapaImage(this, 2, 6, start),
+                 (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.192), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.32), 
+                 (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.03), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.065));
     }
     
     public ViewPrincipal getViewPrincipal() {

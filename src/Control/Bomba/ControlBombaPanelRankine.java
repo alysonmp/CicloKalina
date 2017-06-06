@@ -30,7 +30,7 @@ public class ControlBombaPanelRankine {
     
     public ControlBombaPanelRankine(Session session){
         this.session = session;
-        //viewBomba = new ViewBombaPanelRankine(this);
+        viewBomba = new ViewBombaPanelRankine(this);
     }
 
     public ViewBombaPanelRankine getViewBomba() {
