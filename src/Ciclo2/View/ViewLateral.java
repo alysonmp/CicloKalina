@@ -89,6 +89,9 @@ public class ViewLateral extends JPanel{
     private ControlConverte controlConverte = new ControlConverte();
     private ControlLateral controlLateral = null;
     
+    //Casas decimais do JCombodow
+    private final int precision = 2;
+    
     public ViewLateral(ControlPrincipal ctrlPrincipal){
         this.ctrlPrincipal = ctrlPrincipal;
         controlLateral = new ControlLateral(ctrlPrincipal,this);
@@ -249,6 +252,7 @@ public class ViewLateral extends JPanel{
 
             @Override
             public void focusLost(FocusEvent e) {
+                fieldTemp.setSelectedItem(controlConverte.round(Double.parseDouble(fieldTemp.getSelectedItem().toString()),precision));
                 controlLateral.atualizaTemperatura();
             }
         });fieldTemp.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
@@ -275,6 +279,7 @@ public class ViewLateral extends JPanel{
 
             @Override
             public void focusLost(FocusEvent e) {
+                fieldPressao.setSelectedItem(controlConverte.round(Double.parseDouble(fieldPressao.getSelectedItem().toString()),precision));
                 controlLateral.atualizaPressao();
             }
         });
@@ -329,6 +334,7 @@ public class ViewLateral extends JPanel{
 
             @Override
             public void focusLost(FocusEvent e) {
+                fieldTempCond.setSelectedItem(controlConverte.round(Double.parseDouble(fieldTempCond.getSelectedItem().toString()),precision));
                 controlLateral.atualizaTemperaturaCond();
             }
         });
@@ -356,6 +362,7 @@ public class ViewLateral extends JPanel{
 
             @Override
             public void focusLost(FocusEvent e) {
+                fieldEfetiv.setSelectedItem(controlConverte.round(Double.parseDouble(fieldEfetiv.getSelectedItem().toString()),precision));
                 controlLateral.atualizaEfetividade();
             }
         });
@@ -383,6 +390,7 @@ public class ViewLateral extends JPanel{
 
             @Override
             public void focusLost(FocusEvent e) {
+                fieldSup.setSelectedItem(controlConverte.round(Double.parseDouble(fieldSup.getSelectedItem().toString()),precision));
                 controlLateral.atualizaSuperaquecimento();
             }
         });
@@ -422,6 +430,7 @@ public class ViewLateral extends JPanel{
 
             @Override
             public void focusLost(FocusEvent e) {
+                fieldPinch.setSelectedItem(controlConverte.round(Double.parseDouble(fieldPinch.getSelectedItem().toString()),precision));
                 controlLateral.atualizaPinch();
             }
         });
