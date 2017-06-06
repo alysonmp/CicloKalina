@@ -8,7 +8,9 @@ package Ciclo2.View;
 import Control.ControlPrincipal;
 import Control.Conversao.ControlConverte;
 import Ciclo2.Control.ControlLateral;
+import View.ViewEspera;
 import Util.DropdownComboBox;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -25,6 +27,8 @@ import java.awt.event.KeyListener;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -48,7 +52,10 @@ public class ViewLateral extends JPanel{
     private JLabel labelPressao = new JLabel("Pressão: ");
     
     private JLabel labelTempCond = new JLabel("<html><body>Temperatura <br>de Condensação: </html></body> ");
-    private JLabel labelEfetiv = new JLabel("Efetividade (%): "); 
+    private JLabel labelEfetiv = new JLabel("Efetividade (%): ");
+    
+    private JLabel labelLimitTemp = new JLabel("");
+    private JLabel labelLimitPressao = new JLabel("");
     
     //TEXTFIELDS
     private DropdownComboBox fieldMassa = new DropdownComboBox();
@@ -221,8 +228,20 @@ public class ViewLateral extends JPanel{
         g.fill = GridBagConstraints.HORIZONTAL;
         painelDados.add(fieldPinch, g);
         
-        g.gridx = 3;
+        g.gridx = 0;
         g.gridy = 9;
+        g.gridwidth = 3;
+        g.fill = GridBagConstraints.HORIZONTAL;
+        painelDados.add(labelLimitTemp, g);
+        
+        g.gridx = 0;
+        g.gridy = 10;
+        g.gridwidth = 3;
+        g.fill = GridBagConstraints.HORIZONTAL;
+        painelDados.add(labelLimitPressao, g);
+        
+        g.gridx = 3;
+        g.gridy = 11;
         g.gridwidth = 1;
         g.insets = new Insets(20, 0, 10, 0);
         g.fill = GridBagConstraints.HORIZONTAL;
@@ -234,6 +253,10 @@ public class ViewLateral extends JPanel{
         g.fill = GridBagConstraints.HORIZONTAL;
         g.anchor = GridBagConstraints.PAGE_START;
         this.add(painelDados, g);
+        
+        ctrlPrincipal.calculaLimites();
+        labelLimitPressao.setText("<html><body>Pressão Máxima:  "+controlConverte.round(ctrlPrincipal.getPMax(),2)+"</html></body>");
+        labelLimitTemp.setText("<html><body>Temperatura Máxima:  "+controlConverte.round(ctrlPrincipal.getTMax(),2)+"</html></body>");
         
         fieldPinch.getEditor().setItem("0");
         fieldPinch.setEnabled(false);
@@ -462,10 +485,38 @@ public class ViewLateral extends JPanel{
             }
         });
         
+        //Tela de espera abaixo: 
+        ViewEspera painelEspera = new ViewEspera();
+        ctrlPrincipal.getViewPrincipal().getFramePrincipal().add(painelEspera.getPanelEspera(),BorderLayout.CENTER);
+        
         botaoInicia.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ctrlPrincipal.iniciaCalculos();
+                
+                Thread t1 = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        
+                        ctrlPrincipal.iniciaCalculos();
+                    }
+                });
+                t1.start();
+                
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {    
+                        try {
+                            ctrlPrincipal.getViewPrincipal().getFramePrincipal().setEnabled(false);
+                            painelEspera.getPanelEspera().setVisible(true);
+                            t1.join();
+                            painelEspera.getPanelEspera().setVisible(false);
+                            ctrlPrincipal.getViewPrincipal().getFramePrincipal().setEnabled(true);
+                            
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(ViewLateral.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                }).start();
             }
         });
         
@@ -540,7 +591,7 @@ public class ViewLateral extends JPanel{
             }
         });
         
-        comboMassa.addActionListener(new ActionListener() {
+        /*comboMassa.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 //Conversao
@@ -581,6 +632,15 @@ public class ViewLateral extends JPanel{
                 if(!valor.isEmpty()){
                     fieldTempCond.setSelectedItem(String.valueOf(controlConverte.converte(comboTempCond.getSelectedItem().toString(),Double.parseDouble(valor))));
                 } 
+            }
+        });*/
+        
+        ctrlPrincipal.getViewPrincipal().getComboFluidos().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                ctrlPrincipal.calculaLimites();
+                labelLimitPressao.setText("<html><body>Pressão Máxima:  "+controlConverte.round(ctrlPrincipal.getPMax(),2)+"</html></body>");
+                labelLimitTemp.setText("<html><body>Temperatura Máxima:  "+controlConverte.round(ctrlPrincipal.getTMax(),2)+"</html></body>");
             }
         });
     }
@@ -696,4 +756,22 @@ public class ViewLateral extends JPanel{
     public void setCheckPinch(JCheckBox checkPinch) {
         this.checkPinch = checkPinch;
     }
+
+    public JLabel getLabelLimitTemp() {
+        return labelLimitTemp;
+    }
+
+    public void setLabelLimitTemp(JLabel labelLimitTemp) {
+        this.labelLimitTemp = labelLimitTemp;
+    }
+
+    public JLabel getLabelLimitPressao() {
+        return labelLimitPressao;
+    }
+
+    public void setLabelLimitPressao(JLabel labelLimitPressao) {
+        this.labelLimitPressao = labelLimitPressao;
+    }
+    
+    
 }

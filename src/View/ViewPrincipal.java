@@ -118,12 +118,12 @@ public class ViewPrincipal {
             }
         });
         
-        comboFluidos.addActionListener(new ActionListener() {
+        /*comboFluidos.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ViewPrincipal.this.ctrlPrincipal.calculaLimites();
             }
-        });
+        });*/
     }
     
     //CRIA A BARRA DE MENU NO TOPO DO FRAME
