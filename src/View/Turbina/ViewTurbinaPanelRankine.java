@@ -252,7 +252,7 @@ public class ViewTurbinaPanelRankine extends JPanel{
                     String tipo = comboTempEntr.getSelectedItem().toString();
                     double valor = Double.parseDouble(fieldTempEntr.getSelectedItem().toString());
 
-                    double resp = converte.converte(tipo, valor);
+                    //double resp = converte.converte(tipo, valor);
                     
                     //realizaCalculos
                 }
@@ -267,9 +267,9 @@ public class ViewTurbinaPanelRankine extends JPanel{
                 String tipo = comboTempEntr.getSelectedItem().toString();
                 double valor = Double.parseDouble(fieldTempEntr.getSelectedItem().toString());
                 
-                double resp = converte.converte(tipo, valor);
+                //double resp = converte.converte(tipo, valor);
                 
-                comboTempEntr.getEditor().setItem(resp);
+                //comboTempEntr.getEditor().setItem(resp);
             }
         });
         
