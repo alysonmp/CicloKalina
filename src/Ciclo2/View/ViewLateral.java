@@ -8,7 +8,9 @@ package Ciclo2.View;
 import Control.ControlPrincipal;
 import Control.Conversao.ControlConverte;
 import Ciclo2.Control.ControlLateral;
+import View.ViewEspera;
 import Util.DropdownComboBox;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -25,6 +27,8 @@ import java.awt.event.KeyListener;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -48,7 +52,10 @@ public class ViewLateral extends JPanel{
     private JLabel labelPressao = new JLabel("Pressão: ");
     
     private JLabel labelTempCond = new JLabel("<html><body>Temperatura <br>de Condensação: </html></body> ");
-    private JLabel labelEfetiv = new JLabel("Efetividade (%): "); 
+    private JLabel labelEfetiv = new JLabel("Efetividade (%): ");
+    
+    private JLabel labelLimitTemp = new JLabel("");
+    private JLabel labelLimitPressao = new JLabel("");
     
     //TEXTFIELDS
     private DropdownComboBox fieldMassa = new DropdownComboBox();
@@ -88,6 +95,9 @@ public class ViewLateral extends JPanel{
     
     private ControlConverte controlConverte = new ControlConverte();
     private ControlLateral controlLateral = null;
+    
+    //Casas decimais do JCombodow
+    private final int precision = 2;
     
     public ViewLateral(ControlPrincipal ctrlPrincipal){
         this.ctrlPrincipal = ctrlPrincipal;
@@ -218,8 +228,20 @@ public class ViewLateral extends JPanel{
         g.fill = GridBagConstraints.HORIZONTAL;
         painelDados.add(fieldPinch, g);
         
-        g.gridx = 3;
+        g.gridx = 0;
         g.gridy = 9;
+        g.gridwidth = 3;
+        g.fill = GridBagConstraints.HORIZONTAL;
+        painelDados.add(labelLimitTemp, g);
+        
+        g.gridx = 0;
+        g.gridy = 10;
+        g.gridwidth = 3;
+        g.fill = GridBagConstraints.HORIZONTAL;
+        painelDados.add(labelLimitPressao, g);
+        
+        g.gridx = 3;
+        g.gridy = 11;
         g.gridwidth = 1;
         g.insets = new Insets(20, 0, 10, 0);
         g.fill = GridBagConstraints.HORIZONTAL;
@@ -232,39 +254,18 @@ public class ViewLateral extends JPanel{
         g.anchor = GridBagConstraints.PAGE_START;
         this.add(painelDados, g);
         
+        ctrlPrincipal.calculaLimites();
+        labelLimitPressao.setText("<html><body>Pressão Máxima:  "+controlConverte.round(ctrlPrincipal.getPMax(),2)+"</html></body>");
+        labelLimitTemp.setText("<html><body>Temperatura Máxima:  "+controlConverte.round(ctrlPrincipal.getTMax(),2)+"</html></body>");
+        
         fieldPinch.getEditor().setItem("0");
         fieldPinch.setEnabled(false);
 
         fieldSup.getEditor().setItem("0");
         fieldSup.setEnabled(false);
         
-        fieldMassa.getEditor().getEditorComponent().addFocusListener(new FocusListener() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                fieldMassa.showPopup();
-                fieldMassa.getEditor().selectAll();
-            }
+        controlLateral.getValues();
 
-            @Override
-            public void focusLost(FocusEvent e) {    
-                controlLateral.atualizaMassa();
-              
-            }
-        });
-        fieldMassa.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                fieldMassa.hidePopup();
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-            }
-        });
         
         fieldTemp.getEditor().getEditorComponent().addFocusListener(new FocusListener() {
             @Override
@@ -275,6 +276,8 @@ public class ViewLateral extends JPanel{
 
             @Override
             public void focusLost(FocusEvent e) {
+                fieldTemp.setSelectedItem(controlConverte.round(Double.parseDouble(fieldTemp.getSelectedItem().toString()),precision));
+                controlLateral.atualizaTemperatura();
             }
         });fieldTemp.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
             @Override
@@ -300,6 +303,8 @@ public class ViewLateral extends JPanel{
 
             @Override
             public void focusLost(FocusEvent e) {
+                fieldPressao.setSelectedItem(controlConverte.round(Double.parseDouble(fieldPressao.getSelectedItem().toString()),precision));
+                controlLateral.atualizaPressao();
             }
         });
         fieldPressao.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
@@ -353,6 +358,8 @@ public class ViewLateral extends JPanel{
 
             @Override
             public void focusLost(FocusEvent e) {
+                fieldTempCond.setSelectedItem(controlConverte.round(Double.parseDouble(fieldTempCond.getSelectedItem().toString()),precision));
+                controlLateral.atualizaTemperaturaCond();
             }
         });
         fieldTempCond.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
@@ -379,6 +386,8 @@ public class ViewLateral extends JPanel{
 
             @Override
             public void focusLost(FocusEvent e) {
+                fieldEfetiv.setSelectedItem(controlConverte.round(Double.parseDouble(fieldEfetiv.getSelectedItem().toString()),precision));
+                controlLateral.atualizaEfetividade();
             }
         });
         fieldEfetiv.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
@@ -405,6 +414,8 @@ public class ViewLateral extends JPanel{
 
             @Override
             public void focusLost(FocusEvent e) {
+                fieldSup.setSelectedItem(controlConverte.round(Double.parseDouble(fieldSup.getSelectedItem().toString()),precision));
+                controlLateral.atualizaSuperaquecimento();
             }
         });
         fieldSup.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
@@ -443,6 +454,8 @@ public class ViewLateral extends JPanel{
 
             @Override
             public void focusLost(FocusEvent e) {
+                fieldPinch.setSelectedItem(controlConverte.round(Double.parseDouble(fieldPinch.getSelectedItem().toString()),precision));
+                controlLateral.atualizaPinch();
             }
         });
         fieldPinch.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
@@ -472,58 +485,113 @@ public class ViewLateral extends JPanel{
             }
         });
         
-        comboMassa.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                //Conversao
-                String valor = fieldMassa.getSelectedItem().toString();
-                if(!valor.isEmpty()){
-                    fieldMassa.setSelectedItem(String.valueOf(controlConverte.converte(comboMassa.getSelectedItem().toString(),Double.parseDouble(valor))));
-                }           
-            }
-        });
-        
-        comboPressao.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                //Conversao
-                String valor = fieldPressao.getSelectedItem().toString();
-                if(!valor.isEmpty()){
-                    fieldPressao.setSelectedItem(String.valueOf(controlConverte.converte(comboPressao.getSelectedItem().toString(),Double.parseDouble(valor))));
-                }           
-            }
-        });
-        
-        comboTemp.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                //Conversao
-                String valor = fieldTemp.getSelectedItem().toString();
-                if(!valor.isEmpty()){
-                    fieldTemp.setSelectedItem(String.valueOf(controlConverte.converte(comboTemp.getSelectedItem().toString(),Double.parseDouble(valor))));
-                }         
-            }
-        });
-        
-        comboTempCond.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                //Conversao
-                String valor = fieldTempCond.getSelectedItem().toString();
-                if(!valor.isEmpty()){
-                    fieldTempCond.setSelectedItem(String.valueOf(controlConverte.converte(comboTempCond.getSelectedItem().toString(),Double.parseDouble(valor))));
-                } 
-            }
-        });
+        //Tela de espera abaixo: 
+        ViewEspera painelEspera = new ViewEspera();
+        ctrlPrincipal.getViewPrincipal().getFramePrincipal().add(painelEspera.getPanelEspera(),BorderLayout.CENTER);
         
         botaoInicia.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ctrlPrincipal.iniciaCalculos();
+                
+                Thread t1 = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        
+                        ctrlPrincipal.iniciaCalculos();
+                    }
+                });
+                t1.start();
+                
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {    
+                        try {
+                            ctrlPrincipal.getViewPrincipal().getFramePrincipal().setEnabled(false);
+                            painelEspera.getPanelEspera().setVisible(true);
+                            t1.join();
+                            painelEspera.getPanelEspera().setVisible(false);
+                            ctrlPrincipal.getViewPrincipal().getFramePrincipal().setEnabled(true);
+                            
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(ViewLateral.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                }).start();
             }
         });
         
-        comboMassa.addActionListener(new ActionListener() {
+        /*comboMassa.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                //Conversao
+                String valor = fieldMassa.getSelectedItem().toString();
+                if(!valor.isEmpty()){
+                    fieldMassa.setSelectedItem(String.valueOf(controlConverte.converte(comboMassa.getSelectedItem().toString(),Double.parseDouble(valor))));
+                }           
+            }
+        });*/
+        
+        comboTemp.addItemListener(new ItemListener() {
+            
+            String[] tipo = new String[2];
+            int tip = 0;
+            
+            @Override
+            public void itemStateChanged(ItemEvent ie) {
+                
+                tipo[tip] = ie.getItem().toString();
+                tip++;
+                if(tip == 2){
+                    String valor = fieldTemp.getSelectedItem().toString();
+                    if(!valor.isEmpty()){
+                        fieldTemp.setSelectedItem(String.valueOf(controlConverte.converte(tipo[0],tipo[1],Double.parseDouble(valor))));
+                    } 
+                    tip = 0;
+                }
+            }
+        });
+        
+        comboPressao.addItemListener(new ItemListener() {
+            
+            String[] tipo = new String[2];
+            int tip = 0;
+            
+            @Override
+            public void itemStateChanged(ItemEvent ie) {
+                
+                tipo[tip] = ie.getItem().toString();
+                tip++;
+                if(tip == 2){
+                    String valor = fieldPressao.getSelectedItem().toString();
+                    if(!valor.isEmpty()){
+                        fieldPressao.setSelectedItem(String.valueOf(controlConverte.converte(tipo[0],tipo[1],Double.parseDouble(valor))));
+                    } 
+                    tip = 0;
+                }
+            }
+        });
+        
+        comboTempCond.addItemListener(new ItemListener() {
+            
+            String[] tipo = new String[2];
+            int tip = 0;
+            
+            @Override
+            public void itemStateChanged(ItemEvent ie) {
+                
+                tipo[tip] = ie.getItem().toString();
+                tip++;
+                if(tip == 2){
+                    String valor = fieldTempCond.getSelectedItem().toString();
+                    if(!valor.isEmpty()){
+                        fieldTempCond.setSelectedItem(String.valueOf(controlConverte.converte(tipo[0],tipo[1],Double.parseDouble(valor))));
+                    } 
+                    tip = 0;
+                }
+            }
+        });
+        
+        /*comboMassa.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 //Conversao
@@ -564,6 +632,15 @@ public class ViewLateral extends JPanel{
                 if(!valor.isEmpty()){
                     fieldTempCond.setSelectedItem(String.valueOf(controlConverte.converte(comboTempCond.getSelectedItem().toString(),Double.parseDouble(valor))));
                 } 
+            }
+        });*/
+        
+        ctrlPrincipal.getViewPrincipal().getComboFluidos().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                ctrlPrincipal.calculaLimites();
+                labelLimitPressao.setText("<html><body>Pressão Máxima:  "+controlConverte.round(ctrlPrincipal.getPMax(),2)+"</html></body>");
+                labelLimitTemp.setText("<html><body>Temperatura Máxima:  "+controlConverte.round(ctrlPrincipal.getTMax(),2)+"</html></body>");
             }
         });
     }
@@ -679,4 +756,22 @@ public class ViewLateral extends JPanel{
     public void setCheckPinch(JCheckBox checkPinch) {
         this.checkPinch = checkPinch;
     }
+
+    public JLabel getLabelLimitTemp() {
+        return labelLimitTemp;
+    }
+
+    public void setLabelLimitTemp(JLabel labelLimitTemp) {
+        this.labelLimitTemp = labelLimitTemp;
+    }
+
+    public JLabel getLabelLimitPressao() {
+        return labelLimitPressao;
+    }
+
+    public void setLabelLimitPressao(JLabel labelLimitPressao) {
+        this.labelLimitPressao = labelLimitPressao;
+    }
+    
+    
 }
