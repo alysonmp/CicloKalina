@@ -10,7 +10,7 @@ public class ControlConverte {
     }
     
     public double converte(String tipo,String tipo2, double valor){
-        int precision = 4;
+        int precision = 2;
         
         if(tipo.equals("K") || tipo.equals("kPa") || tipo.equals("kg/s")){
             switch(tipo2){
@@ -122,7 +122,7 @@ public class ControlConverte {
         return 0;
     }
     
-    public static double round(double value, int places) {
+    public double round(double value, int places) {
         if (places < 0) throw new IllegalArgumentException();
 
         long factor = (long) Math.pow(10, places);

@@ -5,10 +5,8 @@
  */
 package View;
 
-import Control.Start;
 import Model.ModelStart;
 import java.awt.Color;
-import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -169,15 +167,15 @@ public class ViewCaixaResposta {
         
         c.gridx = 1;
         c.gridy = 4;
-        painelCaixa.add(labelMassa, c);
-        
+        painelCaixa.add(fieldMassa, c);
+       
         try {
             Thread.sleep(100);
         } catch (InterruptedException ex) {
             Logger.getLogger(ViewCaixaResposta.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        painelCaixa.setPreferredSize(new Dimension(250, 100));
+        painelCaixa.setPreferredSize(new Dimension(250, 150));
         painelCaixa.setBackground(new Color(255, 255, 204));
         
         frameCaixa.add(painelCaixa);

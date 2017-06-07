@@ -122,6 +122,7 @@ import org.hibernate.criterion.Restrictions;
  * @author alysonmp
  */
 public class ControlPrincipal {
+    private double PMax, TMax;
     private ViewPrincipal viewPrincipal;
     private ArrayList<JPanel> panel_usado = new ArrayList();
     ViewLateral viewLateral;
@@ -782,7 +783,7 @@ public class ControlPrincipal {
     //FUNÇÃO QUE EDITA OS JPANELS ONDE SERÃO MOSTRADOS OS CICLOS E OS INSERE NO PAINEL
     public void criaPanel(JPanel obj, int x, int y, int width, int height){
         obj.setLayout(null);
-        obj.setBackground(Color.black);
+        //obj.setBackground(Color.black);
         obj.setOpaque(false);
         obj.setBounds(x, y, width, height);
         viewPrincipal.getPainelCiclos().add(obj);
@@ -931,13 +932,13 @@ public class ControlPrincipal {
         ModelCriticasKCSMat_Pc pc = (ModelCriticasKCSMat_Pc) results.get(0);
         double p = pc.getValor();
         
-        double PMax = p * 0.9;
+        PMax = p * 0.9;
         
         ControlT_Ref TRef = new ControlT_Ref(PMax, ii, session);
-        double TMax = TRef.getTref();
+        TMax = TRef.getTref();
         
-        JOptionPane.showMessageDialog(null, "A pressão máxima para esse fluido é "+PMax+
-                                            "\nA temperatura máxima para esse fluido é "+TMax);
+        //JOptionPane.showMessageDialog(null, "A pressão máxima para esse fluido é "+PMax+
+                                            //"\nA temperatura máxima para esse fluido é "+TMax);
     }
     
     public void adicionaValoresCaixas(){
@@ -1033,6 +1034,20 @@ public class ControlPrincipal {
     public void setSession(Session session) {
         this.session = session;
     }
+
+    public double getPMax() {
+        return PMax;
+    }
+
+    public void setPMax(double PMax) {
+        this.PMax = PMax;
+    }
+
+    public double getTMax() {
+        return TMax;
+    }
+
+    public void setTMax(double TMax) {
+        this.TMax = TMax;
+    }
 }
-
-
