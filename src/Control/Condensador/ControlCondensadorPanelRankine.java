@@ -35,14 +35,6 @@ public class ControlCondensadorPanelRankine {
         viewCondensador = new ViewCondensadorPanelRankine(this);
         this.ctrlPrincipal = ctrlPrincipal;
     }
-
-    public ViewCondensadorPanelRankine getViewCondensador() {
-        return viewCondensador;
-    }
-
-    public void setViewCondensador(ViewCondensadorPanelRankine viewCondensador) {
-        this.viewCondensador = viewCondensador;
-    }
     
     public void atualizaMassa(){
         if(viewCondensador.getFieldMassa().getSelectedItem().equals("")){
@@ -410,5 +402,13 @@ public class ControlCondensadorPanelRankine {
 
     public void setCtrlPrincipal(ControlPrincipal ctrlPrincipal) {
         this.ctrlPrincipal = ctrlPrincipal;
+    }
+    
+    public ViewCondensadorPanelRankine getViewCondensador() {
+        return viewCondensador;
+    }
+
+    public void setViewCondensador(ViewCondensadorPanelRankine viewCondensador) {
+        this.viewCondensador = viewCondensador;
     }
 }

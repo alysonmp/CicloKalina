@@ -10,6 +10,7 @@ import Control.Conversao.ControlConverte;
 import Ciclo2.Control.ControlLateral;
 import View.ViewEspera;
 import Util.DropdownComboBox;
+import View.ViewPrincipal;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dialog;
@@ -37,6 +38,7 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -305,12 +307,18 @@ public class ViewLateral extends JPanel{
             public void focusGained(FocusEvent e) {
                 fieldTemp.showPopup();
                 fieldTemp.getEditor().selectAll();
+               
             }
 
             @Override
             public void focusLost(FocusEvent e) {
-                fieldTemp.setSelectedItem(controlConverte.round(Double.parseDouble(fieldTemp.getSelectedItem().toString()),precision));
-                controlLateral.atualizaTemperatura();
+                if(Double.parseDouble(fieldTemp.getSelectedItem().toString()) > ctrlPrincipal.getTMax()){
+                    JOptionPane.showMessageDialog(null,"Valor acima do permitido!");
+                    fieldTemp.setSelectedItem("0.0");
+                }else{
+                    fieldTemp.setSelectedItem(controlConverte.round(Double.parseDouble(fieldTemp.getSelectedItem().toString()),precision));
+                    controlLateral.atualizaTemperatura();
+                }
             }
         });fieldTemp.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
             @Override
@@ -336,8 +344,13 @@ public class ViewLateral extends JPanel{
 
             @Override
             public void focusLost(FocusEvent e) {
-                fieldPressao.setSelectedItem(controlConverte.round(Double.parseDouble(fieldPressao.getSelectedItem().toString()),precision));
-                controlLateral.atualizaPressao();
+                if(Double.parseDouble(fieldPressao.getSelectedItem().toString()) > ctrlPrincipal.getPMax()){
+                    JOptionPane.showMessageDialog(null,"Valor acima do permitido!");
+                    fieldPressao.setSelectedItem("0.0");
+                }else{
+                    fieldPressao.setSelectedItem(controlConverte.round(Double.parseDouble(fieldPressao.getSelectedItem().toString()),precision));
+                    controlLateral.atualizaPressao();
+                }
             }
         });
         fieldPressao.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
@@ -421,6 +434,10 @@ public class ViewLateral extends JPanel{
             public void focusLost(FocusEvent e) {
                 fieldEfetiv.setSelectedItem(controlConverte.round(Double.parseDouble(fieldEfetiv.getSelectedItem().toString()),precision));
                 controlLateral.atualizaEfetividade();
+                ViewPrincipal viewPrincipal = ctrlPrincipal.getViewPrincipal();
+                for(int i=0;i<viewPrincipal.getPainelCiclos().getComponentCount();i++)
+                   System.out.println(viewPrincipal.getPainelCiclos().getComponent(i));
+                
             }
         });
         fieldEfetiv.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
@@ -585,6 +602,8 @@ public class ViewLateral extends JPanel{
                     String valor = fieldTemp.getSelectedItem().toString();
                     if(!valor.isEmpty()){
                         fieldTemp.setSelectedItem(String.valueOf(controlConverte.converte(tipo[0],tipo[1],Double.parseDouble(valor))));
+                        fieldLimitTemp.setText(String.valueOf(controlConverte.converte(tipo[0],tipo[1],Double.parseDouble(fieldLimitTemp.getText()))));
+                        
                     } 
                     tip = 0;
                 }
@@ -605,6 +624,8 @@ public class ViewLateral extends JPanel{
                     String valor = fieldPressao.getSelectedItem().toString();
                     if(!valor.isEmpty()){
                         fieldPressao.setSelectedItem(String.valueOf(controlConverte.converte(tipo[0],tipo[1],Double.parseDouble(valor))));
+                        fieldLimitPressao.setText(String.valueOf(controlConverte.converte(tipo[0],tipo[1],Double.parseDouble(fieldLimitPressao.getText()))));
+
                     } 
                     tip = 0;
                 }
@@ -685,6 +706,10 @@ public class ViewLateral extends JPanel{
                 fieldLimitTemp.setText(controlConverte.round(ctrlPrincipal.getTMax(),2)+"");
             }
         });
+    }
+
+    public JPanel getPainelDados() {
+        return painelDados;
     }
     
     public DropdownComboBox getFieldMassa() {

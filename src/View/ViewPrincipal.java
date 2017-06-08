@@ -42,7 +42,8 @@ public class ViewPrincipal {
     private JPanel painelPrincipal;
     private JPanel painelLateral = new JPanel();
     private JPanel painelCiclos = new JPanel();
-    private JTabbedPane tabbedPanel;
+    private JPanel painelEntrada;
+    private JTabbedPane tabbedPanelComp;
     
     JLabel labelFluidos = new JLabel("Fluído");
     JComboBox<String> comboFluidos;
@@ -76,10 +77,15 @@ public class ViewPrincipal {
         Dimension dim = new Dimension(380, 500);
         painelLateral.setPreferredSize(dim);
         
-        tabbedPanel = new JTabbedPane();
+        painelEntrada = new JPanel();
+        painelEntrada.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(1, Color.lightGray, Color.lightGray), "Dados de Entrada", 1, 2, new Font("Times New Roman", 1, 12), Color.darkGray));
+        
+        tabbedPanelComp = new JTabbedPane();
+        
         painelLateral.add(labelFluidos);
         painelLateral.add(comboFluidos);
-        painelLateral.add(tabbedPanel);
+        painelLateral.add(painelEntrada);
+        painelLateral.add(tabbedPanelComp);
         //******************************************************************************
         
         painelPrincipal.add(painelLateral, BorderLayout.WEST);
@@ -93,10 +99,10 @@ public class ViewPrincipal {
         framePrincipal.setResizable(false);
         framePrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        tabbedPanel.addChangeListener(new ChangeListener() {
+        tabbedPanelComp.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                String tabName = tabbedPanel.getTitleAt(tabbedPanel.getSelectedIndex());
+                String tabName = tabbedPanelComp.getTitleAt(tabbedPanelComp.getSelectedIndex());
                 
                 Component[] paineis = painelCiclos.getComponents();
                 for(int i = 0; i < paineis.length; i++){
@@ -180,13 +186,13 @@ public class ViewPrincipal {
         this.painelCiclos = painelCiclos;
     }
 
-    public JTabbedPane getTabbedPanel() {
-        return tabbedPanel;
+    public JPanel getPainelEntrada() {
+        return painelEntrada;
     }
 
-    public void setTabbedPanel(JTabbedPane tabbedPanel) {
-        this.tabbedPanel = tabbedPanel;
-    }    
+    public void setPainelEntrada(JPanel panelEntrada) {
+        this.painelEntrada = panelEntrada;
+    }
 
     public JComboBox<String> getComboFluidos() {
         return comboFluidos;
@@ -194,5 +200,9 @@ public class ViewPrincipal {
 
     public void setComboFluidos(JComboBox<String> comboFluidos) {
         this.comboFluidos = comboFluidos;
-    }    
+    } 
+
+    public JTabbedPane getTabbedPanelComp() {
+        return tabbedPanelComp;
+    }
 }

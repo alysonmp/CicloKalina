@@ -46,7 +46,7 @@ public class ViewTurbinaImage extends JPanel{
                 if(ViewTurbinaImage.this.ctrlPrincipal.getPanel_usado().contains((JPanel)e.getSource())){
                     for(int i = 0; i < ViewTurbinaImage.this.ctrlPrincipal.getPanel_usado().size(); i++) {
                         if(e.getSource() == ViewTurbinaImage.this.ctrlPrincipal.getPanel_usado().get(i)){
-                            ViewTurbinaImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().setSelectedIndex(i);
+                            ViewTurbinaImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanelComp().setSelectedIndex(i);
                             ViewTurbinaImage.this.setBorder(BorderFactory.createLineBorder(Color.black, 2));
                             return;
                         }
@@ -59,12 +59,12 @@ public class ViewTurbinaImage extends JPanel{
                 
                 //CALCULA A DIMENSÃO DO PAINEL LATERAL
                 int x = (int) (ctrlPrincipal.getViewPrincipal().getPainelLateral().getWidth()*0.9);
-                int y = (int) (ctrlPrincipal.getViewPrincipal().getPainelLateral().getHeight()*0.86);
+                int y = (int) (ctrlPrincipal.getViewPrincipal().getPainelLateral().getHeight()*0.55);
                 
                 ControlTurbinaPanelRankine controlTurbinaPanel = new ControlTurbinaPanelRankine(ViewTurbinaImage.this.ctrlPrincipal);
                 controlTurbinaPanel.getViewTurbinaPanel().setPreferredSize(new Dimension(x, y));
-                ViewTurbinaImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().addTab("Turbina", null, controlTurbinaPanel.getViewTurbinaPanel());
-                ViewTurbinaImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().setSelectedComponent(controlTurbinaPanel.getViewTurbinaPanel());
+                ViewTurbinaImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanelComp().addTab("Turbina", null, controlTurbinaPanel.getViewTurbinaPanel());
+                ViewTurbinaImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanelComp().setSelectedComponent(controlTurbinaPanel.getViewTurbinaPanel());
                 ViewTurbinaImage.this.setBorder(BorderFactory.createLineBorder(Color.black, 2)); 
                 controlTurbinaPanel.getValuesComboBox();
             }

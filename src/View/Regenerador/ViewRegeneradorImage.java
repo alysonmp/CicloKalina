@@ -46,7 +46,7 @@ public class ViewRegeneradorImage extends JPanel{
                 if(ViewRegeneradorImage.this.ctrlPrincipal.getPanel_usado().contains((JPanel)e.getSource())){
                     for(int i = 0; i < ViewRegeneradorImage.this.ctrlPrincipal.getPanel_usado().size(); i++) {
                         if(e.getSource() == ViewRegeneradorImage.this.ctrlPrincipal.getPanel_usado().get(i)){
-                            ViewRegeneradorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().setSelectedIndex(i);
+                            ViewRegeneradorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanelComp().setSelectedIndex(i);
                             ViewRegeneradorImage.this.setBorder(BorderFactory.createLineBorder(Color.black, 2));
                             return;
                         }
@@ -59,14 +59,14 @@ public class ViewRegeneradorImage extends JPanel{
                 
                 //CALCULA A DIMENSÃO DO PAINEL LATERAL
                 int x = (int) (ctrlPrincipal.getViewPrincipal().getPainelLateral().getWidth()*0.9);
-                int y = (int) (ctrlPrincipal.getViewPrincipal().getPainelLateral().getHeight()*0.86);
+                int y = (int) (ctrlPrincipal.getViewPrincipal().getPainelLateral().getHeight()*0.55);
                 
-                /*ControlRegeneradorPanelRankine controlRegeneradorPanel = new ControlRegeneradorPanelRankine(ViewRegeneradorImage.this.ctrlPrincipal);
+                ControlRegeneradorPanelRankine controlRegeneradorPanel = new ControlRegeneradorPanelRankine(ViewRegeneradorImage.this.ctrlPrincipal);
                 controlRegeneradorPanel.getViewRegeneradorPanel().setPreferredSize(new Dimension(x, y));
-                ViewRegeneradorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().addTab("Regenerador", null, controlRegeneradorPanel.getViewRegeneradorPanel());
-                ViewRegeneradorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().setSelectedComponent(controlRegeneradorPanel.getViewRegeneradorPanel());
+                ViewRegeneradorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanelComp().addTab("Regenerador", null, controlRegeneradorPanel.getViewRegeneradorPanel());
+                ViewRegeneradorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanelComp().setSelectedComponent(controlRegeneradorPanel.getViewRegeneradorPanel());
                 ViewRegeneradorImage.this.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-                controlRegeneradorPanel.getValuesComboBox();*/
+                controlRegeneradorPanel.getValuesComboBox();
             }
 
             //NÃO UTILIZADOS
