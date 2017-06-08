@@ -751,27 +751,27 @@ public class ControlPrincipal {
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.326), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.38), 
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.065), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.14));
         
-        criaPanel(new ViewEtapaImage(this, 2, 1, start), 
+        criaPanel(new ViewEtapaImage(this, 2, "1", start), 
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.195), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.06), 
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.03), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.065));
         
-        criaPanel(new ViewEtapaImage(this, 2, 2, start),
+        criaPanel(new ViewEtapaImage(this, 2, "2", start),
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.25), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.21), 
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.03), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.065));
         
-        criaPanel(new ViewEtapaImage(this, 2, 3, start),
+        criaPanel(new ViewEtapaImage(this, 2, "3", start),
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.25), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.49), 
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.03), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.065));
         
-        criaPanel(new ViewEtapaImage(this, 2, 4, start),
+        criaPanel(new ViewEtapaImage(this, 2, "4", start),
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.345), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.53), 
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.03), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.065));
         
-        criaPanel(new ViewEtapaImage(this, 2, 5, start),
+        criaPanel(new ViewEtapaImage(this, 2, "5", start),
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.314), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.32), 
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.03), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.065));
         
-        criaPanel(new ViewEtapaImage(this, 2, 6, start),
+        criaPanel(new ViewEtapaImage(this, 2, "6", start),
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.192), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.32), 
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.03), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.065));
         
@@ -936,9 +936,6 @@ public class ControlPrincipal {
         
         ControlT_Ref TRef = new ControlT_Ref(PMax, ii, session);
         TMax = TRef.getTref();
-        
-        //JOptionPane.showMessageDialog(null, "A pressão máxima para esse fluido é "+PMax+
-                                            //"\nA temperatura máxima para esse fluido é "+TMax);
     }
     
     public void adicionaValoresCaixas(){
@@ -981,32 +978,36 @@ public class ControlPrincipal {
         start_l.setS6(start.getS6());
 
         start_l.setM(start.getM());
+        
+        start_l.setBeff(start.getBeff());
+        start_l.setQCon(start.getQcon());
+        start_l.setEff(start.getEff());
 
         Transaction tx = this.session.beginTransaction();
         session.saveOrUpdate(start_l);
         tx.commit();
         
-        criaPanel(new ViewEtapaImage(this, 2, 1, start), 
+        criaPanel(new ViewEtapaImage(this, 2, "1", start), 
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.195), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.06), 
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.03), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.065));
         
-        criaPanel(new ViewEtapaImage(this, 2, 2, start),
+        criaPanel(new ViewEtapaImage(this, 2, "2", start),
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.25), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.21), 
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.03), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.065));
         
-        criaPanel(new ViewEtapaImage(this, 2, 3, start),
+        criaPanel(new ViewEtapaImage(this, 2, "3", start),
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.25), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.49), 
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.03), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.065));
         
-        criaPanel(new ViewEtapaImage(this, 2, 4, start),
+        criaPanel(new ViewEtapaImage(this, 2, "4", start),
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.345), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.53), 
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.03), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.065));
         
-        criaPanel(new ViewEtapaImage(this, 2, 5, start),
+        criaPanel(new ViewEtapaImage(this, 2, "5", start),
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.314), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.32), 
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.03), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.065));
         
-        criaPanel(new ViewEtapaImage(this, 2, 6, start),
+        criaPanel(new ViewEtapaImage(this, 2, "6", start),
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.192), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.32), 
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.03), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.065));
     }

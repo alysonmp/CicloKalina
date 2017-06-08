@@ -19,7 +19,7 @@ public class ControlCaixaResposta {
     
     ViewCaixaResposta viewCaixa;
     
-    public ControlCaixaResposta(int x, int y, Session session, int etapa){
+    public ControlCaixaResposta(int x, int y, Session session, String etapa){
         Criteria cr = session.createCriteria(ModelStart.class);
         List results = cr.list();
         ModelStart start;

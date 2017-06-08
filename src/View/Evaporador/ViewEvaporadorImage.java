@@ -85,13 +85,13 @@ public class ViewEvaporadorImage extends JPanel{
             public void mouseEntered(MouseEvent e) {
                 int x = e.getX();
                 int y = e.getY();
-                //ctrlResposta = new ControlCaixaResposta(x, y, ctrlPrincipal.getSession());
-                //ctrlResposta.getViewCaixa().getFrameCaixa().setBounds(ViewEvaporadorImage.this.getLocationOnScreen().x+ViewEvaporadorImage.this.getWidth(), ViewEvaporadorImage.this.getLocationOnScreen().y-ViewEvaporadorImage.this.getHeight(), 200, 100);
+                ctrlResposta = new ControlCaixaResposta(x, y, ctrlPrincipal.getSession(), "evaporador");
+                ctrlResposta.getViewCaixa().getFrameCaixa().setBounds(ViewEvaporadorImage.this.getLocationOnScreen().x+ViewEvaporadorImage.this.getWidth(), ViewEvaporadorImage.this.getLocationOnScreen().y-ViewEvaporadorImage.this.getHeight(), 250, 125);
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                //ctrlResposta.getViewCaixa().getFrameCaixa().dispose();
+                ctrlResposta.getViewCaixa().getFrameCaixa().dispose();
             }
         });
     }
