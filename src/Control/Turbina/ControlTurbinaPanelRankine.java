@@ -23,12 +23,13 @@ import org.hibernate.Transaction;
 
 public class ControlTurbinaPanelRankine {
     private ViewTurbinaPanelRankine viewTurbinaPanel;
-    
+    private ControlPrincipal ctrlPrincipal;
     private Session session;
 
     public ControlTurbinaPanelRankine(ControlPrincipal ctrlPrincipal) {
+        this.ctrlPrincipal = ctrlPrincipal;
         this.session = ctrlPrincipal.getSession();
-        viewTurbinaPanel = new ViewTurbinaPanelRankine(ctrlPrincipal,this);
+        viewTurbinaPanel = new ViewTurbinaPanelRankine(this);
     }
     
     public void atualizaComboBox(Vector valor,JComboBox combo){
@@ -382,4 +383,10 @@ public class ControlTurbinaPanelRankine {
     public void setViewTurbinaPanel(ViewTurbinaPanelRankine viewTurbinaPanel) {
         this.viewTurbinaPanel = viewTurbinaPanel;
     }
+
+    public ControlPrincipal getCtrlPrincipal() {
+        return ctrlPrincipal;
+    }
+    
+    
 }

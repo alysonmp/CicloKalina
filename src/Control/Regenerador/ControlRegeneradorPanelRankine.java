@@ -26,15 +26,13 @@ import org.hibernate.Transaction;
  */
 public class ControlRegeneradorPanelRankine {
     private ViewRegeneradorPanelRankine viewRegeneradorPanel;
-    
     private Session session;
-
-    ControlPrincipal ctrlPrincipal;
+    private ControlPrincipal ctrlPrincipal;
     
     public ControlRegeneradorPanelRankine(ControlPrincipal ctrlPrincipal) {
+        this.ctrlPrincipal = ctrlPrincipal;
         this.session = ctrlPrincipal.getSession();
         viewRegeneradorPanel = new ViewRegeneradorPanelRankine(this);
-        this.ctrlPrincipal = ctrlPrincipal;
     }
     
     public void atualizaComboBox(Vector valor,JComboBox combo){
@@ -65,7 +63,6 @@ public class ControlRegeneradorPanelRankine {
             this.viewRegeneradorPanel.getFieldDelta().addItem(regenerador.getDelaPressao());
             this.viewRegeneradorPanel.getFieldEfetiv().addItem(regenerador.getEfetividade());
         }
-    
     }
     
     public void atualizaMassa(){

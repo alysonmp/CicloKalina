@@ -6,6 +6,7 @@
 package View.Condensador;
 
 import Control.Condensador.ControlCondensadorPanelRankine;
+import Control.Conversao.ControlConverte;
 import Util.DropdownComboBox;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -15,6 +16,8 @@ import java.awt.GridBagLayout;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.BorderFactory;
@@ -72,6 +75,9 @@ public class ViewCondensadorPanelRankine extends JPanel{
     private JPanel painelSaida;
     
     ControlCondensadorPanelRankine ctrlCondensador;
+    private ControlConverte controlConverte = new ControlConverte();;
+    
+    private final int precision = 2;
     
     public ViewCondensadorPanelRankine(ControlCondensadorPanelRankine ctrlCondensador){
         this.ctrlCondensador = ctrlCondensador;
@@ -245,6 +251,7 @@ public class ViewCondensadorPanelRankine extends JPanel{
 
             @Override
             public void focusLost(FocusEvent e) {
+                fieldMassa.setSelectedItem(controlConverte.round(Double.parseDouble(fieldMassa.getSelectedItem().toString()),precision));
                 ctrlCondensador.atualizaMassa();
                 ViewCondensadorPanelRankine.this.ctrlCondensador.getCtrlPrincipal().ajustaMassa(fieldMassa.getSelectedItem().toString());
             }
@@ -274,6 +281,7 @@ public class ViewCondensadorPanelRankine extends JPanel{
 
             @Override
             public void focusLost(FocusEvent e) {
+                fieldTempEntr.setSelectedItem(controlConverte.round(Double.parseDouble(fieldTempEntr.getSelectedItem().toString()),precision));
                 ctrlCondensador.atualizaTempEntrada();
             }
         });fieldTempEntr.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
@@ -301,6 +309,7 @@ public class ViewCondensadorPanelRankine extends JPanel{
 
             @Override
             public void focusLost(FocusEvent e) {
+                fieldTempSai.setSelectedItem(controlConverte.round(Double.parseDouble(fieldTempSai.getSelectedItem().toString()),precision));
                 ctrlCondensador.atualizaTempSaida();
             }
         });
@@ -329,6 +338,7 @@ public class ViewCondensadorPanelRankine extends JPanel{
 
             @Override
             public void focusLost(FocusEvent e) {
+                fieldPressaoEntr.setSelectedItem(controlConverte.round(Double.parseDouble(fieldPressaoEntr.getSelectedItem().toString()),precision));
                 ctrlCondensador.atualizaPressaoEntrada();
             }
         });
@@ -357,6 +367,7 @@ public class ViewCondensadorPanelRankine extends JPanel{
 
             @Override
             public void focusLost(FocusEvent e) {
+                fieldPressaoSai.setSelectedItem(controlConverte.round(Double.parseDouble(fieldPressaoSai.getSelectedItem().toString()),precision));
                 ctrlCondensador.atualizaPressaoSaida();
             }
         });
@@ -385,6 +396,7 @@ public class ViewCondensadorPanelRankine extends JPanel{
 
             @Override
             public void focusLost(FocusEvent e) {
+                fieldTempCond.setSelectedItem(controlConverte.round(Double.parseDouble(fieldTempCond.getSelectedItem().toString()),precision));
                 ctrlCondensador.atualizaTempCond();
             }
         });
@@ -413,6 +425,7 @@ public class ViewCondensadorPanelRankine extends JPanel{
 
             @Override
             public void focusLost(FocusEvent e) {
+                fieldDelta.setSelectedItem(controlConverte.round(Double.parseDouble(fieldDelta.getSelectedItem().toString()),precision));
                 ctrlCondensador.atualizaDelta();
             }
         });
@@ -428,6 +441,118 @@ public class ViewCondensadorPanelRankine extends JPanel{
 
             @Override
             public void keyReleased(KeyEvent e) {
+            }
+        });
+        
+        comboMassa.addItemListener(new ItemListener() {
+            String[] tipo = new String[2];
+            int tip = 0;
+            
+            @Override
+            public void itemStateChanged(ItemEvent ie) {
+                tipo[tip] = ie.getItem().toString();
+                tip++;
+                if(tip == 2){
+                    String valor = fieldMassa.getSelectedItem().toString();
+                    if(!valor.isEmpty()){
+                        fieldMassa.setSelectedItem(String.valueOf(controlConverte.converte(tipo[0],tipo[1],Double.parseDouble(valor))));                        
+                    } 
+                    tip = 0;
+                }
+            }
+        });
+        
+        comboTempEntr.addItemListener(new ItemListener() {
+            String[] tipo = new String[2];
+            int tip = 0;
+            
+            @Override
+            public void itemStateChanged(ItemEvent ie) {
+                
+                tipo[tip] = ie.getItem().toString();
+                tip++;
+                if(tip == 2){
+                    String valor = fieldTempEntr.getSelectedItem().toString();
+                    if(!valor.isEmpty()){
+                        fieldTempEntr.setSelectedItem(String.valueOf(controlConverte.converte(tipo[0],tipo[1],Double.parseDouble(valor))));                        
+                    } 
+                    tip = 0;
+                }
+            }
+        });
+        
+        comboTempSai.addItemListener(new ItemListener() {
+            String[] tipo = new String[2];
+            int tip = 0;
+            
+            @Override
+            public void itemStateChanged(ItemEvent ie) {
+                tipo[tip] = ie.getItem().toString();
+                tip++;
+                if(tip == 2){
+                    String valor = fieldTempSai.getSelectedItem().toString();
+                    if(!valor.isEmpty()){
+                        fieldTempSai.setSelectedItem(String.valueOf(controlConverte.converte(tipo[0],tipo[1],Double.parseDouble(valor))));                        
+                    } 
+                    tip = 0;
+                }
+            }
+        });
+        
+        comboPressaoEntr.addItemListener(new ItemListener() {
+            String[] tipo = new String[2];
+            int tip = 0;
+            
+            @Override
+            public void itemStateChanged(ItemEvent ie) {
+                
+                tipo[tip] = ie.getItem().toString();
+                tip++;
+                if(tip == 2){
+                    String valor = fieldPressaoEntr.getSelectedItem().toString();
+                    if(!valor.isEmpty()){
+                        fieldPressaoEntr.setSelectedItem(String.valueOf(controlConverte.converte(tipo[0],tipo[1],Double.parseDouble(valor)))); 
+                    } 
+                    tip = 0;
+                }
+            }
+        });
+        
+        comboPressaoSai.addItemListener(new ItemListener() {
+            String[] tipo = new String[2];
+            int tip = 0;
+            
+            @Override
+            public void itemStateChanged(ItemEvent ie) {
+                
+                tipo[tip] = ie.getItem().toString();
+                tip++;
+                if(tip == 2){
+                    String valor = fieldPressaoSai.getSelectedItem().toString();
+                    if(!valor.isEmpty()){
+                        fieldPressaoSai.setSelectedItem(String.valueOf(controlConverte.converte(tipo[0],tipo[1],Double.parseDouble(valor))));                        
+                    } 
+                    tip = 0;
+                }
+            }
+        });
+        
+        comboTempCond.addItemListener(new ItemListener() {
+            String[] tipo = new String[2];
+            int tip = 0;
+            
+            @Override
+            public void itemStateChanged(ItemEvent ie) {
+                
+                tipo[tip] = ie.getItem().toString();
+                tip++;
+                if(tip == 2){
+                    String valor = fieldTempCond.getSelectedItem().toString();
+                    if(!valor.isEmpty()){
+                        fieldTempCond.setSelectedItem(String.valueOf(controlConverte.converte(tipo[0],tipo[1],Double.parseDouble(valor))));                        
+                    } 
+                    tip = 0;
+                }
             }
         });
     }
