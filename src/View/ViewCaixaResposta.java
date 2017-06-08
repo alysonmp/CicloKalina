@@ -56,7 +56,10 @@ public class ViewCaixaResposta {
     
     private JLabel labelQcon = new JLabel();
     
-    private JLabel labelVazio = new JLabel("<html><body><div style='text-align: center;'>Ainda não existem dados<br> para serem mostrados.<br> É necessário realizar os cálculos.</div></body></html>");
+    //private JLabel labelVazio = new JLabel("<html><body><div style='text-align: center;'>Ainda não existem dados<br> para serem mostrados.<br> É necessário realizar os cálculos.</div></body></html>");
+    private JLabel labelVazio1 = new JLabel("Ainda não existem dados");
+    private JLabel labelVazio2 = new JLabel("para serem mostrados.");
+    private JLabel labelVazio3 = new JLabel("É necessário realizar os cálculos.");
     
     private double P, T, M, H, S, TEntr, TSai, PEntr, PSai, Efic, Qcon, Eff;
     
@@ -69,7 +72,17 @@ public class ViewCaixaResposta {
             
             painelCaixa.setLayout(new GridBagLayout());
             
-            painelCaixa.add(labelVazio, c);
+            c.gridx = 0;
+            c.gridy = 0;
+            painelCaixa.add(labelVazio1, c);
+            
+            c.gridx = 0;
+            c.gridy = 1;
+            painelCaixa.add(labelVazio2, c);
+            
+            c.gridx = 0;
+            c.gridy = 2;
+            painelCaixa.add(labelVazio3, c);
             
             painelCaixa.setPreferredSize(new Dimension(250, 100));
             painelCaixa.setBackground(new Color(255, 255, 204));
