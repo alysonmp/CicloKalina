@@ -315,7 +315,7 @@ public class ViewLateral extends JPanel{
             @Override
             public void focusLost(FocusEvent e) {
                 if(Double.parseDouble(fieldTemp.getSelectedItem().toString()) > ctrlPrincipal.getTMax()){
-                    JOptionPane.showMessageDialog(null,"Valor acima do permitido!");
+                    JOptionPane.showMessageDialog(null,"Valor da temperatura acima do permitido!");
                     fieldTemp.setSelectedItem("0.0");
                 }else{
                     fieldTemp.setSelectedItem(controlConverte.round(Double.parseDouble(fieldTemp.getSelectedItem().toString()),precision));
@@ -347,7 +347,7 @@ public class ViewLateral extends JPanel{
             @Override
             public void focusLost(FocusEvent e) {
                 if(Double.parseDouble(fieldPressao.getSelectedItem().toString()) > ctrlPrincipal.getPMax()){
-                    JOptionPane.showMessageDialog(null,"Valor acima do permitido!");
+                    JOptionPane.showMessageDialog(null,"Valor da pressão acima do permitido!");
                     fieldPressao.setSelectedItem("0.0");
                 }else{
                     fieldPressao.setSelectedItem(controlConverte.round(Double.parseDouble(fieldPressao.getSelectedItem().toString()),precision));
