@@ -23,7 +23,7 @@ import org.hibernate.Session;
  */
 public class Start {
     
-    private double mf, P1, P2, T1, P4, T4, P5, P3, P6, Tcontrol, Tcontrol2, H1, H2, S1, S2, T2, H2s, DH2s, sp, v2, DHT, S4, S5, H4, H5, T5, S3, H3, T3, S6, T6, H6, IHR, Q, Tfout, PP, Hlat, Hsen, Hsup, T1s, Wt, Wb, Qevp, Qcon, ec, Qreg, Qreg1, Wn, Acon, Aevp, Areg, AT, ecg, Dr, m;
+    private double mf, P1, P2, T1, P4, T4, P5, P3, P6, Tcontrol, Tcontrol2, H1, H2, S1, S2, T2, H2s, DH2s, sp, v2, DHT, S4, S5, H4, H5, T5, S3, H3, T3, S6, T6, H6, IHR, Q, Tfout, PP, Hlat, Hsen, Hsup, T1s, Wt, Wb, Qevp, Qcon, ec, Qreg, Qreg1, Wn, Acon, Aevp, Areg, AT, ecg, Dr, m, Beff, eff;
     private int ii;
     private Session session;
     ControlPrincipal ctrlPrincipal;
@@ -31,6 +31,7 @@ public class Start {
     public Start(int compressor, int flu, double Tf, double Pf, double SUP, double PINCH, double Tconop, double eff, Session session, ControlPrincipal ctrlPrincipal){
         
         this.ctrlPrincipal = ctrlPrincipal;
+        this.eff = eff;
         
         //flu=14;
         //Tf=142.1+273.15;
@@ -46,7 +47,7 @@ public class Start {
         double Pcri = parametros.getPcri();
 
         double G = 1;
-        double Beff = 0.8;
+        Beff = 0.8;
         double Teff = 0.8;
         
         this.session = session;
@@ -65,7 +66,7 @@ public class Start {
         T1 = Tee+SUP;
         P2 = Pconop; //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%Pcon È variavel
         P4 = P2;
-        T4 = Tconop-1;
+        T4 = Tconop;
         P5 = P1;
         P3 = P2;
         P6 = P1;
@@ -145,7 +146,7 @@ public class Start {
         H5 = bomba.getH5();
         T5 = bomba.getT5();
 
-        ControlRegenerador regenerador = new ControlRegenerador(G, H2, H5, S2, S5, P2, T2, P5, T5, P1, Pconop, Tconop, Pref, Tref, ii, eff, session);
+        ControlRegenerador regenerador = new ControlRegenerador(G, H2, H5, S2, S5, P2, T2, P5, T5, P1, Pconop, Tconop, Pref, Tref, ii, this.eff, session);
         S3 = regenerador.getS3();
         H3 = regenerador.getH3();
         S6 = regenerador.getS6();
@@ -153,7 +154,7 @@ public class Start {
         T3 = regenerador.getT3();
         T6 = regenerador.getT6();
         IHR = regenerador.getIHR();
-        eff = IHR;
+        this.eff = IHR;
 
         ControlMassa massa = new ControlMassa(H4, H1, H6, P1, ii, Pref, Tref, T1, T6, SUP, PINCH, mf, Tf, Pf, compressor, session);
         m = massa.getM();
@@ -183,7 +184,7 @@ public class Start {
         Qreg1 = balanco.getQreg1();
         Wn = balanco.getWn();
 
-        ControlAreas areas = new ControlAreas(T1, T2, T3, T4, T5, T6, Tf, Tfout, Qevp, Qcon, Qreg, eff, Hlat, Hsen, Hsup, T1s, PP, SUP, m, Pref, Tref, P4, ii, H3, compressor, session);
+        ControlAreas areas = new ControlAreas(T1, T2, T3, T4, T5, T6, Tf, Tfout, Qevp, Qcon, Qreg, this.eff, Hlat, Hsen, Hsup, T1s, PP, SUP, m, Pref, Tref, P4, ii, H3, compressor, session);
         Acon = areas.getAcon();
         Aevp = areas.getAevp();
         Areg = areas.getAreg();
@@ -390,5 +391,29 @@ public class Start {
 
     public void setM(double m) {
         this.m = m;
+    }
+
+    public double getBeff() {
+        return Beff;
+    }
+
+    public void setBeff(double Beff) {
+        this.Beff = Beff;
+    }
+
+    public double getQcon() {
+        return Qcon;
+    }
+
+    public void setQcon(double Qcon) {
+        this.Qcon = Qcon;
+    }
+
+    public double getEff() {
+        return eff;
+    }
+
+    public void setEff(double eff) {
+        this.eff = eff;
     }
 }

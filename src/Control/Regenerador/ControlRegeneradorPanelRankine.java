@@ -33,7 +33,7 @@ public class ControlRegeneradorPanelRankine {
     
     public ControlRegeneradorPanelRankine(ControlPrincipal ctrlPrincipal) {
         this.session = ctrlPrincipal.getSession();
-        //viewRegeneradorPanel = new ViewRegeneradorPanelRankine(this);
+        viewRegeneradorPanel = new ViewRegeneradorPanelRankine(this);
         this.ctrlPrincipal = ctrlPrincipal;
     }
     

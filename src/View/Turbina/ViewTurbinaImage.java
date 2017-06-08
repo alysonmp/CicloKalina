@@ -81,13 +81,13 @@ public class ViewTurbinaImage extends JPanel{
             public void mouseEntered(MouseEvent e) {
                 int x = e.getX();
                 int y = e.getY();
-                //ctrlResposta = new ControlCaixaResposta(x, y, ctrlPrincipal.getSession());
-                //ctrlResposta.getViewCaixa().getFrameCaixa().setBounds(ViewTurbinaImage.this.getLocationOnScreen().x+ViewTurbinaImage.this.getWidth(), ViewTurbinaImage.this.getLocationOnScreen().y-ViewTurbinaImage.this.getHeight(), 200, 100);
+                ctrlResposta = new ControlCaixaResposta(x, y, ctrlPrincipal.getSession(), "turbina");
+                ctrlResposta.getViewCaixa().getFrameCaixa().setBounds(ViewTurbinaImage.this.getLocationOnScreen().x+ViewTurbinaImage.this.getWidth(), ViewTurbinaImage.this.getLocationOnScreen().y-ViewTurbinaImage.this.getHeight(), 250, 125);
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                //ctrlResposta.getViewCaixa().getFrameCaixa().dispose();
+                ctrlResposta.getViewCaixa().getFrameCaixa().dispose();
             }
         });
     }

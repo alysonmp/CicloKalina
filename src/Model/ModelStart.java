@@ -99,11 +99,20 @@ public class ModelStart implements Serializable{
     
     @Column
     private double M;
+    
+    @Column
+    private double Beff;
 
+    @Column
+    private double QCon;
+    
+    @Column
+    private double eff;
+    
     public ModelStart() {
     }
 
-    public ModelStart(int cod, double T1, double T2, double T3, double T4, double T5, double T6, double P1, double P2, double P3, double P4, double P5, double P6, double S1, double S2, double S3, double S4, double S5, double S6, double H1, double H2, double H3, double H4, double H5, double H6, double M) {
+    public ModelStart(int cod, double T1, double T2, double T3, double T4, double T5, double T6, double P1, double P2, double P3, double P4, double P5, double P6, double S1, double S2, double S3, double S4, double S5, double S6, double H1, double H2, double H3, double H4, double H5, double H6, double M, double Beff, double QCon, double eff) {
         this.cod = cod;
         this.T1 = T1;
         this.T2 = T2;
@@ -130,6 +139,9 @@ public class ModelStart implements Serializable{
         this.H5 = H5;
         this.H6 = H6;
         this.M = M;
+        this.Beff = Beff;
+        this.QCon = QCon;
+        this.eff = eff;
     }
 
     public int getCod() {
@@ -338,5 +350,29 @@ public class ModelStart implements Serializable{
 
     public void setM(double M) {
         this.M = M;
+    }
+
+    public double getBeff() {
+        return Beff;
+    }
+
+    public void setBeff(double Beff) {
+        this.Beff = Beff;
+    }
+
+    public double getQCon() {
+        return QCon;
+    }
+
+    public void setQCon(double QCon) {
+        this.QCon = QCon;
+    }
+
+    public double getEff() {
+        return eff;
+    }
+
+    public void setEff(double eff) {
+        this.eff = eff;
     }
 }

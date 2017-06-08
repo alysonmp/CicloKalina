@@ -28,7 +28,7 @@ public class ViewEtapaImage extends JPanel{
     Start start;
     
     //CONSTRUTOR DA Etapa
-    public ViewEtapaImage(ControlPrincipal ctrlPrincipal, int ciclo, int etapa, Start start){
+    public ViewEtapaImage(ControlPrincipal ctrlPrincipal, int ciclo, String etapa, Start start){
         this.start = start;
         this.ctrlPrincipal = ctrlPrincipal;
         
@@ -71,7 +71,7 @@ public class ViewEtapaImage extends JPanel{
                 int x = e.getX();
                 int y = e.getY();
                 ctrlResposta = new ControlCaixaResposta(x, y, ctrlPrincipal.getSession(), etapa);
-                ctrlResposta.getViewCaixa().getFrameCaixa().setBounds(ViewEtapaImage.this.getLocationOnScreen().x+ViewEtapaImage.this.getWidth(), ViewEtapaImage.this.getLocationOnScreen().y-ViewEtapaImage.this.getHeight(), 250, 100);
+                ctrlResposta.getViewCaixa().getFrameCaixa().setBounds(ViewEtapaImage.this.getLocationOnScreen().x+ViewEtapaImage.this.getWidth(), ViewEtapaImage.this.getLocationOnScreen().y-ViewEtapaImage.this.getHeight(), 250, 125);
             }
 
             @Override
