@@ -51,7 +51,7 @@ public class ViewCondensadorImage extends JPanel{
                 if(ViewCondensadorImage.this.ctrlPrincipal.getPanel_usado().contains((JPanel)e.getSource())){
                     for(int i = 0; i < ViewCondensadorImage.this.ctrlPrincipal.getPanel_usado().size(); i++) {
                         if(e.getSource() == ViewCondensadorImage.this.ctrlPrincipal.getPanel_usado().get(i)){
-                            ViewCondensadorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().setSelectedIndex(i);
+                            ViewCondensadorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanelComp().setSelectedIndex(i);
                             ViewCondensadorImage.this.setBorder(BorderFactory.createLineBorder(Color.black, 2));
                             return;
                         }
@@ -64,15 +64,16 @@ public class ViewCondensadorImage extends JPanel{
                 
                 //CALCULA A DIMENSÃO DO PAINEL LATERAL
                 int x = (int) (ctrlPrincipal.getViewPrincipal().getPainelLateral().getWidth()*0.9);
-                int y = (int) (ctrlPrincipal.getViewPrincipal().getPainelLateral().getHeight()*0.86);
+                int y = (int) (ctrlPrincipal.getViewPrincipal().getPainelLateral().getHeight()*0.55);
                 
                 
-                /*ControlCondensadorPanelRankine Condensador = new ControlCondensadorPanelRankine(ViewCondensadorImage.this.ctrlPrincipal, ViewCondensadorImage.this.session);
+                ControlCondensadorPanelRankine Condensador = new ControlCondensadorPanelRankine(ViewCondensadorImage.this.ctrlPrincipal, ViewCondensadorImage.this.session);
                 Condensador.getViewCondensador().setPreferredSize(new Dimension(x, y));
-                ViewCondensadorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().addTab("Condensador", null, Condensador.getViewCondensador());
-                ViewCondensadorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().setSelectedComponent(Condensador.getViewCondensador());
-                ViewCondensadorImage.this.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-                Condensador.criaComboBoxes();*/
+                ViewCondensadorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanelComp().addTab("Condensador", null, Condensador.getViewCondensador());
+                ViewCondensadorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanelComp().setSelectedComponent(Condensador.getViewCondensador());
+                ViewCondensadorImage.this.setBorder(BorderFactory.createLineBorder(Color.black, 1));
+                Condensador.criaComboBoxes();
+                
             }
 
             //NÃO UTILIZADOS

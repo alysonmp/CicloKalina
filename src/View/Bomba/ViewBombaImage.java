@@ -47,7 +47,7 @@ public class ViewBombaImage extends JPanel{
                 if(ViewBombaImage.this.ctrlPrincipal.getPanel_usado().contains((JPanel)e.getSource())){
                     for(int i = 0; i < ViewBombaImage.this.ctrlPrincipal.getPanel_usado().size(); i++) {
                         if(e.getSource() == ViewBombaImage.this.ctrlPrincipal.getPanel_usado().get(i)){
-                            ViewBombaImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().setSelectedIndex(i);
+                            ViewBombaImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanelComp().setSelectedIndex(i);
                             ViewBombaImage.this.setBorder(BorderFactory.createLineBorder(Color.black, 2));
                             return;
                         }
@@ -60,14 +60,14 @@ public class ViewBombaImage extends JPanel{
                 
                 //CALCULA A DIMENSÃO DO PAINEL LATERAL
                 int x = (int) (ctrlPrincipal.getViewPrincipal().getPainelLateral().getWidth()*0.9);
-                int y = (int) (ctrlPrincipal.getViewPrincipal().getPainelLateral().getHeight()*0.86);
+                int y = (int) (ctrlPrincipal.getViewPrincipal().getPainelLateral().getHeight()*0.55);
                 
-                /*ControlBombaPanelRankine Bomba = new ControlBombaPanelRankine(ViewBombaImage.this.ctrlPrincipal.getSession());
+                ControlBombaPanelRankine Bomba = new ControlBombaPanelRankine(ViewBombaImage.this.ctrlPrincipal.getSession());
                 Bomba.getViewBomba().setPreferredSize(new Dimension(x, y));
-                ViewBombaImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().addTab("Bomba", null, Bomba.getViewBomba());
-                ViewBombaImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().setSelectedComponent(Bomba.getViewBomba());
+                ViewBombaImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanelComp().addTab("Bomba", null, Bomba.getViewBomba());
+                ViewBombaImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanelComp().setSelectedComponent(Bomba.getViewBomba());
                 ViewBombaImage.this.setBorder(BorderFactory.createLineBorder(Color.black, 1));
-                Bomba.criaComboBoxes();*/
+                Bomba.criaComboBoxes();
             }
 
             //NÃO UTILIZADOS
