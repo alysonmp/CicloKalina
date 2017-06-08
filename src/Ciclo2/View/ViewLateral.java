@@ -14,6 +14,7 @@ import View.ViewPrincipal;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dialog;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -116,6 +117,7 @@ public class ViewLateral extends JPanel{
         
         painelDados = new JPanel(new GridBagLayout());
         
+        this.setPreferredSize(new Dimension(400, 400));
         this.setLayout(new GridBagLayout());
         this.setName("Dados de Entrada");
         

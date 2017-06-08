@@ -74,11 +74,10 @@ public class ViewPrincipal {
         painelPrincipal = new JPanel(new BorderLayout());
         
         //PAINEL LATERAL ONDE SERÃO COLOCADOS TODOS OS DADOS DE ENTRADA PARA OS CÁLCULOS
-        Dimension dim = new Dimension(380, 500);
+        Dimension dim = new Dimension(400, 800);
         painelLateral.setPreferredSize(dim);
         
         painelEntrada = new JPanel();
-        painelEntrada.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(1, Color.lightGray, Color.lightGray), "Dados de Entrada", 1, 2, new Font("Times New Roman", 1, 12), Color.darkGray));
         
         tabbedPanelComp = new JTabbedPane();
         

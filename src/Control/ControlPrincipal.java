@@ -99,6 +99,8 @@ import View.Regenerador.ViewRegeneradorImage;
 import View.Regenerador.ViewRegeneradorPanelRankine;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -108,6 +110,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import org.hibernate.Criteria;
@@ -724,7 +727,7 @@ public class ControlPrincipal {
     
     //FUNÇÃO QUE CRIA O DESENHO DO SEGUNDO CICLO E INDICA OS LOCAIS DOS JPANELS INSERIDOS
     public void criaCiclo2(){                
-        ViewCiclos ciclo = new ViewCiclos(this, "src/Images/Ciclo2/ciclo2.png", (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.3), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.7));
+        ViewCiclos ciclo = new ViewCiclos(this, "src/Images/ciclo2.png", (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.3), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.7));
 
         ciclo.setLayout(null);
         ciclo.setBounds((int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.1), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.05), 
@@ -776,7 +779,9 @@ public class ControlPrincipal {
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.03), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.065));
         
         viewLateral = new ViewLateral(this);
-        viewPrincipal.getPainelEntrada().add(viewLateral);
+        viewPrincipal.getPainelEntrada().setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(1, Color.lightGray, Color.lightGray), "Dados de Entrada", 1, 2, new Font("Times New Roman", 1, 12), Color.darkGray));
+        viewPrincipal.getPainelEntrada().add(viewLateral.getPainelDados());
+        viewPrincipal.getFramePrincipal().revalidate();
         viewPrincipal.getFramePrincipal().repaint();
     }
     
