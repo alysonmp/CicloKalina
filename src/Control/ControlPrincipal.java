@@ -724,30 +724,30 @@ public class ControlPrincipal {
     
     //FUNÇÃO QUE CRIA O DESENHO DO SEGUNDO CICLO E INDICA OS LOCAIS DOS JPANELS INSERIDOS
     public void criaCiclo2(){                
-        ViewCiclos ciclo = new ViewCiclos(this, "src/Images/Ciclo2/ciclo2.png", (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.3), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.7));
+        ViewCiclos ciclo = new ViewCiclos(this, "src/Images/ciclo2.png", (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.3), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.7));
 
         ciclo.setLayout(null);
         ciclo.setBounds((int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.1), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.05), 
                           (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.3), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.7));
         viewPrincipal.getPainelCiclos().add(ciclo);
         
-        criaPanel(new ViewTurbinaImage(this, 2), 
+        criaPanel(new ViewTurbinaImage(this), 
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.224), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.1), 
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.05), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.13));
         
-        criaPanel(new ViewRegeneradorImage(this, 2), 
+        criaPanel(new ViewRegeneradorImage(this), 
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.236), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.288), 
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.06), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.13));
         
-        criaPanel(new ViewEvaporadorImage(this, 2), 
+        criaPanel(new ViewEvaporadorImage(this), 
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.15), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.148), 
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.055), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.16));
         
-        criaPanel(new ViewCondensadorImage(this, 2, session), 
+        criaPanel(new ViewCondensadorImage(this), 
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.275), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.61), 
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.075), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.11));
         
-        criaPanel(new ViewBombaImage(this, 2), 
+        criaPanel(new ViewBombaImage(this), 
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.326), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.38), 
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.065), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.14));
         

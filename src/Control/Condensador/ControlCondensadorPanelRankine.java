@@ -30,10 +30,10 @@ public class ControlCondensadorPanelRankine {
     private Session session;
     private ControlPrincipal ctrlPrincipal;
     
-    public ControlCondensadorPanelRankine(ControlPrincipal ctrlPrincipal, Session session){
-        this.session = session;
-        viewCondensador = new ViewCondensadorPanelRankine(this);
+    public ControlCondensadorPanelRankine(ControlPrincipal ctrlPrincipal){
+        this.session = ctrlPrincipal.getSession();
         this.ctrlPrincipal = ctrlPrincipal;
+        viewCondensador = new ViewCondensadorPanelRankine(this);
     }
     
     public void atualizaMassa(){

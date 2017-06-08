@@ -6,6 +6,7 @@
 package View.Bomba;
 
 import Control.Bomba.ControlBombaPanelRankine;
+import Control.Conversao.ControlConverte;
 import Util.DropdownComboBox;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -14,11 +15,14 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -67,9 +71,13 @@ public class ViewBombaPanelRankine extends JPanel{
     private JPanel painelSaida;
     
     private ControlBombaPanelRankine ctrlBomba;
+    private ControlConverte controlConverte;
+    
+    private final int precision = 2;
     
     public ViewBombaPanelRankine(ControlBombaPanelRankine ctrlBomba){
         this.ctrlBomba = ctrlBomba;
+        this.controlConverte = new ControlConverte();
         
         painelDados = new JPanel(new GridBagLayout());
         painelEntrada = new JPanel(new GridBagLayout());
@@ -222,6 +230,7 @@ public class ViewBombaPanelRankine extends JPanel{
 
             @Override
             public void focusLost(FocusEvent e) {
+                fieldMassa.setSelectedItem(controlConverte.round(Double.parseDouble(fieldMassa.getSelectedItem().toString()),precision));
                 ctrlBomba.atualizaMassa();
             }
         });
@@ -250,6 +259,7 @@ public class ViewBombaPanelRankine extends JPanel{
 
             @Override
             public void focusLost(FocusEvent e) {
+                fieldTempEntr.setSelectedItem(controlConverte.round(Double.parseDouble(fieldTempEntr.getSelectedItem().toString()),precision));
                 ctrlBomba.atualizaTempEntrada();
             }
         });fieldTempEntr.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
@@ -277,6 +287,7 @@ public class ViewBombaPanelRankine extends JPanel{
 
             @Override
             public void focusLost(FocusEvent e) {
+                fieldTempSai.setSelectedItem(controlConverte.round(Double.parseDouble(fieldTempSai.getSelectedItem().toString()),precision));                
                 ctrlBomba.atualizaTempSaida();
             }
         });
@@ -305,6 +316,7 @@ public class ViewBombaPanelRankine extends JPanel{
 
             @Override
             public void focusLost(FocusEvent e) {
+                fieldPressaoEntr.setSelectedItem(controlConverte.round(Double.parseDouble(fieldPressaoEntr.getSelectedItem().toString()),precision));
                 ctrlBomba.atualizaPressaoEntrada();
             }
         });
@@ -333,6 +345,7 @@ public class ViewBombaPanelRankine extends JPanel{
 
             @Override
             public void focusLost(FocusEvent e) {
+                fieldPressaoSai.setSelectedItem(controlConverte.round(Double.parseDouble(fieldPressaoSai.getSelectedItem().toString()),precision));
                 ctrlBomba.atualizaPressaoSaida();
             }
         });
@@ -361,6 +374,7 @@ public class ViewBombaPanelRankine extends JPanel{
 
             @Override
             public void focusLost(FocusEvent e) {
+                fieldEfic.setSelectedItem(controlConverte.round(Double.parseDouble(fieldEfic.getSelectedItem().toString()),precision));
                 ctrlBomba.atualizaEficiencia();
             }
         });
@@ -376,6 +390,100 @@ public class ViewBombaPanelRankine extends JPanel{
 
             @Override
             public void keyReleased(KeyEvent e) {
+            }
+        });
+        
+        
+        comboMassa.addItemListener(new ItemListener() {
+            String[] tipo = new String[2];
+            int tip = 0;
+            
+            @Override
+            public void itemStateChanged(ItemEvent ie) {
+                tipo[tip] = ie.getItem().toString();
+                tip++;
+                if(tip == 2){
+                    String valor = fieldMassa.getSelectedItem().toString();
+                    if(!valor.isEmpty()){
+                        fieldMassa.setSelectedItem(String.valueOf(controlConverte.converte(tipo[0],tipo[1],Double.parseDouble(valor))));                        
+                    } 
+                    tip = 0;
+                }
+            }
+        });
+        
+        comboTempEntr.addItemListener(new ItemListener() {
+            String[] tipo = new String[2];
+            int tip = 0;
+            
+            @Override
+            public void itemStateChanged(ItemEvent ie) {
+                
+                tipo[tip] = ie.getItem().toString();
+                tip++;
+                if(tip == 2){
+                    String valor = fieldTempEntr.getSelectedItem().toString();
+                    if(!valor.isEmpty()){
+                        fieldTempEntr.setSelectedItem(String.valueOf(controlConverte.converte(tipo[0],tipo[1],Double.parseDouble(valor))));                        
+                    } 
+                    tip = 0;
+                }
+            }
+        });
+        
+        comboTempSai.addItemListener(new ItemListener() {
+            String[] tipo = new String[2];
+            int tip = 0;
+            
+            @Override
+            public void itemStateChanged(ItemEvent ie) {
+                tipo[tip] = ie.getItem().toString();
+                tip++;
+                if(tip == 2){
+                    String valor = fieldTempSai.getSelectedItem().toString();
+                    if(!valor.isEmpty()){
+                        fieldTempSai.setSelectedItem(String.valueOf(controlConverte.converte(tipo[0],tipo[1],Double.parseDouble(valor))));                        
+                    } 
+                    tip = 0;
+                }
+            }
+        });
+        
+        comboPressaoEntr.addItemListener(new ItemListener() {
+            String[] tipo = new String[2];
+            int tip = 0;
+            
+            @Override
+            public void itemStateChanged(ItemEvent ie) {
+                
+                tipo[tip] = ie.getItem().toString();
+                tip++;
+                if(tip == 2){
+                    String valor = fieldPressaoEntr.getSelectedItem().toString();
+                    if(!valor.isEmpty()){
+                        fieldPressaoEntr.setSelectedItem(String.valueOf(controlConverte.converte(tipo[0],tipo[1],Double.parseDouble(valor)))); 
+                    } 
+                    tip = 0;
+                }
+            }
+        });
+        
+        comboPressaoSai.addItemListener(new ItemListener() {
+            String[] tipo = new String[2];
+            int tip = 0;
+            
+            @Override
+            public void itemStateChanged(ItemEvent ie) {
+                
+                tipo[tip] = ie.getItem().toString();
+                tip++;
+                if(tip == 2){
+                    String valor = fieldPressaoSai.getSelectedItem().toString();
+                    if(!valor.isEmpty()){
+                        fieldPressaoSai.setSelectedItem(String.valueOf(controlConverte.converte(tipo[0],tipo[1],Double.parseDouble(valor))));                        
+                    } 
+                    tip = 0;
+                }
             }
         });
     }
@@ -467,6 +575,4 @@ public class ViewBombaPanelRankine extends JPanel{
     public void setComboPressaoSai(JComboBox<String> comboPressaoSai) {
         this.comboPressaoSai = comboPressaoSai;
     }
-    
-    
 }

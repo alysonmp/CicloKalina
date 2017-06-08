@@ -30,7 +30,7 @@ public class ViewEvaporadorImage extends JPanel{
     private ControlCaixaResposta ctrlResposta;
     
     //CONSTRUTOR DO EVAPORADOR
-    public ViewEvaporadorImage(ControlPrincipal ctrlPrincipal, int ciclo){
+    public ViewEvaporadorImage(ControlPrincipal ctrlPrincipal){
         this.ctrlPrincipal = ctrlPrincipal;
         
         this.setName("Evaporador");

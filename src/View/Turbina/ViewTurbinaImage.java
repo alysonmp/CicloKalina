@@ -26,7 +26,7 @@ public class ViewTurbinaImage extends JPanel{
     private ControlCaixaResposta ctrlResposta;
     
     //CONSTRUTOR DA TURBINA
-    public ViewTurbinaImage(ControlPrincipal ctrlPrincipal, int ciclo){
+    public ViewTurbinaImage(ControlPrincipal ctrlPrincipal){
         this.ctrlPrincipal = ctrlPrincipal;
         
         this.setName("Turbina");
