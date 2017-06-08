@@ -27,7 +27,7 @@ public class ViewBombaImage extends JPanel{
     private ControlCaixaResposta ctrlResposta;
     
     //CONSTRUTOR DA BOMBA
-    public ViewBombaImage(ControlPrincipal ctrlPrincipal, int ciclo){
+    public ViewBombaImage(ControlPrincipal ctrlPrincipal){
         this.ctrlPrincipal = ctrlPrincipal;
         
         this.setName("Bomba");
@@ -62,7 +62,7 @@ public class ViewBombaImage extends JPanel{
                 int x = (int) (ctrlPrincipal.getViewPrincipal().getPainelLateral().getWidth()*0.9);
                 int y = (int) (ctrlPrincipal.getViewPrincipal().getPainelLateral().getHeight()*0.55);
                 
-                ControlBombaPanelRankine Bomba = new ControlBombaPanelRankine(ViewBombaImage.this.ctrlPrincipal.getSession());
+                ControlBombaPanelRankine Bomba = new ControlBombaPanelRankine(ViewBombaImage.this.ctrlPrincipal);
                 Bomba.getViewBomba().setPreferredSize(new Dimension(x, y));
                 ViewBombaImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanelComp().addTab("Bomba", null, Bomba.getViewBomba());
                 ViewBombaImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanelComp().setSelectedComponent(Bomba.getViewBomba());

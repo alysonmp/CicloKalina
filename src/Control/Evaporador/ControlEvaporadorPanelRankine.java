@@ -26,10 +26,11 @@ import org.hibernate.Transaction;
 public class ControlEvaporadorPanelRankine {
 
     private ViewEvaporadorPanelRankine viewEvaporadorPanel;
-    
+    private ControlPrincipal ctrlPrincipal;
     private Session session;
         
     public ControlEvaporadorPanelRankine(ControlPrincipal ctrlPrincipal) {
+        this.ctrlPrincipal = ctrlPrincipal;
         this.session = ctrlPrincipal.getSession();
         viewEvaporadorPanel = new ViewEvaporadorPanelRankine(this);
     }
@@ -120,8 +121,7 @@ public class ControlEvaporadorPanelRankine {
         
         Double value = null;
         try{          
-            String text = viewEvaporadorPanel.getFieldTempEntr().getSelectedItem().toString();
-            value = Double.parseDouble(text);
+            value = Double.parseDouble(viewEvaporadorPanel.getFieldTempEntr().getSelectedItem().toString());
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
             return;
@@ -132,8 +132,7 @@ public class ControlEvaporadorPanelRankine {
         ModelEvaporador evaporador = null;
 
         for(int i=0;i<results.size();i++){
-            ModelEvaporador ev = (ModelEvaporador)results.get(i);
-            if(Objects.equals(value, ev.getTemperaturaEntr())){
+            if(Objects.equals(value, ((ModelEvaporador)results.get(i)).getTemperaturaEntr())){
                 return;
             }
         }
@@ -160,8 +159,7 @@ public class ControlEvaporadorPanelRankine {
         evaporador.setTemperaturaEntr(value);
         session.saveOrUpdate(evaporador);
         
-        JComboBox combo = viewEvaporadorPanel.getFieldTempEntr();
-        atualizaComboBox(tempEntr, combo);
+        atualizaComboBox(tempEntr, viewEvaporadorPanel.getFieldTempEntr());
         
         tx.commit();        
     }
@@ -173,8 +171,7 @@ public class ControlEvaporadorPanelRankine {
         
         Double value = null;
         try{
-            String text = viewEvaporadorPanel.getFieldTempSai().getSelectedItem().toString();
-            value = Double.parseDouble(text);
+            value = Double.parseDouble(viewEvaporadorPanel.getFieldTempSai().getSelectedItem().toString());
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
             return;
@@ -185,8 +182,7 @@ public class ControlEvaporadorPanelRankine {
         ModelEvaporador evaporador = null;
 
         for(int i=0;i<results.size();i++){
-            ModelEvaporador ev = (ModelEvaporador)results.get(i);
-            if(Objects.equals(value, ev.getTemperaturaSai())){
+            if(Objects.equals(value, ((ModelEvaporador)results.get(i)).getTemperaturaSai())){
                 return;
             }
         }
@@ -226,8 +222,7 @@ public class ControlEvaporadorPanelRankine {
         
         Double value = null;
         try{          
-            String text =  viewEvaporadorPanel.getFieldPressaoEntr().getSelectedItem().toString();
-            value = Double.parseDouble(text);
+            value = Double.parseDouble(viewEvaporadorPanel.getFieldPressaoEntr().getSelectedItem().toString());
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
             return;
@@ -238,8 +233,7 @@ public class ControlEvaporadorPanelRankine {
         ModelEvaporador evaporador = null;
 
         for(int i=0;i<results.size();i++){
-            ModelEvaporador ev = (ModelEvaporador)results.get(i);
-            if(Objects.equals(value, ev.getPressaoEntr())){
+            if(Objects.equals(value, ((ModelEvaporador)results.get(i)).getPressaoEntr())){
                 return;
             }
         }
@@ -279,8 +273,7 @@ public class ControlEvaporadorPanelRankine {
         
         Double value = null;
         try{          
-            String text = viewEvaporadorPanel.getFieldPressaoSai().getSelectedItem().toString();
-            value = Double.parseDouble(text);
+            value = Double.parseDouble(viewEvaporadorPanel.getFieldPressaoSai().getSelectedItem().toString());
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
             return;
@@ -291,8 +284,7 @@ public class ControlEvaporadorPanelRankine {
         ModelEvaporador evaporador = null;
 
         for(int i=0;i<results.size();i++){
-            ModelEvaporador ev = (ModelEvaporador)results.get(i);
-            if(Objects.equals(value, ev.getPressaoSai())){
+            if(Objects.equals(value, ((ModelEvaporador)results.get(i)).getPressaoSai())){
                 return;
             }
         }
@@ -332,8 +324,7 @@ public class ControlEvaporadorPanelRankine {
         
         Double value = null;
         try{          
-            String text = viewEvaporadorPanel.getFieldDelta().getSelectedItem().toString();
-            value = Double.parseDouble(text);
+            value = Double.parseDouble(viewEvaporadorPanel.getFieldDelta().getSelectedItem().toString());
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
             return;
@@ -344,8 +335,7 @@ public class ControlEvaporadorPanelRankine {
         ModelEvaporador evaporador = null;
 
         for(int i=0;i<results.size();i++){
-            ModelEvaporador ev = (ModelEvaporador)results.get(i);
-            if(Objects.equals(value, ev.getDeltaPressao())){
+            if(Objects.equals(value, ((ModelEvaporador)results.get(i)).getDeltaPressao())){
                 return;
             }
         }
@@ -385,5 +375,10 @@ public class ControlEvaporadorPanelRankine {
     public void setViewEvaporadorPanel(ViewEvaporadorPanelRankine viewEvaporadorPanel) {
         this.viewEvaporadorPanel = viewEvaporadorPanel;
     }
+
+    public ControlPrincipal getCtrlPrincipal() {
+        return ctrlPrincipal;
+    }
+    
     
 }

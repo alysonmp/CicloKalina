@@ -26,7 +26,7 @@ public class ViewRegeneradorImage extends JPanel{
     private ControlCaixaResposta ctrlResposta;
     
     //CONSTRUTOR DA TURBINA
-    public ViewRegeneradorImage(ControlPrincipal ctrlPrincipal, int ciclo){
+    public ViewRegeneradorImage(ControlPrincipal ctrlPrincipal){
         this.ctrlPrincipal = ctrlPrincipal;
         
         this.setName("Regenerador");

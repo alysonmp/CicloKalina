@@ -5,6 +5,8 @@
  */
 package Control.Bomba;
 
+import Control.ControlPrincipal;
+import Control.Conversao.ControlConverte;
 import Model.Ciclo2.ModelBomba;
 import Model.Ciclo2.ModelMassa;
 import View.Bomba.ViewBombaPanelRankine;
@@ -26,19 +28,13 @@ import org.hibernate.criterion.Projections;
  */
 public class ControlBombaPanelRankine {
     private ViewBombaPanelRankine viewBomba;
+    private ControlPrincipal ctrPrincipal;
     private Session session;
     
-    public ControlBombaPanelRankine(Session session){
-        this.session = session;
+    public ControlBombaPanelRankine(ControlPrincipal ctrPrincipal){
+        this.ctrPrincipal = ctrPrincipal;
+        this.session = ctrPrincipal.getSession();
         viewBomba = new ViewBombaPanelRankine(this);
-    }
-
-    public ViewBombaPanelRankine getViewBomba() {
-        return viewBomba;
-    }
-
-    public void setViewBomba(ViewBombaPanelRankine viewBomba) {
-        this.viewBomba = viewBomba;
     }
     
     public void atualizaMassa(){
@@ -351,5 +347,17 @@ public class ControlBombaPanelRankine {
             this.viewBomba.getFieldTempSai().addItem(m.getTemperaturaSai());
             this.viewBomba.getFieldEfic().addItem(m.getEficiencia());
         }
+    }
+    
+    public ViewBombaPanelRankine getViewBomba() {
+        return viewBomba;
+    }
+
+    public void setViewBomba(ViewBombaPanelRankine viewBomba) {
+        this.viewBomba = viewBomba;
+    }
+
+    public ControlPrincipal getCtrPrincipal() {
+        return ctrPrincipal;
     }
 }

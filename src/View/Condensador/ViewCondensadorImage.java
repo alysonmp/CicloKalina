@@ -30,9 +30,9 @@ public class ViewCondensadorImage extends JPanel{
     private ControlCaixaResposta ctrlResposta;
     
     //CONSTRUTOR DO CONDENSADOR
-    public ViewCondensadorImage(ControlPrincipal ctrlPrincipal, int ciclo, Session session){
+    public ViewCondensadorImage(ControlPrincipal ctrlPrincipal){
         this.ctrlPrincipal = ctrlPrincipal;
-        this.session = session;
+        this.session = ctrlPrincipal.getSession();
     
         this.setName("Condensador");
         
@@ -67,7 +67,7 @@ public class ViewCondensadorImage extends JPanel{
                 int y = (int) (ctrlPrincipal.getViewPrincipal().getPainelLateral().getHeight()*0.55);
                 
                 
-                ControlCondensadorPanelRankine Condensador = new ControlCondensadorPanelRankine(ViewCondensadorImage.this.ctrlPrincipal, ViewCondensadorImage.this.session);
+                ControlCondensadorPanelRankine Condensador = new ControlCondensadorPanelRankine(ViewCondensadorImage.this.ctrlPrincipal);
                 Condensador.getViewCondensador().setPreferredSize(new Dimension(x, y));
                 ViewCondensadorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanelComp().addTab("Condensador", null, Condensador.getViewCondensador());
                 ViewCondensadorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanelComp().setSelectedComponent(Condensador.getViewCondensador());

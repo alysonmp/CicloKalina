@@ -5,6 +5,7 @@
  */
 package View.Evaporador;
 
+import Control.Conversao.ControlConverte;
 import Control.Evaporador.ControlEvaporadorPanelRankine;
 import Util.DropdownComboBox;
 import java.awt.Color;
@@ -13,6 +14,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.BorderFactory;
@@ -66,6 +69,10 @@ public class ViewEvaporadorPanelRankine extends JPanel{
     private JPanel painelEntrada;
     private JPanel painelSaida;
     
+    private ControlConverte controlConverte = new ControlConverte();;
+    
+    private final int precision = 2;
+    
     public ViewEvaporadorPanelRankine(ControlEvaporadorPanelRankine controlEvaporadorPanel){
         painelDados = new JPanel(new GridBagLayout());
         painelEntrada = new JPanel(new GridBagLayout());
@@ -80,175 +87,7 @@ public class ViewEvaporadorPanelRankine extends JPanel{
         //this.setBorder(BorderFactory.createLineBorder(Color.black, 1));
         
         GridBagConstraints g = new GridBagConstraints();
-        
-        
-        fieldTempEntr.getEditor().getEditorComponent().addFocusListener(new FocusListener() {
-            @Override
-            public void focusGained(FocusEvent fe) {
-                fieldTempEntr.showPopup();
-                fieldTempEntr.getEditor().selectAll();
-                fieldTempEntr.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
-                    @Override
-                    public void keyTyped(KeyEvent ke) {
-                    }
-
-                    @Override
-                    public void keyPressed(KeyEvent ke) {
-                        fieldTempEntr.setPopupVisible(false);
-                    }
-
-                    @Override
-                    public void keyReleased(KeyEvent ke) {
-                    }
-                });
-            }
-            @Override
-            public void focusLost(FocusEvent fe) {
-                controlEvaporadorPanel.atualizaTempEntrada();
-            }
-        });
-        
-        
-        fieldTempSai.getEditor().getEditorComponent().addFocusListener(new FocusListener() {
-            @Override
-            public void focusGained(FocusEvent fe) {
-                fieldTempSai.showPopup();
-                fieldTempSai.getEditor().selectAll();
-                fieldTempSai.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
-                    @Override
-                    public void keyTyped(KeyEvent ke) {
-                    }
-
-                    @Override
-                    public void keyPressed(KeyEvent ke) {
-                        fieldTempSai.setPopupVisible(false);
-                    }
-
-                    @Override
-                    public void keyReleased(KeyEvent ke) {
-                    }
-                });
-            }
-
-            @Override
-            public void focusLost(FocusEvent fe) {
-                controlEvaporadorPanel.atualizaTempSaida();
-
-            }
-        });
-        
-        
-        fieldPressaoEntr.getEditor().getEditorComponent().addFocusListener(new FocusListener() {
-            @Override
-            public void focusGained(FocusEvent fe) {
-                fieldPressaoEntr.showPopup();
-                fieldPressaoEntr.getEditor().selectAll();
-                fieldPressaoEntr.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
-                    @Override
-                    public void keyTyped(KeyEvent ke) {
-                    }
-
-                    @Override
-                    public void keyPressed(KeyEvent ke) {
-                        fieldPressaoEntr.setPopupVisible(false);
-                    }
-
-                    @Override
-                    public void keyReleased(KeyEvent ke) {
-                    }
-                });
-            }
-
-            @Override
-            public void focusLost(FocusEvent fe) {
-                controlEvaporadorPanel.atualizaPressaoEntrada();
-                
-            }
-        });
-        
-        fieldPressaoSai.getEditor().getEditorComponent().addFocusListener(new FocusListener() {
-            @Override
-            public void focusGained(FocusEvent fe) {
-                fieldPressaoSai.showPopup();
-                fieldPressaoSai.getEditor().selectAll();
-                fieldPressaoSai.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
-                    @Override
-                    public void keyTyped(KeyEvent ke) {
-                    }
-
-                    @Override
-                    public void keyPressed(KeyEvent ke) {
-                        fieldPressaoSai.setPopupVisible(false);
-                    }
-
-                    @Override
-                    public void keyReleased(KeyEvent ke) {
-                    }
-                });
-            }
-
-            @Override
-            public void focusLost(FocusEvent fe) {
-                controlEvaporadorPanel.atualizaPressaoSaida();
-                
-            }
-        });
-        
-
-        fieldDelta.getEditor().getEditorComponent().addFocusListener(new FocusListener() {
-            @Override
-            public void focusGained(FocusEvent fe) {
-                fieldDelta.showPopup();
-                fieldDelta.getEditor().selectAll();
-                fieldDelta.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
-                    @Override
-                    public void keyTyped(KeyEvent ke) {
-                    }
-
-                    @Override
-                    public void keyPressed(KeyEvent ke) {
-                        fieldDelta.setPopupVisible(false);
-                    }
-
-                    @Override
-                    public void keyReleased(KeyEvent ke) {
-                    }
-                });
-            }
-
-            @Override
-            public void focusLost(FocusEvent fe) {
-                controlEvaporadorPanel.atualizaDeltaPressao();
-            }
-        });
-        
-        fieldMassa.getEditor().getEditorComponent().addFocusListener(new FocusListener() {
-            @Override
-            public void focusGained(FocusEvent fe) {
-                fieldMassa.showPopup();
-                fieldMassa.getEditor().selectAll();
-                fieldMassa.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
-                    @Override
-                    public void keyTyped(KeyEvent ke) {
-                    }
-
-                    @Override
-                    public void keyPressed(KeyEvent ke) {
-                        fieldMassa.setPopupVisible(false);
-                    }
-
-                    @Override
-                    public void keyReleased(KeyEvent ke) {
-                    }
-                });
-            }
-
-            @Override
-            public void focusLost(FocusEvent fe) {
-                controlEvaporadorPanel.atualizaMassa();
-            }
-        });
-        
+      
         //INSERINDOS OS ELEMENTOS NO JPANEL DE ENTRADA
         g.gridx = 0;
         g.gridy = 0;
@@ -375,7 +214,256 @@ public class ViewEvaporadorPanelRankine extends JPanel{
         g.anchor = GridBagConstraints.PAGE_START;
         this.add(painelDados, g);
         
+         
+        fieldMassa.getEditor().getEditorComponent().addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent fe) {
+                fieldMassa.showPopup();
+                fieldMassa.getEditor().selectAll();
+            }
+            @Override
+            public void focusLost(FocusEvent fe) {
+                fieldMassa.setSelectedItem(controlConverte.round(Double.parseDouble(fieldMassa.getSelectedItem().toString()),precision));
+                controlEvaporadorPanel.atualizaMassa();
+            }
+        });
+        fieldMassa.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent ke) {
+            }
+
+            @Override
+            public void keyPressed(KeyEvent ke) {
+                fieldMassa.setPopupVisible(false);
+            }
+
+            @Override
+            public void keyReleased(KeyEvent ke) {
+            }
+        });
+        fieldTempEntr.getEditor().getEditorComponent().addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent fe) {
+                fieldTempEntr.showPopup();
+                fieldTempEntr.getEditor().selectAll();
+            }
+            @Override
+            public void focusLost(FocusEvent fe) {
+                fieldTempEntr.setSelectedItem(controlConverte.round(Double.parseDouble(fieldTempEntr.getSelectedItem().toString()),precision));
+                controlEvaporadorPanel.atualizaTempEntrada();
+            }
+        });
+        fieldTempEntr.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent ke) {
+            }
+            @Override
+            public void keyPressed(KeyEvent ke) {
+                fieldTempEntr.setPopupVisible(false);
+            }
+            @Override
+            public void keyReleased(KeyEvent ke) {
+            }
+        });
         
+        fieldTempSai.getEditor().getEditorComponent().addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent fe) {
+                fieldTempSai.showPopup();
+                fieldTempSai.getEditor().selectAll();   
+            }
+            @Override
+            public void focusLost(FocusEvent fe) {
+                fieldTempSai.setSelectedItem(controlConverte.round(Double.parseDouble(fieldTempSai.getSelectedItem().toString()),precision));
+                controlEvaporadorPanel.atualizaTempSaida();
+            }
+        });
+        fieldTempSai.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent ke) {
+            }
+
+            @Override
+            public void keyPressed(KeyEvent ke) {
+                fieldTempSai.setPopupVisible(false);
+            }
+
+            @Override
+            public void keyReleased(KeyEvent ke) {
+            }
+        });
+        fieldPressaoEntr.getEditor().getEditorComponent().addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent fe) {
+                fieldPressaoEntr.showPopup();
+                fieldPressaoEntr.getEditor().selectAll();
+            }
+            @Override
+            public void focusLost(FocusEvent fe) {
+                fieldPressaoEntr.setSelectedItem(controlConverte.round(Double.parseDouble(fieldPressaoSai.getSelectedItem().toString()),precision));
+                controlEvaporadorPanel.atualizaPressaoEntrada();   
+            }
+        });
+        fieldPressaoEntr.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent ke) {
+            }
+
+            @Override
+            public void keyPressed(KeyEvent ke) {
+                fieldPressaoEntr.setPopupVisible(false);
+            }
+
+            @Override
+            public void keyReleased(KeyEvent ke) {
+            }
+        });
+        
+        fieldPressaoSai.getEditor().getEditorComponent().addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent fe) {
+                fieldPressaoSai.showPopup();
+                fieldPressaoSai.getEditor().selectAll();
+            }
+            @Override
+            public void focusLost(FocusEvent fe) {
+                fieldPressaoSai.setSelectedItem(controlConverte.round(Double.parseDouble(fieldPressaoSai.getSelectedItem().toString()),precision));
+                controlEvaporadorPanel.atualizaPressaoSaida();   
+            }
+        });
+        fieldPressaoSai.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent ke) {
+            }
+
+            @Override
+            public void keyPressed(KeyEvent ke) {
+                fieldPressaoSai.setPopupVisible(false);
+            }
+
+            @Override
+            public void keyReleased(KeyEvent ke) {
+            }
+        });
+        fieldDelta.getEditor().getEditorComponent().addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent fe) {
+                fieldDelta.showPopup();
+                fieldDelta.getEditor().selectAll();
+            }
+            @Override
+            public void focusLost(FocusEvent fe) {
+                fieldDelta.setSelectedItem(controlConverte.round(Double.parseDouble(fieldDelta.getSelectedItem().toString()),precision));
+                controlEvaporadorPanel.atualizaDeltaPressao();
+            }
+        });
+        fieldDelta.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent ke) {
+            }
+
+            @Override
+            public void keyPressed(KeyEvent ke) {
+                fieldDelta.setPopupVisible(false);
+            }
+
+            @Override
+            public void keyReleased(KeyEvent ke) {
+            }
+        });
+        
+        comboMassa.addItemListener(new ItemListener() {
+            String[] tipo = new String[2];
+            int tip = 0;
+            
+            @Override
+            public void itemStateChanged(ItemEvent ie) {
+                tipo[tip] = ie.getItem().toString();
+                tip++;
+                if(tip == 2){
+                    String valor = fieldMassa.getSelectedItem().toString();
+                    if(!valor.isEmpty()){
+                        fieldMassa.setSelectedItem(String.valueOf(controlConverte.converte(tipo[0],tipo[1],Double.parseDouble(valor))));                        
+                    } 
+                    tip = 0;
+                }
+            }
+        });
+        
+        comboTempEntr.addItemListener(new ItemListener() {
+            String[] tipo = new String[2];
+            int tip = 0;
+            
+            @Override
+            public void itemStateChanged(ItemEvent ie) {
+                
+                tipo[tip] = ie.getItem().toString();
+                tip++;
+                if(tip == 2){
+                    String valor = fieldTempEntr.getSelectedItem().toString();
+                    if(!valor.isEmpty()){
+                        fieldTempEntr.setSelectedItem(String.valueOf(controlConverte.converte(tipo[0],tipo[1],Double.parseDouble(valor))));                        
+                    } 
+                    tip = 0;
+                }
+            }
+        });
+        
+        comboTempSai.addItemListener(new ItemListener() {
+            String[] tipo = new String[2];
+            int tip = 0;
+            
+            @Override
+            public void itemStateChanged(ItemEvent ie) {
+                tipo[tip] = ie.getItem().toString();
+                tip++;
+                if(tip == 2){
+                    String valor = fieldTempSai.getSelectedItem().toString();
+                    if(!valor.isEmpty()){
+                        fieldTempSai.setSelectedItem(String.valueOf(controlConverte.converte(tipo[0],tipo[1],Double.parseDouble(valor))));                        
+                    } 
+                    tip = 0;
+                }
+            }
+        });
+        
+        comboPressaoEntr.addItemListener(new ItemListener() {
+            String[] tipo = new String[2];
+            int tip = 0;
+            
+            @Override
+            public void itemStateChanged(ItemEvent ie) {
+                
+                tipo[tip] = ie.getItem().toString();
+                tip++;
+                if(tip == 2){
+                    String valor = fieldPressaoEntr.getSelectedItem().toString();
+                    if(!valor.isEmpty()){
+                        fieldPressaoEntr.setSelectedItem(String.valueOf(controlConverte.converte(tipo[0],tipo[1],Double.parseDouble(valor)))); 
+                    } 
+                    tip = 0;
+                }
+            }
+        });
+        
+        comboPressaoSai.addItemListener(new ItemListener() {
+            String[] tipo = new String[2];
+            int tip = 0;
+            
+            @Override
+            public void itemStateChanged(ItemEvent ie) {
+                
+                tipo[tip] = ie.getItem().toString();
+                tip++;
+                if(tip == 2){
+                    String valor = fieldPressaoSai.getSelectedItem().toString();
+                    if(!valor.isEmpty()){
+                        fieldPressaoSai.setSelectedItem(String.valueOf(controlConverte.converte(tipo[0],tipo[1],Double.parseDouble(valor))));                        
+                    } 
+                    tip = 0;
+                }
+            }
+        });
     }
 
     public DropdownComboBox getFieldMassa() {

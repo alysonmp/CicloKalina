@@ -78,45 +78,45 @@ public class ControlConverte {
         
         //Conversao da massa
         if(tipo.equals("kg/m") && tipo2.equals("kg/h")){
-            
+            return round(valor/60, precision);
         }else if(tipo.equals("kg/m") && tipo2.equals("lb/s")){
-        
+            return round(valor*0.671969, precision);
         }else if(tipo.equals("kg/m") && tipo2.equals("lb/m")){
-            
+            return round(valor*2.204623, precision);
         }else if(tipo.equals("kg/m") && tipo2.equals("lb/h")){
-            
+            return round(valor*132.277357, precision);
         }else if(tipo.equals("kg/h") && tipo2.equals("kg/m")){
-            
+            return round(valor*60, precision);
         }else if(tipo.equals("kg/h") && tipo2.equals("lb/s")){
-            
+            return round(valor*0.000612395, precision);
         }else if(tipo.equals("kg/h") && tipo2.equals("lb/m")){
-            
+            return round(valor*0.036744, precision);
         }else if(tipo.equals("kg/h") && tipo2.equals("lb/h")){
-            
+            return round(valor*2.204623, precision);
         }else if(tipo.equals("lb/s") && tipo2.equals("kg/m")){
-            
+            return round(valor*1.488164, precision);
         }else if(tipo.equals("lb/s") && tipo2.equals("kg/h")){
-            
+            return round(valor*1632.93, precision);
         }else if(tipo.equals("lb/s") && tipo2.equals("lb/m")){
-            
+            return round(valor/60, precision);
         }else if(tipo.equals("lb/s") && tipo2.equals("lb/h")){
-            
+            return round(valor*3600, precision);
         }else if(tipo.equals("lb/m") && tipo2.equals("kg/m")){
-            
+            return round(valor*0.453592, precision);
         }else if(tipo.equals("lb/m") && tipo2.equals("kg/h")){
-            
+            return round(valor*27.215542, precision);
         }else if(tipo.equals("lb/m") && tipo2.equals("lb/s")){
-            
+            return round(valor*60, precision);
         }else if(tipo.equals("lb/m") && tipo2.equals("lb/h")){
-            
+            return round(valor/60, precision);
         }else if(tipo.equals("lb/h") && tipo2.equals("kg/m")){
-            
+            return round(valor*0.00756, precision);
         }else if(tipo.equals("lb/h") && tipo2.equals("kg/h")){
-            
+            return round(valor*0.453592, precision);
         }else if(tipo.equals("lb/h") && tipo2.equals("lb/s")){
-            
+            return round(valor/3600, precision);
         }else if(tipo.equals("lb/h") && tipo2.equals("lb/m")){
-            
+            return round(valor*60, precision);
         }
         
         return 0;
