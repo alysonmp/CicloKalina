@@ -83,13 +83,13 @@ public class ViewBombaImage extends JPanel{
             public void mouseEntered(MouseEvent e) {
                 int x = e.getX();
                 int y = e.getY();
-                //ctrlResposta = new ControlCaixaResposta(x, y, ctrlPrincipal.getSession());
-                //ctrlResposta.getViewCaixa().getFrameCaixa().setBounds(ViewBombaImage.this.getLocationOnScreen().x+ViewBombaImage.this.getWidth(), ViewBombaImage.this.getLocationOnScreen().y-ViewBombaImage.this.getHeight(), 200, 100);
+                ctrlResposta = new ControlCaixaResposta(x, y, ctrlPrincipal.getSession(), "bomba");
+                ctrlResposta.getViewCaixa().getFrameCaixa().setBounds(ViewBombaImage.this.getLocationOnScreen().x+ViewBombaImage.this.getWidth(), ViewBombaImage.this.getLocationOnScreen().y-ViewBombaImage.this.getHeight(), 250, 125);
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                //ctrlResposta.getViewCaixa().getFrameCaixa().dispose();
+                ctrlResposta.getViewCaixa().getFrameCaixa().dispose();
             }
         });
     }
