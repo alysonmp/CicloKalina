@@ -59,7 +59,7 @@ public class ViewTurbinaImage extends JPanel{
                 
                 //CALCULA A DIMENSÃO DO PAINEL LATERAL
                 int x = (int) (ctrlPrincipal.getViewPrincipal().getPainelLateral().getWidth()*0.9);
-                int y = (int) (ctrlPrincipal.getViewPrincipal().getPainelLateral().getHeight()*0.55);
+                int y = (int) (ctrlPrincipal.getViewPrincipal().getPainelLateral().getHeight()*0.35);
                 
                 ControlTurbinaPanelRankine controlTurbinaPanel = new ControlTurbinaPanelRankine(ViewTurbinaImage.this.ctrlPrincipal);
                 controlTurbinaPanel.getViewTurbinaPanel().setPreferredSize(new Dimension(x, y));
