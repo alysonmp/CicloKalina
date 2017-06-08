@@ -56,7 +56,7 @@ public class ViewCaixaResposta {
     
     private JLabel labelQcon = new JLabel();
     
-    private JLabel labelVazio = new JLabel("<html><body><div style='text-align: center;'>Não existem dados<br> para serem mostrados</div></body></html>");
+    private JLabel labelVazio = new JLabel("<html><body><div style='text-align: center;'>Ainda não existem dados<br> para serem mostrados.<br> É necessário realizar os cálculos.</div></body></html>");
     
     private double P, T, M, H, S, TEntr, TSai, PEntr, PSai, Efic, Qcon, Eff;
     
