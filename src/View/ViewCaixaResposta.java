@@ -5,6 +5,7 @@
  */
 package View;
 
+import Control.Conversao.ControlConverte;
 import Model.ModelStart;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -64,8 +65,6 @@ public class ViewCaixaResposta {
             return;
         }
         
-        System.out.println("etapa = "+etapa);
-        
         switch(etapa){
             case 1: 
                 P = start.getP1();
@@ -111,6 +110,14 @@ public class ViewCaixaResposta {
         }
         
         M = start.getM();
+        
+        ControlConverte controlConverte = new ControlConverte();
+        
+        P = controlConverte.round(P, 2);
+        T = controlConverte.round(T, 2);
+        H = controlConverte.round(H, 2);
+        S = controlConverte.round(S, 2);
+        M = controlConverte.round(M, 2);
         
         painelCaixa.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
