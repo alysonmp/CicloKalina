@@ -32,16 +32,8 @@ public class ControlCondensadorPanelRankine {
     
     public ControlCondensadorPanelRankine(ControlPrincipal ctrlPrincipal, Session session){
         this.session = session;
-        //viewCondensador = new ViewCondensadorPanelRankine(this);
+        viewCondensador = new ViewCondensadorPanelRankine(this);
         this.ctrlPrincipal = ctrlPrincipal;
-    }
-
-    public ViewCondensadorPanelRankine getViewCondensador() {
-        return viewCondensador;
-    }
-
-    public void setViewCondensador(ViewCondensadorPanelRankine viewCondensador) {
-        this.viewCondensador = viewCondensador;
     }
     
     public void atualizaMassa(){
@@ -410,5 +402,13 @@ public class ControlCondensadorPanelRankine {
 
     public void setCtrlPrincipal(ControlPrincipal ctrlPrincipal) {
         this.ctrlPrincipal = ctrlPrincipal;
+    }
+    
+    public ViewCondensadorPanelRankine getViewCondensador() {
+        return viewCondensador;
+    }
+
+    public void setViewCondensador(ViewCondensadorPanelRankine viewCondensador) {
+        this.viewCondensador = viewCondensador;
     }
 }

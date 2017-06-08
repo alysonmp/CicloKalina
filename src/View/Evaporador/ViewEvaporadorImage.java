@@ -50,7 +50,7 @@ public class ViewEvaporadorImage extends JPanel{
                 if(ViewEvaporadorImage.this.ctrlPrincipal.getPanel_usado().contains((JPanel)e.getSource())){
                     for(int i = 0; i < ViewEvaporadorImage.this.ctrlPrincipal.getPanel_usado().size(); i++) {
                         if(e.getSource() == ViewEvaporadorImage.this.ctrlPrincipal.getPanel_usado().get(i)){
-                            ViewEvaporadorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().setSelectedIndex(i);
+                            ViewEvaporadorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanelComp().setSelectedIndex(i);
                             ViewEvaporadorImage.this.setBorder(BorderFactory.createLineBorder(Color.black, 2));
                             return;
                         }
@@ -63,14 +63,14 @@ public class ViewEvaporadorImage extends JPanel{
                 
                 //CALCULA A DIMENSÃO DO PAINEL LATERAL
                 int x = (int) (ctrlPrincipal.getViewPrincipal().getPainelLateral().getWidth()*0.9);
-                int y = (int) (ctrlPrincipal.getViewPrincipal().getPainelLateral().getHeight()*0.86);
+                int y = (int) (ctrlPrincipal.getViewPrincipal().getPainelLateral().getHeight()*0.55);
                 
-                /*ControlEvaporadorPanelRankine controlEvaporadorPanel = new ControlEvaporadorPanelRankine(ViewEvaporadorImage.this.ctrlPrincipal);
+                ControlEvaporadorPanelRankine controlEvaporadorPanel = new ControlEvaporadorPanelRankine(ViewEvaporadorImage.this.ctrlPrincipal);
                 controlEvaporadorPanel.getViewEvaporadorPanel().setPreferredSize(new Dimension(x, y));
-                ViewEvaporadorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().addTab("Evaporador", null, controlEvaporadorPanel.getViewEvaporadorPanel());
-                ViewEvaporadorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().setSelectedComponent(controlEvaporadorPanel.getViewEvaporadorPanel());
+                ViewEvaporadorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanelComp().addTab("Evaporador", null, controlEvaporadorPanel.getViewEvaporadorPanel());
+                ViewEvaporadorImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanelComp().setSelectedComponent(controlEvaporadorPanel.getViewEvaporadorPanel());
                 ViewEvaporadorImage.this.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-                controlEvaporadorPanel.getValuesComboBox();*/
+                controlEvaporadorPanel.getValuesComboBox();
             }
 
             //NÃO UTILIZADOS

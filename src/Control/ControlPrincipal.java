@@ -125,7 +125,7 @@ public class ControlPrincipal {
     private double PMax, TMax;
     private ViewPrincipal viewPrincipal;
     private ArrayList<JPanel> panel_usado = new ArrayList();
-    ViewLateral viewLateral;
+    private ViewLateral viewLateral;
     Start start;
     
     Session session;
@@ -724,7 +724,7 @@ public class ControlPrincipal {
     
     //FUNÇÃO QUE CRIA O DESENHO DO SEGUNDO CICLO E INDICA OS LOCAIS DOS JPANELS INSERIDOS
     public void criaCiclo2(){                
-        ViewCiclos ciclo = new ViewCiclos(this, "src/Images/ciclo2.png", (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.3), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.7));
+        ViewCiclos ciclo = new ViewCiclos(this, "src/Images/Ciclo2/ciclo2.png", (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.3), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.7));
 
         ciclo.setLayout(null);
         ciclo.setBounds((int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.1), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.05), 
@@ -776,7 +776,7 @@ public class ControlPrincipal {
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.03), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.065));
         
         viewLateral = new ViewLateral(this);
-        viewPrincipal.getTabbedPanel().add(viewLateral);
+        viewPrincipal.getPainelEntrada().add(viewLateral);
         viewPrincipal.getFramePrincipal().repaint();
     }
     
@@ -791,7 +791,7 @@ public class ControlPrincipal {
     
     //FUNÇÃO QUE AJUSTA A MASSA DE TODOS OS COMPONENTES
     public void ajustaMassa(String valor) {
-        Component[] components = viewPrincipal.getTabbedPanel().getComponents();
+        Component[] components = viewPrincipal.getTabbedPanelComp().getComponents();
         for(Component c: components){
             switch(c.getName()){
                 case "Evaporador":
@@ -833,7 +833,7 @@ public class ControlPrincipal {
     }
     
     public void removeTab(){
-        this.getViewPrincipal().getTabbedPanel().remove(0);
+        this.getViewPrincipal().getTabbedPanelComp().remove(0);
         this.getPanel_usado().remove(0);
     }
     
