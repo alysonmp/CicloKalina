@@ -63,14 +63,20 @@ public class ViewCaixaResposta {
     public ViewCaixaResposta(int x, int y, ModelStart start, String etapa){
         
         if(start == null){
-            painelCaixa.add(labelVazio);
+            GridBagConstraints c = new GridBagConstraints();
+            
+            c.anchor = GridBagConstraints.CENTER;
+            
+            painelCaixa.setLayout(new GridBagLayout());
+            
+            painelCaixa.add(labelVazio, c);
             
             painelCaixa.setPreferredSize(new Dimension(250, 100));
             painelCaixa.setBackground(new Color(255, 255, 204));
 
             frameCaixa.add(painelCaixa);
             frameCaixa.setUndecorated(true);
-            frameCaixa.setShape(new RoundRectangle2D.Double(0, 0, 250, 100, 50, 50));
+            frameCaixa.setShape(new RoundRectangle2D.Double(0, 0, 250, 125, 50, 50));
             frameCaixa.setResizable(false);
             frameCaixa.setVisible(true);
             
