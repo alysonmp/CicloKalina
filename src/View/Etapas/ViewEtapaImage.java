@@ -53,7 +53,7 @@ public class ViewEtapaImage extends JPanel{
                 //Etapa.getViewEtapa().setPreferredSize(new Dimension(x, y));
                 //ViewEtapaImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().addTab("Etapa", null, Etapa.getViewEtapa());
                 //ViewEtapaImage.this.ctrlPrincipal.getViewPrincipal().getTabbedPanel().setSelectedComponent(Etapa.getViewEtapa());
-                ViewEtapaImage.this.setBorder(BorderFactory.createLineBorder(Color.black, 1));
+                //ViewEtapaImage.this.setBorder(BorderFactory.createLineBorder(Color.black, 1));
                 //Etapa.criaComboBoxes();
             }
 

@@ -20,9 +20,11 @@ import org.hibernate.criterion.Restrictions;
 public class ControlParametros {
     
     private double Tevp1, P, Pemax, P1, Pe, Te, Tconop, Pconop, Pref, Tref, parada, Pcri, Tcri;
+    private String mensagem;
     
     public ControlParametros(double Tf, int ii, Session session){
         Tevp1 = Tf-10;
+        mensagem = "";
         
         Criteria cr = session.createCriteria(ModelCriticasKCSMat_Pc.class);
         cr.add(Restrictions.eq("cod", ii));
@@ -69,7 +71,8 @@ public class ControlParametros {
         
         if(parada <= 1){
             //TTT=rrr*lkjjlkljk
-            JOptionPane.showMessageDialog(null, "Não é possivel fazer os cálculos");
+            mensagem = "Não é possível fazer os cálculos";
+            return;
         }
         
         Pcri = criticas_pc.getValor();
@@ -138,6 +141,14 @@ public class ControlParametros {
 
     public void setTcri(double Tcri) {
         this.Tcri = Tcri;
+    }
+
+    public String getMensagem() {
+        return mensagem;
+    }
+
+    public void setMensagem(String mensagem) {
+        this.mensagem = mensagem;
     }
     
 }

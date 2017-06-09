@@ -27,17 +27,24 @@ public class Start {
     private int ii;
     private Session session;
     ControlPrincipal ctrlPrincipal;
+    String mensagem;
     
     public Start(int compressor, int flu, double Tf, double Pf, double SUP, double PINCH, double Tconop, double eff, Session session, ControlPrincipal ctrlPrincipal){
         
         this.ctrlPrincipal = ctrlPrincipal;
         this.eff = eff;
+        mensagem = "";
         
         //flu=14;
         //Tf=142.1+273.15;
         //compressor=1;
         
         ControlParametros parametros = new ControlParametros(Tf, flu, session);
+        if(!parametros.getMensagem().equals("")){
+            mensagem = parametros.getMensagem();
+            return;
+        }
+        
         double Pe = parametros.getPe();
         double Te = parametros.getTe();
         double Pconop = parametros.getPconop();
@@ -415,5 +422,13 @@ public class Start {
 
     public void setEff(double eff) {
         this.eff = eff;
+    }
+
+    public String getMensagem() {
+        return mensagem;
+    }
+
+    public void setMensagem(String mensagem) {
+        this.mensagem = mensagem;
     }
 }
