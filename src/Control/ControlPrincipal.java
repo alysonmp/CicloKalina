@@ -130,11 +130,14 @@ public class ControlPrincipal {
     private ArrayList<JPanel> panel_usado = new ArrayList();
     private ViewLateral viewLateral;
     Start start;
+    String mensagem;
     
     Session session;
     
     @SuppressWarnings("empty-statement")
     public ControlPrincipal(){
+        mensagem = "";
+        
         SessionFactory sf = HibernateUtil.getSessionFactory();
         this.session = sf.openSession();
         
@@ -918,6 +921,12 @@ public class ControlPrincipal {
         
         //Start start = new Start(1, 14, 415.25, 1144.4, 25, 10, 313.15, 0.3, session);
         start = new Start(comp, flu, Tf, Pf, sup, pinch, Tconop, eff, session, this);
+        viewLateral.getFrameEspera().dispose();
+        if(!start.getMensagem().equals("")){
+            JOptionPane.showMessageDialog(null, start.getMensagem());
+            return;
+        }
+        
         adicionaValoresCaixas();
     }
     
@@ -1055,5 +1064,13 @@ public class ControlPrincipal {
 
     public void setTMax(double TMax) {
         this.TMax = TMax;
+    }
+
+    public String getMensagem() {
+        return mensagem;
+    }
+
+    public void setMensagem(String mensagem) {
+        this.mensagem = mensagem;
     }
 }

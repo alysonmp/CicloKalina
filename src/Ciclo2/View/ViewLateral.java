@@ -568,8 +568,7 @@ public class ViewLateral extends JPanel{
                             frameEspera.repaint();
 
                             t1.join();
-
-                            frameEspera.dispose();
+                            //frameEspera.dispose();
                             ctrlPrincipal.getViewPrincipal().getFramePrincipal().setEnabled(true);
                         }catch(InterruptedException ex){
                             Logger.getLogger(ViewLateral.class.getName()).log(Level.SEVERE, null, ex);
@@ -841,6 +840,12 @@ public class ViewLateral extends JPanel{
     public void setLabelLimitPressao(JLabel labelLimitPressao) {
         this.labelLimitPressao = labelLimitPressao;
     }
-    
-    
+
+    public JFrame getFrameEspera() {
+        return frameEspera;
+    }
+
+    public void setFrameEspera(JFrame frameEspera) {
+        this.frameEspera = frameEspera;
+    }
 }
