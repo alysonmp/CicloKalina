@@ -14,6 +14,7 @@ import org.hibernate.Session;
 public class ControlIsoentropiaTurbine {
     
     private double Test, SV2, SL2, S2, erro, DT, burbuja, HL2, HV2, H2s, H2, H, T2, x, x2;
+    private String mensagem;
     
     public ControlIsoentropiaTurbine(double Teff, double P2, double Pref, double Tref, double S1, double H1, int ii, Session session){
         
@@ -145,9 +146,8 @@ public class ControlIsoentropiaTurbine {
             }else{
                 x2 = (H2-HL2)/(HV2-HL2);
                 if(x2 < 0.99){
-                    System.out.println("Titulo do vapor da saida na Turbina inferior 0.9");
-                    System.out.println("Aumentar a Temperatura de Superaquecimento");
-                    //Pasar=oiu*uy6r7*988
+                    mensagem = "Titulo do vapor da saida na Turbina inferior a 0.9. \nAumentar a Temperatura de Superaquecimento";
+                    return;
                 }else{
                     T2 = Test;
                     HSistema = new ControlH_Sistema(T2, P2, Pref, Tref, ii, session);
@@ -195,5 +195,13 @@ public class ControlIsoentropiaTurbine {
 
     public void setT2(double T2) {
         this.T2 = T2;
+    }
+
+    public String getMensagem() {
+        return mensagem;
+    }
+
+    public void setMensagem(String mensagem) {
+        this.mensagem = mensagem;
     }
 }

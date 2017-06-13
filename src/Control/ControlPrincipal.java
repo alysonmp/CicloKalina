@@ -923,7 +923,7 @@ public class ControlPrincipal {
         start = new Start(comp, flu, Tf, Pf, sup, pinch, Tconop, eff, session, this);
         viewLateral.getFrameEspera().dispose();
         if(!start.getMensagem().equals("")){
-            JOptionPane.showMessageDialog(null, start.getMensagem());
+            JOptionPane.showMessageDialog(null, mensagem, "Aviso", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
@@ -946,7 +946,7 @@ public class ControlPrincipal {
         ModelCriticasKCSMat_Pc pc = (ModelCriticasKCSMat_Pc) results.get(0);
         double p = pc.getValor();
         
-        PMax = p * 0.9;
+        PMax = p * 0.95;
         
         ControlT_Ref TRef = new ControlT_Ref(PMax, ii, session);
         TMax = TRef.getTref();

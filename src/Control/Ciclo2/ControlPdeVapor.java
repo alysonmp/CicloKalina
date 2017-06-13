@@ -44,7 +44,7 @@ public class ControlPdeVapor {
    
         if(ii == 10){
             //Ps2=(exp(C(ii,1)+(C(ii,2)/T)+(C(ii,3)*log(T))+(C(ii,4)*(T^C(ii,5)))))/1000;
-            Ps2=(Math.exp(valores[0]+(valores[1])/T)+(valores[2]*Math.log(T))+(valores[3]*(Math.pow(T,valores[4]))))/1000;
+            Ps2=(Math.exp(valores[0]+(valores[1]/T)+(valores[2]*Math.log(T))+(valores[3]*(Math.pow(T,valores[4])))))/1000;
         }
         if(ii >= 23){
             //Ps2=exp(C(ii,1)+(C(ii,2)/(T+C(ii,3)))+(C(ii,4)*log(T))+(C(ii,5)*T^C(ii,6)));

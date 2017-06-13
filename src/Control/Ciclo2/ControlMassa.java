@@ -5,6 +5,7 @@
  */
 package Control.Ciclo2;
 
+import javax.swing.JOptionPane;
 import org.hibernate.Session;
 
 /**
@@ -13,7 +14,8 @@ import org.hibernate.Session;
  */
 public class ControlMassa {
     private double m, Q, Tfout, PINCH, Hlat, Hsen, Hsup, T1s, Tf2;
-
+    private String mensagem;
+    
     public ControlMassa(double H4, double H1, double H6, double P1, int ii, double Pref, double Tref, double T1, double T6, double SUP, double PINCH, double mf, double Tf, double Pf, int compressor, Session session) {
         T1s = T1 - SUP;
         Tf2 = T1s + PINCH;
@@ -24,24 +26,25 @@ public class ControlMassa {
         
         double EntEVP = H1 - HLsat;
         
+        if(Tf2 > Tf){
+            mensagem = "Temperatura de vaporização somada ao PINCH \nsuperam a temperatura da fonte de calor. \nDiminua a temperatura ou o PINCH.";
+            return;
+        }
         ControlCalor calor = new ControlCalor(compressor, Tf, Tf2, session);
         
         m = calor.getQfon1()/EntEVP;
         double QTf = m * (H1 - H6);
-        double QTfcor = QTf* 1.02;
-        ControlTSaida tSaidaF = new ControlTSaida(compressor, Tf, QTfcor,session);
-        double Tfout = tSaidaF.getTfout();
+        //double QTfcor = QTf* 1.02;
+        ControlTSaida tSaidaF = new ControlTSaida(compressor, Tf, QTf, session);
+        Tfout = tSaidaF.getTfout();
         
         //Correcao da massa
         
         int it = 0;
-        /*while((T6+5) > tSaidaF.getTfout()){
-            PINCH+=0.1;
-            it++;
-            if(it > 10000)
-                break;
-            
-        }*/
+        if((T6+5) > tSaidaF.getTfout()){
+            mensagem = "Temperatura de saída da fonte de calor próxima da temperatura \nde entrada do fluído de trabalho no evaporador. \nAumentar o PINCH.";
+            return;
+        }
         T1s = T1 - SUP;
         Tf2 = T1s+PINCH;
         
@@ -53,6 +56,7 @@ public class ControlMassa {
         Hsen = HLsat-H6; //%kJ/kmol
         Hsup = H1-HVsat; //%kJ/kmol
         Q = QTf;
+        this.PINCH = PINCH;
     }
 
     public double getM() {
@@ -117,5 +121,13 @@ public class ControlMassa {
 
     public void setT1s(double T1s) {
         this.T1s = T1s;
+    }
+
+    public String getMensagem() {
+        return mensagem;
+    }
+
+    public void setMensagem(String mensagem) {
+        this.mensagem = mensagem;
     }
 }

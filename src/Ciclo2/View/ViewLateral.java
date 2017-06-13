@@ -314,13 +314,13 @@ public class ViewLateral extends JPanel{
 
             @Override
             public void focusLost(FocusEvent e) {
-                if(Double.parseDouble(fieldTemp.getSelectedItem().toString()) > ctrlPrincipal.getTMax()){
+                /*if(Double.parseDouble(fieldTemp.getSelectedItem().toString()) > ctrlPrincipal.getTMax()){
                     JOptionPane.showMessageDialog(null,"Valor da temperatura acima do permitido!");
                     fieldTemp.setSelectedItem("0.0");
-                }else{
+                }else{*/
                     fieldTemp.setSelectedItem(controlConverte.round(Double.parseDouble(fieldTemp.getSelectedItem().toString()),precision));
                     controlLateral.atualizaTemperatura();
-                }
+                //}
             }
         });fieldTemp.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
             @Override
@@ -346,13 +346,13 @@ public class ViewLateral extends JPanel{
 
             @Override
             public void focusLost(FocusEvent e) {
-                if(Double.parseDouble(fieldPressao.getSelectedItem().toString()) > ctrlPrincipal.getPMax()){
+                /*if(Double.parseDouble(fieldPressao.getSelectedItem().toString()) > ctrlPrincipal.getPMax()){
                     JOptionPane.showMessageDialog(null,"Valor da pressão acima do permitido!");
                     fieldPressao.setSelectedItem("0.0");
-                }else{
+                }else{*/
                     fieldPressao.setSelectedItem(controlConverte.round(Double.parseDouble(fieldPressao.getSelectedItem().toString()),precision));
                     controlLateral.atualizaPressao();
-                }
+                //}
             }
         });
         fieldPressao.getEditor().getEditorComponent().addKeyListener(new KeyListener() {

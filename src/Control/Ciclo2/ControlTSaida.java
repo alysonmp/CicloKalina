@@ -40,7 +40,7 @@ public class ControlTSaida {
                 break;
             case 3:
                 //Tfout=((lin(x,1)+(lin(x,3).*QTfcor)+(lin(x,5).*QTfcor.^2)+(lin(x,7).*QTfcor.^3)+(lin(x,9).*QTfcor.^4)+(lin(x,11).*QTfcor.^5))./(1+(lin(x,2).*QTfcor)+(lin(x,4).*QTfcor.^2)+(lin(x,6).*QTfcor.^3)+(lin(x,8).*QTfcor.^4)+(lin(x,10).*QTfcor.^5)))+273.15
-                Tfout = lin[0]+(lin[2]*QTfcor)+(lin[4]*Math.pow(QTfcor,2))+(lin[6]*Math.pow(QTfcor,3))+(lin[8]*Math.pow(QTfcor,4))+(lin[10]*Math.pow(QTfcor,5))/(1+(lin[1]*QTfcor)+(lin[3]*Math.pow(QTfcor,2))+(lin[5]*Math.pow(QTfcor,3))+(lin[7]*Math.pow(QTfcor,4))+(lin[9]*Math.pow(QTfcor,5)))+273.15;
+                Tfout = (lin[0]+(lin[2]*QTfcor)+(lin[4]*Math.pow(QTfcor,2))+(lin[6]*Math.pow(QTfcor,3))+(lin[8]*Math.pow(QTfcor,4))+(lin[10]*Math.pow(QTfcor,5)))/(1+(lin[1]*QTfcor)+(lin[3]*Math.pow(QTfcor,2))+(lin[5]*Math.pow(QTfcor,3))+(lin[7]*Math.pow(QTfcor,4))+(lin[9]*Math.pow(QTfcor,5)))+273.15;
                 break;
             case 4:
                 //Tfout=(lin(x,1)+(lin(x,2).*QTfcor)+(lin(x,3).*QTfcor.^2)+(lin(x,4).*QTfcor.^3)+(lin(x,5).*QTfcor.^4)+(lin(x,6).*QTfcor.^5)+(lin(x,7).*QTfcor.^6)+(lin(x,8).*QTfcor.^7)+(lin(x,9).*QTfcor.^8)+(lin(x,10).*QTfcor.^9))+273.15

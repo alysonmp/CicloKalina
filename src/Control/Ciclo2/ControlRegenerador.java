@@ -14,6 +14,7 @@ import org.hibernate.Session;
 public class ControlRegenerador {
     
     private double P6, P3, H3, T3, S3, H6, T6, S6, IHR, HL2, HV2, PP, HL3, HV3, Test, erro, DT, it, HL6, HV6, SL3, SV3, H, burbuja, SL6, SV6, DT11, DT12, DT13;
+    private String mensagem;
     
     public ControlRegenerador(double G, double H2, double H5, double S2, double S5, double P2, double T2, double P5, double T5, double P1, double Pconop, double Tconop, double Pref, double Tref, int ii, double eff, Session session){
     
@@ -102,47 +103,32 @@ public class ControlRegenerador {
                 //kkk*pppp*ttrfgd*iogffdgfjhj
             }
             
-            /*
-            
-            COLOCAR MENSAGEM PARA USUÁRIO
-            
-            DT11 = T6+10;
-            DT12 = T5+10;
+            DT11 = T6+5;
+            DT12 = T5+5;
             if(T2 <= DT11 && IHR > 0){ 
-                H3=H2;
-                T3=T2;
-                S3=S2;
-                H6=H5;
-                T6=T5;
-                S6=S5;
-                IHR=0;
-                //kkk*pppp*ttrfgd*iogffdgfjhj
+                mensagem = "Efetividade do trocador de calor muito alta. \nDiminuir a efetividade.";
+                return;
             }
             
             if(IHR > 0 && T3 <= DT12){
-                H3=H2;
-                T3=T2;
-                S3=S2;
-                H6=H5;
-                T6=T5;
-                S6=S5;
-                IHR=0;
-                //kkk*pppp*ttrfgd*iogffdgfjhj
+                mensagem = "Efetividade do trocador de calor muito alta. \nDiminuir a efetividade.";
+                return;
             }
             
             DT13 = T6-T5;
             if(DT13 <= 10){ 
-                //COLOCAR MENSAGEM PARA USUÁRIO
-                H3 = H2;
-                T3 = T2;
-                S3 = S2;
-                H6 = H5;
-                T6 = T5;
-                S6 = S5;
-                IHR = 0;
-                //kkk*pppp*ttrfgd*iogffdgfjhj
-            }*/
+                mensagem = "Efetividade do trocador de calor muito alta. \nDiminuir a efetividade.";
+                return;
+            }
         }
+    }
+
+    public String getMensagem() {
+        return mensagem;
+    }
+
+    public void setMensagem(String mensagem) {
+        this.mensagem = mensagem;
     }
 
     public double getIHR() {
