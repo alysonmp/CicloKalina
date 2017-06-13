@@ -23,7 +23,7 @@ public class ControlParametros {
     private String mensagem;
     
     public ControlParametros(double Tf, int ii, Session session){
-        Tevp1 = Tf-10;
+        Tevp1 = Tf-5;
         mensagem = "";
         
         Criteria cr = session.createCriteria(ModelCriticasKCSMat_Pc.class);
@@ -38,7 +38,7 @@ public class ControlParametros {
         
         ModelCriticasKCSMat_Tc criticas_tc = (ModelCriticasKCSMat_Tc) results.get(0);
         
-        P = criticas_pc.getValor()*0.9;
+        P = criticas_pc.getValor()*0.95;
         
         ControlPdeVapor pdevapor = new ControlPdeVapor(Tevp1, ii, session);
         P1 = pdevapor.getPs2();
@@ -60,9 +60,9 @@ public class ControlParametros {
 
         if(Pconop < 10){
             Pconop=10;
+            T_Ref = new ControlT_Ref(Pconop, ii, session);
+            Tconop = T_Ref.getTref();
         }
-        
-        T_Ref = new ControlT_Ref(Pconop, ii, session);
         
         Pref = Pconop;
         Tref = Tconop;
@@ -70,7 +70,6 @@ public class ControlParametros {
         parada = Pe/Pconop;
         
         if(parada <= 1){
-            //TTT=rrr*lkjjlkljk
             mensagem = "Não é possível fazer os cálculos";
             return;
         }

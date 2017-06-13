@@ -28,7 +28,7 @@ public class ControlAreas {
         double Qlat=m*Hlat;
         double Qsup=m*Hsup;
         
-        double Tmevp3 = 0;
+        double Tmevp3 = 1;
         if(SUP > 0){
             ControlTSaida tSaida = new ControlTSaida(compressor, Tf, Qsup, session);
             Toil2 = tSaida.getTfout();
@@ -68,6 +68,7 @@ public class ControlAreas {
             double erro = 1;
             double DT = 4.7;
             int it = 0;
+            double Burbuja;
             while(erro > 0.0005){
                 it +=1;
                 if(it > 10000)
@@ -77,7 +78,7 @@ public class ControlAreas {
                 double Hout = h_Sistema.getHL();
                 double Q = (Hout - Hin)*mH2O;
                 erro = Math.abs((Qcon-Q)/Qcon);
-                double Burbuja = Q - Qcon;
+                Burbuja = Q - Qcon;
                 if(erro > 0.0005 && Burbuja < 0){
                     Test += DT;
                     DT /= 2;
@@ -97,13 +98,13 @@ public class ControlAreas {
         if(eff == 0){
             double Tmevp1= ((Toil1-T1s)-(Toils-T6))/(Math.log((Toil1-T1s)/(Toils-T6)));
             double Tmevp2= ((Toil2-T1s)-(Toil1-T1s))/(Math.log((Toil2-T1s)/(Toil1-T1s)));
-            double Aevp= (Qsen/(Tmevp1*Uevp))+(Qlat/(Tmevp2*Uevp))+(Qsup/(Tmevp3*Uevp));
+            Aevp = (Qsen/(Tmevp1*Uevp))+(Qlat/(Tmevp2*Uevp))+(Qsup/(Tmevp3*Uevp));
         
             double Tmcon1= ((T4-Ten1)-(T4-Ten))/(Math.log((T4-Ten1)/(T4-Ten)));
             double Tmcon2= ((T3-Ts)-(T4-Ten1))/(Math.log((T3-Ts)/(T4-Ten1)));
 
-            double Acon= Qconlat/(Tmcon1*Ucon)%+Qconsen/(Tmcon2*Ucon);
-            double Areg = 0;
+            Acon= Qconlat/(Tmcon1*Ucon);//%+Qconsen/(Tmcon2*Ucon);
+            Areg = 0;
             
             if(T3 == T4 & Acon < 10){
                 Acon = 0;

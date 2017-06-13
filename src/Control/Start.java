@@ -30,7 +30,7 @@ public class Start {
     String mensagem;
     
     public Start(int compressor, int flu, double Tf, double Pf, double SUP, double PINCH, double Tconop, double eff, Session session, ControlPrincipal ctrlPrincipal){
-        
+        double Ve = 1;
         this.ctrlPrincipal = ctrlPrincipal;
         this.eff = eff;
         mensagem = "";
@@ -47,6 +47,7 @@ public class Start {
         
         double Pe = parametros.getPe();
         double Te = parametros.getTe();
+        Tconop = parametros.getTconop();
         double Pconop = parametros.getPconop();
         double Pref = parametros.getPref();
         double Tref = parametros.getTref();
@@ -64,7 +65,7 @@ public class Start {
             mf = 1.5375; //%kmol/s
         }
         
-        P1 = Pe*0.8;
+        P1 = Pe*Ve;
         P2 = Pconop;
         ii = flu;
         
@@ -77,22 +78,27 @@ public class Start {
         P5 = P1;
         P3 = P2;
         P6 = P1;
-        Tcontrol=Tf-T1;
         
-        if(Tcontrol < 9.5){
-            //jkljkljkljkljkl*jkljkljkjkl
+        Tcontrol=Tf-T1;
+        if(Tcontrol < 5){
+            mensagem = "Pressão ou temperatura de vaporização elevadas.";
+            return;
         }
 
-        Tcontrol2 = Tcri-T1;
+        /*Tcontrol2 = Tcri-T1;
         if(Tcontrol2 <= 2){ 
            //jkljkljkljkljkl*jkljkljkjkl
-        }
+        }*/
         
-        if(P1 < 303.1){
-            //jkljkljkljkljkl*jkljkljkjkl
+        if(P1 < 200){
+            mensagem = "Baixa pressão de vaporização.";
         }
         
         ControlTurbina turbina = new ControlTurbina(Teff, P1, T1, P2, Pref, Tref, ii, session);
+        if(!turbina.getMensagem().equals("")){
+            mensagem = turbina.getMensagem();
+            return;
+        }
         H1 = turbina.getH1();
         H2 = turbina.getIsoTurbina().getH2();
         S1 = turbina.getS1();
@@ -154,6 +160,10 @@ public class Start {
         T5 = bomba.getT5();
 
         ControlRegenerador regenerador = new ControlRegenerador(G, H2, H5, S2, S5, P2, T2, P5, T5, P1, Pconop, Tconop, Pref, Tref, ii, this.eff, session);
+        if(!regenerador.getMensagem().equals("")){
+            mensagem = regenerador.getMensagem();
+            return;
+        }
         S3 = regenerador.getS3();
         H3 = regenerador.getH3();
         S6 = regenerador.getS6();
@@ -164,6 +174,10 @@ public class Start {
         this.eff = IHR;
 
         ControlMassa massa = new ControlMassa(H4, H1, H6, P1, ii, Pref, Tref, T1, T6, SUP, PINCH, mf, Tf, Pf, compressor, session);
+        if(!massa.getMensagem().equals("")){
+            mensagem = massa.getMensagem();
+            return;
+        }
         m = massa.getM();
         Q = massa.getQ();
         Tfout = massa.getTfout();
@@ -171,7 +185,8 @@ public class Start {
         Hsen = massa.getHsen();
         Hsup = massa.getHsup();
         T1s = massa.getT1s();
-
+        PP = massa.getPINCH();
+        
         ControlSF sf = new ControlSF(T2, P2, ii, m, DH2s, session);
         sp = sf.getSp();
         v2 = sf.getV2();
