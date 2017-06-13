@@ -24,7 +24,7 @@ public class ControlH_Sistema {
         
         hDep = new ControlH_Dep(T, P, ii, session);
         
-        HL = -HDrefL + hidelGas.getHig()+ hDep.getHDL();
+        HL = -HDrefL + hidelGas.getHig() + hDep.getHDL();
         HV = -HDrefL + hidelGas.getHig() + hDep.getHDV();
     }
 

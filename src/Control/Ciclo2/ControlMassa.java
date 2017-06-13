@@ -14,7 +14,7 @@ import org.hibernate.Session;
  */
 public class ControlMassa {
     private double m, Q, Tfout, PINCH, Hlat, Hsen, Hsup, T1s, Tf2;
-    private String mensagem;
+    private String mensagem = "";
     
     public ControlMassa(double H4, double H1, double H6, double P1, int ii, double Pref, double Tref, double T1, double T6, double SUP, double PINCH, double mf, double Tf, double Pf, int compressor, Session session) {
         T1s = T1 - SUP;

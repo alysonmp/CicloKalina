@@ -29,8 +29,8 @@ public class Start {
     ControlPrincipal ctrlPrincipal;
     String mensagem;
     
-    public Start(int compressor, int flu, double Tf, double Pf, double SUP, double PINCH, double Tconop, double eff, Session session, ControlPrincipal ctrlPrincipal){
-        double Ve = 1;
+    public Start(int compressor, int flu, double Tf, double Pf, double SUP, double PINCH, double Tconop, double eff, double Ve, Session session, ControlPrincipal ctrlPrincipal){
+        //double Ve = 0.6;
         this.ctrlPrincipal = ctrlPrincipal;
         this.eff = eff;
         mensagem = "";
@@ -79,9 +79,9 @@ public class Start {
         P3 = P2;
         P6 = P1;
         
-        Tcontrol=Tf-T1;
+        Tcontrol = Tf-T1;
         if(Tcontrol < 5){
-            mensagem = "Pressão ou temperatura de vaporização elevadas.";
+            mensagem = "Pressão ou temperatura de vaporização elevadas \nou temperatura de superaquecimento elevada.";
             return;
         }
 
@@ -92,6 +92,7 @@ public class Start {
         
         if(P1 < 200){
             mensagem = "Baixa pressão de vaporização.";
+            return;
         }
         
         ControlTurbina turbina = new ControlTurbina(Teff, P1, T1, P2, Pref, Tref, ii, session);
@@ -445,5 +446,85 @@ public class Start {
 
     public void setMensagem(String mensagem) {
         this.mensagem = mensagem;
+    }
+
+    public double getWt() {
+        return Wt;
+    }
+
+    public void setWt(double Wt) {
+        this.Wt = Wt;
+    }
+
+    public double getWb() {
+        return Wb;
+    }
+
+    public void setWb(double Wb) {
+        this.Wb = Wb;
+    }
+
+    public double getQevp() {
+        return Qevp;
+    }
+
+    public void setQevp(double Qevp) {
+        this.Qevp = Qevp;
+    }
+
+    public double getQreg() {
+        return Qreg;
+    }
+
+    public void setQreg(double Qreg) {
+        this.Qreg = Qreg;
+    }
+
+    public double getQreg1() {
+        return Qreg1;
+    }
+
+    public void setQreg1(double Qreg1) {
+        this.Qreg1 = Qreg1;
+    }
+
+    public double getWn() {
+        return Wn;
+    }
+
+    public void setWn(double Wn) {
+        this.Wn = Wn;
+    }
+
+    public double getAcon() {
+        return Acon;
+    }
+
+    public void setAcon(double Acon) {
+        this.Acon = Acon;
+    }
+
+    public double getAevp() {
+        return Aevp;
+    }
+
+    public void setAevp(double Aevp) {
+        this.Aevp = Aevp;
+    }
+
+    public double getAreg() {
+        return Areg;
+    }
+
+    public void setAreg(double Areg) {
+        this.Areg = Areg;
+    }
+
+    public double getAT() {
+        return AT;
+    }
+
+    public void setAT(double AT) {
+        this.AT = AT;
     }
 }

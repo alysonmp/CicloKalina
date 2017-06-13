@@ -38,7 +38,7 @@ public class ControlParametros {
         
         ModelCriticasKCSMat_Tc criticas_tc = (ModelCriticasKCSMat_Tc) results.get(0);
         
-        P = criticas_pc.getValor()*0.95;
+        P = criticas_pc.getValor()*0.95; //Alterar para 0.9
         
         ControlPdeVapor pdevapor = new ControlPdeVapor(Tevp1, ii, session);
         P1 = pdevapor.getPs2();
@@ -68,9 +68,8 @@ public class ControlParametros {
         Tref = Tconop;
 
         parada = Pe/Pconop;
-        
         if(parada <= 1){
-            mensagem = "Não é possível fazer os cálculos";
+            mensagem = "Pressão de condensação é superior \nà pressão de vaporização.";
             return;
         }
         

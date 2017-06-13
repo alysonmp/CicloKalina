@@ -878,6 +878,9 @@ public class ControlPrincipal {
         double Tconop = 0;
         double eff = 0;
         
+        Teste teste = new Teste(session, this);
+        return;
+                
         int comp = Integer.parseInt(viewLateral.getComboCompressores().getSelectedItem().toString());
                 
         String fluNome = viewPrincipal.getComboFluidos().getSelectedItem().toString();
@@ -923,7 +926,7 @@ public class ControlPrincipal {
         start = new Start(comp, flu, Tf, Pf, sup, pinch, Tconop, eff, session, this);
         viewLateral.getFrameEspera().dispose();
         if(!start.getMensagem().equals("")){
-            JOptionPane.showMessageDialog(null, mensagem, "Aviso", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, start.getMensagem(), "Aviso", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
