@@ -14,7 +14,7 @@ import org.hibernate.Session;
 public class ControlRegenerador {
     
     private double P6, P3, H3, T3, S3, H6, T6, S6, IHR, HL2, HV2, PP, HL3, HV3, Test, erro, DT, it, HL6, HV6, SL3, SV3, H, burbuja, SL6, SV6, DT11, DT12, DT13;
-    private String mensagem;
+    private String mensagem = "";
     
     public ControlRegenerador(double G, double H2, double H5, double S2, double S5, double P2, double T2, double P5, double T5, double P1, double Pconop, double Tconop, double Pref, double Tref, int ii, double eff, Session session){
     
@@ -89,18 +89,10 @@ public class ControlRegenerador {
                 S6 = SL6;
                 IHR = eff;
             }else{
-                if(G == 1){
-                    System.out.println("Não é possivél fazer Regeneração");
-                    System.out.println("T2 é menor o igual que T5");
+                if(T2 < T5){
+                    mensagem = "Não é possivél fazer Regeneração \nT2 é menor o igual que T5";
+                    return;
                 }
-                H3 = H2;
-                T3 = T2;
-                S3 = S2;
-                H6 = H5;
-                T6 = T5;
-                S6 = S5;
-                IHR = 0;
-                //kkk*pppp*ttrfgd*iogffdgfjhj
             }
             
             DT11 = T6+5;

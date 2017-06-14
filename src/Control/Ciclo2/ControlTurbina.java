@@ -15,7 +15,7 @@ public class ControlTurbina {
     
     private double HL1, HV1, SL1, SV1, H1, S1, P2;
     private ControlIsoentropiaTurbine isoTurbina;
-    private String mensagem;
+    private String mensagem = "";
     
     public ControlTurbina(double Teff, double P1, double T1, double Pconop, double Pref, double Tref, int ii, Session session){
         ControlH_Sistema HSistema = new ControlH_Sistema(T1, P1, Pref, Tref, ii, session);

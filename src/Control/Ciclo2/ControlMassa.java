@@ -14,13 +14,17 @@ import org.hibernate.Session;
  */
 public class ControlMassa {
     private double m, Q, Tfout, PINCH, Hlat, Hsen, Hsup, T1s, Tf2;
-    private String mensagem;
+    private String mensagem = "";
     
     public ControlMassa(double H4, double H1, double H6, double P1, int ii, double Pref, double Tref, double T1, double T6, double SUP, double PINCH, double mf, double Tf, double Pf, int compressor, Session session) {
         T1s = T1 - SUP;
         Tf2 = T1s + PINCH;
         
         ControlH_Sistema hSistema = new ControlH_Sistema(T1s, P1, Pref, Tref, ii, session);
+        if(!hSistema.getMensagem().equals("")){
+            mensagem = hSistema.getMensagem();
+            return;
+        }
         double HLsat = hSistema.getHL();
         double HVsat = hSistema.getHV();
         
@@ -49,6 +53,11 @@ public class ControlMassa {
         Tf2 = T1s+PINCH;
         
         hSistema = new ControlH_Sistema(T1s, P1, Pref, Tref, ii, session);
+        if(!hSistema.getMensagem().equals("")){
+            mensagem = hSistema.getMensagem();
+            return;
+        }
+        
         HLsat = hSistema.getHL();
         HVsat = hSistema.getHV();
         
