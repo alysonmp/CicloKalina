@@ -37,13 +37,14 @@ public class Teste {
                 }
                 
                 System.out.println("\n\n"+valores[0]+" "+(int)valores[5]+" "+(int)valores[7]+" "+valores[3]+" "+valores[2]+" "+valores[1]+" "+valores[6]+" "+valores[4]);
-                Start start = new Start((int)valores[5], (int)valores[7], valores[3], 1000, valores[2], valores[1], 313.15, valores[6]*100, valores[4], session, ctrlPrincipal);
+                Start start = new Start((int)valores[5], (int)valores[7], valores[3], 1000, valores[2], valores[1], 313.15, valores[6], valores[4], session, ctrlPrincipal);
 
                 System.out.println(converte.round(start.getAT(), 3) +" "+converte.round(valores[8], 3));
                 System.out.println(converte.round(start.getQevp(), 3)+" "+converte.round(valores[19], 3));
                 System.out.println(converte.round(start.getQcon(), 3)+" "+converte.round(valores[20], 3));
                 System.out.println(converte.round(start.getQreg(), 3) +" "+converte.round(valores[21], 3));
                 System.out.println(converte.round(start.getWn(), 3) +" "+converte.round(valores[33], 3));
+                System.out.println(start.getMensagem());
                 
                 if(converte.round(start.getAT(), 3) == converte.round(valores[8], 3) && converte.round(start.getQcon(), 3) == converte.round(valores[19], 3) && converte.round(start.getQevp(),3) == converte.round(valores[20], 3) && converte.round(start.getQreg(), 3) == converte.round(valores[21], 3) && converte.round(start.getWn(), 3) == converte.round(valores[33], 3)){
                     System.out.println("linha "+linha+" correta");

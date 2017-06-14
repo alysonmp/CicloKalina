@@ -30,7 +30,8 @@ public class Start {
     String mensagem;
     
     public Start(int compressor, int flu, double Tf, double Pf, double SUP, double PINCH, double Tconop, double eff, double Ve, Session session, ControlPrincipal ctrlPrincipal){
-        //double Ve = 0.6;
+    //public Start(int compressor, int flu, double Tf, double Pf, double SUP, double PINCH, double Tconop, double eff, Session session, ControlPrincipal ctrlPrincipal){
+        //double Ve = 1;
         this.ctrlPrincipal = ctrlPrincipal;
         this.eff = eff;
         mensagem = "";

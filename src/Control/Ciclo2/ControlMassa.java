@@ -21,6 +21,10 @@ public class ControlMassa {
         Tf2 = T1s + PINCH;
         
         ControlH_Sistema hSistema = new ControlH_Sistema(T1s, P1, Pref, Tref, ii, session);
+        if(!hSistema.getMensagem().equals("")){
+            mensagem = hSistema.getMensagem();
+            return;
+        }
         double HLsat = hSistema.getHL();
         double HVsat = hSistema.getHV();
         
@@ -49,6 +53,11 @@ public class ControlMassa {
         Tf2 = T1s+PINCH;
         
         hSistema = new ControlH_Sistema(T1s, P1, Pref, Tref, ii, session);
+        if(!hSistema.getMensagem().equals("")){
+            mensagem = hSistema.getMensagem();
+            return;
+        }
+        
         HLsat = hSistema.getHL();
         HVsat = hSistema.getHV();
         
