@@ -23,15 +23,15 @@ import org.hibernate.Session;
  */
 public class Start {
     
-    private double mf, P1, P2, T1, P4, T4, P5, P3, P6, Tcontrol, Tcontrol2, H1, H2, S1, S2, T2, H2s, DH2s, sp, v2, DHT, S4, S5, H4, H5, T5, S3, H3, T3, S6, T6, H6, IHR, Q, Tfout, PP, Hlat, Hsen, Hsup, T1s, Wt, Wb, Qevp, Qcon, ec, Qreg, Qreg1, Wn, Acon, Aevp, Areg, AT, ecg, Dr, m, Beff, eff;
+    private double mf, P1, P2, T1, P4, T4, P5, P3, P6, Tcontrol, Tcontrol2, H1, H2, S1, S2, T2, H2s, DH2s, sp, v2, DHT, S4, S5, H4, H5, T5, S3, H3, T3, S6, T6, H6, IHR, Q, Tfout, PP, Hlat, Hsen, Hsup, T1s, Wt, Wb, Qevp, Qcon, ec, Qreg, Qreg1, Wn, Acon, Aevp, Areg, AT, ecg, Dr, m, Beff, eff, UASUP, UALAT, UASEN, UAREG, UACONl, UACONs, Ten, Pen, Ten1, Ts, mH2O;
     private int ii;
     private Session session;
     ControlPrincipal ctrlPrincipal;
     String mensagem;
     
-    public Start(int compressor, int flu, double Tf, double Pf, double SUP, double PINCH, double Tconop, double eff, double Ve, Session session, ControlPrincipal ctrlPrincipal){
-    //public Start(int compressor, int flu, double Tf, double Pf, double SUP, double PINCH, double Tconop, double eff, Session session, ControlPrincipal ctrlPrincipal){
-        //double Ve = 1;
+    //public Start(int compressor, int flu, double Tf, double Pf, double SUP, double PINCH, double Tconop, double eff, double Ve, Session session, ControlPrincipal ctrlPrincipal){
+    public Start(int compressor, int flu, double Tf, double Pf, double SUP, double PINCH, double Tconop, double eff, Session session, ControlPrincipal ctrlPrincipal){
+        double Ve = 0.6;
         this.ctrlPrincipal = ctrlPrincipal;
         this.eff = eff;
         mensagem = "";
@@ -189,14 +189,14 @@ public class Start {
         T1s = massa.getT1s();
         PP = massa.getPINCH();
         
-        ControlSF sf = new ControlSF(T2, P2, ii, m, DH2s, session);
+        ControlSF sf = new ControlSF(T2, P2, ii, m, H2s, session);
         sp = sf.getSp();
         v2 = sf.getV2();
         DHT = sf.getDHT();
 
-        ControlDiamTH17 diamTH17 = new ControlDiamTH17(v2, DHT, session);
-        Dr = diamTH17.getDr();
-        Teff = diamTH17.getTeff();
+        //ControlDiamTH17 diamTH17 = new ControlDiamTH17(v2, DHT, session);
+        //Dr = diamTH17.getDr();
+        //Teff = diamTH17.getTeff();
         
         ControlBalanco balanco = new ControlBalanco(T1, H1, H2, H3, H4, H5, H6, S1, S2, S3, S4, S5, S6, m, Pref, Tref);
         Wt = balanco.getWt();
@@ -209,10 +209,15 @@ public class Start {
         Wn = balanco.getWn();
 
         ControlAreas areas = new ControlAreas(T1, T2, T3, T4, T5, T6, Tf, Tfout, Qevp, Qcon, Qreg, this.eff, Hlat, Hsen, Hsup, T1s, PP, SUP, m, Pref, Tref, P4, ii, H3, compressor, session);
+        if(!areas.getMensagem().equals("")){
+            mensagem = areas.getMensagem();
+            return;
+        }
         Acon = areas.getAcon();
         Aevp = areas.getAevp();
         Areg = areas.getAreg();
-
+        
+        
         AT = Acon+Aevp+Areg;
         ecg = ec*100;
     }   
@@ -527,5 +532,93 @@ public class Start {
 
     public void setAT(double AT) {
         this.AT = AT;
+    }
+
+    public double getUASUP() {
+        return UASUP;
+    }
+
+    public void setUASUP(double UASUP) {
+        this.UASUP = UASUP;
+    }
+
+    public double getUALAT() {
+        return UALAT;
+    }
+
+    public void setUALAT(double UALAT) {
+        this.UALAT = UALAT;
+    }
+
+    public double getUASEN() {
+        return UASEN;
+    }
+
+    public void setUASEN(double UASEN) {
+        this.UASEN = UASEN;
+    }
+
+    public double getUAREG() {
+        return UAREG;
+    }
+
+    public void setUAREG(double UAREG) {
+        this.UAREG = UAREG;
+    }
+
+    public double getUACONl() {
+        return UACONl;
+    }
+
+    public void setUACONl(double UACONl) {
+        this.UACONl = UACONl;
+    }
+
+    public double getUACONs() {
+        return UACONs;
+    }
+
+    public void setUACONs(double UACONs) {
+        this.UACONs = UACONs;
+    }
+
+    public double getTen() {
+        return Ten;
+    }
+
+    public void setTen(double Ten) {
+        this.Ten = Ten;
+    }
+
+    public double getPen() {
+        return Pen;
+    }
+
+    public void setPen(double Pen) {
+        this.Pen = Pen;
+    }
+
+    public double getTen1() {
+        return Ten1;
+    }
+
+    public void setTen1(double Ten1) {
+        this.Ten1 = Ten1;
+    }
+
+    public double getTs() {
+        return Ts;
+    }
+
+    public void setTs(double Ts) {
+        this.Ts = Ts;
+    }
+
+    public double getmH2O() {
+        return mH2O;
+    }
+
+    public void setmH2O(double mH2O) {
+        this.mH2O = mH2O;
     }
 }

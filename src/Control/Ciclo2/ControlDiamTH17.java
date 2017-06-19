@@ -213,7 +213,7 @@ public class ControlDiamTH17 {
 
                 Dr = Dr80;
                 //%disp ('Eficiencia da Turbina 80%')
-                Teff=0.8;
+                Teff = 0.8;
             }
         }
     }

@@ -13,7 +13,8 @@ import org.hibernate.Session;
  */
 public class ControlAreas {
 
-    private double Acon, Areg, Aevp;
+    private double Acon, Areg, Aevp, UASUP, UALAT, UASEN, UACONl, UACONs, UAREG, Ten, Pen, Ten1, mH2O;
+    private String mensagem;
     
     public ControlAreas(double T1, double T2, double T3, double T4, double T5, double T6, double Tf, double Tfout, double Qevp, double Qcon, double Qreg, double eff, double Hlat, double Hsen, double Hsup, double T1s, double PP, double SUP, double m, double Pref, double Tref, double P4, int ii, double H3,int compressor,Session session) {
         double Ucon = 0.75;
@@ -32,13 +33,14 @@ public class ControlAreas {
         if(SUP > 0){
             ControlTSaida tSaida = new ControlTSaida(compressor, Tf, Qsup, session);
             Toil2 = tSaida.getTfout();
+            //Tmevp3= ((Toile-T1)-(Toil2-T1s))/(log((Toile-T1)/(Toil2-T1s)));
             Tmevp3= ((Toile-T1)-(Toil2-T1s))/(Math.log((Toile-T1)/(Toil2-T1s)));
         }
         
-        double Ten=25+273.15;
-        double Pen=101.325;
-        double Ten1=35+273.15;
-        double Ps=101.325;
+        Ten = 25+273.15;
+        Pen = 101.325;
+        Ten1 = T4-7;
+        double Ps = 110;
         
         ControlH_Sistema h_Sistema = new ControlH_Sistema(Ten, Pen, 10, 273, 1, session);
         double HLen = h_Sistema.getHL();
@@ -55,15 +57,17 @@ public class ControlAreas {
 
         double Qconlat=m*HCONlat;
         double Qconsen=m*HCONsen;
-        double mH2O=Qconlat/(HLs-HLen);
+        mH2O=Qconlat/(HLs-HLen);
         
         double Tcon3=T3-T4;
         double Ts;
-        if(Tcon3 < 2){
+        if(Tcon3 < 1){
             Qconsen=0;
             Ts=Ten1;
         }else{
-            double Hin = HLen;
+            h_Sistema = new ControlH_Sistema(Ten, Pen, 10, 273, 1, session);
+            double Hin = h_Sistema.getHL();
+            
             double Test = Ten1;
             double erro = 1;
             double DT = 4.7;
@@ -71,8 +75,10 @@ public class ControlAreas {
             double Burbuja;
             while(erro > 0.0005){
                 it +=1;
-                if(it > 10000)
-                    break;
+                if(it > 10000){
+                    mensagem = "Não houve convergência no cálculo da entropia";
+                    return;
+                }
                 
                 h_Sistema = new ControlH_Sistema(Test, Pen, 10, 273, 1, session);
                 double Hout = h_Sistema.getHL();
@@ -92,35 +98,76 @@ public class ControlAreas {
                 }
             }
             
-            Ts = Test + 3;
+            Ts = Test;
+            if(Ts < Ten1){
+                mensagem = "Não foi possível realizar os cálculos";
+                return;
+            }
         }
         
         if(eff == 0){
+            //Tmevp1= ((Toil1-T1s)-(Toils-T6))/(log((Toil1-T1s)/(Toils-T6)));
             double Tmevp1= ((Toil1-T1s)-(Toils-T6))/(Math.log((Toil1-T1s)/(Toils-T6)));
+            
+            //Tmevp2= ((Toil2-T1s)-(Toil1-T1s))/(log((Toil2-T1s)/(Toil1-T1s)));
             double Tmevp2= ((Toil2-T1s)-(Toil1-T1s))/(Math.log((Toil2-T1s)/(Toil1-T1s)));
+            
+            //Aevp= (Qsen/(Tmevp1*Uevp))+(Qlat/(Tmevp2*Uevp))+(Qsup/(Tmevp3*Uevp));
             Aevp = (Qsen/(Tmevp1*Uevp))+(Qlat/(Tmevp2*Uevp))+(Qsup/(Tmevp3*Uevp));
         
+            UASUP=(Qsup/(Tmevp3));
+            UALAT=(Qlat/(Tmevp2));
+            UASEN=(Qsen/(Tmevp1));
+            
+            //Tmcon1= ((T4-Ten1)-(T4-Ten))/(log((T4-Ten1)/(T4-Ten)));
             double Tmcon1= ((T4-Ten1)-(T4-Ten))/(Math.log((T4-Ten1)/(T4-Ten)));
+            
+            //Tmcon2= ((T3-Ts)-(T4-Ten1))/(log((T3-Ts)/(T4-Ten1)));
             double Tmcon2= ((T3-Ts)-(T4-Ten1))/(Math.log((T3-Ts)/(T4-Ten1)));
 
-            Acon= Qconlat/(Tmcon1*Ucon);//%+Qconsen/(Tmcon2*Ucon);
+            //Acon= Qconlat/(Tmcon1*Ucon)+Qconsen/(Tmcon2*Ucon);
+            Acon= Qconlat/(Tmcon1*Ucon)+Qconsen/(Tmcon2*Ucon);
+            
+            UACONl=Qconlat/(Tmcon1);
+            UACONs=Qconsen/(Tmcon2);
+            UAREG=0;
             Areg = 0;
             
             if(T3 == T4 & Acon < 10){
                 Acon = 0;
             }
         }else{
+            //Tmcon1= ((T4-Ten1)-(T4-Ten))/(log((T4-Ten1)/(T4-Ten)));
             double Tmcon1= ((T4-Ten1)-(T4-Ten))/(Math.log((T4-Ten1)/(T4-Ten)));
+            
+            //Tmcon2= ((T3-Ts)-(T4-Ten1))/(log((T3-Ts)/(T4-Ten1)));
             double Tmcon2= ((T3-Ts)-(T4-Ten1))/(Math.log((T3-Ts)/(T4-Ten1)));
-            Acon= Qconlat/(Tmcon1*Ucon);
+            
+            //Acon= Qconlat/(Tmcon1*Ucon)+Qconsen/(Tmcon2*Ucon);
+            Acon= Qconlat/(Tmcon1*Ucon)+Qconsen/(Tmcon2*Ucon);
 
+            //Tmreg= ((T2-T6)-(T3-T5))/(log((T2-T6)/(T3-T5)));
             double Tmreg= ((T2-T6)-(T3-T5))/(Math.log((T2-T6)/(T3-T5)));
+            
+            //Areg= Qreg/(Tmreg*Ureg);
             Areg= Qreg/(Tmreg*Ureg);
 
+            //Tmevp1= ((Toil1-T1s)-(Toils-T6))/(log((Toil1-T1s)/(Toils-T6)));
             double Tmevp1= ((Toil1-T1s)-(Toils-T6))/(Math.log((Toil1-T1s)/(Toils-T6)));
+            
+            //Tmevp2= ((Toil2-T1s)-(Toil1-T1s))/(log((Toil2-T1s)/(Toil1-T1s)));
             double Tmevp2= ((Toil2-T1s)-(Toil1-T1s))/(Math.log((Toil2-T1s)/(Toil1-T1s)));
+            
+            //Aevp= (Qsen/(Tmevp1*Uevp))+(Qlat/(Tmevp2*Uevp))+(Qsup/(Tmevp3*Uevp));
             Aevp= (Qsen/(Tmevp1*Uevp))+(Qlat/(Tmevp2*Uevp))+(Qsup/(Tmevp3*Uevp));
 
+            UACONl=Qconlat/(Tmcon1);
+            UACONs=Qconsen/(Tmcon2);
+            UAREG=Qreg/(Tmreg);
+            UASUP=(Qsup/(Tmevp3));
+            UALAT=(Qlat/(Tmevp2));
+            UASEN=(Qsen/(Tmevp1));
+            
             if(T3==T4 && Acon<10)
                 Acon = 0;
         }
@@ -148,5 +195,93 @@ public class ControlAreas {
 
     public void setAevp(double Aevp) {
         this.Aevp = Aevp;
+    }
+
+    public String getMensagem() {
+        return mensagem;
+    }
+
+    public void setMensagem(String mensagem) {
+        this.mensagem = mensagem;
+    }
+
+    public double getUASUP() {
+        return UASUP;
+    }
+
+    public void setUASUP(double UASUP) {
+        this.UASUP = UASUP;
+    }
+
+    public double getUALAT() {
+        return UALAT;
+    }
+
+    public void setUALAT(double UALAT) {
+        this.UALAT = UALAT;
+    }
+
+    public double getUASEN() {
+        return UASEN;
+    }
+
+    public void setUASEN(double UASEN) {
+        this.UASEN = UASEN;
+    }
+
+    public double getUACONl() {
+        return UACONl;
+    }
+
+    public void setUACONl(double UACONl) {
+        this.UACONl = UACONl;
+    }
+
+    public double getUACONs() {
+        return UACONs;
+    }
+
+    public void setUACONs(double UACONs) {
+        this.UACONs = UACONs;
+    }
+
+    public double getUAREG() {
+        return UAREG;
+    }
+
+    public void setUAREG(double UAREG) {
+        this.UAREG = UAREG;
+    }
+
+    public double getTen() {
+        return Ten;
+    }
+
+    public void setTen(double Ten) {
+        this.Ten = Ten;
+    }
+
+    public double getPen() {
+        return Pen;
+    }
+
+    public void setPen(double Pen) {
+        this.Pen = Pen;
+    }
+
+    public double getTen1() {
+        return Ten1;
+    }
+
+    public void setTen1(double Ten1) {
+        this.Ten1 = Ten1;
+    }
+
+    public double getmH2O() {
+        return mH2O;
+    }
+
+    public void setmH2O(double mH2O) {
+        this.mH2O = mH2O;
     }
 }
