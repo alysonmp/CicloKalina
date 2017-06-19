@@ -878,8 +878,8 @@ public class ControlPrincipal {
         double Tconop = 0;
         double eff = 0;
         
-        Teste teste = new Teste(session, this);
-        return;
+        //Teste teste = new Teste(session, this);
+        //return;
                 
         int comp = Integer.parseInt(viewLateral.getComboCompressores().getSelectedItem().toString());
                 
