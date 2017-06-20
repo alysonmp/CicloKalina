@@ -114,7 +114,6 @@ public class ControlRegeneradorPanelRankine {
         atualizaComboBox(valores, combo);
     }
     
-        //Salva no banco de dados os 5 valores mais recentes da temperatura de entrada
     public void atualizaTempEntrada(){ 
         if(viewRegeneradorPanel.getFieldTempEntr().getSelectedItem().equals("")){
             return;
@@ -122,8 +121,7 @@ public class ControlRegeneradorPanelRankine {
         
         Double value = null;
         try{          
-            String text = viewRegeneradorPanel.getFieldTempEntr().getSelectedItem().toString();
-            value = Double.parseDouble(text);
+            value = Double.parseDouble(viewRegeneradorPanel.getFieldTempEntr().getSelectedItem().toString());
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
             return;
@@ -134,8 +132,7 @@ public class ControlRegeneradorPanelRankine {
         ModelRegenerador regenerador = null;
 
         for(int i=0;i<results.size();i++){
-            ModelRegenerador ev = (ModelRegenerador)results.get(i);
-            if(Objects.equals(value, ev.getTemperaturaEntr())){
+            if(Objects.equals(value, ((ModelRegenerador)results.get(i)).getTemperaturaEntr())){
                 return;
             }
         }
@@ -162,8 +159,7 @@ public class ControlRegeneradorPanelRankine {
         regenerador.setTemperaturaEntr(value);
         session.saveOrUpdate(regenerador);
         
-        JComboBox combo = viewRegeneradorPanel.getFieldTempEntr();
-        atualizaComboBox(tempEntr, combo);
+        atualizaComboBox(tempEntr, viewRegeneradorPanel.getFieldTempEntr());
         
         tx.commit();        
     }
@@ -175,8 +171,7 @@ public class ControlRegeneradorPanelRankine {
         
         Double value = null;
         try{          
-            String text = viewRegeneradorPanel.getFieldTempSai().getSelectedItem().toString();
-            value = Double.parseDouble(text);
+            value = Double.parseDouble(viewRegeneradorPanel.getFieldTempSai().getSelectedItem().toString());
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
             return;
@@ -187,8 +182,7 @@ public class ControlRegeneradorPanelRankine {
         ModelRegenerador regenerador = null;
 
         for(int i=0;i<results.size();i++){
-            ModelRegenerador ev = (ModelRegenerador)results.get(i);
-            if(Objects.equals(value, ev.getTemperaturaSai())){
+            if(Objects.equals(value, ((ModelRegenerador)results.get(i)).getTemperaturaSai())){
                 return;
             }
         }
@@ -215,8 +209,7 @@ public class ControlRegeneradorPanelRankine {
         regenerador.setTemperaturaSai(value);
         session.saveOrUpdate(regenerador);
         
-        JComboBox combo = viewRegeneradorPanel.getFieldTempSai();
-        atualizaComboBox(tempSai, combo);
+        atualizaComboBox(tempSai, viewRegeneradorPanel.getFieldTempSai());
         
         tx.commit();        
     }
@@ -228,8 +221,7 @@ public class ControlRegeneradorPanelRankine {
         
         Double value = null;
         try{          
-            String text = viewRegeneradorPanel.getFieldPressaoEntr().getSelectedItem().toString();
-            value = Double.parseDouble(text);
+            value = Double.parseDouble(viewRegeneradorPanel.getFieldPressaoEntr().getSelectedItem().toString());
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
             return;
@@ -240,8 +232,7 @@ public class ControlRegeneradorPanelRankine {
         ModelRegenerador regenerador = null;
 
         for(int i=0;i<results.size();i++){
-            ModelRegenerador ev = (ModelRegenerador)results.get(i);
-            if(Objects.equals(value, ev.getPressaoEntr())){
+            if(Objects.equals(value, ((ModelRegenerador)results.get(i)).getPressaoEntr())){
                 return;
             }
         }
@@ -268,8 +259,7 @@ public class ControlRegeneradorPanelRankine {
         regenerador.setPressaoEntr(value);
         session.saveOrUpdate(regenerador);
         
-        JComboBox combo = viewRegeneradorPanel.getFieldPressaoEntr();
-        atualizaComboBox(pressaoEntr, combo);
+        atualizaComboBox(pressaoEntr, viewRegeneradorPanel.getFieldPressaoEntr());
         
         tx.commit();        
     }
@@ -281,8 +271,7 @@ public class ControlRegeneradorPanelRankine {
         
         Double value = null;
         try{          
-            String text = viewRegeneradorPanel.getFieldPressaoSai().getSelectedItem().toString();
-            value = Double.parseDouble(text);
+            value = Double.parseDouble(viewRegeneradorPanel.getFieldPressaoSai().getSelectedItem().toString());
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
             return;
@@ -293,8 +282,7 @@ public class ControlRegeneradorPanelRankine {
         ModelRegenerador regenerador = null;
 
         for(int i=0;i<results.size();i++){
-            ModelRegenerador ev = (ModelRegenerador)results.get(i);
-            if(Objects.equals(value, ev.getPressaoSai())){
+            if(Objects.equals(value, ((ModelRegenerador)results.get(i)).getPressaoSai())){
                 return;
             }
         }
@@ -321,8 +309,7 @@ public class ControlRegeneradorPanelRankine {
         regenerador.setPressaoSai(value);
         session.saveOrUpdate(regenerador);
         
-        JComboBox combo = viewRegeneradorPanel.getFieldPressaoSai();
-        atualizaComboBox(pressaoSai, combo);
+        atualizaComboBox(pressaoSai, viewRegeneradorPanel.getFieldPressaoSai());
         
         tx.commit();        
     }
@@ -334,8 +321,7 @@ public class ControlRegeneradorPanelRankine {
         
         Double value = null;
         try{          
-            String text = viewRegeneradorPanel.getFieldDelta().getSelectedItem().toString();
-            value = Double.parseDouble(text);
+            value = Double.parseDouble(viewRegeneradorPanel.getFieldDelta().getSelectedItem().toString());
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
             return;
@@ -346,8 +332,7 @@ public class ControlRegeneradorPanelRankine {
         ModelRegenerador regenerador = null;
 
         for(int i=0;i<results.size();i++){
-            ModelRegenerador ev = (ModelRegenerador)results.get(i);
-            if(Objects.equals(value, ev.getDelaPressao())){
+            if(Objects.equals(value, ((ModelRegenerador)results.get(i)).getDelaPressao())){
                 return;
             }
         }
@@ -374,8 +359,7 @@ public class ControlRegeneradorPanelRankine {
         regenerador.setDelaPressao(value);
         session.saveOrUpdate(regenerador);
         
-        JComboBox combo = viewRegeneradorPanel.getFieldDelta();
-        atualizaComboBox(deltaPressao, combo);
+        atualizaComboBox(deltaPressao, viewRegeneradorPanel.getFieldDelta());
         
         tx.commit();        
     }
@@ -387,8 +371,7 @@ public class ControlRegeneradorPanelRankine {
         
         Double value = null;
         try{          
-            String text = viewRegeneradorPanel.getFieldEfetiv().getSelectedItem().toString();
-            value = Double.parseDouble(text);
+            value = Double.parseDouble(viewRegeneradorPanel.getFieldEfetiv().getSelectedItem().toString());
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
             return;
@@ -399,8 +382,7 @@ public class ControlRegeneradorPanelRankine {
         ModelRegenerador regenerador = null;
 
         for(int i=0;i<results.size();i++){
-            ModelRegenerador ev = (ModelRegenerador)results.get(i);
-            if(Objects.equals(value, ev.getEfetividade())){
+            if(Objects.equals(value, ((ModelRegenerador)results.get(i)).getEfetividade())){
                 return;
             }
         }
@@ -427,8 +409,7 @@ public class ControlRegeneradorPanelRankine {
         regenerador.setEfetividade(value);
         session.saveOrUpdate(regenerador);
         
-        JComboBox combo = viewRegeneradorPanel.getFieldEfetiv();
-        atualizaComboBox(efetv, combo);
+        atualizaComboBox(efetv, viewRegeneradorPanel.getFieldEfetiv());
         
         tx.commit();
     }
