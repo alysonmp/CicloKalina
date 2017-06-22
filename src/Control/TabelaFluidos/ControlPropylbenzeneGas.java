@@ -50,7 +50,7 @@ public class ControlPropylbenzeneGas {
                 while((line = br.readLine()) != null){
                     String[] propylbenzene_g = line.split(csvSplitBy);
                     
-                    this.session.save(new ModelPropylbenzeneGas(Double.parseDouble(propylbenzene_g[0]),Double.parseDouble(propylbenzene_g[1]),Double.parseDouble(propylbenzene_g[2]),Double.parseDouble(propylbenzene_g[3]),Double.parseDouble(propylbenzene_g[4]),Double.parseDouble(propylbenzene_g[5]),Double.parseDouble(propylbenzene_g[6])));   
+                    this.session.save(new ModelPropylbenzeneGas(Double.parseDouble(propylbenzene_g[0]),Double.parseDouble(propylbenzene_g[1]),Double.parseDouble(propylbenzene_g[4]),Double.parseDouble(propylbenzene_g[2]),Double.parseDouble(propylbenzene_g[3]),Double.parseDouble(propylbenzene_g[5]),Double.parseDouble(propylbenzene_g[6])));   
                 }
             }
             

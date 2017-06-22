@@ -49,7 +49,7 @@ public class ControlEthylbenzeneLiquido {
                     // use comma as separator
                     String[] ethylbenzene_l = line.split(cvsSplitBy);
                     
-                    this.session.save(new ModelEthylbenzeneLiquido(Double.parseDouble(ethylbenzene_l[0]), Double.parseDouble(ethylbenzene_l[1]), Double.parseDouble(ethylbenzene_l[2]), Double.parseDouble(ethylbenzene_l[3]), Double.parseDouble(ethylbenzene_l[4]), Double.parseDouble(ethylbenzene_l[5]),Double.parseDouble(ethylbenzene_l[6])));
+                    this.session.save(new ModelEthylbenzeneLiquido(Double.parseDouble(ethylbenzene_l[0]), Double.parseDouble(ethylbenzene_l[1]), Double.parseDouble(ethylbenzene_l[4]), Double.parseDouble(ethylbenzene_l[2]), Double.parseDouble(ethylbenzene_l[3]), Double.parseDouble(ethylbenzene_l[5]),Double.parseDouble(ethylbenzene_l[6])));
                 }
             }
 

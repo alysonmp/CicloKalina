@@ -50,7 +50,7 @@ public class ControlPropylbenzeneLiquido {
                     // use comma as separator
                     String[] propylbenze_l = line.split(cvsSplitBy);
                     
-                    this.session.save(new ModelPropylbenzeneLiquido(Double.parseDouble(propylbenze_l[0]), Double.parseDouble(propylbenze_l[1]), Double.parseDouble(propylbenze_l[2]), Double.parseDouble(propylbenze_l[3]), Double.parseDouble(propylbenze_l[4]), Double.parseDouble(propylbenze_l[5]),Double.parseDouble(propylbenze_l[6])));
+                    this.session.save(new ModelPropylbenzeneLiquido(Double.parseDouble(propylbenze_l[0]), Double.parseDouble(propylbenze_l[1]), Double.parseDouble(propylbenze_l[4]), Double.parseDouble(propylbenze_l[2]), Double.parseDouble(propylbenze_l[3]), Double.parseDouble(propylbenze_l[5]),Double.parseDouble(propylbenze_l[6])));
                 }
             }
 
