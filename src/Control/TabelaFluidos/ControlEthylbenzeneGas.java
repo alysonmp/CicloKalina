@@ -51,7 +51,7 @@ public class ControlEthylbenzeneGas {
                 while((line = br.readLine()) != null){
                     String[] ethylbenzene_g = line.split(csvSplitBy);
                     
-                    this.session.save(new ModelEthylbenzeneGas(Double.parseDouble(ethylbenzene_g[0]),Double.parseDouble(ethylbenzene_g[1]),Double.parseDouble(ethylbenzene_g[2]),Double.parseDouble(ethylbenzene_g[3]),Double.parseDouble(ethylbenzene_g[4]),Double.parseDouble(ethylbenzene_g[5]),Double.parseDouble(ethylbenzene_g[6])));   
+                    this.session.save(new ModelEthylbenzeneGas(Double.parseDouble(ethylbenzene_g[0]),Double.parseDouble(ethylbenzene_g[1]),Double.parseDouble(ethylbenzene_g[4]),Double.parseDouble(ethylbenzene_g[2]),Double.parseDouble(ethylbenzene_g[3]),Double.parseDouble(ethylbenzene_g[5]),Double.parseDouble(ethylbenzene_g[6])));   
                 }
             }
             

@@ -51,7 +51,7 @@ public class ControlDimetylbenzeneGas {
                 while((line = br.readLine()) != null){
                     String[] dimetylbenzene_g = line.split(csvSplitBy);
                     
-                    this.session.save(new ModelDimetylbenzeneGas(Double.parseDouble(dimetylbenzene_g[0]),Double.parseDouble(dimetylbenzene_g[1]),Double.parseDouble(dimetylbenzene_g[2]),Double.parseDouble(dimetylbenzene_g[3]),Double.parseDouble(dimetylbenzene_g[4]),Double.parseDouble(dimetylbenzene_g[5]),Double.parseDouble(dimetylbenzene_g[6])));   
+                    this.session.save(new ModelDimetylbenzeneGas(Double.parseDouble(dimetylbenzene_g[0]),Double.parseDouble(dimetylbenzene_g[1]),Double.parseDouble(dimetylbenzene_g[4]),Double.parseDouble(dimetylbenzene_g[2]),Double.parseDouble(dimetylbenzene_g[3]),Double.parseDouble(dimetylbenzene_g[5]),Double.parseDouble(dimetylbenzene_g[6])));   
                 }
             }
             

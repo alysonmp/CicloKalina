@@ -51,7 +51,7 @@ public class ControlR216_CAGas {
                 while((line = br.readLine()) != null){
                     String[] r216_ca_g = line.split(csvSplitBy);
                     
-                    this.session.save(new ModelR216_CAGas(Double.parseDouble(r216_ca_g[0]),Double.parseDouble(r216_ca_g[1]),Double.parseDouble(r216_ca_g[2]),Double.parseDouble(r216_ca_g[3]),Double.parseDouble(r216_ca_g[4]),Double.parseDouble(r216_ca_g[5]),Double.parseDouble(r216_ca_g[6])));   
+                    this.session.save(new ModelR216_CAGas(Double.parseDouble(r216_ca_g[0]),Double.parseDouble(r216_ca_g[1]),Double.parseDouble(r216_ca_g[4]),Double.parseDouble(r216_ca_g[2]),Double.parseDouble(r216_ca_g[3]),Double.parseDouble(r216_ca_g[5]),Double.parseDouble(r216_ca_g[6])));   
                 }
             }
             

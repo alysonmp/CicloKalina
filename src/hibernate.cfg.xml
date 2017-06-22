@@ -207,5 +207,17 @@ Contributor(s):
     <mapping class="Model.ModelConsExeMatB"/>
     <mapping class="Ciclo2.Model.ModelLateral"/>
     <mapping class="Model.ModelStart"/>
+    <mapping class="Model.TabelasFluidos.ModelEthylbenzeneGas"/>
+    <mapping class="Model.TabelasFluidos.ModelEthylbenzeneLiquido"/>
+    <mapping class="Model.TabelasFluidos.ModelDimetylbenzeneGas"/>
+    <mapping class="Model.TabelasFluidos.ModelDimetylbenzeneLiquido"/>
+    <mapping class="Model.TabelasFluidos.ModelPropylbenzeneGas"/>
+    <mapping class="Model.TabelasFluidos.ModelPropylbenzeneLiquido"/>
+    <mapping class="Model.TabelasFluidos.ModelR216_CAGas"/>
+    <mapping class="Model.TabelasFluidos.ModelR216_CALiquido"/>
+    <mapping class="Model.TabelasFluidos.ModelR_1270Gas"/>
+    <mapping class="Model.TabelasFluidos.ModelR_1270Liquido"/>
+    <mapping class="Model.TabelasFluidos.ModelR_40Gas"/>
+    <mapping class="Model.TabelasFluidos.ModelR_40Liquido"/>
   </session-factory>
 </hibernate-configuration>

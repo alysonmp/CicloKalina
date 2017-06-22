@@ -6,7 +6,6 @@
 package Control.TabelaFluidos;
 
 import Model.TabelasFluidos.ModelR_1270Gas;
-import Model.TabelasFluidos.ModelR_1270Gas;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -51,7 +50,7 @@ public class ControlR_1270Gas {
                 while((line = br.readLine()) != null){
                     String[] r_1270_g = line.split(csvSplitBy);
                     
-                    this.session.save(new ModelR_1270Gas(Double.parseDouble(r_1270_g[0]),Double.parseDouble(r_1270_g[1]),Double.parseDouble(r_1270_g[2]),Double.parseDouble(r_1270_g[3]),Double.parseDouble(r_1270_g[4]),Double.parseDouble(r_1270_g[5]),Double.parseDouble(r_1270_g[6])));   
+                    this.session.save(new ModelR_1270Gas(Double.parseDouble(r_1270_g[0]),Double.parseDouble(r_1270_g[1]),Double.parseDouble(r_1270_g[4]),Double.parseDouble(r_1270_g[2]),Double.parseDouble(r_1270_g[3]),Double.parseDouble(r_1270_g[5]),Double.parseDouble(r_1270_g[6])));   
                 }
             }
             

@@ -51,7 +51,7 @@ public class ControlR_40Gas {
                 while((line = br.readLine()) != null){
                     String[] r_40_g = line.split(csvSplitBy);
                     
-                    this.session.save(new ModelR_40Gas(Double.parseDouble(r_40_g[0]),Double.parseDouble(r_40_g[1]),Double.parseDouble(r_40_g[2]),Double.parseDouble(r_40_g[3]),Double.parseDouble(r_40_g[4]),Double.parseDouble(r_40_g[5]),Double.parseDouble(r_40_g[6])));   
+                    this.session.save(new ModelR_40Gas(Double.parseDouble(r_40_g[0]),Double.parseDouble(r_40_g[1]),Double.parseDouble(r_40_g[4]),Double.parseDouble(r_40_g[2]),Double.parseDouble(r_40_g[3]),Double.parseDouble(r_40_g[5]),Double.parseDouble(r_40_g[6])));   
                 }
             }
             
