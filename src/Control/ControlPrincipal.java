@@ -15,6 +15,10 @@ import Control.TabelaFluidos.ControlD5Gas;
 import Control.TabelaFluidos.ControlD5Liquido;
 import Control.TabelaFluidos.ControlD6Gas;
 import Control.TabelaFluidos.ControlD6Liquido;
+import Control.TabelaFluidos.ControlDimetylbenzeneGas;
+import Control.TabelaFluidos.ControlDimetylbenzeneLiquido;
+import Control.TabelaFluidos.ControlEthylbenzeneGas;
+import Control.TabelaFluidos.ControlEthylbenzeneLiquido;
 import Control.TabelaFluidos.ControlHeptaneGas;
 import Control.TabelaFluidos.ControlHeptaneLiquido;
 import Control.TabelaFluidos.ControlHexaneGas;
@@ -39,6 +43,8 @@ import Control.TabelaFluidos.ControlPentaneGas;
 import Control.TabelaFluidos.ControlPentaneLiquido;
 import Control.TabelaFluidos.ControlPropaneGas;
 import Control.TabelaFluidos.ControlPropaneLiquido;
+import Control.TabelaFluidos.ControlPropylbenzeneGas;
+import Control.TabelaFluidos.ControlPropylbenzeneLiquido;
 import Control.TabelaFluidos.ControlR114Gas;
 import Control.TabelaFluidos.ControlR114Liquido;
 import Control.TabelaFluidos.ControlR11Gas;
@@ -53,8 +59,14 @@ import Control.TabelaFluidos.ControlR142BGas;
 import Control.TabelaFluidos.ControlR142BLiquido;
 import Control.TabelaFluidos.ControlR152AGas;
 import Control.TabelaFluidos.ControlR152ALiquido;
+import Control.TabelaFluidos.ControlR216_CAGas;
+import Control.TabelaFluidos.ControlR216_CALiquido;
 import Control.TabelaFluidos.ControlR22Gas;
 import Control.TabelaFluidos.ControlR22Liquido;
+import Control.TabelaFluidos.ControlR_1270Gas;
+import Control.TabelaFluidos.ControlR_1270Liquido;
+import Control.TabelaFluidos.ControlR_40Gas;
+import Control.TabelaFluidos.ControlR_40Liquido;
 import Control.TabelaFluidos.ControlTolueneGas;
 import Control.TabelaFluidos.ControlTolueneLiquido;
 import Control.TabelaFluidos.ControlWaterGas;
@@ -82,7 +94,7 @@ import Model.ModelQfpsoKCSMat;
 import Model.ModelQfpsoRankineMat;
 import Model.ModelStart;
 import Model.TabelasFluidos.ModelButanoGas;
-import Model.TabelasFluidos.ModelHexaneGas;
+import Model.TabelasFluidos.ModelEthylbenzeneGas;
 import Util.HibernateUtil;
 import View.Condensador.ViewCondensadorImage;
 import View.Evaporador.ViewEvaporadorImage;
@@ -99,14 +111,12 @@ import View.Regenerador.ViewRegeneradorImage;
 import View.Regenerador.ViewRegeneradorPanelRankine;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -288,9 +298,44 @@ public class ControlPrincipal {
             new ControlTolueneLiquido(session).criaTabelaTolueneLiquido();
             new ControlWaterGas(session).criaTabelaWaterGas();
             new ControlWaterLiquido(session).criaTabelaWaterLiquido();
+            new ControlEthylbenzeneGas(session).criaTabelaEthylbenzeneGas();
+            new ControlEthylbenzeneLiquido(session).criaTabelaEthylbenzeneLiquido();
+            new ControlDimetylbenzeneGas(session).criaTabelaDimetylbenzeneGas();
+            new ControlDimetylbenzeneLiquido(session).criaTabelaDimethylbenzeneLiquido();
+            new ControlPropylbenzeneGas(session).criaTabelaPropylbenzeneGas();
+            new ControlPropylbenzeneLiquido(session).criaTabelaPropylbenzeneLiquido();
+            new ControlR216_CAGas(session).criaTabelaR260_CAGas();
+            new ControlR216_CALiquido(session).criaTabelaR216_CALiquido();
+            new ControlR_40Gas(session).criaTabelaR_40Gas();
+            new ControlR_40Liquido(session).criaTabelaR_40Liquido();
+            new ControlR_1270Gas(session).criaTabelaR_1270Gas();
+            new ControlR_1270Liquido(session).criaTabelaR_1270Liquido();
             
             tx.commit();
         }
+        
+        /*
+        //Teste, para criar as novas tabelas, elas estao posicionadas logo a cima
+        cr = this.session.createCriteria(ModelEthylbenzeneGas.class);
+        results = cr.list();
+        if(results.isEmpty()){
+            Transaction tx = session.beginTransaction();
+
+            new ControlEthylbenzeneGas(session).criaTabelaEthylbenzeneGas();
+            new ControlEthylbenzeneLiquido(session).criaTabelaEthylbenzeneLiquido();
+            new ControlDimetylbenzeneGas(session).criaTabelaDimetylbenzeneGas();
+            new ControlDimetylbenzeneLiquido(session).criaTabelaDimethylbenzeneLiquido();
+            new ControlPropylbenzeneGas(session).criaTabelaPropylbenzeneGas();
+            new ControlPropylbenzeneLiquido(session).criaTabelaPropylbenzeneLiquido();
+            new ControlR216_CAGas(session).criaTabelaR260_CAGas();
+            new ControlR216_CALiquido(session).criaTabelaR216_CALiquido();
+            new ControlR_40Gas(session).criaTabelaR_40Gas();
+            new ControlR_40Liquido(session).criaTabelaR_40Liquido();
+            new ControlR_1270Gas(session).criaTabelaR_1270Gas();
+            new ControlR_1270Liquido(session).criaTabelaR_1270Liquido();
+        
+            tx.commit();
+        }*/
         
         cr = this.session.createCriteria(ModelConstantesKCSMat_C.class);
         results = cr.list();

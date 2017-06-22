@@ -50,7 +50,7 @@ public class ControlR_1270Liquido {
                     // use comma as separator
                     String[] r_1270_l = line.split(cvsSplitBy);
                     
-                    this.session.save(new ModelR_1270Liquido(Double.parseDouble(r_1270_l[0]), Double.parseDouble(r_1270_l[1]), Double.parseDouble(r_1270_l[2]), Double.parseDouble(r_1270_l[3]), Double.parseDouble(r_1270_l[4]), Double.parseDouble(r_1270_l[5]),Double.parseDouble(r_1270_l[6])));
+                    this.session.save(new ModelR_1270Liquido(Double.parseDouble(r_1270_l[0]), Double.parseDouble(r_1270_l[1]), Double.parseDouble(r_1270_l[4]), Double.parseDouble(r_1270_l[2]), Double.parseDouble(r_1270_l[3]), Double.parseDouble(r_1270_l[5]),Double.parseDouble(r_1270_l[6])));
                 }
             }
 

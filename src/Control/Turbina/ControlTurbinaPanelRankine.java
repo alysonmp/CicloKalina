@@ -110,7 +110,6 @@ public class ControlTurbinaPanelRankine {
         atualizaComboBox(valores, combo);
     }
     
-    //Salva no banco de dados os 5 valores mais recentes da temperatura de entrada
     public void atualizaTempEntrada(){ 
         if(viewTurbinaPanel.getFieldTempEntr().getSelectedItem().equals("")){
             return;
@@ -118,8 +117,7 @@ public class ControlTurbinaPanelRankine {
         
         Double value = null;
         try{          
-            String text = viewTurbinaPanel.getFieldTempEntr().getSelectedItem().toString();
-            value = Double.parseDouble(text);
+            value = Double.parseDouble(viewTurbinaPanel.getFieldTempEntr().getSelectedItem().toString());
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
             return;
@@ -130,8 +128,7 @@ public class ControlTurbinaPanelRankine {
         ModelTurbina turbina = null;
 
         for(int i=0;i<results.size();i++){
-            ModelTurbina ev = (ModelTurbina)results.get(i);
-            if(Objects.equals(value, ev.getTemperaturaEntr())){
+            if(Objects.equals(value, ((ModelTurbina)results.get(i)).getTemperaturaEntr())){
                 return;
             }
         }
@@ -158,8 +155,7 @@ public class ControlTurbinaPanelRankine {
         turbina.setTemperaturaEntr(value);
         session.saveOrUpdate(turbina);
         
-        JComboBox combo = viewTurbinaPanel.getFieldTempEntr();
-        atualizaComboBox(tempEntr, combo);
+        atualizaComboBox(tempEntr, viewTurbinaPanel.getFieldTempEntr());
         
         tx.commit();        
     }
@@ -171,8 +167,7 @@ public class ControlTurbinaPanelRankine {
         
         Double value = null;
         try{          
-            String text = viewTurbinaPanel.getFieldPressaoSai().getSelectedItem().toString();
-            value = Double.parseDouble(text);
+            value = Double.parseDouble(viewTurbinaPanel.getFieldPressaoSai().getSelectedItem().toString());
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
             return;
@@ -183,8 +178,7 @@ public class ControlTurbinaPanelRankine {
         ModelTurbina turbina = null;
 
         for(int i=0;i<results.size();i++){
-            ModelTurbina ev = (ModelTurbina)results.get(i);
-            if(Objects.equals(value, ev.getTemperaturaSai())){
+            if(Objects.equals(value, ((ModelTurbina)results.get(i)).getTemperaturaSai())){
                 return;
             }
         }
@@ -211,8 +205,7 @@ public class ControlTurbinaPanelRankine {
         turbina.setTemperaturaSai(value);
         session.saveOrUpdate(turbina);
         
-        JComboBox combo = viewTurbinaPanel.getFieldTempSai();
-        atualizaComboBox(tempSai, combo);
+        atualizaComboBox(tempSai, viewTurbinaPanel.getFieldTempSai());
         
         tx.commit();        
     }
@@ -224,8 +217,7 @@ public class ControlTurbinaPanelRankine {
         
         Double value = null;
         try{          
-            String text = viewTurbinaPanel.getFieldPressaoEntr().getSelectedItem().toString();
-            value = Double.parseDouble(text);
+            value = Double.parseDouble(viewTurbinaPanel.getFieldPressaoEntr().getSelectedItem().toString());
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
             return;
@@ -236,8 +228,7 @@ public class ControlTurbinaPanelRankine {
         ModelTurbina turbina = null;
 
         for(int i=0;i<results.size();i++){
-            ModelTurbina ev = (ModelTurbina)results.get(i);
-            if(Objects.equals(value, ev.getPressaoEntr())){
+            if(Objects.equals(value, ((ModelTurbina)results.get(i)).getPressaoEntr())){
                 return;
             }
         }
@@ -264,8 +255,7 @@ public class ControlTurbinaPanelRankine {
         turbina.setPressaoEntr(value);
         session.saveOrUpdate(turbina);
         
-        JComboBox combo = viewTurbinaPanel.getFieldPressaoEntr();
-        atualizaComboBox(pressaoEntr, combo);
+        atualizaComboBox(pressaoEntr, viewTurbinaPanel.getFieldPressaoEntr());
         
         tx.commit();        
     }
@@ -277,8 +267,7 @@ public class ControlTurbinaPanelRankine {
         
         Double value = null;
         try{          
-            String text = viewTurbinaPanel.getFieldPressaoSai().getSelectedItem().toString();
-            value = Double.parseDouble(text);
+            value = Double.parseDouble(viewTurbinaPanel.getFieldPressaoSai().getSelectedItem().toString());
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
             return;
@@ -289,8 +278,7 @@ public class ControlTurbinaPanelRankine {
         ModelTurbina turbina = null;
 
         for(int i=0;i<results.size();i++){
-            ModelTurbina ev = (ModelTurbina)results.get(i);
-            if(Objects.equals(value, ev.getTemperaturaSai())){
+            if(Objects.equals(value, ((ModelTurbina)results.get(i)).getTemperaturaSai())){
                 return;
             }
         }
@@ -317,8 +305,7 @@ public class ControlTurbinaPanelRankine {
         turbina.setPressaoSai(value);
         session.saveOrUpdate(turbina);
         
-        JComboBox combo = viewTurbinaPanel.getFieldPressaoSai();
-        atualizaComboBox(pressaoSai, combo);
+        atualizaComboBox(pressaoSai, viewTurbinaPanel.getFieldPressaoSai());
         
         tx.commit();        
     }
@@ -330,8 +317,7 @@ public class ControlTurbinaPanelRankine {
         
         Double value = null;
         try{          
-            String text = viewTurbinaPanel.getFieldEfici().getSelectedItem().toString();
-            value = Double.parseDouble(text);
+            value = Double.parseDouble(viewTurbinaPanel.getFieldEfici().getSelectedItem().toString());
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, e);
             return;
@@ -342,8 +328,7 @@ public class ControlTurbinaPanelRankine {
         ModelTurbina regenerador = null;
 
         for(int i=0;i<results.size();i++){
-            ModelTurbina ev = (ModelTurbina)results.get(i);
-            if(Objects.equals(value, ev.getEficiencia())){
+            if(Objects.equals(value, ((ModelTurbina)results.get(i)).getEficiencia())){
                 return;
             }
         }
@@ -370,8 +355,7 @@ public class ControlTurbinaPanelRankine {
         regenerador.setEficiencia(value);
         session.saveOrUpdate(regenerador);
         
-        JComboBox combo = viewTurbinaPanel.getFieldEfici();
-        atualizaComboBox(efetv, combo);
+        atualizaComboBox(efetv, viewTurbinaPanel.getFieldEfici());
         
         tx.commit();
     }

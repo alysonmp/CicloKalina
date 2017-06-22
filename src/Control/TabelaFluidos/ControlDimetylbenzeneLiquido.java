@@ -32,7 +32,7 @@ public class ControlDimetylbenzeneLiquido {
     }
     
     public void criaTabelaDimethylbenzeneLiquido(){
-        String csvFile = "src/Csv/Dimethylbenzene_liquido.csv";
+        String csvFile = "src/Csv/Dimetylbenzene_liquido.csv";
         BufferedReader br = null;
         String line = "";
         String cvsSplitBy = ";";
@@ -50,7 +50,7 @@ public class ControlDimetylbenzeneLiquido {
                     // use comma as separator
                     String[] dimetylbenzene_l = line.split(cvsSplitBy);
                     
-                    this.session.save(new ModelDimetylbenzeneLiquido(Double.parseDouble(dimetylbenzene_l[0]), Double.parseDouble(dimetylbenzene_l[1]), Double.parseDouble(dimetylbenzene_l[2]), Double.parseDouble(dimetylbenzene_l[3]), Double.parseDouble(dimetylbenzene_l[4]), Double.parseDouble(dimetylbenzene_l[5]),Double.parseDouble(dimetylbenzene_l[6])));
+                    this.session.save(new ModelDimetylbenzeneLiquido(Double.parseDouble(dimetylbenzene_l[0]), Double.parseDouble(dimetylbenzene_l[1]), Double.parseDouble(dimetylbenzene_l[4]), Double.parseDouble(dimetylbenzene_l[2]), Double.parseDouble(dimetylbenzene_l[3]), Double.parseDouble(dimetylbenzene_l[5]),Double.parseDouble(dimetylbenzene_l[6])));
                 }
             }
 

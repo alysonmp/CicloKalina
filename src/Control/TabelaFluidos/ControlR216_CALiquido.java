@@ -32,7 +32,7 @@ public class ControlR216_CALiquido {
     }
     
     public void criaTabelaR216_CALiquido(){
-        String csvFile = "src/Csv/r216_ca_liquido.csv";
+        String csvFile = "src/Csv/R216_ca_liquido.csv";
         BufferedReader br = null;
         String line = "";
         String cvsSplitBy = ";";
@@ -50,7 +50,7 @@ public class ControlR216_CALiquido {
                     // use comma as separator
                     String[] r216_ca_l = line.split(cvsSplitBy);
                     
-                    this.session.save(new ModelR216_CALiquido(Double.parseDouble(r216_ca_l[0]), Double.parseDouble(r216_ca_l[1]), Double.parseDouble(r216_ca_l[2]), Double.parseDouble(r216_ca_l[3]), Double.parseDouble(r216_ca_l[4]), Double.parseDouble(r216_ca_l[5]),Double.parseDouble(r216_ca_l[6])));
+                    this.session.save(new ModelR216_CALiquido(Double.parseDouble(r216_ca_l[0]), Double.parseDouble(r216_ca_l[1]), Double.parseDouble(r216_ca_l[4]), Double.parseDouble(r216_ca_l[2]), Double.parseDouble(r216_ca_l[3]), Double.parseDouble(r216_ca_l[5]),Double.parseDouble(r216_ca_l[6])));
                 }
             }
 
