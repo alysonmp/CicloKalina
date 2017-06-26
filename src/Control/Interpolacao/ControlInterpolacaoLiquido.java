@@ -48,7 +48,7 @@ import org.hibernate.Session;
  */
 public class ControlInterpolacaoLiquido {
     private Object liquido;
-    private double Cpv_g, Prv_g, kv_g, Muv_g, Vcv_g, Cpv_l, Prv_l, kv_l, Muv_l, Vcv_l;
+    private double Cpv_l, Prv_l, kv_l, Muv_l, Vcv_l;
     
     public ControlInterpolacaoLiquido(int fluido, double pressao, double temp, Session session) {
    
@@ -379,5 +379,45 @@ public class ControlInterpolacaoLiquido {
             default: 
                 JOptionPane.showMessageDialog(null, "Fluido inexistente");
         }
+    }
+
+    public double getCpv_l() {
+        return Cpv_l;
+    }
+
+    public void setCpv_l(double Cpv_l) {
+        this.Cpv_l = Cpv_l;
+    }
+
+    public double getPrv_l() {
+        return Prv_l;
+    }
+
+    public void setPrv_l(double Prv_l) {
+        this.Prv_l = Prv_l;
+    }
+
+    public double getKv_l() {
+        return kv_l;
+    }
+
+    public void setKv_l(double kv_l) {
+        this.kv_l = kv_l;
+    }
+
+    public double getMuv_l() {
+        return Muv_l;
+    }
+
+    public void setMuv_l(double Muv_l) {
+        this.Muv_l = Muv_l;
+    }
+
+    public double getVcv_l() {
+        return Vcv_l;
+    }
+
+    public void setVcv_l(double Vcv_l) {
+        this.Vcv_l = Vcv_l;
     }
 }
