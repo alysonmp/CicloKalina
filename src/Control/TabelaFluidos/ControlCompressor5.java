@@ -40,7 +40,7 @@ public class ControlCompressor5 {
     }
     
     public void criaTabelaWaterGas(){
-        String csvFile = "src/Csv/compre1_4_gas.csv";
+        String csvFile = "src/Csv/compre5_gas.csv";
         BufferedReader br = null;
         String line = "";
         String cvsSplitBy = ";";
