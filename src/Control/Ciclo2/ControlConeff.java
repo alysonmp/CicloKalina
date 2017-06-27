@@ -2,6 +2,7 @@ package Control.Ciclo2;
 
 import Control.Interpolacao.ControlInterpolacaoGas;
 import Control.Interpolacao.ControlInterpolacaoLiquido;
+import Model.ModelCore;
 import Model.ModelCriticasKCSMat_PM;
 import java.util.List;
 import org.hibernate.Criteria;
@@ -12,7 +13,7 @@ public class ControlConeff {
     private double AT, Aho, Aco, Vhx, Lh, Lc, L3, Dph, Dpc;
     
     public ControlConeff(double P4,double P3, double m, double mH2O, int ii, double Ten, double Ten1, double Ts, double T3, double T4, double UACONs, double UACONl, double Pen, double km, Session session) {
-        
+       
         double Ghsup,Gcsup,Achlat,Achsup,epCONs,NTUsup,Ncsup,Nhsup,Accsup,
                 Cclat,Chlat,Clatmin,Ckatmax,C,Ntulat,epCONl,NcCONl,NhCONl,
                 Ghlat,Gclat,Acclat,Clatmax,NTUlat;
@@ -23,7 +24,7 @@ public class ControlConeff {
         
         double iUsup, Ugsup,iUlat,Uglat,Ahsup,Ahlat,Ahosup,Aholat,Acsup,
                     Aclat,Acosup,Acolat,Lcsup,Lclat,Lhsup,Lhlat,DPhsup,DPhlat,
-                    DPh,DPcsup,DPclat,DPc, Afrh,Afrc;
+                    DPh,DPcsup,DPclat,DPc, Afrh,Afrc,Csupmin;
         
         Criteria cr = session.createCriteria(ModelCriticasKCSMat_PM.class);
         List results = cr.list();
@@ -107,7 +108,8 @@ public class ControlConeff {
             Gcsup=0;
             Accsup=0;
             Achsup=0; 
-
+            Csupmin = 0;
+            
             Cclat=(mH2O*PM1.getValor()*((Cpen1+Cpen)/2))/1000;
             Chlat=(m*PMii.getValor()*((Cp4+Cp4v)/2))/1000;
             Clatmin = Double.min(Chlat,Cclat);
@@ -121,12 +123,12 @@ public class ControlConeff {
             Gclat=Math.pow((((0.25)/(Math.pow(Pren,(2/3))*NcCONl))*(2*((De1+De)/2)*DPenlat)),0.5);
             Acclat=(mH2O*PM1.getValor())/Gclat;
             Achlat=m/Ghlat; 
-
+            
         }else{
 
             double Ccsup=(mH2O*PM1.getValor()*((Cpen1+Cps)/2))/1000;
             double Chsup=(m*PMii.getValor()*((Cp3+Cp4v)/2))/1000;
-            double Csupmin=Double.min(Chsup,Ccsup);
+            Csupmin=Double.min(Chsup,Ccsup);
             double Csupmax=Double.max(Chsup,Ccsup);
             C= Csupmin/Csupmax;
             double epsilonsup1=(Chsup*(T3-T4))/(Csupmin*(T3-Ten1));
@@ -155,8 +157,35 @@ public class ControlConeff {
             Achlat=m/Ghlat; 
         }
         
-        [Dh1, alp1, del1, gam1, b1, t1, l1, s1, bet1, por1]=Core(9);
-        [Dh2, alp2, del2, gam2, b2, t2, l2, s2, bet2, por2]=Core(9);
+        cr = session.createCriteria(ModelCore.class);
+        results = cr.list();
+        ModelCore core = (ModelCore)results.get(9);
+        
+        double Dh1 = core.getDh();
+        double alp1 = core.getAlp();
+        double del1 = core.getDel();
+        double gam1 = core.getGam();
+        double b1 = core.getB();
+        double t1 = core.getT();
+        double l1 = core.getL();
+        double s1 = core.getS();
+        double bet1 = core.getBet();
+        double por1 = core.getPor();
+        
+        cr = session.createCriteria(ModelCore.class);
+        results = cr.list();
+        core = (ModelCore)results.get(9);
+        
+        double Dh2 = core.getDh();
+        double alp2 = core.getAlp();
+        double del2 = core.getDel();
+        double gam2 = core.getGam();
+        double b2 = core.getB();
+        double t2 = core.getT();
+        double l2 = core.getL();
+        double s2 = core.getS();
+        double bet2 = core.getBet();
+        double por2 = core.getPor();
         
         double aa1= (b1*bet1)/(b1+b2+(2*0.0005));
         double aa2=(b2*bet2)/(b1+b2+(2*0.0005));
@@ -171,8 +200,8 @@ public class ControlConeff {
 
             Rehsup= (Ghsup*Dh1)/((MU3+MU4v)/2);
             Rehlat= (Ghlat*Dh1)/((MU4v+MU4)/2);
-            fhsup= (9.6243*Math.pow(Rehsup,-0.7422)*Math.pow(alp1,-0.1856)*Math.pow(del1,0.3053)*Math.pow(gam1,-0.2659))*Math.pow((1+(7.669e-8*Math.pow(Rehsup,4.429)*Math.pow(alp1,0.920)*Math.pow(del1,3.767)*Math.pow(gam1^0.236))),0.1);
-            fhlat= (9.6243*Math.pow(Rehlat,-0.7422)*Math.pow(alp1,-0.1856)*Math.pow(del1,0.3053)*Math.pow(gam1,-0.2659))*Math.pow((1+(7.669e-8*Math.pow(Rehlat,4.429)*Math.pow(alp1^0.920)*Math.pow(del1,3.767)*Math.pow(gam1,0.236))),0.1);
+            fhsup= (9.6243*Math.pow(Rehsup,-0.7422)*Math.pow(alp1,-0.1856)*Math.pow(del1,0.3053)*Math.pow(gam1,-0.2659))*Math.pow((1+(7.669e-8*Math.pow(Rehsup,4.429)*Math.pow(alp1,0.920)*Math.pow(del1,3.767)*Math.pow(gam1,0.236))),0.1);
+            fhlat= (9.6243*Math.pow(Rehlat,-0.7422)*Math.pow(alp1,-0.1856)*Math.pow(del1,0.3053)*Math.pow(gam1,-0.2659))*Math.pow((1+(7.669e-8*Math.pow(Rehlat,4.429)*Math.pow(alp1,0.920)*Math.pow(del1,3.767)*Math.pow(gam1,0.236))),0.1);
             jhsup= (0.6522*Math.pow(Rehsup,-0.5403)*Math.pow(alp1,-0.1541)*Math.pow(del1,0.1499)*Math.pow(gam1,-0.0678))*Math.pow((1+(5.269e-5*Math.pow(Rehsup,1.340)*Math.pow(alp1,0.504)*Math.pow(del1,0.456)*Math.pow(gam1,-1.055))),0.1);
             jhlat= (0.6522*Math.pow(Rehlat,-0.5403)*Math.pow(alp1,-0.1541)*Math.pow(del1,0.1499)*Math.pow(gam1,-0.0678))*Math.pow((1+(5.269e-5*Math.pow(Rehlat,1.340)*Math.pow(alp1,0.504)*Math.pow(del1,0.456)*Math.pow(gam1,-1.055))),0.1);
 
@@ -222,8 +251,8 @@ public class ControlConeff {
 
             Acsup=Ahsup/AA;
             Aclat=Ahlat/AA;
-            Acosup=(mH2O*PM(1))/Gcsup;
-            Acolat=(mH2O*PM(1))/Gclat;
+            Acosup=(mH2O*PM1.getValor())/Gcsup;
+            Acolat=(mH2O*PM1.getValor())/Gclat;
 
             Aho= Double.max(Ahosup,Aholat);
             Aco= Double.max(Acosup,Acolat);
@@ -261,8 +290,8 @@ public class ControlConeff {
                Ghsup=0;
                Gcsup=0;
 
-               Ghlat=Math.pow(((DPflat*(Dh1*((Df1+Df2)/2)))/(Lhlat*fhlat*2)),0.5);
-               Gclat=Math.pow(((DPlat*(Dh2*((D1sv+D1sl)/2)))/(Lclat*fcsup*2)),0.5);
+               Ghlat=Math.pow(((DPCONl*(Dh1*((D4v+D4)/2)))/(Lhlat*fhlat*2)),0.5);
+               Gclat=Math.pow(((DPenlat*(Dh2*((De+De1)/2)))/(Lclat*fcsup*2)),0.5);
             }else{
                Ghsup=Math.pow(((DPCONs*(Dh1*((D3+D4v)/2)))/(Lhsup*fhsup*2)),0.5);
                Gcsup=Math.pow(((DPensup*(Dh2*((De1+Des)/2)))/(Lcsup*fcsup*2)),0.5);

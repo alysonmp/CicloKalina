@@ -2,6 +2,7 @@ package Control.Ciclo2;
 
 import Control.Interpolacao.ControlInterpolacaoGas;
 import Control.Interpolacao.ControlInterpolacaoLiquido;
+import Model.ModelCore;
 import Model.ModelCriticasKCSMat_PM;
 import java.util.List;
 import org.hibernate.Criteria;
@@ -16,7 +17,8 @@ public class ControlRegeff {
         double Rehsup, fhsup, jhsup, Recsup, fcsup,jcsup,hhsup,hcsup,m1sup,lh,m2sup,
                 lc,e1sup,e2sup,e1gsup,e2gsup,iUsup,Ugsup,Ahsup,Ahosup,Acsup,Acosup,
                 Lcsup,Lhsup,DPhsup,DPcsup,Afrh,Afrc,Gh,Gc,NTU,ep,Nc, Nh,Acc,Ach;
-
+        double Cregmin,Ghsup,Gcsup;
+        
         double DPregh=P2*1000*4/100;
         double DPregc=P5*1000*4/100;
         
@@ -69,6 +71,8 @@ public class ControlRegeff {
         zeta = new ControlZeta(constantes.getBeta(),constantes.getEps(),constantes.getDelta());
         double D3=1/(((zeta.getZv()*constantes.getR()*T3)/P3)/PMii.getValor()); 
         
+        
+        
         if(eff==0){
             NTU=0;
             ep=0;
@@ -78,10 +82,13 @@ public class ControlRegeff {
             Gc=0;
             Acc=0;
             Ach=0; 
+            Cregmin = 0;
+            Ghsup = 0;
+            Gcsup = 0;
         }else{
             double Ccreg=(m*(PMii.getValor())*((Cp5+Cp6)/2))/1000;
             double Chreg=(m*(PMii.getValor())*((Cp2+Cp3)/2))/1000;
-            double Cregmin = Double.min(Chreg,Ccreg);
+            Cregmin = Double.min(Chreg,Ccreg); //???
             double Cregmax = Double.max(Chreg,Ccreg);
             double C=Cregmin/Cregmax;
             double epsilonreg1 = (Chreg*(T2-T3))/(Cregmin*(T2-T5));
@@ -90,14 +97,41 @@ public class ControlRegeff {
             ep = Double.min(epsilonreg1,epsilonreg2);
             double Ncreg=10*C*NTU/0.8;
             double Nhreg=1.1*NTU/0.8;
-            double Ghsup=Math.pow((((0.25)/(Math.pow(Pr2,(2/3))*Nhreg))*(2*((D2+D3)/2)*DPregh)),0.5);
-            double Gcsup=Math.pow((((0.25)/(Math.pow(Pr5,(2/3))*Ncreg))*(2*((D5+D6)/2)*DPregc)),0.5);
+            Ghsup=Math.pow((((0.25)/(Math.pow(Pr2,(2/3))*Nhreg))*(2*((D2+D3)/2)*DPregh)),0.5);//??
+            Gcsup=Math.pow((((0.25)/(Math.pow(Pr5,(2/3))*Ncreg))*(2*((D5+D6)/2)*DPregc)),0.5);//??
             Acc=(m*(PMii.getValor()))/Gcsup;
             Ach=(m*(PMii.getValor()))/Ghsup; 
         }
  
-        [Dh1, alp1, del1, gam1, b1, t1, l1, s1, bet1, por1]=Core(9);
-        [Dh2, alp2, del2, gam2, b2, t2, l2, s2, bet2, por2]=Core(9);
+        cr = session.createCriteria(ModelCore.class);
+        results = cr.list();
+        ModelCore core = (ModelCore)results.get(9);
+        
+        double Dh1 = core.getDh();
+        double alp1 = core.getAlp();
+        double del1 = core.getDel();
+        double gam1 = core.getGam();
+        double b1 = core.getB();
+        double t1 = core.getT();
+        double l1 = core.getL();
+        double s1 = core.getS();
+        double bet1 = core.getBet();
+        double por1 = core.getPor();
+        
+        cr = session.createCriteria(ModelCore.class);
+        results = cr.list();
+        core = (ModelCore)results.get(9);
+        
+        double Dh2 = core.getDh();
+        double alp2 = core.getAlp();
+        double del2 = core.getDel();
+        double gam2 = core.getGam();
+        double b2 = core.getB();
+        double t2 = core.getT();
+        double l2 = core.getL();
+        double s2 = core.getS();
+        double bet2 = core.getBet();
+        double por2 = core.getPor();
         
         double aa1=(b1*bet1)/(b1+b2+(2*0.0005));
         double aa2=(b2*bet2)/(b1+b2+(2*0.0005));
@@ -172,8 +206,8 @@ public class ControlRegeff {
                 Gh=0;
                 Gc=0;
             }else{
-                Ghsup = ((DPregh*(Dh1*((D3+D2)/2)))/(Lhsup*fhsup*2))^0.5;
-                Gcsup = ((DPregc*(Dh2*((D5+D6)/2)))/(Lcsup*fcsup*2))^0.5;
+                Ghsup = Math.pow(((DPregh*(Dh1*((D3+D2)/2)))/(Lhsup*fhsup*2)),0.5);
+                Gcsup = Math.pow(((DPregc*(Dh2*((D5+D6)/2)))/(Lcsup*fcsup*2)),0.5);
             }
         }
         

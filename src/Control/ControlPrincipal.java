@@ -71,6 +71,7 @@ import Control.TabelaFluidos.ControlTolueneGas;
 import Control.TabelaFluidos.ControlTolueneLiquido;
 import Control.TabelaFluidos.ControlWaterGas;
 import Control.TabelaFluidos.ControlWaterLiquido;
+import Model.ModelCore;
 import Model.Ciclo2.ModelFluidos;
 import Model.Ciclo2.ModelMassa;
 import Model.ModelCVA;
@@ -313,33 +314,42 @@ public class ControlPrincipal {
             
             tx.commit();
         }
-        
-        /*
-        //Teste, para criar as novas tabelas, elas estao posicionadas logo a cima
-        cr = this.session.createCriteria(ModelEthylbenzeneGas.class);
+               
+        cr = this.session.createCriteria(ModelCore.class);
         results = cr.list();
-        if(results.isEmpty()){
-            Transaction tx = session.beginTransaction();
-
-            new ControlEthylbenzeneGas(session).criaTabelaEthylbenzeneGas();
-            new ControlEthylbenzeneLiquido(session).criaTabelaEthylbenzeneLiquido();
-            new ControlDimetylbenzeneGas(session).criaTabelaDimetylbenzeneGas();
-            new ControlDimetylbenzeneLiquido(session).criaTabelaDimethylbenzeneLiquido();
-            new ControlPropylbenzeneGas(session).criaTabelaPropylbenzeneGas();
-            new ControlPropylbenzeneLiquido(session).criaTabelaPropylbenzeneLiquido();
-            new ControlR216_CAGas(session).criaTabelaR260_CAGas();
-            new ControlR216_CALiquido(session).criaTabelaR216_CALiquido();
-            new ControlR_40Gas(session).criaTabelaR_40Gas();
-            new ControlR_40Liquido(session).criaTabelaR_40Liquido();
-            new ControlR_1270Gas(session).criaTabelaR_1270Gas();
-            new ControlR_1270Liquido(session).criaTabelaR_1270Liquido();
+        Transaction tx = session.beginTransaction();
         
-            tx.commit();
-        }*/
+        if(results.isEmpty()){
+            String csvFile = "src/Csv/Core.csv";
+            BufferedReader br = null;
+            String line = "";
+            String csvSplitBy = ";";
+            
+            try{
+                br = new BufferedReader(new FileReader(csvFile));
+                while((line = br.readLine()) != null){
+                    String[] table_c = line.split(csvSplitBy);
+                    this.session.save(new ModelCore(Double.parseDouble(table_c[0]),Double.parseDouble(table_c[1]),Double.parseDouble(table_c[2]),Double.parseDouble(table_c[3]),Double.parseDouble(table_c[4]),Double.parseDouble(table_c[5]),Double.parseDouble(table_c[6]),Double.parseDouble(table_c[7]),Double.parseDouble(table_c[8]),Double.parseDouble(table_c[9])));
+                }
+            }catch(FileNotFoundException e){
+                e.printStackTrace();
+            }catch(IOException e){
+                e.printStackTrace();
+            }finally {
+                if (br != null) {
+                    try {
+                        br.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+        tx.commit();
         
         cr = this.session.createCriteria(ModelConstantesKCSMat_C.class);
         results = cr.list();
-        Transaction tx = session.beginTransaction();
+        tx = session.beginTransaction();
         
         if(results.isEmpty()){
             String csvFile = "src/Csv/C.csv";
