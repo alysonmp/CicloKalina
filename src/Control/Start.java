@@ -18,7 +18,15 @@ import Control.Ciclo2.ControlRegenerador;
 import Control.Ciclo2.ControlSF;
 import Control.Ciclo2.ControlT_Ref;
 import Control.Ciclo2.ControlTurbina;
+import Model.Ciclo2.ModelBomba;
+import Util.DropdownComboBox;
+import View.Bomba.ViewBombaPanelRankine;
+import java.awt.Component;
+import java.util.List;
+import java.util.Vector;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -33,10 +41,13 @@ public class Start {
     ControlPrincipal ctrlPrincipal;
     String mensagem;
     
+    public Start(Session session, ControlPrincipal ctrlPrincipal){
+        this.session = session;
+        this.ctrlPrincipal = ctrlPrincipal;
+    }
+    
     //public Start(int compressor, int flu, double Tf, double Pf, double SUP, double PINCH, double Tconop, double eff, double Ve, Session session, ControlPrincipal ctrlPrincipal){
-    public Start(int compressor, int flu, double Tf, double Pf, double SUP, double PINCH, double Tconop, double eff, double km, int FON, Session session, ControlPrincipal ctrlPrincipal){
-        
-        
+    public void iniciaCalculos(int compressor, int flu, double Tf, double Pf, double mf, double SUP, double PINCH, double Tconop, double eff, double km, int FON){
         double Ve = 0.6;
         this.ctrlPrincipal = ctrlPrincipal;
         this.eff = eff;
@@ -259,6 +270,18 @@ public class Start {
         DPhreg = regeff.getDPh();
         DPcreg = regeff.getDPc();
     }   
+    
+    public void autalizaFields(DropdownComboBox field){
+        if(field.getName().equals("tempSaiCondensador")){
+            T4 = Double.parseDouble(field.getSelectedItem().toString());
+            ControlAtualizaFields atualiza = new ControlAtualizaFields(session, ctrlPrincipal, T4, 7);
+        }
+        
+        if(field.getName().equals("tempEntrCondensador")){
+            T3 = Double.parseDouble(field.getSelectedItem().toString());
+            ControlAtualizaFields atualiza = new ControlAtualizaFields(session, ctrlPrincipal, T3, 8);
+        }
+    }
 
     public double getP1() {
         return P1;
