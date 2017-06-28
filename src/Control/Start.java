@@ -35,6 +35,8 @@ public class Start {
     
     //public Start(int compressor, int flu, double Tf, double Pf, double SUP, double PINCH, double Tconop, double eff, double Ve, Session session, ControlPrincipal ctrlPrincipal){
     public Start(int compressor, int flu, double Tf, double Pf, double SUP, double PINCH, double Tconop, double eff, double km, int FON, Session session, ControlPrincipal ctrlPrincipal){
+        
+        
         double Ve = 0.6;
         this.ctrlPrincipal = ctrlPrincipal;
         this.eff = eff;
