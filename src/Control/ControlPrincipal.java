@@ -977,8 +977,14 @@ public class ControlPrincipal {
         }
         eff = (Double.parseDouble(viewLateral.getFieldEfetiv().getEditor().getItem().toString()))/100;
         
+        /*if(viewLateral.getFieldKm().getEditor().getItem().toString().isEmpty()){
+            JOptionPane.showMessageDialog(null, "É necessário inserir a efetividade");
+            return;
+        }
+        eff = (Double.parseDouble(viewLateral.getFieldKm().getEditor().getItem().toString()))/100;*/
+        
         //Start start = new Start(1, 14, 415.25, 1144.4, 25, 10, 313.15, 0.3, session);
-        start = new Start(comp, flu, Tf, Pf, sup, pinch, Tconop, eff, session, this);
+        start = new Start(comp, flu, Tf, Pf, sup, pinch, Tconop, eff, session, km, this);
         viewLateral.getFrameEspera().dispose();
         if(!start.getMensagem().equals("")){
             JOptionPane.showMessageDialog(null, start.getMensagem(), "Aviso", JOptionPane.ERROR_MESSAGE);

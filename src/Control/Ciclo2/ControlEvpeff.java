@@ -8,6 +8,7 @@ package Control.Ciclo2;
 import Control.Interpolacao.ControlInterpolacaoCompressor;
 import Control.Interpolacao.ControlInterpolacaoGas;
 import Control.Interpolacao.ControlInterpolacaoLiquido;
+import Model.ModelCore;
 import Model.ModelCriticasKCSMat_PM;
 import java.util.Arrays;
 import java.util.List;
@@ -273,10 +274,14 @@ public class ControlEvpeff {
             Achsen = mf/Ghsen;
         }
         
+        cr = session.createCriteria(ModelCore.class);
+        cr.add(Restrictions.eq("cod", 13));
+        results = cr.list();
+        ModelCore core = (ModelCore) results.get(0);
+        
         //%%Dimensoes do Core 
-        ModelCore core = new ModelCore(13);
         double Dh1 = core.getDh();
-        double alp1 = core.getalp();
+        double alp1 = core.getAlp();
         double del1 = core.getDel();
         double gam1 = core.getGam();
         double b1 = core.getB();
@@ -286,9 +291,13 @@ public class ControlEvpeff {
         double bet1 = core.getBet();
         double por1 = core.getPor();
         
-        core = new ModelCore(13);
+        cr = session.createCriteria(ModelCore.class);
+        cr.add(Restrictions.eq("cod", 13));
+        results = cr.list();
+        core = (ModelCore) results.get(0);
+        
         double Dh2 = core.getDh();
-        double alp2 = core.getalp();
+        double alp2 = core.getAlp();
         double del2 = core.getDel();
         double gam2 = core.getGam();
         double b2 = core.getB();
