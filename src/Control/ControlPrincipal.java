@@ -152,6 +152,8 @@ public class ControlPrincipal {
         SessionFactory sf = HibernateUtil.getSessionFactory();
         this.session = sf.openSession();
         
+        start = new Start(session, this);
+        
         Criteria cr = this.session.createCriteria(ModelFluidos.class);
         List results = cr.list();
         if(results.isEmpty()){
@@ -1023,7 +1025,7 @@ public class ControlPrincipal {
         }
         
         //Start start = new Start(1, 14, 415.25, 1144.4, 25, 10, 313.15, 0.3, session);
-        start = new Start(comp, flu, Tf, Pf, sup, pinch, Tconop, eff, km, 3, session, this);
+        start.iniciaCalculos(comp, flu, Tf, Pf, m, sup, pinch, Tconop, eff, km, 3);
         viewLateral.getFrameEspera().dispose();
         if(!start.getMensagem().equals("")){
             JOptionPane.showMessageDialog(null, start.getMensagem(), "Aviso", JOptionPane.ERROR_MESSAGE);
@@ -1049,7 +1051,7 @@ public class ControlPrincipal {
         ModelCriticasKCSMat_Pc pc = (ModelCriticasKCSMat_Pc) results.get(0);
         double p = pc.getValor();
         
-        PMax = p * 0.95;
+        PMax = p * 0.9;
         
         ControlT_Ref TRef = new ControlT_Ref(PMax, ii, session);
         TMax = TRef.getTref();
@@ -1175,5 +1177,13 @@ public class ControlPrincipal {
 
     public void setMensagem(String mensagem) {
         this.mensagem = mensagem;
+    }
+
+    public Start getStart() {
+        return start;
+    }
+
+    public void setStart(Start start) {
+        this.start = start;
     }
 }
