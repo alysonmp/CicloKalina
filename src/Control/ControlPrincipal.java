@@ -926,6 +926,7 @@ public class ControlPrincipal {
     }
     
     public void iniciaCalculos(){
+        double m = 0;
         double Tf = 0;
         double Pf = 0;
         double sup = 0;
@@ -982,6 +983,44 @@ public class ControlPrincipal {
             return;
         }
         double km = (Double.parseDouble(viewLateral.getFieldKm().getEditor().getItem().toString()))/100;
+        
+        int FON = viewLateral.getComboCompressores().getSelectedIndex() + 1;
+        
+        switch(FON){
+            case 3:
+                comp = 1;
+                m = 55.54;
+                Tf = 415.15;
+                Pf = 1144.4;
+                break;
+            case 4:
+                comp = 2;
+                m = 55.54;
+                Tf = 417.15;
+                Pf = 3133.8;
+                break;
+            case 5: 
+                comp = 3;
+                m = 55.54;
+                Tf = 418.15;
+                Pf = 8825.6;
+                break;
+            case 6:
+                comp = 4;
+                m = 55.54;
+                Tf = 408.15;
+                Pf = 25109;
+                break;
+            case 7: 
+                comp = 5;
+                m = 61.78;
+                Tf = 431.15;
+                Pf = 8196.1;
+                break;
+            default:
+                comp = 0;
+                break;
+        }
         
         //Start start = new Start(1, 14, 415.25, 1144.4, 25, 10, 313.15, 0.3, session);
         start = new Start(comp, flu, Tf, Pf, sup, pinch, Tconop, eff, km, 3, session, this);

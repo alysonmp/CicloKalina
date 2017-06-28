@@ -723,6 +723,7 @@ public class ViewLateral extends JPanel{
                     comboPressao.setEnabled(true);
                     comboMassa.setEnabled(true);
                 }else{
+                    double Tf = 0,Pf = 0,m=0;
                     fieldTemp.setEnabled(false);
                     fieldPressao.setEnabled(false);
                     fieldMassa.setEnabled(false);
@@ -730,6 +731,38 @@ public class ViewLateral extends JPanel{
                     comboTemp.setEnabled(false);
                     comboPressao.setEnabled(false);
                     comboMassa.setEnabled(false);
+                            
+                    switch(FON){
+                    case 3:
+                        m = 55.54;
+                        Tf = 415.15;
+                        Pf = 1144.4;
+                        break;
+                    case 4:
+                        m = 55.54;
+                        Tf = 417.15;
+                        Pf = 3133.8;
+                        break;
+                    case 5: 
+                        m = 55.54;
+                        Tf = 418.15;
+                        Pf = 8825.6;
+                        break;
+                    case 6:
+                        m = 55.54;
+                        Tf = 408.15;
+                        Pf = 25109;
+                        break;
+                    case 7: 
+                        m = 61.78;
+                        Tf = 431.15;
+                        Pf = 8196.1;
+                        break;
+                }
+
+                    fieldMassa.setSelectedItem(""+m);
+                    fieldPressao.setSelectedItem(""+Pf);
+                    fieldTemp.setSelectedItem(""+Tf);
                 }
             }
         });
