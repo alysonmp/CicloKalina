@@ -8,9 +8,12 @@ package Control;
 import Control.Ciclo2.ControlAreas;
 import Control.Ciclo2.ControlBalanco;
 import Control.Ciclo2.ControlBomba;
+import Control.Ciclo2.ControlConeff;
 import Control.Ciclo2.ControlDiamTH17;
+import Control.Ciclo2.ControlEvpeff;
 import Control.Ciclo2.ControlMassa;
 import Control.Ciclo2.ControlParametros;
+import Control.Ciclo2.ControlRegeff;
 import Control.Ciclo2.ControlRegenerador;
 import Control.Ciclo2.ControlSF;
 import Control.Ciclo2.ControlT_Ref;
@@ -24,13 +27,14 @@ import org.hibernate.Session;
 public class Start {
     
     private double mf, P1, P2, T1, P4, T4, P5, P3, P6, Tcontrol, Tcontrol2, H1, H2, S1, S2, T2, H2s, DH2s, sp, v2, DHT, S4, S5, H4, H5, T5, S3, H3, T3, S6, T6, H6, IHR, Q, Tfout, PP, Hlat, Hsen, Hsup, T1s, Wt, Wb, Qevp, Qcon, ec, Qreg, Qreg1, Wn, Acon, Aevp, Areg, AT, ecg, Dr, m, Beff, eff, UASUP, UALAT, UASEN, UAREG, UACONl, UACONs, Ten, Pen, Ten1, Ts, mH2O;
+    private double ATreg, Ahoreg, Acoreg, Vreg, Lhreg, Lcreg, L3reg, DPhreg, DPcreg, ATcon, Ahocon, Acocon, Vcon, Lhcon, Lccon, L3con, DPhcon, DPccon, ATevp, Ahoevp, Acoevp, Vevp, Lhevp, Lcevp, L3evp, DPhevp, DPcevp; 
     private int ii;
     private Session session;
     ControlPrincipal ctrlPrincipal;
     String mensagem;
     
     //public Start(int compressor, int flu, double Tf, double Pf, double SUP, double PINCH, double Tconop, double eff, double Ve, Session session, ControlPrincipal ctrlPrincipal){
-    public Start(int compressor, int flu, double Tf, double Pf, double SUP, double PINCH, double Tconop, double eff, Session session, ControlPrincipal ctrlPrincipal){
+    public Start(int compressor, int flu, double Tf, double Pf, double SUP, double PINCH, double Tconop, double eff, double km, int FON, Session session, ControlPrincipal ctrlPrincipal){
         double Ve = 0.6;
         this.ctrlPrincipal = ctrlPrincipal;
         this.eff = eff;
@@ -217,9 +221,41 @@ public class Start {
         Aevp = areas.getAevp();
         Areg = areas.getAreg();
         
-        
         AT = Acon+Aevp+Areg;
         ecg = ec*100;
+        
+        ControlEvpeff evpeff = new ControlEvpeff(P1, P6, T1, T6, ii, SUP, Hlat, Hsen, Hsup, compressor, m, mf, T1s, Tf, Tfout, Pf, FON, PINCH, UASUP, UALAT, UASEN, km, session);
+        ATevp = evpeff.getAT();
+        Ahoevp = evpeff.getAho();
+        Acoevp = evpeff.getAco();
+        Vevp = evpeff.getVhx();
+        Lhevp = evpeff.getLh();
+        Lcevp = evpeff.getLc();
+        L3evp = evpeff.getL3();
+        DPhevp = evpeff.getDPh();
+        DPcevp = evpeff.getDPc();
+
+        ControlConeff coneff = new ControlConeff(P4, P3, m, mH2O, ii, Ten, Ten1, Ts, T3, T4, UACONs, UACONl, Pen, km, session);
+        ATcon = coneff.getAT();
+        Ahocon = coneff.getAho();
+        Acocon = coneff.getAco();
+        Vcon = coneff.getVhx();
+        Lhcon = coneff.getLh();
+        Lccon = coneff.getLc();
+        L3con = coneff.getL3();
+        DPhcon = coneff.getDph();
+        DPccon = coneff.getDpc();
+                
+        ControlRegeff regeff = new ControlRegeff(ii, UAREG, T2, T3, T5, T6, m, eff, P5, P6, P2, P3, km, session);
+        ATreg = regeff.getAT();
+        Ahoreg = regeff.getAho();
+        Acoreg = regeff.getAco();
+        Vreg = regeff.getVhx();
+        Lhreg = regeff.getLh();
+        Lcreg = regeff.getLc();
+        L3reg = regeff.getL3();
+        DPhreg = regeff.getDPh();
+        DPcreg = regeff.getDPc();
     }   
 
     public double getP1() {
