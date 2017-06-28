@@ -734,6 +734,34 @@ public class ViewLateral extends JPanel{
             }
         });
         
+        fieldKm.getEditor().getEditorComponent().addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                fieldKm.showPopup();
+                fieldKm.getEditor().selectAll();
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                fieldKm.setSelectedItem(controlConverte.round(Double.parseDouble(fieldKm.getSelectedItem().toString()),precision));
+                controlLateral.atualizaTemperaturaCond();
+            }
+        });
+        fieldKm.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                fieldKm.hidePopup();
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+            }
+        });
+        
         ctrlPrincipal.getViewPrincipal().getComboFluidos().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
