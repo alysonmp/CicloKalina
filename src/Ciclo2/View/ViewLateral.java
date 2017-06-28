@@ -50,7 +50,7 @@ import javax.swing.event.ChangeListener;
  */
 public class ViewLateral extends JPanel{
             
-    private JLabel labelCompressor = new JLabel("Compressor");
+    private JLabel labelCompressor = new JLabel("Fonte de Calor");
             
     private JLabel labelMassa = new JLabel("Massa (m): ");
     
@@ -59,6 +59,7 @@ public class ViewLateral extends JPanel{
     
     private JLabel labelTempCond = new JLabel("<html><body>Temperatura <br>de Condensação: </html></body> ");
     private JLabel labelEfetiv = new JLabel("Efetividade (%): ");
+    private JLabel labelKm = new JLabel("Km: ");
     
     private JLabel labelLimitTemp = new JLabel("");
     private JLabel labelLimitPressao = new JLabel("");
@@ -74,9 +75,10 @@ public class ViewLateral extends JPanel{
     
     private DropdownComboBox fieldSup = new DropdownComboBox();
     private DropdownComboBox fieldPinch = new DropdownComboBox();
+    private DropdownComboBox fieldKm = new DropdownComboBox();
     
-    private String[] compressores = {"1", "2", "3", "4", "5"};
-    private JComboBox comboCompressores = new JComboBox(compressores);
+    private String[] fluidos = {"Água", "Ar", "Compressor 1", "Compressor 2", "Compressor 3", "Compressor 4", "Compressor 5", "Gases"};
+    private JComboBox comboCompressores = new JComboBox(fluidos);
     
     private String[] massas = {"kg/s", "kg/m", "kg/h", "lb/s", "lb/m", "lb/h"};
     private JComboBox<String> comboMassa = new JComboBox<>(massas);
@@ -134,60 +136,60 @@ public class ViewLateral extends JPanel{
         g.gridwidth = 2;
         g.fill = GridBagConstraints.HORIZONTAL;
         painelDados.add(comboCompressores, g);
-        
-        g.gridx = 0;
-        g.gridy = 2;
-        g.gridwidth = 2;
-        g.fill = GridBagConstraints.HORIZONTAL;
-        //painelDados.add(labelMassa, g);
-        
-        g.gridx = 1;
-        g.gridy = 2;
-        g.gridwidth = 1;
-        g.fill = GridBagConstraints.HORIZONTAL;
-        //painelDados.add(fieldMassa, g);
-        
-        g.gridx = 3;
-        g.gridy = 2;
-        g.gridwidth = 1;
-        g.fill = GridBagConstraints.HORIZONTAL;
-        //painelDados.add(comboMassa, g);
 
         g.gridx = 0;
-        g.gridy = 3;
+        g.gridy = 2;
         g.gridwidth = 1;
         g.fill = GridBagConstraints.HORIZONTAL;
         painelDados.add(labelTemp, g);
         
         g.gridx = 1;
-        g.gridy = 3;
+        g.gridy = 2;
         g.gridwidth = 2;
         g.fill = GridBagConstraints.HORIZONTAL;
         painelDados.add(fieldTemp, g);
         
         g.gridx = 3;
-        g.gridy = 3;
+        g.gridy = 2;
         g.gridwidth = 1;
         g.fill = GridBagConstraints.HORIZONTAL;
         painelDados.add(comboTemp, g);
         
         g.gridx = 0;
-        g.gridy = 4;
+        g.gridy = 3;
         g.gridwidth = 1;
         g.fill = GridBagConstraints.HORIZONTAL;
         painelDados.add(labelPressao, g);
         
         g.gridx = 1;
-        g.gridy = 4;
+        g.gridy = 3;
         g.gridwidth = 2;
         g.fill = GridBagConstraints.HORIZONTAL;
         painelDados.add(fieldPressao, g);
         
         g.gridx = 3;
-        g.gridy = 4;
+        g.gridy = 3;
         g.gridwidth = 1;
         g.fill = GridBagConstraints.HORIZONTAL;
         painelDados.add(comboPressao, g);
+        
+        g.gridx = 0;
+        g.gridy = 4;
+        g.gridwidth = 2;
+        g.fill = GridBagConstraints.HORIZONTAL;
+        painelDados.add(labelMassa, g);
+        
+        g.gridx = 1;
+        g.gridy = 4;
+        g.gridwidth = 2;
+        g.fill = GridBagConstraints.HORIZONTAL;
+        painelDados.add(fieldMassa, g);
+        
+        g.gridx = 3;
+        g.gridy = 4;
+        g.gridwidth = 1;
+        g.fill = GridBagConstraints.HORIZONTAL;
+        painelDados.add(comboMassa, g);
         
         g.gridx = 0;
         g.gridy = 5;
@@ -244,27 +246,38 @@ public class ViewLateral extends JPanel{
         g.gridx = 0;
         g.gridy = 9;
         g.gridwidth = 3;
+        painelDados.add(labelKm, g);
+        
+        g.gridx = 1;
+        g.gridy = 9;
+        g.gridwidth = 2;
+        g.fill = GridBagConstraints.HORIZONTAL;
+        painelDados.add(fieldKm, g);
+        
+        g.gridx = 0;
+        g.gridy = 10;
+        g.gridwidth = 3;
         g.insets = new Insets(20, 0, 0, 0);
         painelDados.add(labelLimitTemp, g);
         
         g.gridx = 3;
-        g.gridy = 9;
+        g.gridy = 10;
         g.gridwidth = 1;
         painelDados.add(fieldLimitTemp, g);
         
         g.gridx = 0;
-        g.gridy = 10;
+        g.gridy = 11;
         g.gridwidth = 3;
         g.insets = new Insets(10, 0, 0, 0);
         painelDados.add(labelLimitPressao, g);
         
         g.gridx = 3;
-        g.gridy = 10;
+        g.gridy = 11;
         g.gridwidth = 1;
         painelDados.add(fieldLimitPressao, g);
         
         g.gridx = 3;
-        g.gridy = 11;
+        g.gridy = 12;
         g.gridwidth = 1;
         g.fill = GridBagConstraints.HORIZONTAL;
         painelDados.add(botaoInicia, g);
@@ -697,6 +710,30 @@ public class ViewLateral extends JPanel{
             }
         });*/
         
+        comboCompressores.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int FON = comboCompressores.getSelectedIndex()+1;
+                if(FON == 1 || FON == 2 || FON == 8){
+                    fieldTemp.setEnabled(true);
+                    fieldPressao.setEnabled(true);
+                    fieldMassa.setEnabled(true);
+                    
+                    comboTemp.setEnabled(true);
+                    comboPressao.setEnabled(true);
+                    comboMassa.setEnabled(true);
+                }else{
+                    fieldTemp.setEnabled(false);
+                    fieldPressao.setEnabled(false);
+                    fieldMassa.setEnabled(false);
+                    
+                    comboTemp.setEnabled(false);
+                    comboPressao.setEnabled(false);
+                    comboMassa.setEnabled(false);
+                }
+            }
+        });
+        
         ctrlPrincipal.getViewPrincipal().getComboFluidos().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -847,5 +884,13 @@ public class ViewLateral extends JPanel{
 
     public void setFrameEspera(JFrame frameEspera) {
         this.frameEspera = frameEspera;
+    }
+
+    public DropdownComboBox getFieldKm() {
+        return fieldKm;
+    }
+
+    public void setFieldKm(DropdownComboBox fieldKm) {
+        this.fieldKm = fieldKm;
     }
 }
