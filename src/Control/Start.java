@@ -274,12 +274,12 @@ public class Start {
     public void autalizaFields(DropdownComboBox field){
         if(field.getName().equals("tempSaiCondensador")){
             T4 = Double.parseDouble(field.getSelectedItem().toString());
-            ControlAtualizaFields atualiza = new ControlAtualizaFields(session, ctrlPrincipal, T4, 7);
+            ControlAtualizaFieldsTemp atualiza = new ControlAtualizaFieldsTemp(session, ctrlPrincipal, T4, 7);
         }
         
         if(field.getName().equals("tempEntrCondensador")){
             T3 = Double.parseDouble(field.getSelectedItem().toString());
-            ControlAtualizaFields atualiza = new ControlAtualizaFields(session, ctrlPrincipal, T3, 8);
+            ControlAtualizaFieldsTemp atualiza = new ControlAtualizaFieldsTemp(session, ctrlPrincipal, T3, 8);
         }
     }
 
