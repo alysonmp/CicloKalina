@@ -34,7 +34,29 @@ public class Start {
     String mensagem;
     
     //public Start(int compressor, int flu, double Tf, double Pf, double SUP, double PINCH, double Tconop, double eff, double Ve, Session session, ControlPrincipal ctrlPrincipal){
-    public Start(int compressor, int flu, double Tf, double Pf, double SUP, double PINCH, double Tconop, double eff, double km, int FON, Session session, ControlPrincipal ctrlPrincipal){
+    public Start(int flu, double Tf, double Pf, double SUP, double PINCH, double Tconop, double eff, double km, int FON, Session session, ControlPrincipal ctrlPrincipal){
+        int  compressor;
+        switch(FON){
+            case 3:
+                compressor = 1;
+                break;
+            case 4:
+                compressor = 2;
+                break;
+            case 5: 
+                compressor = 3;
+                break;
+            case 6:
+                compressor = 4;
+                break;
+            case 7: 
+                compressor = 5;
+                break;
+            default:
+                compressor = 0;
+                break;
+        }
+        
         double Ve = 0.6;
         this.ctrlPrincipal = ctrlPrincipal;
         this.eff = eff;

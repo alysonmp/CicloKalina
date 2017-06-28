@@ -7,6 +7,7 @@ import Model.ModelCriticasKCSMat_PM;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 public class ControlConeff {
 
@@ -158,8 +159,9 @@ public class ControlConeff {
         }
         
         cr = session.createCriteria(ModelCore.class);
+        cr.add(Restrictions.eq("cod", 9));
         results = cr.list();
-        ModelCore core = (ModelCore)results.get(9);
+        ModelCore core = (ModelCore) results.get(0);
         
         double Dh1 = core.getDh();
         double alp1 = core.getAlp();
@@ -173,8 +175,9 @@ public class ControlConeff {
         double por1 = core.getPor();
         
         cr = session.createCriteria(ModelCore.class);
+        cr.add(Restrictions.eq("cod", 9));
         results = cr.list();
-        core = (ModelCore)results.get(9);
+        core = (ModelCore) results.get(0);
         
         double Dh2 = core.getDh();
         double alp2 = core.getAlp();
