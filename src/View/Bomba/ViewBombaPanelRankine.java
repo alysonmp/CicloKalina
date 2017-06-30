@@ -76,6 +76,11 @@ public class ViewBombaPanelRankine extends JPanel{
     private final int precision = 2;
     
     public ViewBombaPanelRankine(ControlBombaPanelRankine ctrlBomba){
+        fieldTempSai.setName("tempSaiBomba");
+        fieldTempEntr.setName("tempEntrBomba");
+        fieldPressaoEntr.setName("pressaoEntrBomba");
+        fieldPressaoSai.setName("pressaoSaiBomba");
+        
         this.ctrlBomba = ctrlBomba;
         this.controlConverte = new ControlConverte();
         
@@ -261,6 +266,7 @@ public class ViewBombaPanelRankine extends JPanel{
             public void focusLost(FocusEvent e) {
                 fieldTempEntr.setSelectedItem(controlConverte.round(Double.parseDouble(fieldTempEntr.getSelectedItem().toString()),precision));
                 ctrlBomba.atualizaTempEntrada();
+                ctrlBomba.getCtrPrincipal().getStart().autalizaFieldsTemp(fieldTempEntr);
             }
         });fieldTempEntr.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
             @Override
@@ -289,6 +295,7 @@ public class ViewBombaPanelRankine extends JPanel{
             public void focusLost(FocusEvent e) {
                 fieldTempSai.setSelectedItem(controlConverte.round(Double.parseDouble(fieldTempSai.getSelectedItem().toString()),precision));                
                 ctrlBomba.atualizaTempSaida();
+                ctrlBomba.getCtrPrincipal().getStart().autalizaFieldsTemp(fieldTempSai);
             }
         });
         fieldTempSai.getEditor().getEditorComponent().addKeyListener(new KeyListener() {

@@ -79,6 +79,11 @@ public class ViewRegeneradorPanelRankine extends JPanel{
     private final int precision = 2;
     
     public ViewRegeneradorPanelRankine(ControlRegeneradorPanelRankine controlRegeneradorPanel){
+        fieldTempSai.setName("tempSaiRegenerador");
+        fieldTempEntr.setName("tempEntrRegenerador");
+        fieldPressaoEntr.setName("pressaoEntrRegenerador");
+        fieldPressaoSai.setName("pressaoSaiRegenerador");
+        
         this.ctrlRegenerador = controlRegeneradorPanel;
         
         painelDados = new JPanel(new GridBagLayout());
@@ -275,6 +280,7 @@ public class ViewRegeneradorPanelRankine extends JPanel{
             public void focusLost(FocusEvent e) {
                 fieldTempEntr.setSelectedItem(controlConverte.round(Double.parseDouble(fieldTempEntr.getSelectedItem().toString()),precision));
                 ctrlRegenerador.atualizaTempEntrada();
+                controlRegeneradorPanel.getCtrlPrincipal().getStart().autalizaFieldsTemp(fieldTempEntr);
                 ViewRegeneradorPanelRankine.this.ctrlRegenerador.getCtrlPrincipal().ajustaMassa(fieldMassa.getSelectedItem().toString());
             }
         });fieldTempEntr.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
@@ -304,6 +310,7 @@ public class ViewRegeneradorPanelRankine extends JPanel{
             public void focusLost(FocusEvent e) {
                 fieldTempSai.setSelectedItem(controlConverte.round(Double.parseDouble(fieldTempSai.getSelectedItem().toString()),precision));
                 ctrlRegenerador.atualizaTempSaida();
+                controlRegeneradorPanel.getCtrlPrincipal().getStart().autalizaFieldsTemp(fieldTempSai);
             }
         });
         fieldTempSai.getEditor().getEditorComponent().addKeyListener(new KeyListener() {

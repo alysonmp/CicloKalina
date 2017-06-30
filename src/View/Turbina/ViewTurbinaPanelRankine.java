@@ -77,6 +77,11 @@ public class ViewTurbinaPanelRankine extends JPanel{
     private final int precision = 2;
     
     public ViewTurbinaPanelRankine(ControlTurbinaPanelRankine controlTurbinaPanel){
+        fieldTempSai.setName("tempSaiTurbina");
+        fieldTempEntr.setName("tempEntrTurbina");
+        fieldPressaoEntr.setName("pressaoEntrTurbina");
+        fieldPressaoSai.setName("pressaoSaiTurbina");
+        
         this.ctrlPrincipal = controlTurbinaPanel.getCtrlPrincipal();
         
         painelDados = new JPanel(new GridBagLayout());
@@ -261,6 +266,7 @@ public class ViewTurbinaPanelRankine extends JPanel{
             public void focusLost(FocusEvent e) {
                 fieldTempEntr.setSelectedItem(controlConverte.round(Double.parseDouble(fieldTempEntr.getSelectedItem().toString()),precision));
                 controlTurbinaPanel.atualizaTempEntrada();
+                controlTurbinaPanel.getCtrlPrincipal().getStart().autalizaFieldsTemp(fieldTempEntr);
             }
         });fieldTempEntr.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
             @Override
@@ -289,6 +295,7 @@ public class ViewTurbinaPanelRankine extends JPanel{
             public void focusLost(FocusEvent e) {
                 fieldTempSai.setSelectedItem(controlConverte.round(Double.parseDouble(fieldTempSai.getSelectedItem().toString()),precision));
                 controlTurbinaPanel.atualizaTempSaida();
+                controlTurbinaPanel.getCtrlPrincipal().getStart().autalizaFieldsTemp(fieldTempSai);
             }
         });
         fieldTempSai.getEditor().getEditorComponent().addKeyListener(new KeyListener() {

@@ -84,6 +84,9 @@ public class ViewCondensadorPanelRankine extends JPanel{
         
         //INICIALIZA NOMES
         fieldTempSai.setName("tempSaiCondensador");
+        fieldTempEntr.setName("tempEntrCondensador");
+        fieldPressaoEntr.setName("pressaoEntrCondensador");
+        fieldPressaoSai.setName("pressaoSaiCondensador");
         
         //INICIALIZANDO OS JPANELS
         painelDados = new JPanel(new GridBagLayout());
@@ -286,6 +289,7 @@ public class ViewCondensadorPanelRankine extends JPanel{
             public void focusLost(FocusEvent e) {
                 fieldTempEntr.setSelectedItem(controlConverte.round(Double.parseDouble(fieldTempEntr.getSelectedItem().toString()),precision));
                 ctrlCondensador.atualizaTempEntrada();
+                ctrlCondensador.getCtrlPrincipal().getStart().autalizaFieldsTemp(fieldTempEntr);
             }
         });fieldTempEntr.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
             @Override
@@ -314,7 +318,7 @@ public class ViewCondensadorPanelRankine extends JPanel{
             public void focusLost(FocusEvent e) {
                 fieldTempSai.setSelectedItem(controlConverte.round(Double.parseDouble(fieldTempSai.getSelectedItem().toString()),precision));
                 ctrlCondensador.atualizaTempSaida();
-                ctrlCondensador.getCtrlPrincipal().getStart().autalizaFields(fieldTempSai);
+                ctrlCondensador.getCtrlPrincipal().getStart().autalizaFieldsTemp(fieldTempSai);
             }
         });
         fieldTempSai.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
