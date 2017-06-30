@@ -325,6 +325,7 @@ public class ViewTurbinaPanelRankine extends JPanel{
             public void focusLost(FocusEvent e) {
                 fieldPressaoEntr.setSelectedItem(controlConverte.round(Double.parseDouble(fieldPressaoEntr.getSelectedItem().toString()),precision));
                 controlTurbinaPanel.atualizaPressaoEntrada();
+                ctrlPrincipal.getStart().atualizaFieldsPressao(fieldPressaoEntr);
             }
         });
         fieldPressaoEntr.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
@@ -382,6 +383,7 @@ public class ViewTurbinaPanelRankine extends JPanel{
             public void focusLost(FocusEvent e) {
                 fieldEfici.setSelectedItem(controlConverte.round(Double.parseDouble(fieldEfici.getSelectedItem().toString()),precision));
                 controlTurbinaPanel.atualizaPressaoSaida();
+                ctrlPrincipal.getStart().atualizaFieldsPressao(fieldPressaoSai);
             }
         });
         fieldEfici.getEditor().getEditorComponent().addKeyListener(new KeyListener() {

@@ -309,6 +309,7 @@ public class ViewEvaporadorPanelRankine extends JPanel{
             public void focusLost(FocusEvent fe) {
                 fieldPressaoEntr.setSelectedItem(controlConverte.round(Double.parseDouble(fieldPressaoSai.getSelectedItem().toString()),precision));
                 controlEvaporadorPanel.atualizaPressaoEntrada();   
+                controlEvaporadorPanel.getCtrlPrincipal().getStart().atualizaFieldsPressao(fieldPressaoEntr);
             }
         });
         fieldPressaoEntr.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
@@ -335,7 +336,9 @@ public class ViewEvaporadorPanelRankine extends JPanel{
             @Override
             public void focusLost(FocusEvent fe) {
                 fieldPressaoSai.setSelectedItem(controlConverte.round(Double.parseDouble(fieldPressaoSai.getSelectedItem().toString()),precision));
-                controlEvaporadorPanel.atualizaPressaoSaida();   
+                controlEvaporadorPanel.atualizaPressaoSaida();
+                controlEvaporadorPanel.getCtrlPrincipal().getStart().atualizaFieldsPressao(fieldPressaoSai);
+
             }
         });
         fieldPressaoSai.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
