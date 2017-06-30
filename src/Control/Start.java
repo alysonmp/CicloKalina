@@ -271,15 +271,65 @@ public class Start {
         DPcreg = regeff.getDPc();
     }   
     
-    public void autalizaFields(DropdownComboBox field){
+    public void autalizaFieldsTemp(DropdownComboBox field){
+        if(field.getName().equals("tempSaiEvaporador")){
+            T1 = Double.parseDouble(field.getSelectedItem().toString());
+            ControlAtualizaFieldsTemp atualiza = new ControlAtualizaFieldsTemp(session, ctrlPrincipal, T1, 1);
+        }
+        
+        if(field.getName().equals("tempEntrTurbina")){
+            T1 = Double.parseDouble(field.getSelectedItem().toString());
+            ControlAtualizaFieldsTemp atualiza = new ControlAtualizaFieldsTemp(session, ctrlPrincipal, T1, 2);
+        }
+        
+        if(field.getName().equals("tempSaiTurbina")){
+            T2 = Double.parseDouble(field.getSelectedItem().toString());
+            ControlAtualizaFieldsTemp atualiza = new ControlAtualizaFieldsTemp(session, ctrlPrincipal, T2, 3);
+        }
+        
+        if(field.getName().equals("tempEntrRegenerador")){
+            T2 = Double.parseDouble(field.getSelectedItem().toString());
+            ControlAtualizaFieldsTemp atualiza = new ControlAtualizaFieldsTemp(session, ctrlPrincipal, T2, 4);
+        }
+        
+        if(field.getName().equals("tempSaiRegenerador")){
+            T3 = Double.parseDouble(field.getSelectedItem().toString());
+            ControlAtualizaFieldsTemp atualiza = new ControlAtualizaFieldsTemp(session, ctrlPrincipal, T3, 5);
+        }
+        
+        if(field.getName().equals("tempEntrCondensador")){
+            T3 = Double.parseDouble(field.getSelectedItem().toString());
+            ControlAtualizaFieldsTemp atualiza = new ControlAtualizaFieldsTemp(session, ctrlPrincipal, T3, 6);
+        }
+        
         if(field.getName().equals("tempSaiCondensador")){
             T4 = Double.parseDouble(field.getSelectedItem().toString());
             ControlAtualizaFieldsTemp atualiza = new ControlAtualizaFieldsTemp(session, ctrlPrincipal, T4, 7);
         }
         
-        if(field.getName().equals("tempEntrCondensador")){
-            T3 = Double.parseDouble(field.getSelectedItem().toString());
-            ControlAtualizaFieldsTemp atualiza = new ControlAtualizaFieldsTemp(session, ctrlPrincipal, T3, 8);
+        if(field.getName().equals("tempEntrBomba")){
+            T4 = Double.parseDouble(field.getSelectedItem().toString());
+            ControlAtualizaFieldsTemp atualiza = new ControlAtualizaFieldsTemp(session, ctrlPrincipal, T4, 8);
+        }
+        
+        if(field.getName().equals("tempSaiBomba")){
+            T5 = Double.parseDouble(field.getSelectedItem().toString());
+            ControlAtualizaFieldsTemp atualiza = new ControlAtualizaFieldsTemp(session, ctrlPrincipal, T5, 9);
+        }
+        
+        if(field.getName().equals("tempEntrRegenerador")){
+            T5 = Double.parseDouble(field.getSelectedItem().toString());
+            ControlAtualizaFieldsTemp atualiza = new ControlAtualizaFieldsTemp(session, ctrlPrincipal, T5, 10);
+        }
+        
+        if(field.getName().equals("tempSaiRegenerador")){
+            T6 = Double.parseDouble(field.getSelectedItem().toString());
+            ControlAtualizaFieldsTemp atualiza = new ControlAtualizaFieldsTemp(session, ctrlPrincipal, T6, 11);
+        }
+        
+        if(field.getName().equals("tempEntrEvaporador")){
+            T6 = Double.parseDouble(field.getSelectedItem().toString());
+            ControlAtualizaFieldsTemp atualiza = new ControlAtualizaFieldsTemp(session, ctrlPrincipal, T6, 12);
         }
     }
 
