@@ -334,55 +334,55 @@ public class Start {
     }
     
     public void atualizaFieldsPressao(DropdownComboBox field){
-        ControlAtualizaFieldsTemp atualiza;
+        ControlAtualizaFieldsPressao atualiza;
         switch(field.getName()){
             case "pressaoSaiEvaporador":
                 P3 = Double.parseDouble(field.getSelectedItem().toString());
-                atualiza = new ControlAtualizaFieldsTemp(session, ctrlPrincipal, P3, 1);
+                atualiza = new ControlAtualizaFieldsPressao(session, ctrlPrincipal, P3, 1);
                 break;
             case "pressaoEntrTurbuna":
                 P4 = Double.parseDouble(field.getSelectedItem().toString());
-                atualiza = new ControlAtualizaFieldsTemp(session, ctrlPrincipal, P4, 2);
+                atualiza = new ControlAtualizaFieldsPressao(session, ctrlPrincipal, P4, 2);
                 break;
             case "pressaoSaiTurbina":
                 P3 = Double.parseDouble(field.getSelectedItem().toString());
-                atualiza = new ControlAtualizaFieldsTemp(session, ctrlPrincipal, P3, 3);
+                atualiza = new ControlAtualizaFieldsPressao(session, ctrlPrincipal, P3, 3);
                 break;
             case "pressaoEntrRegenerador1":
                 P4 = Double.parseDouble(field.getSelectedItem().toString());
-                atualiza = new ControlAtualizaFieldsTemp(session, ctrlPrincipal, P4, 4);
+                atualiza = new ControlAtualizaFieldsPressao(session, ctrlPrincipal, P4, 4);
                 break;
             case "pressaoSaiRegenerador1":
                 P3 = Double.parseDouble(field.getSelectedItem().toString());
-                atualiza = new ControlAtualizaFieldsTemp(session, ctrlPrincipal, P3, 5);
+                atualiza = new ControlAtualizaFieldsPressao(session, ctrlPrincipal, P3, 5);
                 break;
             case "pressaoEntrCondensador":
                 P4 = Double.parseDouble(field.getSelectedItem().toString());
-                atualiza = new ControlAtualizaFieldsTemp(session, ctrlPrincipal, P4, 6);
+                atualiza = new ControlAtualizaFieldsPressao(session, ctrlPrincipal, P4, 6);
                 break;
             case "pressaoSaiCondensador":
                 P3 = Double.parseDouble(field.getSelectedItem().toString());
-                atualiza = new ControlAtualizaFieldsTemp(session, ctrlPrincipal, P3, 7);
+                atualiza = new ControlAtualizaFieldsPressao(session, ctrlPrincipal, P3, 7);
                 break;
             case "pressaoEntrBomba":
                 P4 = Double.parseDouble(field.getSelectedItem().toString());
-                atualiza = new ControlAtualizaFieldsTemp(session, ctrlPrincipal, P4, 8);
+                atualiza = new ControlAtualizaFieldsPressao(session, ctrlPrincipal, P4, 8);
                 break;
             case "pressaoSaiBomba":
                 P3 = Double.parseDouble(field.getSelectedItem().toString());
-                atualiza = new ControlAtualizaFieldsTemp(session, ctrlPrincipal, P3, 9);
+                atualiza = new ControlAtualizaFieldsPressao(session, ctrlPrincipal, P3, 9);
                 break;
             case "pressaoEntrRegenerador2":
                 P4 = Double.parseDouble(field.getSelectedItem().toString());
-                atualiza = new ControlAtualizaFieldsTemp(session, ctrlPrincipal, P4, 10);
+                atualiza = new ControlAtualizaFieldsPressao(session, ctrlPrincipal, P4, 10);
                 break;
             case "pressaoSaiRegenerador2":
                 P3 = Double.parseDouble(field.getSelectedItem().toString());
-                atualiza = new ControlAtualizaFieldsTemp(session, ctrlPrincipal, P3, 11);
+                atualiza = new ControlAtualizaFieldsPressao(session, ctrlPrincipal, P3, 11);
                 break;
             case "pressaoEntrEvaporador":
                 P4 = Double.parseDouble(field.getSelectedItem().toString());
-                atualiza = new ControlAtualizaFieldsTemp(session, ctrlPrincipal, P4, 12);
+                atualiza = new ControlAtualizaFieldsPressao(session, ctrlPrincipal, P4, 12);
                 break;
         }
     }
