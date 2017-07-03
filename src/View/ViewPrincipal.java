@@ -45,6 +45,8 @@ public class ViewPrincipal {
     private JPanel painelEntrada;
     private JTabbedPane tabbedPanelComp;
     
+    JFrame frameDados = new JFrame();
+    
     JLabel labelFluidos = new JLabel("Fluído");
     JComboBox<String> comboFluidos;
     
@@ -84,7 +86,7 @@ public class ViewPrincipal {
         painelLateral.add(labelFluidos);
         painelLateral.add(comboFluidos);
         painelLateral.add(painelEntrada);
-        painelLateral.add(tabbedPanelComp);
+        //painelLateral.add(tabbedPanelComp);
         //******************************************************************************
         
         painelPrincipal.add(painelLateral, BorderLayout.WEST);
@@ -97,6 +99,12 @@ public class ViewPrincipal {
         framePrincipal.setVisible(true);
         framePrincipal.setResizable(false);
         framePrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        frameDados.add(tabbedPanelComp);
+        frameDados.setResizable(false);
+        frameDados.setBounds(100, 100, 400, 600);
+        frameDados.setAlwaysOnTop(true);
+        frameDados.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         
         tabbedPanelComp.addChangeListener(new ChangeListener() {
             @Override
@@ -203,5 +211,13 @@ public class ViewPrincipal {
 
     public JTabbedPane getTabbedPanelComp() {
         return tabbedPanelComp;
+    }
+
+    public JFrame getFrameDados() {
+        return frameDados;
+    }
+
+    public void setFrameDados(JFrame frameDados) {
+        this.frameDados = frameDados;
     }
 }

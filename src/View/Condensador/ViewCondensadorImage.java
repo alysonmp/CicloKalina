@@ -47,6 +47,8 @@ public class ViewCondensadorImage extends JPanel{
                     panel.setBorder(null);
                 }
                 
+                ViewCondensadorImage.this.ctrlPrincipal.getViewPrincipal().getFrameDados().setVisible(true);
+                
                 //VERIFICA SE O PAINEL JÁ FOI ADICIONADO AO PAINEL LATERAL
                 if(ViewCondensadorImage.this.ctrlPrincipal.getPanel_usado().contains((JPanel)e.getSource())){
                     for(int i = 0; i < ViewCondensadorImage.this.ctrlPrincipal.getPanel_usado().size(); i++) {
