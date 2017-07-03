@@ -13,6 +13,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
@@ -23,6 +25,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
@@ -47,24 +50,11 @@ public class ViewPrincipal {
     
     JFrame frameDados = new JFrame();
     
-    JLabel labelFluidos = new JLabel("Fluído");
-    JComboBox<String> comboFluidos;
-    
     private ControlPrincipal ctrlPrincipal;
     
     public ViewPrincipal(ControlPrincipal ctrlPrincipal){
         
         this.ctrlPrincipal = ctrlPrincipal;
-        
-        List results = this.ctrlPrincipal.getFluidos();
-        Iterator iterator = results.iterator();
-        
-        Vector<String> fluidos = new Vector<>();
-        while(iterator.hasNext()){
-            fluidos.add((String) iterator.next());
-        }
-        comboFluidos = new JComboBox<String>(fluidos);
-        comboFluidos.setFont(new Font("Arial", 0, 13));
         
         //CRIA A BARRA DE MENU NO TOPO DO FRAME
         criaMenu();
@@ -76,15 +66,13 @@ public class ViewPrincipal {
         painelPrincipal = new JPanel(new BorderLayout());
         
         //PAINEL LATERAL ONDE SERÃO COLOCADOS TODOS OS DADOS DE ENTRADA PARA OS CÁLCULOS
-        Dimension dim = new Dimension(400, 800);
+        Dimension dim = new Dimension(430, 800);
         painelLateral.setPreferredSize(dim);
         
         painelEntrada = new JPanel();
         
         tabbedPanelComp = new JTabbedPane();
         
-        painelLateral.add(labelFluidos);
-        painelLateral.add(comboFluidos);
         painelLateral.add(painelEntrada);
         //painelLateral.add(tabbedPanelComp);
         //******************************************************************************
@@ -105,6 +93,41 @@ public class ViewPrincipal {
         frameDados.setBounds(100, 100, 400, 600);
         frameDados.setAlwaysOnTop(true);
         frameDados.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        
+        frameDados.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                Component[] components = painelCiclos.getComponents();
+                for(Component c:components){
+                    JPanel panel = (JPanel)c;
+                    panel.setBorder(null);
+                }
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+            }
+        });
         
         tabbedPanelComp.addChangeListener(new ChangeListener() {
             @Override
@@ -200,14 +223,6 @@ public class ViewPrincipal {
     public void setPainelEntrada(JPanel panelEntrada) {
         this.painelEntrada = panelEntrada;
     }
-
-    public JComboBox<String> getComboFluidos() {
-        return comboFluidos;
-    }
-
-    public void setComboFluidos(JComboBox<String> comboFluidos) {
-        this.comboFluidos = comboFluidos;
-    } 
 
     public JTabbedPane getTabbedPanelComp() {
         return tabbedPanelComp;
