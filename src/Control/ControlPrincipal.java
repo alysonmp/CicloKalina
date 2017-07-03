@@ -7,6 +7,7 @@ package Control;
 
 import Ciclo2.View.ViewLateral;
 import Control.Ciclo2.ControlT_Ref;
+import Control.Conversao.ControlConverte;
 import Control.TabelaFluidos.ControlButanoGas;
 import Control.TabelaFluidos.ControlButanoLiquido;
 import Control.TabelaFluidos.ControlD4Gas;
@@ -172,26 +173,26 @@ public class ControlPrincipal {
             session.save(new ModelFluidos(11, "Isopentano"));
             session.save(new ModelFluidos(12, "n-Butano"));
             session.save(new ModelFluidos(13, "n-Pentano"));
-            session.save(new ModelFluidos(14, "R-134a (1,1,1,2-Tetrafluoroethane)"));
-            session.save(new ModelFluidos(15, "R-290 (PROPANE)"));
-            session.save(new ModelFluidos(16, "R-142b (1,1-Difluoro-1-chloroethane)"));
-            session.save(new ModelFluidos(17, "R-1270 (1-Propene)"));
-            session.save(new ModelFluidos(18, "R-40  (Clorometano)"));
+            session.save(new ModelFluidos(14, "R-134a"));
+            session.save(new ModelFluidos(15, "R-290"));
+            session.save(new ModelFluidos(16, "R-142b"));
+            session.save(new ModelFluidos(17, "R-1270"));
+            session.save(new ModelFluidos(18, "R-40"));
             session.save(new ModelFluidos(19, "Hexamethyldisiloxane, (MM)"));
             session.save(new ModelFluidos(20, "Tetradecamethylhexasiloxane (MD4M)"));
             session.save(new ModelFluidos(21, "Octamethylcyclotetrasiloxane (D4)"));
             session.save(new ModelFluidos(22, "Decamethylcyclopentasiloxane (D5)"));
-            session.save(new ModelFluidos(23, "Trichlorofluoromethane (R11)"));
-            session.save(new ModelFluidos(24, "Dichlorodifluoromethane (R12)"));
-            session.save(new ModelFluidos(25, "1,3-Dichloro-1,1,2,2,3,3-hexafluoropropane (R216ca)"));
-            session.save(new ModelFluidos(26, "1,2-Dichlorotetrafluoroethane (R114)"));
-            session.save(new ModelFluidos(27, "1,1-Dichloro-1-fluoroethane (R141b)"));
-            session.save(new ModelFluidos(28, "1,1-Difluoroethane (R152a)"));
-            session.save(new ModelFluidos(29, "1-Chloro-1,1-difluoroethane (R142b)"));
+            session.save(new ModelFluidos(23, "R11"));
+            session.save(new ModelFluidos(24, "R12"));
+            session.save(new ModelFluidos(25, "R216ca"));
+            session.save(new ModelFluidos(26, "R114"));
+            session.save(new ModelFluidos(27, "R141b"));
+            session.save(new ModelFluidos(28, "R152a"));
+            session.save(new ModelFluidos(29, "R142b"));
             session.save(new ModelFluidos(30, "n-Hexane"));
             session.save(new ModelFluidos(31, "n-Heptane"));
             session.save(new ModelFluidos(32, "n-octane"));
-            session.save(new ModelFluidos(33, "Chlorodifluoromethane (R22)"));
+            session.save(new ModelFluidos(33, "R22"));
 
             tx.commit();
         }
@@ -843,6 +844,7 @@ public class ControlPrincipal {
         viewPrincipal.getPainelEntrada().add(viewLateral.getPainelDados());
         viewPrincipal.getFramePrincipal().revalidate();
         viewPrincipal.getFramePrincipal().repaint();
+        calculaLimites();
     }
     
     //FUNÇÃO QUE EDITA OS JPANELS ONDE SERÃO MOSTRADOS OS CICLOS E OS INSERE NO PAINEL
@@ -941,7 +943,7 @@ public class ControlPrincipal {
                 
         int comp = Integer.parseInt(viewLateral.getComboCompressores().getSelectedItem().toString());
                 
-        String fluNome = viewPrincipal.getComboFluidos().getSelectedItem().toString();
+        String fluNome = viewLateral.getComboFluidos().getSelectedItem().toString();
         int flu = getFluidoCod(fluNome);
 
         if(viewLateral.getFieldTemp().getEditor().getItem().toString().isEmpty()){
@@ -1037,7 +1039,7 @@ public class ControlPrincipal {
     
     public void calculaLimites() {
         Criteria cr = this.session.createCriteria(ModelFluidos.class);
-        cr.add(Restrictions.eq("nome", viewPrincipal.getComboFluidos().getSelectedItem()));
+        cr.add(Restrictions.eq("nome", viewLateral.getComboFluidos().getSelectedItem()));
         
         List results = cr.list();
         
@@ -1055,6 +1057,13 @@ public class ControlPrincipal {
         
         ControlT_Ref TRef = new ControlT_Ref(PMax, ii, session);
         TMax = TRef.getTref();
+        
+        ControlConverte controlConverte = new ControlConverte();
+        
+        viewLateral.getLabelLimitPressao().setText("Pressão Máxima: ");
+        viewLateral.getLabelLimitTemp().setText("Temperatura Máxima: ");
+        viewLateral.getFieldLimitPressao().setText(controlConverte.round(PMax,2)+"");
+        viewLateral.getFieldLimitTemp().setText(controlConverte.round(TMax,2)+"");
     }
     
     public void adicionaValoresCaixas(){

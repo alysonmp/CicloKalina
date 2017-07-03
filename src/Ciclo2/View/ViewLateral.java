@@ -41,6 +41,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -92,6 +93,9 @@ public class ViewLateral extends JPanel{
     
     private JLabel fieldLimitTemp = new JLabel("");
     private JLabel fieldLimitPressao = new JLabel("");
+    
+    JLabel labelFluidos = new JLabel("Fluído");
+    JComboBox<String> comboFluidos;
     
     //CHECKBOX
     JCheckBox checkSup = new JCheckBox("Superaquecimento");
@@ -172,7 +176,7 @@ public class ViewLateral extends JPanel{
         g.gridwidth = 1;
         g.fill = GridBagConstraints.HORIZONTAL;
         painelDados.add(comboPressao, g);
-        
+                
         g.gridx = 0;
         g.gridy = 4;
         g.gridwidth = 2;
@@ -191,93 +195,126 @@ public class ViewLateral extends JPanel{
         g.fill = GridBagConstraints.HORIZONTAL;
         painelDados.add(comboMassa, g);
         
+        JLabel labelSeparator = new JLabel();
+        labelSeparator.setFont(new Font("Times New Roman", 1, 12));
+        labelSeparator.setText("Dados de Operação");
+        
+        JSeparator separator = new JSeparator();
+        separator.setBackground(Color.BLACK);
+        
         g.gridx = 0;
         g.gridy = 5;
         g.gridwidth = 1;
+        g.insets = new Insets(10, 0, 10, 0);
+        g.fill = GridBagConstraints.HORIZONTAL;
+        painelDados.add(labelSeparator, g);
+        
+        g.gridx = 1;
+        g.gridy = 5;
+        g.gridwidth = 3;
+        g.fill = GridBagConstraints.HORIZONTAL;
+        painelDados.add(separator, g);
+        
+        List results = this.ctrlPrincipal.getFluidos();
+        Iterator iterator = results.iterator();
+        
+        Vector<String> fluidos = new Vector<>();
+        while(iterator.hasNext()){
+            fluidos.add((String) iterator.next());
+        }
+        comboFluidos = new JComboBox<String>(fluidos);
+        comboFluidos.setFont(new Font("Arial", 0, 11));
+        
+        g.gridx = 0;
+        g.gridy = 6;
+        g.gridwidth = 1;
+        g.insets = new Insets(0, 0, 0, 0);
+        g.fill = GridBagConstraints.HORIZONTAL;
+        painelDados.add(labelFluidos, g);
+        
+        g.gridx = 1;
+        g.gridy = 6;
+        g.gridwidth = 3;
+        g.fill = GridBagConstraints.HORIZONTAL;
+        painelDados.add(comboFluidos, g);
+        
+        g.gridx = 0;
+        g.gridy = 7;
+        g.gridwidth = 1;
+        g.insets = new Insets(0, 0, 0, 0);
         g.fill = GridBagConstraints.HORIZONTAL;
         painelDados.add(labelTempCond, g);
         
         g.gridx = 1;
-        g.gridy = 5;
+        g.gridy = 7;
         g.gridwidth = 2;
         g.fill = GridBagConstraints.HORIZONTAL;
         painelDados.add(fieldTempCond, g);
         
         g.gridx = 3;
-        g.gridy = 5;
+        g.gridy = 7;
         g.gridwidth = 1;
         g.fill = GridBagConstraints.HORIZONTAL;
         painelDados.add(comboTempCond, g);
         
         g.gridx = 0;
-        g.gridy = 6;
+        g.gridy = 8;
         g.gridwidth = 1;
-        g.fill = GridBagConstraints.HORIZONTAL;
-        painelDados.add(labelEfetiv, g);
-        
-        g.gridx = 1;
-        g.gridy = 6;
-        g.gridwidth = 2;
-        g.fill = GridBagConstraints.HORIZONTAL;
-        painelDados.add(fieldEfetiv, g);
-        
-        g.gridx = 0;
-        g.gridy = 7;
-        g.gridwidth = 1;
+        g.insets = new Insets(0, 0, 5, 0);
         g.fill = GridBagConstraints.HORIZONTAL;
         painelDados.add(checkSup, g);
         
         g.gridx = 1;
-        g.gridy = 7;
+        g.gridy = 8;
         g.gridwidth = 2;
         painelDados.add(fieldSup, g);
         
         g.gridx = 0;
-        g.gridy = 8;
+        g.gridy = 9;
         g.gridwidth = 1;
         painelDados.add(checkPinch, g);
         
         g.gridx = 1;
-        g.gridy = 8;
+        g.gridy = 9;
         g.gridwidth = 2;
         g.fill = GridBagConstraints.HORIZONTAL;
         painelDados.add(fieldPinch, g);
         
         g.gridx = 0;
-        g.gridy = 9;
+        g.gridy = 10;
         g.gridwidth = 3;
         painelDados.add(labelKm, g);
         
         g.gridx = 1;
-        g.gridy = 9;
+        g.gridy = 10;
         g.gridwidth = 2;
         g.fill = GridBagConstraints.HORIZONTAL;
         painelDados.add(fieldKm, g);
         
         g.gridx = 0;
-        g.gridy = 10;
+        g.gridy = 11;
         g.gridwidth = 3;
         g.insets = new Insets(20, 0, 0, 0);
         painelDados.add(labelLimitTemp, g);
         
         g.gridx = 3;
-        g.gridy = 10;
+        g.gridy = 11;
         g.gridwidth = 1;
         painelDados.add(fieldLimitTemp, g);
         
         g.gridx = 0;
-        g.gridy = 11;
+        g.gridy = 12;
         g.gridwidth = 3;
         g.insets = new Insets(10, 0, 0, 0);
         painelDados.add(labelLimitPressao, g);
         
         g.gridx = 3;
-        g.gridy = 11;
+        g.gridy = 12;
         g.gridwidth = 1;
         painelDados.add(fieldLimitPressao, g);
         
         g.gridx = 3;
-        g.gridy = 12;
+        g.gridy = 13;
         g.gridwidth = 1;
         g.fill = GridBagConstraints.HORIZONTAL;
         painelDados.add(botaoInicia, g);
@@ -289,7 +326,6 @@ public class ViewLateral extends JPanel{
         g.anchor = GridBagConstraints.PAGE_START;
         this.add(painelDados, g);
         
-        ctrlPrincipal.calculaLimites();
         labelLimitPressao.setText("Pressão Máxima: ");
         labelLimitTemp.setText("Temperatura Máxima: ");
         fieldLimitPressao.setText(controlConverte.round(ctrlPrincipal.getPMax(),2)+"");
@@ -795,7 +831,7 @@ public class ViewLateral extends JPanel{
             }
         });
         
-        ctrlPrincipal.getViewPrincipal().getComboFluidos().addActionListener(new ActionListener() {
+        comboFluidos.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 ctrlPrincipal.calculaLimites();
@@ -953,5 +989,29 @@ public class ViewLateral extends JPanel{
 
     public void setFieldKm(DropdownComboBox fieldKm) {
         this.fieldKm = fieldKm;
+    }
+    
+    public JComboBox<String> getComboFluidos() {
+        return comboFluidos;
+    }
+
+    public void setComboFluidos(JComboBox<String> comboFluidos) {
+        this.comboFluidos = comboFluidos;
+    } 
+
+    public JLabel getFieldLimitTemp() {
+        return fieldLimitTemp;
+    }
+
+    public void setFieldLimitTemp(JLabel fieldLimitTemp) {
+        this.fieldLimitTemp = fieldLimitTemp;
+    }
+
+    public JLabel getFieldLimitPressao() {
+        return fieldLimitPressao;
+    }
+
+    public void setFieldLimitPressao(JLabel fieldLimitPressao) {
+        this.fieldLimitPressao = fieldLimitPressao;
     }
 }
