@@ -307,7 +307,7 @@ public class ViewEvaporadorPanelRankine extends JPanel{
             }
             @Override
             public void focusLost(FocusEvent fe) {
-                fieldPressaoEntr.setSelectedItem(controlConverte.round(Double.parseDouble(fieldPressaoSai.getSelectedItem().toString()),precision));
+                fieldPressaoEntr.setSelectedItem(controlConverte.round(Double.parseDouble(fieldPressaoEntr.getSelectedItem().toString()),precision));
                 controlEvaporadorPanel.atualizaPressaoEntrada();   
                 controlEvaporadorPanel.getCtrlPrincipal().getStart().atualizaFieldsPressao(fieldPressaoEntr);
             }

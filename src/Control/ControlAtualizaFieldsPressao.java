@@ -133,7 +133,7 @@ public class ControlAtualizaFieldsPressao {
                 for(Component c: components){
                     if(c.getName().equals("Regenerador")){
                         ViewRegeneradorPanelRankine panel = (ViewRegeneradorPanelRankine)c;
-                        panel.getFieldPressaoEntr().setSelectedItem(valor);
+                        panel.getFieldPressaoEntr2().setSelectedItem(valor);
                         break;
                     }
                 }
@@ -166,7 +166,7 @@ public class ControlAtualizaFieldsPressao {
                 for(Component c: components){
                     if(c.getName().equals("Regenerador")){
                         ViewRegeneradorPanelRankine panel = (ViewRegeneradorPanelRankine)c;
-                        panel.getFieldPressaoSai().setSelectedItem(valor);
+                        panel.getFieldPressaoSai2().setSelectedItem(valor);
                         break;
                     }
                 }
@@ -445,27 +445,27 @@ public class ControlAtualizaFieldsPressao {
         Transaction tx = session.beginTransaction();
 
         for(int i = 0; i < result.size()-1; i++){
-            if(Objects.equals(((ModelRegenerador)result.get(i)).getPressaoEntr(), valor)){
+            if(Objects.equals(((ModelRegenerador)result.get(i)).getPressaoEntr2(), valor)){
                 return;
             }
         }
         
         if(result.size() < 5){
             ModelRegenerador m1 = new ModelRegenerador();
-            m1.setPressaoEntr(valor);
+            m1.setPressaoEntr2(valor);
             session.saveOrUpdate(m1);
         }else{
             for(int i = result.size()-1; i > 0; i--){
                 ModelRegenerador m1 = (ModelRegenerador) result.get(i);
                 ModelRegenerador m2 = (ModelRegenerador) result.get(i-1);
 
-                m1.setPressaoEntr(m2.getPressaoEntr());
+                m1.setPressaoEntr2(m2.getPressaoEntr2());
 
                 session.saveOrUpdate(m1);
             }
             
             ModelRegenerador m1 = (ModelRegenerador) result.get(0);
-            m1.setPressaoEntr(valor);
+            m1.setPressaoEntr2(valor);
 
             session.saveOrUpdate(m1);
         }
@@ -543,27 +543,27 @@ public class ControlAtualizaFieldsPressao {
         Transaction tx = session.beginTransaction();
 
         for(int i = 0; i < result.size()-1; i++){
-            if(Objects.equals(((ModelRegenerador)result.get(i)).getPressaoSai(), valor)){
+            if(Objects.equals(((ModelRegenerador)result.get(i)).getPressaoSai2(), valor)){
                 return;
             }
         }
         
         if(result.size() < 5){
             ModelRegenerador m1 = new ModelRegenerador();
-            m1.setPressaoSai(valor);
+            m1.setPressaoSai2(valor);
             session.saveOrUpdate(m1);
         }else{
             for(int i = result.size()-1; i > 0; i--){
                 ModelRegenerador m1 = (ModelRegenerador) result.get(i);
                 ModelRegenerador m2 = (ModelRegenerador) result.get(i-1);
 
-                m1.setPressaoSai(m2.getPressaoSai());
+                m1.setPressaoSai2(m2.getPressaoSai2());
 
                 session.saveOrUpdate(m1);
             }
 
             ModelRegenerador m1 = (ModelRegenerador) result.get(0);
-            m1.setPressaoSai(valor);
+            m1.setPressaoSai2(valor);
             session.saveOrUpdate(m1);
         }
         tx.commit();   

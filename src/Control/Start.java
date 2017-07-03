@@ -287,12 +287,12 @@ public class Start {
             ControlAtualizaFieldsTemp atualiza = new ControlAtualizaFieldsTemp(session, ctrlPrincipal, T2, 3);
         }
         
-        if(field.getName().equals("tempEntrRegenerador")){
+        if(field.getName().equals("tempEntrRegenerador1")){
             T2 = Double.parseDouble(field.getSelectedItem().toString());
             ControlAtualizaFieldsTemp atualiza = new ControlAtualizaFieldsTemp(session, ctrlPrincipal, T2, 4);
         }
         
-        if(field.getName().equals("tempSaiRegenerador")){
+        if(field.getName().equals("tempSaiRegenerador1")){
             T3 = Double.parseDouble(field.getSelectedItem().toString());
             ControlAtualizaFieldsTemp atualiza = new ControlAtualizaFieldsTemp(session, ctrlPrincipal, T3, 5);
         }
@@ -317,12 +317,12 @@ public class Start {
             ControlAtualizaFieldsTemp atualiza = new ControlAtualizaFieldsTemp(session, ctrlPrincipal, T5, 9);
         }
         
-        if(field.getName().equals("tempEntrRegenerador")){
+        if(field.getName().equals("tempEntrRegenerador2")){
             T5 = Double.parseDouble(field.getSelectedItem().toString());
             ControlAtualizaFieldsTemp atualiza = new ControlAtualizaFieldsTemp(session, ctrlPrincipal, T5, 10);
         }
         
-        if(field.getName().equals("tempSaiRegenerador")){
+        if(field.getName().equals("tempSaiRegenerador2")){
             T6 = Double.parseDouble(field.getSelectedItem().toString());
             ControlAtualizaFieldsTemp atualiza = new ControlAtualizaFieldsTemp(session, ctrlPrincipal, T6, 11);
         }
