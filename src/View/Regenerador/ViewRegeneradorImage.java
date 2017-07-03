@@ -42,6 +42,8 @@ public class ViewRegeneradorImage extends JPanel{
                     panel.setBorder(null);
                 }
                 
+                ViewRegeneradorImage.this.ctrlPrincipal.getViewPrincipal().getFrameDados().setVisible(true);
+                
                 //VERIFICA SE O PAINEL JÁ FOI ADICIONADO AO PAINEL LATERAL
                 if(ViewRegeneradorImage.this.ctrlPrincipal.getPanel_usado().contains((JPanel)e.getSource())){
                     for(int i = 0; i < ViewRegeneradorImage.this.ctrlPrincipal.getPanel_usado().size(); i++) {

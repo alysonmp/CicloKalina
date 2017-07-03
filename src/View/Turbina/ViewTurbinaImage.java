@@ -42,6 +42,8 @@ public class ViewTurbinaImage extends JPanel{
                     panel.setBorder(null);
                 }
                 
+                ViewTurbinaImage.this.ctrlPrincipal.getViewPrincipal().getFrameDados().setVisible(true);
+                
                 //VERIFICA SE O PAINEL JÁ FOI ADICIONADO AO PAINEL LATERAL
                 if(ViewTurbinaImage.this.ctrlPrincipal.getPanel_usado().contains((JPanel)e.getSource())){
                     for(int i = 0; i < ViewTurbinaImage.this.ctrlPrincipal.getPanel_usado().size(); i++) {
