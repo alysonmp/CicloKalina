@@ -43,6 +43,8 @@ public class ViewBombaImage extends JPanel{
                     panel.setBorder(null);
                 }
                 
+                ViewBombaImage.this.ctrlPrincipal.getViewPrincipal().getFrameDados().setVisible(true);
+                
                 //VERIFICA SE O PAINEL JÁ FOI ADICIONADO AO PAINEL LATERAL
                 if(ViewBombaImage.this.ctrlPrincipal.getPanel_usado().contains((JPanel)e.getSource())){
                     for(int i = 0; i < ViewBombaImage.this.ctrlPrincipal.getPanel_usado().size(); i++) {
