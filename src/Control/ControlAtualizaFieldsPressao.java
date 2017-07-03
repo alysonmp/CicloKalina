@@ -182,6 +182,7 @@ public class ControlAtualizaFieldsPressao {
 
         for(int i = 0; i < result.size()-1; i++){
             if(Objects.equals(((ModelTurbina)result.get(i)).getPressaoEntr(), valor)){
+                tx.commit();
                 return;
             }
         }
@@ -215,6 +216,7 @@ public class ControlAtualizaFieldsPressao {
 
         for(int i = 0; i < result.size()-1; i++){
             if(Objects.equals(((ModelEvaporador)result.get(i)).getPressaoSai(), valor)){
+                tx.commit();
                 return;
             }
         }
@@ -248,6 +250,7 @@ public class ControlAtualizaFieldsPressao {
 
         for(int i = 0; i < result.size()-1; i++){
             if(Objects.equals(((ModelRegenerador)result.get(i)).getPressaoEntr(), valor)){
+                tx.commit();
                 return;
             }
         }
@@ -281,6 +284,7 @@ public class ControlAtualizaFieldsPressao {
 
         for(int i = 0; i < result.size()-1; i++){
             if(Objects.equals(((ModelTurbina)result.get(i)).getPressaoSai(), valor)){
+                tx.commit();
                 return;
             }
         }
@@ -314,6 +318,7 @@ public class ControlAtualizaFieldsPressao {
 
         for(int i = 0; i < result.size()-1; i++){
             if(Objects.equals(((ModelCondensador)result.get(i)).getPressaoEntr(), valor)){
+                tx.commit();
                 return;
             }
         }
@@ -347,6 +352,7 @@ public class ControlAtualizaFieldsPressao {
 
         for(int i = 0; i < result.size()-1; i++){
             if(Objects.equals(((ModelRegenerador)result.get(i)).getPressaoSai(), valor)){
+                tx.commit();
                 return;
             }
         }
@@ -380,6 +386,7 @@ public class ControlAtualizaFieldsPressao {
 
         for(int i = 0; i < result.size()-1; i++){
             if(Objects.equals(((ModelBomba)result.get(i)).getPressaoEntr(), valor)){
+                tx.commit();
                 return;
             }
         }
@@ -413,6 +420,7 @@ public class ControlAtualizaFieldsPressao {
 
         for(int i = 0; i < result.size()-1; i++){
             if(Objects.equals(((ModelCondensador)result.get(i)).getPressaoSai(), valor)){
+                tx.commit();
                 return;
             }
         }
@@ -446,6 +454,7 @@ public class ControlAtualizaFieldsPressao {
 
         for(int i = 0; i < result.size()-1; i++){
             if(Objects.equals(((ModelRegenerador)result.get(i)).getPressaoEntr2(), valor)){
+                tx.commit();
                 return;
             }
         }
@@ -479,6 +488,7 @@ public class ControlAtualizaFieldsPressao {
 
         for(int i = 0; i < result.size()-1; i++){
             if(Objects.equals(((ModelBomba)result.get(i)).getPressaoSai(), valor)){
+                tx.commit();
                 return;
             }
         }
@@ -511,6 +521,7 @@ public class ControlAtualizaFieldsPressao {
 
         for(int i = 0; i < result.size()-1; i++){
             if(Objects.equals(((ModelEvaporador)result.get(i)).getPressaoEntr(), valor)){
+                tx.commit();
                 return;
             }
         }
@@ -544,6 +555,7 @@ public class ControlAtualizaFieldsPressao {
 
         for(int i = 0; i < result.size()-1; i++){
             if(Objects.equals(((ModelRegenerador)result.get(i)).getPressaoSai2(), valor)){
+                tx.commit();
                 return;
             }
         }

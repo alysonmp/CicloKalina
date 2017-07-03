@@ -134,7 +134,7 @@ public class ControlTurbinaPanelRankine {
         }
         
         Transaction tx = this.session.beginTransaction();
-        Vector<Double> tempEntr = new Vector<>();
+        Vector<Double> valores = new Vector<>();
         
         if(results.size() < 5){
             turbina = new ModelTurbina();
@@ -142,20 +142,18 @@ public class ControlTurbinaPanelRankine {
         }
          
         for(int i=results.size()-1; i>0; i--){
-            ModelTurbina lineDown = (ModelTurbina)results.get(i);
-            ModelTurbina lineUp = (ModelTurbina)results.get(i-1);
-            lineDown.setTemperaturaEntr(lineUp.getTemperaturaEntr());
-            session.saveOrUpdate(lineDown);
-            tempEntr.add(lineDown.getTemperaturaEntr());
+            ((ModelTurbina)results.get(i)).setTemperaturaEntr(((ModelTurbina)results.get(i-1)).getTemperaturaEntr());
+            session.saveOrUpdate((ModelTurbina)results.get(i));
+            valores.add(((ModelTurbina)results.get(i)).getTemperaturaEntr());
         }
         
         if(!results.isEmpty())
             turbina = (ModelTurbina)results.get(0);
-        tempEntr.add(value);
+        valores.add(value);
         turbina.setTemperaturaEntr(value);
         session.saveOrUpdate(turbina);
         
-        atualizaComboBox(tempEntr, viewTurbinaPanel.getFieldTempEntr());
+        atualizaComboBox(valores, viewTurbinaPanel.getFieldTempEntr());
         
         tx.commit();        
     }
@@ -184,7 +182,7 @@ public class ControlTurbinaPanelRankine {
         }
         
         Transaction tx = this.session.beginTransaction();
-        Vector<Double> tempSai= new Vector<>();
+        Vector<Double> valores= new Vector<>();
         
         if(results.size() < 5){
             turbina = new ModelTurbina();
@@ -192,20 +190,18 @@ public class ControlTurbinaPanelRankine {
         }
          
         for(int i=results.size()-1; i>0; i--){
-            ModelTurbina lineDown = (ModelTurbina)results.get(i);
-            ModelTurbina lineUp = (ModelTurbina)results.get(i-1);
-            lineDown.setTemperaturaSai(lineUp.getTemperaturaSai());
-            session.saveOrUpdate(lineDown);
-            tempSai.add(lineDown.getTemperaturaSai());
+            ((ModelTurbina)results.get(i)).setTemperaturaSai(((ModelTurbina)results.get(i-1)).getTemperaturaSai());
+            session.saveOrUpdate((ModelTurbina)results.get(i));
+            valores.add(((ModelTurbina)results.get(i)).getTemperaturaSai());
         }
         
         if(!results.isEmpty())
             turbina = (ModelTurbina)results.get(0);
-        tempSai.add(value);
+        valores.add(value);
         turbina.setTemperaturaSai(value);
         session.saveOrUpdate(turbina);
         
-        atualizaComboBox(tempSai, viewTurbinaPanel.getFieldTempSai());
+        atualizaComboBox(valores, viewTurbinaPanel.getFieldTempSai());
         
         tx.commit();        
     }
@@ -234,7 +230,7 @@ public class ControlTurbinaPanelRankine {
         }
         
         Transaction tx = this.session.beginTransaction();
-        Vector<Double> pressaoEntr= new Vector<>();
+        Vector<Double> valores= new Vector<>();
     
         if(results.size() < 5){
             turbina = new ModelTurbina();
@@ -242,20 +238,18 @@ public class ControlTurbinaPanelRankine {
         }
                 
         for(int i=results.size()-1; i>0; i--){
-            ModelTurbina lineDown = (ModelTurbina)results.get(i);
-            ModelTurbina lineUp = (ModelTurbina)results.get(i-1);
-            lineDown.setPressaoEntr(lineUp.getPressaoEntr());
-            session.saveOrUpdate(lineDown);
-            pressaoEntr.add(lineDown.getPressaoEntr());
+            ((ModelTurbina)results.get(i)).setPressaoEntr(((ModelTurbina)results.get(i-1)).getPressaoEntr());
+            session.saveOrUpdate((ModelTurbina)results.get(i));
+            valores.add(((ModelTurbina)results.get(i)).getPressaoEntr());
         }
         
         if(!results.isEmpty())
             turbina = (ModelTurbina)results.get(0);
-        pressaoEntr.add(value);
+        valores.add(value);
         turbina.setPressaoEntr(value);
         session.saveOrUpdate(turbina);
         
-        atualizaComboBox(pressaoEntr, viewTurbinaPanel.getFieldPressaoEntr());
+        atualizaComboBox(valores, viewTurbinaPanel.getFieldPressaoEntr());
         
         tx.commit();        
     }
@@ -284,7 +278,7 @@ public class ControlTurbinaPanelRankine {
         }
         
         Transaction tx = this.session.beginTransaction();
-        Vector<Double> pressaoSai= new Vector<>();
+        Vector<Double> valores= new Vector<>();
 
         if(results.size() < 5){
             turbina = new ModelTurbina();
@@ -292,20 +286,18 @@ public class ControlTurbinaPanelRankine {
         }
         
         for(int i=results.size()-1; i>0; i--){
-            ModelTurbina lineDown = (ModelTurbina)results.get(i);
-            ModelTurbina lineUp = (ModelTurbina)results.get(i-1);
-            lineDown.setPressaoSai(lineUp.getPressaoSai());
-            session.saveOrUpdate(lineDown);
-            pressaoSai.add(lineDown.getPressaoSai());
+            ((ModelTurbina)results.get(i)).setPressaoSai(((ModelTurbina)results.get(i-1)).getPressaoSai());
+            session.saveOrUpdate((ModelTurbina)results.get(i));
+            valores.add(((ModelTurbina)results.get(i)).getPressaoSai());
         }
         
         if(!results.isEmpty())
             turbina = (ModelTurbina)results.get(0);
-        pressaoSai.add(value);
+        valores.add(value);
         turbina.setPressaoSai(value);
         session.saveOrUpdate(turbina);
         
-        atualizaComboBox(pressaoSai, viewTurbinaPanel.getFieldPressaoSai());
+        atualizaComboBox(valores, viewTurbinaPanel.getFieldPressaoSai());
         
         tx.commit();        
     }
@@ -334,7 +326,7 @@ public class ControlTurbinaPanelRankine {
         }
         
         Transaction tx = this.session.beginTransaction();
-        Vector<Double> efetv = new Vector<>();
+        Vector<Double> valores = new Vector<>();
 
         if(results.size() < 5){
             regenerador = new ModelTurbina();
@@ -342,20 +334,18 @@ public class ControlTurbinaPanelRankine {
         }
          
         for(int i=results.size()-1; i>0; i--){
-            ModelTurbina lineDown = (ModelTurbina)results.get(i);
-            ModelTurbina lineUp = (ModelTurbina)results.get(i-1);
-            lineDown.setEficiencia(lineUp.getEficiencia());
-            session.saveOrUpdate(lineDown);
-            efetv.add(lineDown.getEficiencia());
+            ((ModelTurbina)results.get(i)).setEficiencia(((ModelTurbina)results.get(i-1)).getEficiencia());
+            session.saveOrUpdate((ModelTurbina)results.get(i));
+            valores.add(((ModelTurbina)results.get(i)).getEficiencia());
         }
         
         if(!results.isEmpty())
             regenerador = (ModelTurbina)results.get(0);
-        efetv.add(value);
+        valores.add(value);
         regenerador.setEficiencia(value);
         session.saveOrUpdate(regenerador);
         
-        atualizaComboBox(efetv, viewTurbinaPanel.getFieldEfici());
+        atualizaComboBox(valores, viewTurbinaPanel.getFieldEfici());
         
         tx.commit();
     }

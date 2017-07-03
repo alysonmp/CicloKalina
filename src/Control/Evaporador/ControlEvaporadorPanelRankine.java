@@ -138,7 +138,7 @@ public class ControlEvaporadorPanelRankine {
         }
         
         Transaction tx = this.session.beginTransaction();
-        Vector<Double> tempEntr = new Vector<>();
+        Vector<Double> valores = new Vector<>();
         
         if(results.size() < 5){
             evaporador = new ModelEvaporador();
@@ -146,20 +146,18 @@ public class ControlEvaporadorPanelRankine {
         }
          
         for(int i=results.size()-1; i>0; i--){
-            ModelEvaporador lineDown = (ModelEvaporador)results.get(i);
-            ModelEvaporador lineUp = (ModelEvaporador)results.get(i-1);
-            lineDown.setTemperaturaEntr(lineUp.getTemperaturaEntr());
-            session.saveOrUpdate(lineDown);
-            tempEntr.add(lineDown.getTemperaturaEntr());
+            ((ModelEvaporador)results.get(i)).setTemperaturaEntr(((ModelEvaporador)results.get(i-1)).getTemperaturaEntr());
+            session.saveOrUpdate((ModelEvaporador)results.get(i));
+            valores.add(((ModelEvaporador)results.get(i)).getTemperaturaEntr());
         }
         
         if(!results.isEmpty())
             evaporador = (ModelEvaporador)results.get(0);
-        tempEntr.add(value);
+        valores.add(value);
         evaporador.setTemperaturaEntr(value);
         session.saveOrUpdate(evaporador);
         
-        atualizaComboBox(tempEntr, viewEvaporadorPanel.getFieldTempEntr());
+        atualizaComboBox(valores, viewEvaporadorPanel.getFieldTempEntr());
         
         tx.commit();        
     }
@@ -188,7 +186,7 @@ public class ControlEvaporadorPanelRankine {
         }
         
         Transaction tx = this.session.beginTransaction();
-        Vector<Double> tempSai= new Vector<>();
+        Vector<Double> valores= new Vector<>();
         
         if(results.size() < 5){
             evaporador = new ModelEvaporador();
@@ -196,21 +194,19 @@ public class ControlEvaporadorPanelRankine {
         }
          
         for(int i=results.size()-1; i>0; i--){
-            ModelEvaporador lineDown = (ModelEvaporador)results.get(i);
-            ModelEvaporador lineUp = (ModelEvaporador)results.get(i-1);
-            lineDown.setTemperaturaSai(lineUp.getTemperaturaSai());
-            session.saveOrUpdate(lineDown);
-            tempSai.add(lineDown.getTemperaturaSai());
+            ((ModelEvaporador)results.get(i)).setTemperaturaSai(((ModelEvaporador)results.get(i-1)).getTemperaturaSai());
+            session.saveOrUpdate((ModelEvaporador)results.get(i));
+            valores.add(((ModelEvaporador)results.get(i)).getTemperaturaSai());
         }
         
         if(!results.isEmpty())
             evaporador = (ModelEvaporador)results.get(0);
-        tempSai.add(value);
+        valores.add(value);
         evaporador.setTemperaturaSai(value);
         session.saveOrUpdate(evaporador);
         
         JComboBox combo = viewEvaporadorPanel.getFieldTempSai();
-        atualizaComboBox(tempSai, combo);
+        atualizaComboBox(valores, combo);
         
         tx.commit();        
     }
@@ -239,7 +235,7 @@ public class ControlEvaporadorPanelRankine {
         }
         
         Transaction tx = this.session.beginTransaction();
-        Vector<Double> pressaoEntr= new Vector<>();
+        Vector<Double> valores= new Vector<>();
     
         if(results.size() < 5){
             evaporador = new ModelEvaporador();
@@ -247,21 +243,19 @@ public class ControlEvaporadorPanelRankine {
         }
                 
         for(int i=results.size()-1; i>0; i--){
-            ModelEvaporador lineDown = (ModelEvaporador)results.get(i);
-            ModelEvaporador lineUp = (ModelEvaporador)results.get(i-1);
-            lineDown.setPressaoEntr(lineUp.getPressaoEntr());
-            session.saveOrUpdate(lineDown);
-            pressaoEntr.add(lineDown.getPressaoEntr());
+            ((ModelEvaporador)results.get(i)).setPressaoEntr(((ModelEvaporador)results.get(i-1)).getPressaoEntr());
+            session.saveOrUpdate((ModelEvaporador)results.get(i));
+            valores.add(((ModelEvaporador)results.get(i)).getPressaoEntr());
         }
         
         if(!results.isEmpty())
             evaporador = (ModelEvaporador)results.get(0);
-        pressaoEntr.add(value);
+        valores.add(value);
         evaporador.setPressaoEntr(value);
         session.saveOrUpdate(evaporador);
         
         JComboBox combo = viewEvaporadorPanel.getFieldPressaoEntr();
-        atualizaComboBox(pressaoEntr, combo);
+        atualizaComboBox(valores, combo);
         
         tx.commit();        
     }
@@ -290,7 +284,7 @@ public class ControlEvaporadorPanelRankine {
         }
         
         Transaction tx = this.session.beginTransaction();
-        Vector<Double> pressaoSai= new Vector<>();
+        Vector<Double> valores= new Vector<>();
 
         if(results.size() < 5){
             evaporador = new ModelEvaporador();
@@ -298,21 +292,19 @@ public class ControlEvaporadorPanelRankine {
         }
         
         for(int i=results.size()-1; i>0; i--){
-            ModelEvaporador lineDown = (ModelEvaporador)results.get(i);
-            ModelEvaporador lineUp = (ModelEvaporador)results.get(i-1);
-            lineDown.setPressaoSai(lineUp.getPressaoSai());
-            session.saveOrUpdate(lineDown);
-            pressaoSai.add(lineDown.getPressaoSai());
+            ((ModelEvaporador)results.get(i)).setPressaoSai(((ModelEvaporador)results.get(i-1)).getPressaoSai());
+            session.saveOrUpdate((ModelEvaporador)results.get(i));
+            valores.add(((ModelEvaporador)results.get(i)).getPressaoSai());
         }
         
         if(!results.isEmpty())
             evaporador = (ModelEvaporador)results.get(0);
-        pressaoSai.add(value);
+        valores.add(value);
         evaporador.setPressaoSai(value);
         session.saveOrUpdate(evaporador);
         
         JComboBox combo = viewEvaporadorPanel.getFieldPressaoSai();
-        atualizaComboBox(pressaoSai, combo);
+        atualizaComboBox(valores, combo);
         
         tx.commit();        
     }
@@ -341,7 +333,7 @@ public class ControlEvaporadorPanelRankine {
         }
         
         Transaction tx = this.session.beginTransaction();
-        Vector<Double> deltaPressao= new Vector<>();
+        Vector<Double> valores= new Vector<>();
 
         if(results.size() < 5){
             evaporador = new ModelEvaporador();
@@ -349,21 +341,19 @@ public class ControlEvaporadorPanelRankine {
         }
          
         for(int i=results.size()-1; i>0; i--){
-            ModelEvaporador lineDown = (ModelEvaporador)results.get(i);
-            ModelEvaporador lineUp = (ModelEvaporador)results.get(i-1);
-            lineDown.setDeltaPressao(lineUp.getDeltaPressao());
-            session.saveOrUpdate(lineDown);
-            deltaPressao.add(lineDown.getDeltaPressao());
+            ((ModelEvaporador)results.get(i)).setDeltaPressao(((ModelEvaporador)results.get(i-1)).getDeltaPressao());
+            session.saveOrUpdate((ModelEvaporador)results.get(i));
+            valores.add(((ModelEvaporador)results.get(i)).getDeltaPressao());
         }
         
         if(!results.isEmpty())
             evaporador = (ModelEvaporador)results.get(0);
-        deltaPressao.add(value);
+        valores.add(value);
         evaporador.setDeltaPressao(value);
         session.saveOrUpdate(evaporador);
         
         JComboBox combo = viewEvaporadorPanel.getFieldDelta();
-        atualizaComboBox(deltaPressao, combo);
+        atualizaComboBox(valores, combo);
         
         tx.commit();        
     }
