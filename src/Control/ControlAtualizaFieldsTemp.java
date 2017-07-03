@@ -141,7 +141,7 @@ public class ControlAtualizaFieldsTemp {
                 for(Component c: components){
                     if(c.getName().equals("Regenerador")){
                         ViewRegeneradorPanelRankine panel = (ViewRegeneradorPanelRankine)c;
-                        panel.getFieldTempEntr().setSelectedItem(valor);
+                        panel.getFieldTempEntr2().setSelectedItem(valor);
                         break;
                     }
                 }
@@ -177,7 +177,7 @@ public class ControlAtualizaFieldsTemp {
                 for(Component c: components){
                     if(c.getName().equals("Regenerador")){
                         ViewRegeneradorPanelRankine panel = (ViewRegeneradorPanelRankine)c;
-                        panel.getFieldTempSai().setSelectedItem(valor);
+                        panel.getFieldTempSai2().setSelectedItem(valor);
                         break;
                     }
                 }
@@ -417,20 +417,20 @@ public class ControlAtualizaFieldsTemp {
 
         if(result.size() < 5){
             ModelRegenerador m1 = new ModelRegenerador();
-            m1.setTemperaturaEntr(valor);
+            m1.setTemperaturaEntr2(valor);
             session.saveOrUpdate(m1);
         }else{
             for(int i = result.size()-1; i > 0; i--){
                 ModelRegenerador m1 = (ModelRegenerador) result.get(i);
                 ModelRegenerador m2 = (ModelRegenerador) result.get(i-1);
 
-                m1.setTemperaturaEntr(m2.getTemperaturaEntr());
+                m1.setTemperaturaEntr2(m2.getTemperaturaEntr2());
 
                 session.saveOrUpdate(m1);
             }
 
             ModelRegenerador m1 = (ModelRegenerador) result.get(0);
-            m1.setTemperaturaEntr(valor);
+            m1.setTemperaturaEntr2(valor);
 
             session.saveOrUpdate(m1);
         }
@@ -501,20 +501,20 @@ public class ControlAtualizaFieldsTemp {
 
         if(result.size() < 5){
             ModelRegenerador m1 = new ModelRegenerador();
-            m1.setTemperaturaSai(valor);
+            m1.setTemperaturaSai2(valor);
             session.saveOrUpdate(m1);
         }else{
             for(int i = result.size()-1; i > 0; i--){
                 ModelRegenerador m1 = (ModelRegenerador) result.get(i);
                 ModelRegenerador m2 = (ModelRegenerador) result.get(i-1);
 
-                m1.setTemperaturaSai(m2.getTemperaturaSai());
+                m1.setTemperaturaSai2(m2.getTemperaturaSai2());
 
                 session.saveOrUpdate(m1);
             }
 
             ModelRegenerador m1 = (ModelRegenerador) result.get(0);
-            m1.setTemperaturaSai(valor);
+            m1.setTemperaturaSai2(valor);
 
             session.saveOrUpdate(m1);
         }

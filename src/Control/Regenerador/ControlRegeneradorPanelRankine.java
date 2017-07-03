@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Control.Regenerador;
 
 import Control.ControlPrincipal;
@@ -58,8 +53,12 @@ public class ControlRegeneradorPanelRankine {
             ModelRegenerador regenerador = (ModelRegenerador)results.get(i);
             this.viewRegeneradorPanel.getFieldTempEntr().addItem(regenerador.getTemperaturaEntr());
             this.viewRegeneradorPanel.getFieldTempSai().addItem(regenerador.getTemperaturaSai());
+            this.viewRegeneradorPanel.getFieldTempEntr2().addItem(regenerador.getTemperaturaEntr2());
+            this.viewRegeneradorPanel.getFieldTempSai2().addItem(regenerador.getTemperaturaSai2());
             this.viewRegeneradorPanel.getFieldPressaoEntr().addItem(regenerador.getPressaoEntr());
             this.viewRegeneradorPanel.getFieldPressaoSai().addItem(regenerador.getPressaoSai());
+            this.viewRegeneradorPanel.getFieldPressaoEntr2().addItem(regenerador.getPressaoEntr2());
+            this.viewRegeneradorPanel.getFieldPressaoSai2().addItem(regenerador.getPressaoSai2());
             this.viewRegeneradorPanel.getFieldDelta().addItem(regenerador.getDelaPressao());
             this.viewRegeneradorPanel.getFieldEfetiv().addItem(regenerador.getEfetividade());
         }
@@ -146,11 +145,9 @@ public class ControlRegeneradorPanelRankine {
         }
          
         for(int i=results.size()-1; i>0; i--){
-            ModelRegenerador lineDown = (ModelRegenerador)results.get(i);
-            ModelRegenerador lineUp = (ModelRegenerador)results.get(i-1);
-            lineDown.setTemperaturaEntr(lineUp.getTemperaturaEntr());
-            session.saveOrUpdate(lineDown);
-            tempEntr.add(lineDown.getTemperaturaEntr());
+            ((ModelRegenerador)results.get(i)).setTemperaturaEntr(((ModelRegenerador)results.get(i-1)).getTemperaturaEntr());
+            session.saveOrUpdate((ModelRegenerador)results.get(i));
+            tempEntr.add(((ModelRegenerador)results.get(i)).getTemperaturaEntr());
         }
         
         if(!results.isEmpty())
@@ -160,6 +157,54 @@ public class ControlRegeneradorPanelRankine {
         session.saveOrUpdate(regenerador);
         
         atualizaComboBox(tempEntr, viewRegeneradorPanel.getFieldTempEntr());
+        
+        tx.commit();        
+    }
+    
+    public void atualizaTempEntrada2(){ 
+        if(viewRegeneradorPanel.getFieldTempEntr2().getSelectedItem().equals("")){
+            return;
+        }
+        
+        Double value = null;
+        try{          
+            value = Double.parseDouble(viewRegeneradorPanel.getFieldTempEntr2().getSelectedItem().toString());
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null, e);
+            return;
+        }
+        
+        Criteria cr = this.session.createCriteria(ModelRegenerador.class);
+        List results = cr.list();
+        ModelRegenerador regenerador = null;
+
+        for(int i=0;i<results.size();i++){
+            if(Objects.equals(value, ((ModelRegenerador)results.get(i)).getTemperaturaEntr2())){
+                return;
+            }
+        }
+        
+        Transaction tx = this.session.beginTransaction();
+        Vector<Double> tempEntr = new Vector<>();
+        
+        if(results.size() < 5){
+            regenerador = new ModelRegenerador();
+            session.save(regenerador);
+        }
+         
+        for(int i=results.size()-1; i>0; i--){
+            ((ModelRegenerador)results.get(i)).setTemperaturaEntr2(((ModelRegenerador)results.get(i-1)).getTemperaturaEntr2());
+            session.saveOrUpdate((ModelRegenerador)results.get(i));
+            tempEntr.add(((ModelRegenerador)results.get(i)).getTemperaturaEntr2());
+        }
+        
+        if(!results.isEmpty())
+            regenerador = (ModelRegenerador)results.get(0);
+        tempEntr.add(value);
+        regenerador.setTemperaturaEntr2(value);
+        session.saveOrUpdate(regenerador);
+        
+        atualizaComboBox(tempEntr, viewRegeneradorPanel.getFieldTempEntr2());
         
         tx.commit();        
     }
@@ -214,6 +259,56 @@ public class ControlRegeneradorPanelRankine {
         tx.commit();        
     }
     
+    public void atualizaTempSaida2(){
+        if(viewRegeneradorPanel.getFieldTempSai2().getSelectedItem().equals("")){
+            return;
+        }
+        
+        Double value = null;
+        try{          
+            value = Double.parseDouble(viewRegeneradorPanel.getFieldTempSai2().getSelectedItem().toString());
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null, e);
+            return;
+        }
+        
+        Criteria cr = this.session.createCriteria(ModelRegenerador.class);
+        List results = cr.list();
+        ModelRegenerador regenerador = null;
+
+        for(int i=0;i<results.size();i++){
+            if(Objects.equals(value, ((ModelRegenerador)results.get(i)).getTemperaturaSai2())){
+                return;
+            }
+        }
+        
+        Transaction tx = this.session.beginTransaction();
+        Vector<Double> tempSai= new Vector<>();
+        
+        if(results.size() < 5){
+            regenerador = new ModelRegenerador();
+            session.save(regenerador);
+        }
+         
+        for(int i=results.size()-1; i>0; i--){
+            ModelRegenerador lineDown = (ModelRegenerador)results.get(i);
+            ModelRegenerador lineUp = (ModelRegenerador)results.get(i-1);
+            lineDown.setTemperaturaSai2(lineUp.getTemperaturaSai2());
+            session.saveOrUpdate(lineDown);
+            tempSai.add(lineDown.getTemperaturaSai2());
+        }
+        
+        if(!results.isEmpty())
+            regenerador = (ModelRegenerador)results.get(0);
+        tempSai.add(value);
+        regenerador.setTemperaturaSai2(value);
+        session.saveOrUpdate(regenerador);
+        
+        atualizaComboBox(tempSai, viewRegeneradorPanel.getFieldTempSai2());
+        
+        tx.commit();        
+    }
+    
     public void atualizaPressaoEntrada(){ 
         if(viewRegeneradorPanel.getFieldPressaoEntr().getSelectedItem().equals("")){
             return;
@@ -264,6 +359,56 @@ public class ControlRegeneradorPanelRankine {
         tx.commit();        
     }
     
+    public void atualizaPressaoEntrada2(){ 
+        if(viewRegeneradorPanel.getFieldPressaoEntr2().getSelectedItem().equals("")){
+            return;
+        }
+        
+        Double value = null;
+        try{          
+            value = Double.parseDouble(viewRegeneradorPanel.getFieldPressaoEntr2().getSelectedItem().toString());
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null, e);
+            return;
+        }
+        
+        Criteria cr = this.session.createCriteria(ModelRegenerador.class);
+        List results = cr.list();
+        ModelRegenerador regenerador = null;
+
+        for(int i=0;i<results.size();i++){
+            if(Objects.equals(value, ((ModelRegenerador)results.get(i)).getPressaoEntr2())){
+                return;
+            }
+        }
+        
+        Transaction tx = this.session.beginTransaction();
+        Vector<Double> pressaoEntr= new Vector<>();
+    
+        if(results.size() < 5){
+            regenerador = new ModelRegenerador();
+            session.save(regenerador);
+        }
+                
+        for(int i=results.size()-1; i>0; i--){
+            ModelRegenerador lineDown = (ModelRegenerador)results.get(i);
+            ModelRegenerador lineUp = (ModelRegenerador)results.get(i-1);
+            lineDown.setPressaoEntr2(lineUp.getPressaoEntr2());
+            session.saveOrUpdate(lineDown);
+            pressaoEntr.add(lineDown.getPressaoEntr2());
+        }
+        
+        if(!results.isEmpty())
+            regenerador = (ModelRegenerador)results.get(0);
+        pressaoEntr.add(value);
+        regenerador.setPressaoEntr2(value);
+        session.saveOrUpdate(regenerador);
+        
+        atualizaComboBox(pressaoEntr, viewRegeneradorPanel.getFieldPressaoEntr2());
+        
+        tx.commit();        
+    }
+    
     public void atualizaPressaoSaida(){  
         if(viewRegeneradorPanel.getFieldPressaoSai().getSelectedItem().equals("")){
             return;
@@ -310,6 +455,56 @@ public class ControlRegeneradorPanelRankine {
         session.saveOrUpdate(regenerador);
         
         atualizaComboBox(pressaoSai, viewRegeneradorPanel.getFieldPressaoSai());
+        
+        tx.commit();        
+    }
+    
+    public void atualizaPressaoSaida2(){  
+        if(viewRegeneradorPanel.getFieldPressaoSai2().getSelectedItem().equals("")){
+            return;
+        }
+        
+        Double value = null;
+        try{          
+            value = Double.parseDouble(viewRegeneradorPanel.getFieldPressaoSai2().getSelectedItem().toString());
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null, e);
+            return;
+        }
+
+        Criteria cr = this.session.createCriteria(ModelRegenerador.class);
+        List results = cr.list();
+        ModelRegenerador regenerador = null;
+
+        for(int i=0;i<results.size();i++){
+            if(Objects.equals(value, ((ModelRegenerador)results.get(i)).getPressaoSai2())){
+                return;
+            }
+        }
+        
+        Transaction tx = this.session.beginTransaction();
+        Vector<Double> pressaoSai= new Vector<>();
+
+        if(results.size() < 5){
+            regenerador = new ModelRegenerador();
+            session.save(regenerador);
+        }
+        
+        for(int i=results.size()-1; i>0; i--){
+            ModelRegenerador lineDown = (ModelRegenerador)results.get(i);
+            ModelRegenerador lineUp = (ModelRegenerador)results.get(i-1);
+            lineDown.setPressaoSai2(lineUp.getPressaoSai2());
+            session.saveOrUpdate(lineDown);
+            pressaoSai.add(lineDown.getPressaoSai2());
+        }
+        
+        if(!results.isEmpty())
+            regenerador = (ModelRegenerador)results.get(0);
+        pressaoSai.add(value);
+        regenerador.setPressaoSai2(value);
+        session.saveOrUpdate(regenerador);
+        
+        atualizaComboBox(pressaoSai, viewRegeneradorPanel.getFieldPressaoSai2());
         
         tx.commit();        
     }
