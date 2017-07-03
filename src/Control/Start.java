@@ -9,7 +9,6 @@ import Control.Ciclo2.ControlAreas;
 import Control.Ciclo2.ControlBalanco;
 import Control.Ciclo2.ControlBomba;
 import Control.Ciclo2.ControlConeff;
-import Control.Ciclo2.ControlDiamTH17;
 import Control.Ciclo2.ControlEvpeff;
 import Control.Ciclo2.ControlMassa;
 import Control.Ciclo2.ControlParametros;
@@ -18,15 +17,8 @@ import Control.Ciclo2.ControlRegenerador;
 import Control.Ciclo2.ControlSF;
 import Control.Ciclo2.ControlT_Ref;
 import Control.Ciclo2.ControlTurbina;
-import Model.Ciclo2.ModelBomba;
 import Util.DropdownComboBox;
-import View.Bomba.ViewBombaPanelRankine;
-import java.awt.Component;
-import java.util.List;
-import java.util.Vector;
-import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 /**
  *
@@ -50,7 +42,7 @@ public class Start {
     public void iniciaCalculos(int compressor, int flu, double Tf, double Pf, double mf, double SUP, double PINCH, double Tconop, double eff, double km, int FON){
         double Ve = 0.6;
         this.ctrlPrincipal = ctrlPrincipal;
-        this.eff = eff;
+        this.eff = ctrlPrincipal.getEff();
         mensagem = "";
         
         //flu=14;
@@ -73,8 +65,8 @@ public class Start {
         double Pcri = parametros.getPcri();
 
         double G = 1;
-        Beff = 0.8;
-        double Teff = 0.8;
+        Beff = ctrlPrincipal.getBeff();
+        double Teff = ctrlPrincipal.getTeff();
         
         this.session = session;
         if(compressor == 5){

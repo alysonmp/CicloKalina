@@ -384,6 +384,7 @@ public class ViewTurbinaPanelRankine extends JPanel{
                 fieldEfici.setSelectedItem(controlConverte.round(Double.parseDouble(fieldEfici.getSelectedItem().toString()),precision));
                 controlTurbinaPanel.atualizaPressaoSaida();
                 ctrlPrincipal.getStart().atualizaFieldsPressao(fieldPressaoSai);
+                ctrlPrincipal.setTeff(controlConverte.round(Double.parseDouble(fieldEfici.getSelectedItem().toString()),precision));
             }
         });
         fieldEfici.getEditor().getEditorComponent().addKeyListener(new KeyListener() {

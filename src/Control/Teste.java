@@ -37,7 +37,7 @@ public class Teste {
                 }
                 
                 System.out.println("\n\n"+valores[0]+" "+(int)valores[5]+" "+(int)valores[7]+" "+valores[3]+" "+valores[2]+" "+valores[1]+" "+valores[6]+" "+valores[4]);
-                Start start = new Start((int)valores[5], (int)valores[7], valores[3], 1000, valores[2], valores[1], 313.15, valores[6], valores[4], session, ctrlPrincipal);
+                /*Start start = new Start((int)valores[5], (int)valores[7], valores[3], 1000, valores[2], valores[1], 313.15, valores[6], valores[4], session, ctrlPrincipal);
 
                 System.out.println(converte.round(start.getAT(), 3) +" "+converte.round(valores[8], 3));
                 System.out.println(converte.round(start.getQevp(), 3)+" "+converte.round(valores[19], 3));
@@ -50,7 +50,7 @@ public class Teste {
                     System.out.println("linha "+linha+" correta");
                 }
                 linha++;
-                
+                */
             }
 
         }catch(FileNotFoundException e){
