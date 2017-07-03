@@ -325,6 +325,7 @@ public class ViewBombaPanelRankine extends JPanel{
             public void focusLost(FocusEvent e) {
                 fieldPressaoEntr.setSelectedItem(controlConverte.round(Double.parseDouble(fieldPressaoEntr.getSelectedItem().toString()),precision));
                 ctrlBomba.atualizaPressaoEntrada();
+                ctrlBomba.getCtrPrincipal().getStart().atualizaFieldsPressao(fieldPressaoEntr);
             }
         });
         fieldPressaoEntr.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
@@ -354,6 +355,7 @@ public class ViewBombaPanelRankine extends JPanel{
             public void focusLost(FocusEvent e) {
                 fieldPressaoSai.setSelectedItem(controlConverte.round(Double.parseDouble(fieldPressaoSai.getSelectedItem().toString()),precision));
                 ctrlBomba.atualizaPressaoSaida();
+                ctrlBomba.getCtrPrincipal().getStart().atualizaFieldsPressao(fieldPressaoSai);
             }
         });
         fieldPressaoSai.getEditor().getEditorComponent().addKeyListener(new KeyListener() {

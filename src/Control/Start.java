@@ -287,12 +287,12 @@ public class Start {
             ControlAtualizaFieldsTemp atualiza = new ControlAtualizaFieldsTemp(session, ctrlPrincipal, T2, 3);
         }
         
-        if(field.getName().equals("tempEntrRegenerador")){
+        if(field.getName().equals("tempEntrRegenerador1")){
             T2 = Double.parseDouble(field.getSelectedItem().toString());
             ControlAtualizaFieldsTemp atualiza = new ControlAtualizaFieldsTemp(session, ctrlPrincipal, T2, 4);
         }
         
-        if(field.getName().equals("tempSaiRegenerador")){
+        if(field.getName().equals("tempSaiRegenerador1")){
             T3 = Double.parseDouble(field.getSelectedItem().toString());
             ControlAtualizaFieldsTemp atualiza = new ControlAtualizaFieldsTemp(session, ctrlPrincipal, T3, 5);
         }
@@ -317,12 +317,12 @@ public class Start {
             ControlAtualizaFieldsTemp atualiza = new ControlAtualizaFieldsTemp(session, ctrlPrincipal, T5, 9);
         }
         
-        if(field.getName().equals("tempEntrRegenerador")){
+        if(field.getName().equals("tempEntrRegenerador2")){
             T5 = Double.parseDouble(field.getSelectedItem().toString());
             ControlAtualizaFieldsTemp atualiza = new ControlAtualizaFieldsTemp(session, ctrlPrincipal, T5, 10);
         }
         
-        if(field.getName().equals("tempSaiRegenerador")){
+        if(field.getName().equals("tempSaiRegenerador2")){
             T6 = Double.parseDouble(field.getSelectedItem().toString());
             ControlAtualizaFieldsTemp atualiza = new ControlAtualizaFieldsTemp(session, ctrlPrincipal, T6, 11);
         }
@@ -330,6 +330,60 @@ public class Start {
         if(field.getName().equals("tempEntrEvaporador")){
             T6 = Double.parseDouble(field.getSelectedItem().toString());
             ControlAtualizaFieldsTemp atualiza = new ControlAtualizaFieldsTemp(session, ctrlPrincipal, T6, 12);
+        }
+    }
+    
+    public void atualizaFieldsPressao(DropdownComboBox field){
+        ControlAtualizaFieldsPressao atualiza;
+        switch(field.getName()){
+            case "pressaoSaiEvaporador":
+                P3 = Double.parseDouble(field.getSelectedItem().toString());
+                atualiza = new ControlAtualizaFieldsPressao(session, ctrlPrincipal, P3, 1);
+                break;
+            case "pressaoEntrTurbuna":
+                P4 = Double.parseDouble(field.getSelectedItem().toString());
+                atualiza = new ControlAtualizaFieldsPressao(session, ctrlPrincipal, P4, 2);
+                break;
+            case "pressaoSaiTurbina":
+                P3 = Double.parseDouble(field.getSelectedItem().toString());
+                atualiza = new ControlAtualizaFieldsPressao(session, ctrlPrincipal, P3, 3);
+                break;
+            case "pressaoEntrRegenerador1":
+                P4 = Double.parseDouble(field.getSelectedItem().toString());
+                atualiza = new ControlAtualizaFieldsPressao(session, ctrlPrincipal, P4, 4);
+                break;
+            case "pressaoSaiRegenerador1":
+                P3 = Double.parseDouble(field.getSelectedItem().toString());
+                atualiza = new ControlAtualizaFieldsPressao(session, ctrlPrincipal, P3, 5);
+                break;
+            case "pressaoEntrCondensador":
+                P4 = Double.parseDouble(field.getSelectedItem().toString());
+                atualiza = new ControlAtualizaFieldsPressao(session, ctrlPrincipal, P4, 6);
+                break;
+            case "pressaoSaiCondensador":
+                P3 = Double.parseDouble(field.getSelectedItem().toString());
+                atualiza = new ControlAtualizaFieldsPressao(session, ctrlPrincipal, P3, 7);
+                break;
+            case "pressaoEntrBomba":
+                P4 = Double.parseDouble(field.getSelectedItem().toString());
+                atualiza = new ControlAtualizaFieldsPressao(session, ctrlPrincipal, P4, 8);
+                break;
+            case "pressaoSaiBomba":
+                P3 = Double.parseDouble(field.getSelectedItem().toString());
+                atualiza = new ControlAtualizaFieldsPressao(session, ctrlPrincipal, P3, 9);
+                break;
+            case "pressaoEntrRegenerador2":
+                P4 = Double.parseDouble(field.getSelectedItem().toString());
+                atualiza = new ControlAtualizaFieldsPressao(session, ctrlPrincipal, P4, 10);
+                break;
+            case "pressaoSaiRegenerador2":
+                P3 = Double.parseDouble(field.getSelectedItem().toString());
+                atualiza = new ControlAtualizaFieldsPressao(session, ctrlPrincipal, P3, 11);
+                break;
+            case "pressaoEntrEvaporador":
+                P4 = Double.parseDouble(field.getSelectedItem().toString());
+                atualiza = new ControlAtualizaFieldsPressao(session, ctrlPrincipal, P4, 12);
+                break;
         }
     }
 
