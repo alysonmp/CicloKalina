@@ -93,14 +93,12 @@ public class ViewRegeneradorPanelRankine extends JPanel{
     private JPanel painelSaida;
     private JPanel painelEntrada2;
     private JPanel painelSaida2;
-    
-    ControlRegeneradorPanelRankine ctrlRegenerador;
-    
+        
     private ControlConverte controlConverte = new ControlConverte();
     
     private final int precision = 2;
     
-    public ViewRegeneradorPanelRankine(ControlRegeneradorPanelRankine controlRegeneradorPanel){
+    public ViewRegeneradorPanelRankine(ControlRegeneradorPanelRankine ctrlRegenerador){
         fieldTempSai.setName("tempSaiRegenerador1");
         fieldTempEntr.setName("tempEntrRegenerador1");
         fieldPressaoEntr.setName("pressaoEntrRegenerador1");
@@ -109,9 +107,7 @@ public class ViewRegeneradorPanelRankine extends JPanel{
         fieldTempEntr2.setName("tempEntrRegenerador2");
         fieldPressaoEntr2.setName("pressaoEntrRegenerador2");
         fieldPressaoSai2.setName("pressaoSaiRegenerador2");
-        
-        this.ctrlRegenerador = controlRegeneradorPanel;
-        
+                
         painelDados = new JPanel(new GridBagLayout());
         painelEntrada = new JPanel(new GridBagLayout());
         painelSaida = new JPanel(new GridBagLayout());
@@ -405,7 +401,7 @@ public class ViewRegeneradorPanelRankine extends JPanel{
             public void focusLost(FocusEvent e) {
                 fieldTempEntr.setSelectedItem(controlConverte.round(Double.parseDouble(fieldTempEntr.getSelectedItem().toString()),precision));
                 ctrlRegenerador.atualizaTempEntrada();
-                controlRegeneradorPanel.getCtrlPrincipal().getStart().autalizaFieldsTemp(fieldTempEntr);
+                ctrlRegenerador.getCtrlPrincipal().getStart().autalizaFieldsTemp(fieldTempEntr);
             }
         });fieldTempEntr.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
             @Override
@@ -434,7 +430,7 @@ public class ViewRegeneradorPanelRankine extends JPanel{
             public void focusLost(FocusEvent e) {
                 fieldTempSai.setSelectedItem(controlConverte.round(Double.parseDouble(fieldTempSai.getSelectedItem().toString()),precision));
                 ctrlRegenerador.atualizaTempSaida();
-                controlRegeneradorPanel.getCtrlPrincipal().getStart().autalizaFieldsTemp(fieldTempSai);
+                ctrlRegenerador.getCtrlPrincipal().getStart().autalizaFieldsTemp(fieldTempSai);
             }
         });
         fieldTempSai.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
@@ -524,7 +520,7 @@ public class ViewRegeneradorPanelRankine extends JPanel{
             public void focusLost(FocusEvent e) {
                 fieldTempEntr2.setSelectedItem(controlConverte.round(Double.parseDouble(fieldTempEntr2.getSelectedItem().toString()),precision));
                 ctrlRegenerador.atualizaTempEntrada2();
-                controlRegeneradorPanel.getCtrlPrincipal().getStart().autalizaFieldsTemp(fieldTempEntr2);
+                ctrlRegenerador.getCtrlPrincipal().getStart().autalizaFieldsTemp(fieldTempEntr2);
             }
         });
         fieldTempEntr2.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
@@ -553,7 +549,7 @@ public class ViewRegeneradorPanelRankine extends JPanel{
             public void focusLost(FocusEvent e) {
                 fieldTempSai2.setSelectedItem(controlConverte.round(Double.parseDouble(fieldTempSai2.getSelectedItem().toString()),precision));
                 ctrlRegenerador.atualizaTempSaida2();
-                controlRegeneradorPanel.getCtrlPrincipal().getStart().autalizaFieldsTemp(fieldTempSai2);
+                ctrlRegenerador.getCtrlPrincipal().getStart().autalizaFieldsTemp(fieldTempSai2);
             }
         });
         fieldTempSai2.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
@@ -773,6 +769,81 @@ public class ViewRegeneradorPanelRankine extends JPanel{
                     String valor = fieldPressaoSai.getSelectedItem().toString();
                     if(!valor.isEmpty()){
                         fieldPressaoSai.setSelectedItem(String.valueOf(controlConverte.converte(tipo[0],tipo[1],Double.parseDouble(valor))));                        
+                    } 
+                    tip = 0;
+                }
+            }
+        });
+        
+        comboTempEntr2.addItemListener(new ItemListener() {
+            String[] tipo = new String[2];
+            int tip = 0;
+            
+            @Override
+            public void itemStateChanged(ItemEvent ie) {
+                
+                tipo[tip] = ie.getItem().toString();
+                tip++;
+                if(tip == 2){
+                    String valor = fieldTempEntr2.getSelectedItem().toString();
+                    if(!valor.isEmpty()){
+                        fieldTempEntr2.setSelectedItem(String.valueOf(controlConverte.converte(tipo[0],tipo[1],Double.parseDouble(valor))));                        
+                    } 
+                    tip = 0;
+                }
+            }
+        });
+        
+        comboTempSai2.addItemListener(new ItemListener() {
+            String[] tipo = new String[2];
+            int tip = 0;
+            
+            @Override
+            public void itemStateChanged(ItemEvent ie) {
+                tipo[tip] = ie.getItem().toString();
+                tip++;
+                if(tip == 2){
+                    String valor = fieldTempSai2.getSelectedItem().toString();
+                    if(!valor.isEmpty()){
+                        fieldTempSai2.setSelectedItem(String.valueOf(controlConverte.converte(tipo[0],tipo[1],Double.parseDouble(valor))));                        
+                    } 
+                    tip = 0;
+                }
+            }
+        });
+        
+        comboPressaoEntr2.addItemListener(new ItemListener() {
+            String[] tipo = new String[2];
+            int tip = 0;
+            
+            @Override
+            public void itemStateChanged(ItemEvent ie) {
+                
+                tipo[tip] = ie.getItem().toString();
+                tip++;
+                if(tip == 2){
+                    String valor = fieldPressaoEntr2.getSelectedItem().toString();
+                    if(!valor.isEmpty()){
+                        fieldPressaoEntr2.setSelectedItem(String.valueOf(controlConverte.converte(tipo[0],tipo[1],Double.parseDouble(valor)))); 
+                    } 
+                    tip = 0;
+                }
+            }
+        });
+        
+        comboPressaoSai2.addItemListener(new ItemListener() {
+            String[] tipo = new String[2];
+            int tip = 0;
+            
+            @Override
+            public void itemStateChanged(ItemEvent ie) {
+                
+                tipo[tip] = ie.getItem().toString();
+                tip++;
+                if(tip == 2){
+                    String valor = fieldPressaoSai2.getSelectedItem().toString();
+                    if(!valor.isEmpty()){
+                        fieldPressaoSai2.setSelectedItem(String.valueOf(controlConverte.converte(tipo[0],tipo[1],Double.parseDouble(valor))));                        
                     } 
                     tip = 0;
                 }
