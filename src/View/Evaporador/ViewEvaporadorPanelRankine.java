@@ -73,7 +73,7 @@ public class ViewEvaporadorPanelRankine extends JPanel{
     
     private final int precision = 2;
     
-    public ViewEvaporadorPanelRankine(ControlEvaporadorPanelRankine controlEvaporadorPanel){
+    public ViewEvaporadorPanelRankine(ControlEvaporadorPanelRankine ctrlEvaporadorPanel){
         fieldTempSai.setName("tempSaiEvaporador");
         fieldTempEntr.setName("tempEntrEvaporador");
         fieldPressaoEntr.setName("pressaoEntrEvaporador");
@@ -229,7 +229,7 @@ public class ViewEvaporadorPanelRankine extends JPanel{
             @Override
             public void focusLost(FocusEvent fe) {
                 fieldMassa.setSelectedItem(controlConverte.round(Double.parseDouble(fieldMassa.getSelectedItem().toString()),precision));
-                controlEvaporadorPanel.atualizaMassa();
+                ctrlEvaporadorPanel.atualizaMassa();
             }
         });
         fieldMassa.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
@@ -255,8 +255,8 @@ public class ViewEvaporadorPanelRankine extends JPanel{
             @Override
             public void focusLost(FocusEvent fe) {
                 fieldTempEntr.setSelectedItem(controlConverte.round(Double.parseDouble(fieldTempEntr.getSelectedItem().toString()),precision));
-                controlEvaporadorPanel.atualizaTempEntrada();
-                controlEvaporadorPanel.getCtrlPrincipal().getStart().autalizaFieldsTemp(fieldTempEntr);
+                ctrlEvaporadorPanel.atualizaTempEntrada();
+                ctrlEvaporadorPanel.getCtrlPrincipal().getStart().autalizaFieldsTemp(fieldTempEntr);
             }
         });
         fieldTempEntr.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
@@ -281,8 +281,8 @@ public class ViewEvaporadorPanelRankine extends JPanel{
             @Override
             public void focusLost(FocusEvent fe) {
                 fieldTempSai.setSelectedItem(controlConverte.round(Double.parseDouble(fieldTempSai.getSelectedItem().toString()),precision));
-                controlEvaporadorPanel.atualizaTempSaida();
-                controlEvaporadorPanel.getCtrlPrincipal().getStart().autalizaFieldsTemp(fieldTempSai);
+                ctrlEvaporadorPanel.atualizaTempSaida();
+                ctrlEvaporadorPanel.getCtrlPrincipal().getStart().autalizaFieldsTemp(fieldTempSai);
             }
         });
         fieldTempSai.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
@@ -308,8 +308,8 @@ public class ViewEvaporadorPanelRankine extends JPanel{
             @Override
             public void focusLost(FocusEvent fe) {
                 fieldPressaoEntr.setSelectedItem(controlConverte.round(Double.parseDouble(fieldPressaoEntr.getSelectedItem().toString()),precision));
-                controlEvaporadorPanel.atualizaPressaoEntrada();   
-                controlEvaporadorPanel.getCtrlPrincipal().getStart().atualizaFieldsPressao(fieldPressaoEntr);
+                ctrlEvaporadorPanel.atualizaPressaoEntrada();   
+                ctrlEvaporadorPanel.getCtrlPrincipal().getStart().atualizaFieldsPressao(fieldPressaoEntr);
             }
         });
         fieldPressaoEntr.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
@@ -336,8 +336,8 @@ public class ViewEvaporadorPanelRankine extends JPanel{
             @Override
             public void focusLost(FocusEvent fe) {
                 fieldPressaoSai.setSelectedItem(controlConverte.round(Double.parseDouble(fieldPressaoSai.getSelectedItem().toString()),precision));
-                controlEvaporadorPanel.atualizaPressaoSaida();
-                controlEvaporadorPanel.getCtrlPrincipal().getStart().atualizaFieldsPressao(fieldPressaoSai);
+                ctrlEvaporadorPanel.atualizaPressaoSaida();
+                ctrlEvaporadorPanel.getCtrlPrincipal().getStart().atualizaFieldsPressao(fieldPressaoSai);
 
             }
         });
@@ -364,7 +364,7 @@ public class ViewEvaporadorPanelRankine extends JPanel{
             @Override
             public void focusLost(FocusEvent fe) {
                 fieldDelta.setSelectedItem(controlConverte.round(Double.parseDouble(fieldDelta.getSelectedItem().toString()),precision));
-                controlEvaporadorPanel.atualizaDeltaPressao();
+                ctrlEvaporadorPanel.atualizaDeltaPressao();
             }
         });
         fieldDelta.getEditor().getEditorComponent().addKeyListener(new KeyListener() {

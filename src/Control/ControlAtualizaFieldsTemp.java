@@ -18,6 +18,7 @@ import View.Regenerador.ViewRegeneradorPanelRankine;
 import View.Turbina.ViewTurbinaPanelRankine;
 import java.awt.Component;
 import java.util.List;
+import java.util.Objects;
 import java.util.Vector;
 import javax.swing.JPanel;
 import org.hibernate.Criteria;
@@ -191,6 +192,13 @@ public class ControlAtualizaFieldsTemp {
         List result = cr.list();
         Transaction tx = session.beginTransaction();
 
+        for(int i = 0; i < result.size()-1; i++){
+            if(Objects.equals(((ModelTurbina)result.get(i)).getTemperaturaEntr(), valor)){
+                tx.commit();
+                return;
+            }
+        }
+        
         if(result.size() < 5){
             ModelTurbina m1 = new ModelTurbina();
             m1.setTemperaturaEntr(valor);
@@ -219,6 +227,13 @@ public class ControlAtualizaFieldsTemp {
         List result = cr.list();
         Transaction tx = session.beginTransaction();
 
+        for(int i = 0; i < result.size()-1; i++){
+            if(Objects.equals(((ModelEvaporador)result.get(i)).getTemperaturaSai(), valor)){
+                tx.commit();
+                return;
+            }
+        }
+        
         if(result.size() < 5){
             ModelEvaporador m1 = new ModelEvaporador();
             m1.setTemperaturaSai(valor);
@@ -247,6 +262,13 @@ public class ControlAtualizaFieldsTemp {
         List result = cr.list();
         Transaction tx = session.beginTransaction();
 
+        for(int i = 0; i < result.size()-1; i++){
+            if(Objects.equals(((ModelRegenerador)result.get(i)).getTemperaturaEntr(), valor)){
+                tx.commit();
+                return;
+            }
+        }
+        
         if(result.size() < 5){
             ModelRegenerador m1 = new ModelRegenerador();
             m1.setTemperaturaEntr(valor);
@@ -275,6 +297,13 @@ public class ControlAtualizaFieldsTemp {
         List result = cr.list();
         Transaction tx = session.beginTransaction();
 
+        for(int i = 0; i < result.size()-1; i++){
+            if(Objects.equals(((ModelTurbina)result.get(i)).getTemperaturaSai(), valor)){
+                tx.commit();
+                return;
+            }
+        }
+        
         if(result.size() < 5){
             ModelTurbina m1 = new ModelTurbina();
             m1.setTemperaturaSai(valor);
@@ -303,6 +332,13 @@ public class ControlAtualizaFieldsTemp {
         List result = cr.list();
         Transaction tx = session.beginTransaction();
 
+        for(int i = 0; i < result.size()-1; i++){
+            if(Objects.equals(((ModelCondensador)result.get(i)).getTemperaturaEntr(), valor)){
+                tx.commit();
+                return;
+            }
+        }
+        
         if(result.size() < 5){
             ModelCondensador m1 = new ModelCondensador();
             m1.setTemperaturaEntr(valor);
@@ -331,6 +367,13 @@ public class ControlAtualizaFieldsTemp {
         List result = cr.list();
         Transaction tx = session.beginTransaction();
 
+        for(int i = 0; i < result.size()-1; i++){
+            if(Objects.equals(((ModelRegenerador)result.get(i)).getTemperaturaSai(), valor)){
+                tx.commit();
+                return;
+            }
+        }
+        
         if(result.size() < 5){
             ModelRegenerador m1 = new ModelRegenerador();
             m1.setTemperaturaSai(valor);
@@ -359,6 +402,13 @@ public class ControlAtualizaFieldsTemp {
         List result = cr.list();
         Transaction tx = session.beginTransaction();
 
+        for(int i = 0; i < result.size()-1; i++){
+            if(Objects.equals(((ModelBomba)result.get(i)).getTemperaturaEntr(), valor)){
+                tx.commit();
+                return;
+            }
+        }
+        
         if(result.size() < 5){
             ModelBomba m1 = new ModelBomba();
             m1.setTemperaturaEntr(valor);
@@ -387,6 +437,13 @@ public class ControlAtualizaFieldsTemp {
         List result = cr.list();
         Transaction tx = session.beginTransaction();
 
+        for(int i = 0; i < result.size()-1; i++){
+            if(Objects.equals(((ModelCondensador)result.get(i)).getTemperaturaSai(), valor)){
+                tx.commit();
+                return;
+            }
+        }
+        
         if(result.size() < 5){
             ModelCondensador m1 = new ModelCondensador();
             m1.setTemperaturaSai(valor);
@@ -415,6 +472,13 @@ public class ControlAtualizaFieldsTemp {
         List result = cr.list();
         Transaction tx = session.beginTransaction();
 
+        for(int i = 0; i < result.size()-1; i++){
+            if(Objects.equals(((ModelRegenerador)result.get(i)).getTemperaturaEntr2(), valor)){
+                tx.commit();
+                return;
+            }
+        }
+        
         if(result.size() < 5){
             ModelRegenerador m1 = new ModelRegenerador();
             m1.setTemperaturaEntr2(valor);
@@ -443,6 +507,13 @@ public class ControlAtualizaFieldsTemp {
         List result = cr.list();
         Transaction tx = session.beginTransaction();
 
+        for(int i = 0; i < result.size()-1; i++){
+            if(Objects.equals(((ModelBomba)result.get(i)).getTemperaturaSai(), valor)){
+                tx.commit();
+                return;
+            }
+        }
+        
         if(result.size() < 5){
             ModelBomba m1 = new ModelBomba();
             m1.setTemperaturaSai(valor);
@@ -471,6 +542,13 @@ public class ControlAtualizaFieldsTemp {
         List result = cr.list();
         Transaction tx = session.beginTransaction();
 
+        for(int i = 0; i < result.size()-1; i++){
+            if(Objects.equals(((ModelEvaporador)result.get(i)).getTemperaturaEntr(), valor)){
+                tx.commit();
+                return;
+            }
+        }
+        
         if(result.size() < 5){
             ModelEvaporador m1 = new ModelEvaporador();
             m1.setTemperaturaEntr(valor);
@@ -499,6 +577,13 @@ public class ControlAtualizaFieldsTemp {
         List result = cr.list();
         Transaction tx = session.beginTransaction();
 
+        for(int i = 0; i < result.size()-1; i++){
+            if(Objects.equals(((ModelRegenerador)result.get(i)).getTemperaturaSai2(), valor)){
+                tx.commit();
+                return;
+            }
+        }
+        
         if(result.size() < 5){
             ModelRegenerador m1 = new ModelRegenerador();
             m1.setTemperaturaSai2(valor);

@@ -137,7 +137,7 @@ public class ControlRegeneradorPanelRankine {
         }
         
         Transaction tx = this.session.beginTransaction();
-        Vector<Double> tempEntr = new Vector<>();
+        Vector<Double> valores = new Vector<>();
         
         if(results.size() < 5){
             regenerador = new ModelRegenerador();
@@ -147,16 +147,16 @@ public class ControlRegeneradorPanelRankine {
         for(int i=results.size()-1; i>0; i--){
             ((ModelRegenerador)results.get(i)).setTemperaturaEntr(((ModelRegenerador)results.get(i-1)).getTemperaturaEntr());
             session.saveOrUpdate((ModelRegenerador)results.get(i));
-            tempEntr.add(((ModelRegenerador)results.get(i)).getTemperaturaEntr());
+            valores.add(((ModelRegenerador)results.get(i)).getTemperaturaEntr());
         }
         
         if(!results.isEmpty())
             regenerador = (ModelRegenerador)results.get(0);
-        tempEntr.add(value);
+        valores.add(value);
         regenerador.setTemperaturaEntr(value);
         session.saveOrUpdate(regenerador);
         
-        atualizaComboBox(tempEntr, viewRegeneradorPanel.getFieldTempEntr());
+        atualizaComboBox(valores, viewRegeneradorPanel.getFieldTempEntr());
         
         tx.commit();        
     }
@@ -185,7 +185,7 @@ public class ControlRegeneradorPanelRankine {
         }
         
         Transaction tx = this.session.beginTransaction();
-        Vector<Double> tempEntr = new Vector<>();
+        Vector<Double> valores = new Vector<>();
         
         if(results.size() < 5){
             regenerador = new ModelRegenerador();
@@ -195,16 +195,16 @@ public class ControlRegeneradorPanelRankine {
         for(int i=results.size()-1; i>0; i--){
             ((ModelRegenerador)results.get(i)).setTemperaturaEntr2(((ModelRegenerador)results.get(i-1)).getTemperaturaEntr2());
             session.saveOrUpdate((ModelRegenerador)results.get(i));
-            tempEntr.add(((ModelRegenerador)results.get(i)).getTemperaturaEntr2());
+            valores.add(((ModelRegenerador)results.get(i)).getTemperaturaEntr2());
         }
         
         if(!results.isEmpty())
             regenerador = (ModelRegenerador)results.get(0);
-        tempEntr.add(value);
+        valores.add(value);
         regenerador.setTemperaturaEntr2(value);
         session.saveOrUpdate(regenerador);
         
-        atualizaComboBox(tempEntr, viewRegeneradorPanel.getFieldTempEntr2());
+        atualizaComboBox(valores, viewRegeneradorPanel.getFieldTempEntr2());
         
         tx.commit();        
     }
@@ -233,7 +233,7 @@ public class ControlRegeneradorPanelRankine {
         }
         
         Transaction tx = this.session.beginTransaction();
-        Vector<Double> tempSai= new Vector<>();
+        Vector<Double> valores= new Vector<>();
         
         if(results.size() < 5){
             regenerador = new ModelRegenerador();
@@ -241,20 +241,18 @@ public class ControlRegeneradorPanelRankine {
         }
          
         for(int i=results.size()-1; i>0; i--){
-            ModelRegenerador lineDown = (ModelRegenerador)results.get(i);
-            ModelRegenerador lineUp = (ModelRegenerador)results.get(i-1);
-            lineDown.setTemperaturaSai(lineUp.getTemperaturaSai());
-            session.saveOrUpdate(lineDown);
-            tempSai.add(lineDown.getTemperaturaSai());
+            ((ModelRegenerador)results.get(i)).setTemperaturaSai(((ModelRegenerador)results.get(i-1)).getTemperaturaSai());
+            session.saveOrUpdate((ModelRegenerador)results.get(i));
+            valores.add(((ModelRegenerador)results.get(i)).getTemperaturaSai());
         }
         
         if(!results.isEmpty())
             regenerador = (ModelRegenerador)results.get(0);
-        tempSai.add(value);
+        valores.add(value);
         regenerador.setTemperaturaSai(value);
         session.saveOrUpdate(regenerador);
         
-        atualizaComboBox(tempSai, viewRegeneradorPanel.getFieldTempSai());
+        atualizaComboBox(valores, viewRegeneradorPanel.getFieldTempSai());
         
         tx.commit();        
     }
@@ -283,7 +281,7 @@ public class ControlRegeneradorPanelRankine {
         }
         
         Transaction tx = this.session.beginTransaction();
-        Vector<Double> tempSai= new Vector<>();
+        Vector<Double> valores= new Vector<>();
         
         if(results.size() < 5){
             regenerador = new ModelRegenerador();
@@ -291,20 +289,18 @@ public class ControlRegeneradorPanelRankine {
         }
          
         for(int i=results.size()-1; i>0; i--){
-            ModelRegenerador lineDown = (ModelRegenerador)results.get(i);
-            ModelRegenerador lineUp = (ModelRegenerador)results.get(i-1);
-            lineDown.setTemperaturaSai2(lineUp.getTemperaturaSai2());
-            session.saveOrUpdate(lineDown);
-            tempSai.add(lineDown.getTemperaturaSai2());
+            ((ModelRegenerador)results.get(i)).setTemperaturaSai2(((ModelRegenerador)results.get(i-1)).getTemperaturaSai2());
+            session.saveOrUpdate((ModelRegenerador)results.get(i));
+            valores.add(((ModelRegenerador)results.get(i)).getTemperaturaSai2());
         }
         
         if(!results.isEmpty())
             regenerador = (ModelRegenerador)results.get(0);
-        tempSai.add(value);
+        valores.add(value);
         regenerador.setTemperaturaSai2(value);
         session.saveOrUpdate(regenerador);
         
-        atualizaComboBox(tempSai, viewRegeneradorPanel.getFieldTempSai2());
+        atualizaComboBox(valores, viewRegeneradorPanel.getFieldTempSai2());
         
         tx.commit();        
     }
@@ -333,7 +329,7 @@ public class ControlRegeneradorPanelRankine {
         }
         
         Transaction tx = this.session.beginTransaction();
-        Vector<Double> pressaoEntr= new Vector<>();
+        Vector<Double> valores= new Vector<>();
     
         if(results.size() < 5){
             regenerador = new ModelRegenerador();
@@ -341,20 +337,18 @@ public class ControlRegeneradorPanelRankine {
         }
                 
         for(int i=results.size()-1; i>0; i--){
-            ModelRegenerador lineDown = (ModelRegenerador)results.get(i);
-            ModelRegenerador lineUp = (ModelRegenerador)results.get(i-1);
-            lineDown.setPressaoEntr(lineUp.getPressaoEntr());
-            session.saveOrUpdate(lineDown);
-            pressaoEntr.add(lineDown.getPressaoEntr());
+            ((ModelRegenerador)results.get(i)).setPressaoEntr(((ModelRegenerador)results.get(i-1)).getPressaoEntr());
+            session.saveOrUpdate((ModelRegenerador)results.get(i));
+            valores.add(((ModelRegenerador)results.get(i)).getPressaoEntr());
         }
         
         if(!results.isEmpty())
             regenerador = (ModelRegenerador)results.get(0);
-        pressaoEntr.add(value);
+        valores.add(value);
         regenerador.setPressaoEntr(value);
         session.saveOrUpdate(regenerador);
         
-        atualizaComboBox(pressaoEntr, viewRegeneradorPanel.getFieldPressaoEntr());
+        atualizaComboBox(valores, viewRegeneradorPanel.getFieldPressaoEntr());
         
         tx.commit();        
     }
@@ -383,7 +377,7 @@ public class ControlRegeneradorPanelRankine {
         }
         
         Transaction tx = this.session.beginTransaction();
-        Vector<Double> pressaoEntr= new Vector<>();
+        Vector<Double> valores= new Vector<>();
     
         if(results.size() < 5){
             regenerador = new ModelRegenerador();
@@ -391,20 +385,18 @@ public class ControlRegeneradorPanelRankine {
         }
                 
         for(int i=results.size()-1; i>0; i--){
-            ModelRegenerador lineDown = (ModelRegenerador)results.get(i);
-            ModelRegenerador lineUp = (ModelRegenerador)results.get(i-1);
-            lineDown.setPressaoEntr2(lineUp.getPressaoEntr2());
-            session.saveOrUpdate(lineDown);
-            pressaoEntr.add(lineDown.getPressaoEntr2());
+            ((ModelRegenerador)results.get(i)).setPressaoEntr2(((ModelRegenerador)results.get(i-1)).getPressaoEntr2());
+            session.saveOrUpdate((ModelRegenerador)results.get(i));
+            valores.add(((ModelRegenerador)results.get(i)).getPressaoEntr2());
         }
         
         if(!results.isEmpty())
             regenerador = (ModelRegenerador)results.get(0);
-        pressaoEntr.add(value);
+        valores.add(value);
         regenerador.setPressaoEntr2(value);
         session.saveOrUpdate(regenerador);
         
-        atualizaComboBox(pressaoEntr, viewRegeneradorPanel.getFieldPressaoEntr2());
+        atualizaComboBox(valores, viewRegeneradorPanel.getFieldPressaoEntr2());
         
         tx.commit();        
     }
@@ -433,7 +425,7 @@ public class ControlRegeneradorPanelRankine {
         }
         
         Transaction tx = this.session.beginTransaction();
-        Vector<Double> pressaoSai= new Vector<>();
+        Vector<Double> valores= new Vector<>();
 
         if(results.size() < 5){
             regenerador = new ModelRegenerador();
@@ -441,20 +433,18 @@ public class ControlRegeneradorPanelRankine {
         }
         
         for(int i=results.size()-1; i>0; i--){
-            ModelRegenerador lineDown = (ModelRegenerador)results.get(i);
-            ModelRegenerador lineUp = (ModelRegenerador)results.get(i-1);
-            lineDown.setPressaoSai(lineUp.getPressaoSai());
-            session.saveOrUpdate(lineDown);
-            pressaoSai.add(lineDown.getPressaoSai());
+            ((ModelRegenerador)results.get(i)).setPressaoSai(((ModelRegenerador)results.get(i-1)).getPressaoSai());
+            session.saveOrUpdate((ModelRegenerador)results.get(i));
+            valores.add(((ModelRegenerador)results.get(i)).getPressaoSai());
         }
         
         if(!results.isEmpty())
             regenerador = (ModelRegenerador)results.get(0);
-        pressaoSai.add(value);
+        valores.add(value);
         regenerador.setPressaoSai(value);
         session.saveOrUpdate(regenerador);
         
-        atualizaComboBox(pressaoSai, viewRegeneradorPanel.getFieldPressaoSai());
+        atualizaComboBox(valores, viewRegeneradorPanel.getFieldPressaoSai());
         
         tx.commit();        
     }
@@ -483,7 +473,7 @@ public class ControlRegeneradorPanelRankine {
         }
         
         Transaction tx = this.session.beginTransaction();
-        Vector<Double> pressaoSai= new Vector<>();
+        Vector<Double> valores= new Vector<>();
 
         if(results.size() < 5){
             regenerador = new ModelRegenerador();
@@ -491,20 +481,18 @@ public class ControlRegeneradorPanelRankine {
         }
         
         for(int i=results.size()-1; i>0; i--){
-            ModelRegenerador lineDown = (ModelRegenerador)results.get(i);
-            ModelRegenerador lineUp = (ModelRegenerador)results.get(i-1);
-            lineDown.setPressaoSai2(lineUp.getPressaoSai2());
-            session.saveOrUpdate(lineDown);
-            pressaoSai.add(lineDown.getPressaoSai2());
+            ((ModelRegenerador)results.get(i)).setPressaoSai2(((ModelRegenerador)results.get(i-1)).getPressaoSai2());
+            session.saveOrUpdate((ModelRegenerador)results.get(i));
+            valores.add(((ModelRegenerador)results.get(i)).getPressaoSai2());
         }
         
         if(!results.isEmpty())
             regenerador = (ModelRegenerador)results.get(0);
-        pressaoSai.add(value);
+        valores.add(value);
         regenerador.setPressaoSai2(value);
         session.saveOrUpdate(regenerador);
         
-        atualizaComboBox(pressaoSai, viewRegeneradorPanel.getFieldPressaoSai2());
+        atualizaComboBox(valores, viewRegeneradorPanel.getFieldPressaoSai2());
         
         tx.commit();        
     }
@@ -533,7 +521,7 @@ public class ControlRegeneradorPanelRankine {
         }
         
         Transaction tx = this.session.beginTransaction();
-        Vector<Double> deltaPressao= new Vector<>();
+        Vector<Double> valores= new Vector<>();
 
         if(results.size() < 5){
             regenerador = new ModelRegenerador();
@@ -541,20 +529,18 @@ public class ControlRegeneradorPanelRankine {
         }
          
         for(int i=results.size()-1; i>0; i--){
-            ModelRegenerador lineDown = (ModelRegenerador)results.get(i);
-            ModelRegenerador lineUp = (ModelRegenerador)results.get(i-1);
-            lineDown.setDelaPressao(lineUp.getDelaPressao());
-            session.saveOrUpdate(lineDown);
-            deltaPressao.add(lineDown.getDelaPressao());
+            ((ModelRegenerador)results.get(i)).setDelaPressao(((ModelRegenerador)results.get(i-1)).getDelaPressao());
+            session.saveOrUpdate((ModelRegenerador)results.get(i));
+            valores.add(((ModelRegenerador)results.get(i)).getDelaPressao());
         }
         
         if(!results.isEmpty())
             regenerador = (ModelRegenerador)results.get(0);
-        deltaPressao.add(value);
+        valores.add(value);
         regenerador.setDelaPressao(value);
         session.saveOrUpdate(regenerador);
         
-        atualizaComboBox(deltaPressao, viewRegeneradorPanel.getFieldDelta());
+        atualizaComboBox(valores, viewRegeneradorPanel.getFieldDelta());
         
         tx.commit();        
     }
@@ -583,7 +569,7 @@ public class ControlRegeneradorPanelRankine {
         }
         
         Transaction tx = this.session.beginTransaction();
-        Vector<Double> efetv = new Vector<>();
+        Vector<Double> valores = new Vector<>();
 
         if(results.size() < 5){
             regenerador = new ModelRegenerador();
@@ -591,20 +577,18 @@ public class ControlRegeneradorPanelRankine {
         }
          
         for(int i=results.size()-1; i>0; i--){
-            ModelRegenerador lineDown = (ModelRegenerador)results.get(i);
-            ModelRegenerador lineUp = (ModelRegenerador)results.get(i-1);
-            lineDown.setEfetividade(lineUp.getEfetividade());
-            session.saveOrUpdate(lineDown);
-            efetv.add(lineDown.getEfetividade());
+            ((ModelRegenerador)results.get(i)).setEfetividade(((ModelRegenerador)results.get(i-1)).getEfetividade());
+            session.saveOrUpdate((ModelRegenerador)results.get(i));
+            valores.add(((ModelRegenerador)results.get(i)).getEfetividade());
         }
         
         if(!results.isEmpty())
             regenerador = (ModelRegenerador)results.get(0);
-        efetv.add(value);
+        valores.add(value);
         regenerador.setEfetividade(value);
         session.saveOrUpdate(regenerador);
         
-        atualizaComboBox(efetv, viewRegeneradorPanel.getFieldEfetiv());
+        atualizaComboBox(valores, viewRegeneradorPanel.getFieldEfetiv());
         
         tx.commit();
     }
