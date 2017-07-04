@@ -26,9 +26,11 @@ import org.hibernate.Session;
  */
 public class Start {
     
-    private double mf, P1, P2, T1, P4, T4, P5, P3, P6, Tcontrol, Tcontrol2, H1, H2, S1, S2, T2, H2s, DH2s, sp, v2, DHT, S4, S5, H4, H5, T5, S3, H3, T3, S6, T6, H6, IHR, Q, Tfout, PP, Hlat, Hsen, Hsup, T1s, Wt, Wb, Qevp, Qcon, ec, Qreg, Qreg1, Wn, Acon, Aevp, Areg, AT, ecg, Dr, m, Beff, eff, UASUP, UALAT, UASEN, UAREG, UACONl, UACONs, Ten, Pen, Ten1, Ts, mH2O;
+    private double mf, P1, P2, T1, P4, T4, P5, P3, P6, Tcontrol, Tcontrol2, H1, H2, S1, S2, T2, H2s, DH2s, sp, v2, DHT, S4, S5, H4, H5, T5, S3, H3, T3, S6, T6, H6, IHR, Q, Tfout, PP, Hlat, Hsen, Hsup, T1s, Wt, Wb, Qevp, Qcon, ec, Qreg, Qreg1, Wn, Acon, Aevp, Areg, AT, ecg, Dr, m, eff, UASUP, UALAT, UASEN, UAREG, UACONl, UACONs, Ten, Pen, Ten1, Ts, mH2O;
     private double ATreg, Ahoreg, Acoreg, Vreg, Lhreg, Lcreg, L3reg, DPhreg, DPcreg, ATcon, Ahocon, Acocon, Vcon, Lhcon, Lccon, L3con, DPhcon, DPccon, ATevp, Ahoevp, Acoevp, Vevp, Lhevp, Lcevp, L3evp, DPhevp, DPcevp; 
     private int ii;
+    private double Beff;
+    private double Teff;
     private Session session;
     ControlPrincipal ctrlPrincipal;
     String mensagem;
@@ -39,10 +41,12 @@ public class Start {
     }
     
     //public Start(int compressor, int flu, double Tf, double Pf, double SUP, double PINCH, double Tconop, double eff, double Ve, Session session, ControlPrincipal ctrlPrincipal){
-    public void iniciaCalculos(int compressor, int flu, double Tf, double Pf, double mf, double SUP, double PINCH, double Tconop, double eff, double km, int FON){
+    public void iniciaCalculos(int compressor, int flu, double Tf, double Pf, double mf, double SUP, double PINCH, double Tconop, double eff, double km, int FON, double Beff, double Teff){
         double Ve = 0.6;
-        this.ctrlPrincipal = ctrlPrincipal;
-        this.eff = ctrlPrincipal.getEff();
+        this.eff = eff;
+        this.Beff = Beff;
+        this.Teff = Teff;
+        
         mensagem = "";
         
         //flu=14;
@@ -65,10 +69,7 @@ public class Start {
         double Pcri = parametros.getPcri();
 
         double G = 1;
-        Beff = ctrlPrincipal.getBeff();
-        double Teff = ctrlPrincipal.getTeff();
         
-        this.session = session;
         if(compressor == 5){
             mf = 2.8400; //%kmol/s
         }else{

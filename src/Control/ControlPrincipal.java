@@ -141,7 +141,11 @@ import org.hibernate.criterion.Restrictions;
  * @author alysonmp
  */
 public class ControlPrincipal {
-    private double PMax, TMax, Teff, Beff, Eff;
+    private double PMax, TMax;
+    private double Beff = 0;
+    private double Teff = 0;
+    private double eff = 0;
+ 
     private ViewPrincipal viewPrincipal;
     private ArrayList<JPanel> panel_usado = new ArrayList();
     private ViewLateral viewLateral;
@@ -947,7 +951,7 @@ public class ControlPrincipal {
         double sup = 0;
         double pinch = 0;
         double Tconop = 0;
-        double eff = 0;
+        //double eff = 0;
         
         //Teste teste = new Teste(session, this);
         //return;
@@ -991,12 +995,12 @@ public class ControlPrincipal {
             JOptionPane.showMessageDialog(null, "É necessário inserir a efetividade");
             return;
         }
-        eff = (Double.parseDouble(viewLateral.getFieldEfetiv().getEditor().getItem().toString()))/100;
+        /*eff = (Double.parseDouble(viewLateral.getFieldEfetiv().getEditor().getItem().toString()))/100;
         
         if(viewLateral.getFieldKm().getEditor().getItem().toString().isEmpty()){
             JOptionPane.showMessageDialog(null, "É necessário inserir a efetividade");
             return;
-        }
+        }*/
         double km = (Double.parseDouble(viewLateral.getFieldKm().getEditor().getItem().toString()))/100;
         
         int FON = viewLateral.getComboCompressores().getSelectedIndex() + 1;
@@ -1038,7 +1042,7 @@ public class ControlPrincipal {
         }
         
         //Start start = new Start(1, 14, 415.25, 1144.4, 25, 10, 313.15, 0.3, session);
-        start.iniciaCalculos(comp, flu, Tf, Pf, m, sup, pinch, Tconop, eff, km, 3);
+        start.iniciaCalculos(comp, flu, Tf, Pf, m, sup, pinch, Tconop, eff, km, 3, Beff, Teff);
         viewLateral.getFrameEspera().dispose();
         if(!start.getMensagem().equals("")){
             JOptionPane.showMessageDialog(null, start.getMensagem(), "Aviso", JOptionPane.ERROR_MESSAGE);
@@ -1247,18 +1251,16 @@ public class ControlPrincipal {
     public void setTeff(double Teff) {
         this.Teff = Teff;
     }
-
-    public void setBeff(double Beff) {
-        this.Beff = Beff;
+    
+    public double setBeff(double Beff) {
+        return Beff;
     }
 
     public double getEff() {
-        return Eff;
+        return eff;
     }
 
-    public void setEff(double Eff) {
-        this.Eff = Eff;
+    public void setEff(double eff) {
+        this.eff = eff;
     }
-    
-    
 }

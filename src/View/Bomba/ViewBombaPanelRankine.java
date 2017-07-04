@@ -384,7 +384,7 @@ public class ViewBombaPanelRankine extends JPanel{
             public void focusLost(FocusEvent e) {
                 fieldEfic.setSelectedItem(controlConverte.round(Double.parseDouble(fieldEfic.getSelectedItem().toString()),precision));
                 ctrlBomba.atualizaEficiencia();
-                ctrlBomba.getCtrPrincipal().setBeff(controlConverte.round(Double.parseDouble(fieldEfic.getSelectedItem().toString()),precision));
+                ViewBombaPanelRankine.this.ctrlBomba.getCtrPrincipal().setBeff(Double.parseDouble(fieldEfic.getSelectedItem().toString()));
             }
         });
         fieldEfic.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
