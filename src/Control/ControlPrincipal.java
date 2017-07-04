@@ -73,6 +73,7 @@ import Control.TabelaFluidos.ControlTolueneLiquido;
 import Control.TabelaFluidos.ControlWaterGas;
 import Control.TabelaFluidos.ControlWaterLiquido;
 import Model.Ciclo2.ModelBomba;
+import Model.Ciclo2.ModelEtapa1;
 import Model.ModelCore;
 import Model.Ciclo2.ModelFluidos;
 import Model.Ciclo2.ModelMassa;
@@ -142,9 +143,9 @@ import org.hibernate.criterion.Restrictions;
  */
 public class ControlPrincipal {
     private double PMax, TMax;
-    private double Beff = 0;
-    private double Teff = 0;
-    private double eff = 0;
+    private double Beff = 80;
+    private double Teff = 80;
+    private double eff = 0.8;
     private double T1;
     private double P1;
  
@@ -860,7 +861,7 @@ public class ControlPrincipal {
         viewPrincipal.getFramePrincipal().repaint();
         calculaLimites();
 
-        //this.inicializaEff();
+        this.inicializaVariaveis();
 
     }
     
@@ -1157,33 +1158,16 @@ public class ControlPrincipal {
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.03), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.065));
     }
     
-    public void inicializaEff(){
-        Criteria cr = session.createCriteria(ModelTurbina.class);
+    public void inicializaVariaveis(){
+        Criteria cr = session.createCriteria(ModelEtapa1.class);
         List results = cr.list();
-        ModelTurbina turbina = (ModelTurbina) results.get(0);
     
-        if(results.isEmpty())
-            this.Teff = 0;
-        else
-            this.Teff = turbina.getEficiencia();
+        if(!results.isEmpty()){
+            ModelEtapa1 etapa = (ModelEtapa1) results.get(0);
         
-        cr = session.createCriteria(ModelBomba.class);
-        results = cr.list();
-        ModelBomba bomba = (ModelBomba) results.get(0);
-        
-        if(results.isEmpty())
-            this.Beff = 0;
-        else  
-            this.Beff = bomba.getEficiencia();
-        
-        cr = session.createCriteria(ModelRegenerador.class);
-        results = cr.list();
-        ModelRegenerador regenerador = (ModelRegenerador) results.get(0);
-        
-        if(results.isEmpty())
-            this.eff = 0;
-        else
-            this.eff = regenerador.getEfetividade();
+            this.P1 = etapa.getPressao();
+            this.T1 = etapa.getTemperatura();
+        }
     }
     
     public ViewPrincipal getViewPrincipal() {

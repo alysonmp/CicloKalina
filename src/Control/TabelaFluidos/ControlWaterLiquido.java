@@ -81,25 +81,29 @@ public class ControlWaterLiquido {
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelWaterLiquido.class));//Sem isso aqui impossível de retornar
             List<ModelWaterLiquido> waters = consulta.list(); 
-            ModelWaterLiquido water1 = waters.get(0);
+            if(!waters.isEmpty())
+                water1 = waters.get(0);
 
             consulta = this.session.createSQLQuery("select * from water_liquido where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelWaterLiquido.class));//Sem isso aqui impossível de retornar
             waters = consulta.list(); 
-            ModelWaterLiquido water2 = waters.get(0);
+            if(!waters.isEmpty())
+                water2 = waters.get(0);
 
             consulta = this.session.createSQLQuery("select * from water_liquido where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelWaterLiquido.class));//Sem isso aqui impossível de retornar
-            waters = consulta.list(); 
-            ModelWaterLiquido water3 = waters.get(0);
+            waters = consulta.list();
+            if(!waters.isEmpty())
+                water3 = waters.get(0);
 
             consulta = this.session.createSQLQuery("select * from water_liquido where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelWaterLiquido.class));//Sem isso aqui impossível de retornar
             waters = consulta.list(); 
-            ModelWaterLiquido water4 = waters.get(0);
+            if(!waters.isEmpty())
+                water4 = waters.get(0);
 
             temperatura -= 1;
         }while(water1 == null || water2 == null || water3 == null || water4 == null);
