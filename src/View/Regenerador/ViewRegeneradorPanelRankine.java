@@ -666,6 +666,7 @@ public class ViewRegeneradorPanelRankine extends JPanel{
             public void focusLost(FocusEvent e) {
                 fieldEfetiv.setSelectedItem(controlConverte.round(Double.parseDouble(fieldEfetiv.getSelectedItem().toString()),precision));
                 ctrlRegenerador.atualizaEfetividade();
+                ctrlRegenerador.getCtrlPrincipal().setEff(Double.parseDouble(fieldEfetiv.getSelectedItem().toString()));
             }
         });
         fieldEfetiv.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
