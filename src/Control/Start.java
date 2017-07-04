@@ -41,8 +41,8 @@ public class Start {
     }
     
     //public Start(int compressor, int flu, double Tf, double Pf, double SUP, double PINCH, double Tconop, double eff, double Ve, Session session, ControlPrincipal ctrlPrincipal){
-    public void iniciaCalculos(int compressor, int flu, double Tf, double Pf, double mf, double SUP, double PINCH, double Tconop, double eff, double km, int FON, double Beff, double Teff){
-        double Ve = 0.6;
+    public void iniciaCalculos(int compressor, int flu, double Tf, double Pf, double mf, double SUP, double PINCH, double Tconop, double eff, double km, int FON, double Beff, double Teff, double T1, double P1){
+        //double Ve = 0.6;
         this.eff = eff;
         this.Beff = Beff;
         this.Teff = Teff;
@@ -76,13 +76,12 @@ public class Start {
             mf = 1.5375; //%kmol/s
         }
         
-        P1 = Pe*Ve;
         P2 = Pconop;
         ii = flu;
         
-        ControlT_Ref TRef = new ControlT_Ref(P1, ii, session);
-        double Tee = TRef.getTref();
-        T1 = Tee+SUP;
+        //ControlT_Ref TRef = new ControlT_Ref(P1, ii, session);
+        //double Tee = TRef.getTref();
+        //T1 = Tee+SUP;
         P2 = Pconop; //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%Pcon È variavel
         P4 = P2;
         T4 = Tconop;
