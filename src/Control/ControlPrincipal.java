@@ -853,7 +853,9 @@ public class ControlPrincipal {
         viewPrincipal.getFramePrincipal().revalidate();
         viewPrincipal.getFramePrincipal().repaint();
         calculaLimites();
+
         this.inicializaEff();
+
     }
     
     //FUNÇÃO QUE EDITA OS JPANELS ONDE SERÃO MOSTRADOS OS CICLOS E OS INSERE NO PAINEL
