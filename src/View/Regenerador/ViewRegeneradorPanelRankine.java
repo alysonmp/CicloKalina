@@ -45,7 +45,7 @@ public class ViewRegeneradorPanelRankine extends JPanel{
     private JLabel labelPressaoSai2 = new JLabel("Pressão: ");
     
     private JLabel labelEfetiv = new JLabel("<html><body>Temperatura <br>de Condensação: </html></body>");
-    private JLabel labelDelta = new JLabel("Efetividade: ");
+    private JLabel labelDelta = new JLabel("Efetividade (0-1): ");
     
     //TEXTFIELDS
     private DropdownComboBox fieldMassa = new DropdownComboBox();;
@@ -399,7 +399,7 @@ public class ViewRegeneradorPanelRankine extends JPanel{
 
             @Override
             public void focusLost(FocusEvent e) {
-                fieldTempEntr.setSelectedItem(controlConverte.round(Double.parseDouble(fieldTempEntr.getSelectedItem().toString()),precision));
+                //fieldTempEntr.setSelectedItem(controlConverte.round(Double.parseDouble(fieldTempEntr.getSelectedItem().toString()),precision));
                 ctrlRegenerador.atualizaTempEntrada();
                 ctrlRegenerador.getCtrlPrincipal().getStart().autalizaFieldsTemp(fieldTempEntr);
             }

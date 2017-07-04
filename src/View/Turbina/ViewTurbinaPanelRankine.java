@@ -39,7 +39,7 @@ public class ViewTurbinaPanelRankine extends JPanel{
     private JLabel labelTempSai = new JLabel("Temperatura: ");
     private JLabel labelPressaoSai = new JLabel("Pressão: ");
     
-    private JLabel labelEfici = new JLabel("Eficiência");
+    private JLabel labelEfici = new JLabel("Eficiência (%)");
     
     //TEXTFIELDS
     private DropdownComboBox fieldMassa = new DropdownComboBox();;
@@ -381,7 +381,7 @@ public class ViewTurbinaPanelRankine extends JPanel{
 
             @Override
             public void focusLost(FocusEvent e) {
-                fieldEfici.setSelectedItem(controlConverte.round(Double.parseDouble(fieldEfici.getSelectedItem().toString()),precision));
+                //fieldEfici.setSelectedItem(controlConverte.round(Double.parseDouble(fieldEfici.getSelectedItem().toString()),precision));
                 controlTurbinaPanel.atualizaPressaoSaida();
                 ctrlPrincipal.getStart().atualizaFieldsPressao(fieldPressaoSai);
                 controlTurbinaPanel.getCtrlPrincipal().setTeff(Double.parseDouble(fieldEfici.getSelectedItem().toString()));

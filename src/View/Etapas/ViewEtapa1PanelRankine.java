@@ -1,5 +1,8 @@
 package View.Etapas;
 
+import Control.Ciclo2.ControlPdeVapor;
+import Control.Ciclo2.ControlTSaida;
+import Control.Ciclo2.ControlT_Ref;
 import Control.Conversao.ControlConverte;
 import Control.Etapa.ControlEtapa1PanelRankine;
 import Util.DropdownComboBox;
@@ -113,8 +116,18 @@ public class ViewEtapa1PanelRankine extends JPanel{
 
             @Override
             public void focusLost(FocusEvent e) {
+                String fluNome = ctrlEtapa1Panel.getCtrlPrincipal().getViewLateral().getComboFluidos().getSelectedItem().toString();
+                int flu = ctrlEtapa1Panel.getCtrlPrincipal().getFluidoCod(fluNome);
+                
                 fieldTemp.setSelectedItem(controlConverte.round(Double.parseDouble(fieldTemp.getSelectedItem().toString()),precision));
                 ctrlEtapa1Panel.atualizaTemperatura();
+                
+                double Tee = Double.parseDouble(fieldTemp.getSelectedItem().toString()) - Double.parseDouble(ctrlEtapa1Panel.getCtrlPrincipal().getViewLateral().getFieldSup().getSelectedItem().toString());
+                ControlPdeVapor pdevapor = new ControlPdeVapor(Tee, flu, ctrlEtapa1Panel.getSession());
+                
+                ctrlEtapa1Panel.getCtrlPrincipal().setP1(pdevapor.getPs2());
+                
+                fieldPressao.setSelectedItem(controlConverte.round(pdevapor.getPs2(), 2));
             }
         });
         
@@ -143,8 +156,21 @@ public class ViewEtapa1PanelRankine extends JPanel{
 
             @Override
             public void focusLost(FocusEvent e) {
+                String fluNome = ctrlEtapa1Panel.getCtrlPrincipal().getViewLateral().getComboFluidos().getSelectedItem().toString();
+                int flu = ctrlEtapa1Panel.getCtrlPrincipal().getFluidoCod(fluNome);
+                
                 fieldPressao.setSelectedItem(controlConverte.round(Double.parseDouble(fieldPressao.getSelectedItem().toString()),precision));
                 ctrlEtapa1Panel.atualizaPressao();
+                
+                double P1 = Double.parseDouble(fieldPressao.getSelectedItem().toString());
+                
+                ControlT_Ref tRef = new ControlT_Ref(P1, flu, ctrlEtapa1Panel.getSession());
+                double Tee = tRef.getTref();
+                
+                double T1 = Tee + Double.parseDouble(ctrlEtapa1Panel.getCtrlPrincipal().getViewLateral().getFieldSup().getSelectedItem().toString());
+                
+                ctrlEtapa1Panel.getCtrlPrincipal().setT1(T1);
+                fieldTemp.setSelectedItem(controlConverte.round(T1, 2));
             }
         });
         fieldPressao.getEditor().getEditorComponent().addKeyListener(new KeyListener() {

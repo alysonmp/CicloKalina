@@ -145,6 +145,8 @@ public class ControlPrincipal {
     private double Beff = 0;
     private double Teff = 0;
     private double eff = 0;
+    private double T1;
+    private double P1;
  
     private ViewPrincipal viewPrincipal;
     private ArrayList<JPanel> panel_usado = new ArrayList();
@@ -858,7 +860,7 @@ public class ControlPrincipal {
         viewPrincipal.getFramePrincipal().repaint();
         calculaLimites();
 
-        this.inicializaEff();
+        //this.inicializaEff();
 
     }
     
@@ -956,7 +958,7 @@ public class ControlPrincipal {
         //Teste teste = new Teste(session, this);
         //return;
                 
-        int comp = Integer.parseInt(viewLateral.getComboCompressores().getSelectedItem().toString());
+        int comp;
                 
         String fluNome = viewLateral.getComboFluidos().getSelectedItem().toString();
         int flu = getFluidoCod(fluNome);
@@ -1001,7 +1003,7 @@ public class ControlPrincipal {
             JOptionPane.showMessageDialog(null, "É necessário inserir a efetividade");
             return;
         }*/
-        double km = (Double.parseDouble(viewLateral.getFieldKm().getEditor().getItem().toString()))/100;
+        double km = (Double.parseDouble(viewLateral.getFieldKm().getEditor().getItem().toString()));
         
         int FON = viewLateral.getComboCompressores().getSelectedIndex() + 1;
         
@@ -1042,7 +1044,7 @@ public class ControlPrincipal {
         }
         
         //Start start = new Start(1, 14, 415.25, 1144.4, 25, 10, 313.15, 0.3, session);
-        start.iniciaCalculos(comp, flu, Tf, Pf, m, sup, pinch, Tconop, eff, km, 3, Beff, Teff);
+        start.iniciaCalculos(comp, flu, Tf, Pf, m, sup, pinch, Tconop, eff, km, FON, Beff/100, Teff/100, T1, P1);
         viewLateral.getFrameEspera().dispose();
         if(!start.getMensagem().equals("")){
             JOptionPane.showMessageDialog(null, start.getMensagem(), "Aviso", JOptionPane.ERROR_MESSAGE);
@@ -1076,9 +1078,9 @@ public class ControlPrincipal {
         ControlConverte controlConverte = new ControlConverte();
         
         viewLateral.getLabelLimitPressao().setText("Pressão Máxima: ");
-        viewLateral.getLabelLimitTemp().setText("Temperatura Máxima: ");
+        //viewLateral.getLabelLimitTemp().setText("Temperatura Máxima: ");
         viewLateral.getFieldLimitPressao().setText(controlConverte.round(PMax,2)+"");
-        viewLateral.getFieldLimitTemp().setText(controlConverte.round(TMax,2)+"");
+        //viewLateral.getFieldLimitTemp().setText(controlConverte.round(TMax,2)+"");
     }
     
     public void adicionaValoresCaixas(){
@@ -1179,9 +1181,9 @@ public class ControlPrincipal {
         ModelRegenerador regenerador = (ModelRegenerador) results.get(0);
         
         if(results.isEmpty())
-            this.Eff = 0;
+            this.eff = 0;
         else
-            this.Eff = regenerador.getEfetividade();
+            this.eff = regenerador.getEfetividade();
     }
     
     public ViewPrincipal getViewPrincipal() {
@@ -1252,8 +1254,8 @@ public class ControlPrincipal {
         this.Teff = Teff;
     }
     
-    public double setBeff(double Beff) {
-        return Beff;
+    public void setBeff(double Beff) {
+        this.Beff = Beff;
     }
 
     public double getEff() {
@@ -1262,5 +1264,29 @@ public class ControlPrincipal {
 
     public void setEff(double eff) {
         this.eff = eff;
+    }
+
+    public ViewLateral getViewLateral() {
+        return viewLateral;
+    }
+
+    public void setViewLateral(ViewLateral viewLateral) {
+        this.viewLateral = viewLateral;
+    }
+
+    public double getT1() {
+        return T1;
+    }
+
+    public void setT1(double T1) {
+        this.T1 = T1;
+    }
+
+    public double getP1() {
+        return P1;
+    }
+
+    public void setP1(double P1) {
+        this.P1 = P1;
     }
 }
