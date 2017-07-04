@@ -220,5 +220,6 @@ Contributor(s):
     <mapping class="Model.TabelasFluidos.ModelR_40Gas"/>
     <mapping class="Model.TabelasFluidos.ModelR_40Liquido"/>
     <mapping class="Model.ModelCore"/>
+    <mapping class="Model.Ciclo2.ModelEtapa1"/>
   </session-factory>
 </hibernate-configuration>

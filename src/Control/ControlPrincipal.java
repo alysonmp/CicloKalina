@@ -72,9 +72,12 @@ import Control.TabelaFluidos.ControlTolueneGas;
 import Control.TabelaFluidos.ControlTolueneLiquido;
 import Control.TabelaFluidos.ControlWaterGas;
 import Control.TabelaFluidos.ControlWaterLiquido;
+import Model.Ciclo2.ModelBomba;
 import Model.ModelCore;
 import Model.Ciclo2.ModelFluidos;
 import Model.Ciclo2.ModelMassa;
+import Model.Ciclo2.ModelRegenerador;
+import Model.Ciclo2.ModelTurbina;
 import Model.ModelCVA;
 import Model.ModelCVB;
 import Model.ModelConsExeMatA;
@@ -103,6 +106,7 @@ import View.Evaporador.ViewEvaporadorImage;
 import View.Bomba.ViewBombaImage;
 import View.Bomba.ViewBombaPanelRankine;
 import View.Condensador.ViewCondensadorPanelRankine;
+import View.Etapas.ViewEtapa1Image;
 import View.Etapas.ViewEtapaImage;
 import View.Evaporador.ViewEvaporadorPanelRankine;
 import View.ViewPrincipal;
@@ -141,7 +145,7 @@ public class ControlPrincipal {
     private double Beff = 0;
     private double Teff = 0;
     private double eff = 0;
-    
+ 
     private ViewPrincipal viewPrincipal;
     private ArrayList<JPanel> panel_usado = new ArrayList();
     private ViewLateral viewLateral;
@@ -799,6 +803,10 @@ public class ControlPrincipal {
                           (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.3), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.7));
         viewPrincipal.getPainelCiclos().add(ciclo);
         
+        criaPanel(new ViewEtapa1Image(this), 
+                 (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.195), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.06), 
+                 (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.03), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.065));
+        
         criaPanel(new ViewTurbinaImage(this), 
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.224), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.1), 
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.05), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.13));
@@ -849,6 +857,9 @@ public class ControlPrincipal {
         viewPrincipal.getFramePrincipal().revalidate();
         viewPrincipal.getFramePrincipal().repaint();
         calculaLimites();
+
+        this.inicializaEff();
+
     }
     
     //FUNÇÃO QUE EDITA OS JPANELS ONDE SERÃO MOSTRADOS OS CICLOS E OS INSERE NO PAINEL
@@ -1144,6 +1155,35 @@ public class ControlPrincipal {
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.03), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.065));
     }
     
+    public void inicializaEff(){
+        Criteria cr = session.createCriteria(ModelTurbina.class);
+        List results = cr.list();
+        ModelTurbina turbina = (ModelTurbina) results.get(0);
+    
+        if(results.isEmpty())
+            this.Teff = 0;
+        else
+            this.Teff = turbina.getEficiencia();
+        
+        cr = session.createCriteria(ModelBomba.class);
+        results = cr.list();
+        ModelBomba bomba = (ModelBomba) results.get(0);
+        
+        if(results.isEmpty())
+            this.Beff = 0;
+        else  
+            this.Beff = bomba.getEficiencia();
+        
+        cr = session.createCriteria(ModelRegenerador.class);
+        results = cr.list();
+        ModelRegenerador regenerador = (ModelRegenerador) results.get(0);
+        
+        if(results.isEmpty())
+            this.Eff = 0;
+        else
+            this.Eff = regenerador.getEfetividade();
+    }
+    
     public ViewPrincipal getViewPrincipal() {
         return viewPrincipal;
     }
@@ -1200,20 +1240,20 @@ public class ControlPrincipal {
         this.start = start;
     }
 
-    public double getBeff() {
-        return Beff;
-    }
-
-    public void setBeff(double Beff) {
-        this.Beff = Beff;
-    }
-
     public double getTeff() {
         return Teff;
     }
 
+    public double getBeff() {
+        return Beff;
+    }
+    
     public void setTeff(double Teff) {
         this.Teff = Teff;
+    }
+    
+    public double setBeff(double Beff) {
+        return Beff;
     }
 
     public double getEff() {

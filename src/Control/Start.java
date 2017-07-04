@@ -9,7 +9,6 @@ import Control.Ciclo2.ControlAreas;
 import Control.Ciclo2.ControlBalanco;
 import Control.Ciclo2.ControlBomba;
 import Control.Ciclo2.ControlConeff;
-import Control.Ciclo2.ControlDiamTH17;
 import Control.Ciclo2.ControlEvpeff;
 import Control.Ciclo2.ControlMassa;
 import Control.Ciclo2.ControlParametros;
@@ -18,15 +17,8 @@ import Control.Ciclo2.ControlRegenerador;
 import Control.Ciclo2.ControlSF;
 import Control.Ciclo2.ControlT_Ref;
 import Control.Ciclo2.ControlTurbina;
-import Model.Ciclo2.ModelBomba;
 import Util.DropdownComboBox;
-import View.Bomba.ViewBombaPanelRankine;
-import java.awt.Component;
-import java.util.List;
-import java.util.Vector;
-import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 /**
  *
@@ -51,10 +43,10 @@ public class Start {
     //public Start(int compressor, int flu, double Tf, double Pf, double SUP, double PINCH, double Tconop, double eff, double Ve, Session session, ControlPrincipal ctrlPrincipal){
     public void iniciaCalculos(int compressor, int flu, double Tf, double Pf, double mf, double SUP, double PINCH, double Tconop, double eff, double km, int FON, double Beff, double Teff){
         double Ve = 0.6;
-        this.ctrlPrincipal = ctrlPrincipal;
         this.eff = eff;
         this.Beff = Beff;
         this.Teff = Teff;
+        
         mensagem = "";
         
         //flu=14;
