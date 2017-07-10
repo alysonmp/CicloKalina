@@ -27,7 +27,9 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextArea;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -46,6 +48,7 @@ public class ViewPrincipal {
     private JPanel painelLateral = new JPanel();
     private JPanel painelCiclos = new JPanel();
     private JPanel painelEntrada;
+    private JPanel painelMensagens;
     private JTabbedPane tabbedPanelComp;
     
     JFrame frameDados = new JFrame();
@@ -70,10 +73,12 @@ public class ViewPrincipal {
         painelLateral.setPreferredSize(dim);
         
         painelEntrada = new JPanel();
+        painelMensagens = new JPanel();
         
         tabbedPanelComp = new JTabbedPane();
         
-        painelLateral.add(painelEntrada);
+        painelLateral.add(painelEntrada,BorderLayout.NORTH);
+        painelLateral.add(painelMensagens,BorderLayout.SOUTH);
         //painelLateral.add(tabbedPanelComp);
         //******************************************************************************
         
@@ -235,4 +240,14 @@ public class ViewPrincipal {
     public void setFrameDados(JFrame frameDados) {
         this.frameDados = frameDados;
     }
+
+    public JPanel getPainelMensagens() {
+        return painelMensagens;
+    }
+
+    public void setPainelMensagens(JPanel painelMensagens) {
+        this.painelMensagens = painelMensagens;
+    }
+    
+    
 }

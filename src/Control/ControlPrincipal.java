@@ -118,6 +118,7 @@ import View.Regenerador.ViewRegeneradorImage;
 import View.Regenerador.ViewRegeneradorPanelRankine;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -130,6 +131,8 @@ import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -857,12 +860,24 @@ public class ControlPrincipal {
         viewLateral = new ViewLateral(this);
         viewPrincipal.getPainelEntrada().setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(1, Color.lightGray, Color.lightGray), "Dados de Entrada", 1, 2, new Font("Times New Roman", 1, 12), Color.darkGray));
         viewPrincipal.getPainelEntrada().add(viewLateral.getPainelDados());
+        viewPrincipal.getPainelMensagens().setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(1, Color.lightGray, Color.lightGray), "Mensagens", 1, 2, new Font("Times New Roman", 1, 12), Color.darkGray));
+        
+        /*Aonde colocar ? */
+        JTextArea textArea = new JTextArea(10, 20);
+        textArea.setEditable(false);
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        scrollPane.setPreferredSize(new Dimension(350,260));
+        
+        viewPrincipal.getPainelMensagens().add(scrollPane);
         viewPrincipal.getFramePrincipal().revalidate();
         viewPrincipal.getFramePrincipal().repaint();
         calculaLimites();
 
         this.inicializaVariaveis();
-
+        
+        /*Testando TextArea*/
+        textArea.append("Eficiencia da Turbina a 80%\n");
+        textArea.setFont(new Font("Serif", Font.ITALIC, 12));
     }
     
     //FUNÇÃO QUE EDITA OS JPANELS ONDE SERÃO MOSTRADOS OS CICLOS E OS INSERE NO PAINEL
