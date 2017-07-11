@@ -75,29 +75,33 @@ public class ControlPentaneLiquido {
         Criteria cr = this.session.createCriteria(ModelPentaneLiquido.class);
         //cr = this.session.createCriteria(ModelPentaneLiquido.class);
         do{
-            SQLQuery consulta = this.session.createSQLQuery("select * from Pentane where pressao <= " +pressao+ "and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
+            SQLQuery consulta = this.session.createSQLQuery("select * from Pentane_liquido where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelPentaneLiquido.class));//Sem isso aqui impossível de retornar
             List<ModelPentaneLiquido> Pentanes = consulta.list(); 
-            Pentane1 = Pentanes.get(0);
+            if(!Pentanes.isEmpty())    
+                Pentane1 = Pentanes.get(0);
 
-            consulta = this.session.createSQLQuery("select * from Pentane where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
-
-            consulta.setResultTransformer(Transformers.aliasToBean(ModelPentaneLiquido.class));//Sem isso aqui impossível de retornar
-            Pentanes = consulta.list(); 
-            Pentane2 = Pentanes.get(0);
-
-            consulta = this.session.createSQLQuery("select * from Pentane where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
+            consulta = this.session.createSQLQuery("select * from Pentane_liquido where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelPentaneLiquido.class));//Sem isso aqui impossível de retornar
             Pentanes = consulta.list(); 
-            Pentane3 = Pentanes.get(0);
+            if(!Pentanes.isEmpty())
+                Pentane2 = Pentanes.get(0);
 
-            consulta = this.session.createSQLQuery("select * from Pentane where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
+            consulta = this.session.createSQLQuery("select * from Pentane_liquido where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelPentaneLiquido.class));//Sem isso aqui impossível de retornar
             Pentanes = consulta.list(); 
-            Pentane4 = Pentanes.get(0);
+            if(!Pentanes.isEmpty())
+                Pentane3 = Pentanes.get(0);
+
+            consulta = this.session.createSQLQuery("select * from Pentane_liquido where pressao >= " +pressao+ " and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
+
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelPentaneLiquido.class));//Sem isso aqui impossível de retornar
+            Pentanes = consulta.list(); 
+            if(!Pentanes.isEmpty())
+                Pentane4 = Pentanes.get(0);
 
             temperatura -= 1;
         }while(Pentane1 == null || Pentane2 == null || Pentane3 == null || Pentane4 == null);

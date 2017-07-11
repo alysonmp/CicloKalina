@@ -13,7 +13,7 @@ import org.hibernate.Session;
  */
 public class ControlAreas {
 
-    private double Acon, Areg, Aevp, UASUP, UALAT, UASEN, UACONl, UACONs, UAREG, Ten, Pen, Ten1, mH2O;
+    private double Acon, Areg, Aevp, UASUP, UALAT, UASEN, UACONl, UACONs, UAREG, Ten, Pen, Ten1, mH2O, Ts;
     private String mensagem = "";
     
     public ControlAreas(double T1, double T2, double T3, double T4, double T5, double T6, double Tf, double Tfout, double Qevp, double Qcon, double Qreg, double eff, double Hlat, double Hsen, double Hsup, double T1s, double PP, double SUP, double m, double Pref, double Tref, double P4, int ii, double H3,int compressor,Session session) {
@@ -60,7 +60,6 @@ public class ControlAreas {
         mH2O=Qconlat/(HLs-HLen);
         
         double Tcon3=T3-T4;
-        double Ts;
         if(Tcon3 < 1){
             Qconsen=0;
             Ts=Ten1;
@@ -271,6 +270,14 @@ public class ControlAreas {
 
     public double getTen1() {
         return Ten1;
+    }
+
+    public double getTs() {
+        return Ts;
+    }
+
+    public void setTs(double Ts) {
+        this.Ts = Ts;
     }
 
     public void setTen1(double Ten1) {
