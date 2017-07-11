@@ -336,7 +336,7 @@ public class ViewLateral extends JPanel{
         
         controlLateral.getValues();
         
-        if(!fieldPinch.getSelectedItem().toString().equals("0")){
+        if(fieldPinch.getSelectedItem() == null || !fieldPinch.getSelectedItem().toString().equals("0")){
             fieldPinch.setEnabled(true);
             checkPinch.setSelected(true);
         }else{
@@ -344,7 +344,7 @@ public class ViewLateral extends JPanel{
             checkPinch.setSelected(false);
         }
 
-        if(!fieldSup.getSelectedItem().toString().equals("0")){
+        if(fieldSup.getSelectedItem() == null || !fieldSup.getSelectedItem().toString().equals("0")){
             fieldSup.setEnabled(true);
             checkSup.setSelected(true);
         }else{
@@ -587,13 +587,13 @@ public class ViewLateral extends JPanel{
         botaoInicia.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(fieldTemp.getItemCount() == 0 || fieldTemp.getSelectedItem().equals("")){
+                if(fieldTemp.getSelectedItem() == null || fieldTemp.getSelectedItem().equals("")){
                     JOptionPane.showMessageDialog(null, "Campo Temperatura não preenchido\n");
                     return;
-                }else if(fieldPressao.getItemCount() == 0 || fieldPressao.getSelectedItem().equals("")){
+                }else if(fieldPressao.getSelectedItem() == null || fieldPressao.getSelectedItem().equals("")){
                     JOptionPane.showMessageDialog(null, "Campo Pressão não preenchido\n");
                     return;
-                }else if(fieldMassa.getItemCount() == 0 || fieldMassa.getSelectedItem().equals("")){
+                }else if(fieldMassa.getSelectedItem() == null || fieldMassa.getSelectedItem().equals("")){
                     JOptionPane.showMessageDialog(null, "Campo Massa não preenchido\n");
                     return;
                 }

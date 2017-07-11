@@ -100,6 +100,8 @@ import Model.ModelQfpsoKCSMat;
 import Model.ModelQfpsoRankineMat;
 import Model.ModelStart;
 import Model.TabelasFluidos.ModelButanoGas;
+import Model.TabelasFluidos.ModelCompressor;
+import Model.TabelasFluidos.ModelCompressor5;
 import Model.TabelasFluidos.ModelEthylbenzeneGas;
 import Util.HibernateUtil;
 import View.Condensador.ViewCondensadorImage;
@@ -146,9 +148,9 @@ import org.hibernate.criterion.Restrictions;
  */
 public class ControlPrincipal {
     private double PMax, TMax;
-    private double Beff = 80;
-    private double Teff = 80;
-    private double eff = 0.8;
+    private double Beff;
+    private double Teff;
+    private double eff;
     private double T1;
     private double P1;
  
@@ -331,7 +333,7 @@ public class ControlPrincipal {
             
             tx.commit();
         }
-               
+        
         cr = this.session.createCriteria(ModelCore.class);
         results = cr.list();
         Transaction tx = session.beginTransaction();
@@ -720,6 +722,76 @@ public class ControlPrincipal {
                         valoresV[i] = Double.parseDouble(table_c[i]);
                     }
                     this.session.save(new ModelEqrs(valoresV));
+                }
+
+            }catch(FileNotFoundException e){
+                e.printStackTrace();
+            }catch(IOException e){
+                e.printStackTrace();
+            }finally {
+                if (br != null) {
+                    try {
+                        br.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+        tx.commit();
+        
+        cr = this.session.createCriteria(ModelCompressor.class);
+        results = cr.list();
+        tx = session.beginTransaction();
+        if(results.isEmpty()){
+            String csvFile = "src/Csv/compre1_4_gas.csv";
+            BufferedReader br = null;
+            String line = "";
+            String csvSplitBy = ";";
+           
+            try{
+                cr = this.session.createCriteria(ModelCompressor.class);
+                results = cr.list();
+                br = new BufferedReader(new FileReader(csvFile));
+                while((line = br.readLine()) != null){
+                    double[] valoresV = new double[8];
+                    String[] table_c = line.split(csvSplitBy);
+                    for(int i = 0; i < table_c.length; i++){
+                        valoresV[i] = Double.parseDouble(table_c[i]);
+                    }
+                    this.session.save(new ModelCompressor(valoresV[0], valoresV[1], valoresV[2], valoresV[3], valoresV[4], valoresV[5], valoresV[6], valoresV[7]));
+                }
+
+            }catch(FileNotFoundException e){
+                e.printStackTrace();
+            }catch(IOException e){
+                e.printStackTrace();
+            }finally {
+                if (br != null) {
+                    try {
+                        br.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            
+            csvFile = "src/Csv/compre5_gas.csv";
+            br = null;
+            line = "";
+            csvSplitBy = ";";
+           
+            try{
+                cr = this.session.createCriteria(ModelCompressor5.class);
+                results = cr.list();
+                br = new BufferedReader(new FileReader(csvFile));
+                while((line = br.readLine()) != null){
+                    double[] valoresV = new double[4];
+                    String[] table_c = line.split(csvSplitBy);
+                    for(int i = 0; i < table_c.length; i++){
+                        valoresV[i] = Double.parseDouble(table_c[i]);
+                    }
+                    this.session.save(new ModelCompressor5(valoresV[0], valoresV[1], valoresV[2], valoresV[3], valoresV[4], valoresV[5], valoresV[6], valoresV[7]));
                 }
 
             }catch(FileNotFoundException e){
