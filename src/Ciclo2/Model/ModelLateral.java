@@ -43,20 +43,12 @@ public class ModelLateral implements Serializable{
     
     @Column
     private double pinch;
-    
-    @Column
-    private String tipoMassa;
-    
-    @Column 
-    private String tipoTemp;
-    
-    @Column
-    private String tipoPressao;
-    
-    @Column
-    private String tipoTempCond;
 
-    public ModelLateral(double massa, double temperatura, double pressao, double tempCond, double efetividade, double Superaquecimento, double pinch, String tipoMassa, String tipoTemp, String tipoPressao, String tipoTempCond) {
+    public ModelLateral() {
+    }
+
+    public ModelLateral(int ID, double massa, double temperatura, double pressao, double tempCond, double efetividade, double Superaquecimento, double pinch) {
+        this.ID = ID;
         this.massa = massa;
         this.temperatura = temperatura;
         this.pressao = pressao;
@@ -64,15 +56,8 @@ public class ModelLateral implements Serializable{
         this.efetividade = efetividade;
         this.Superaquecimento = Superaquecimento;
         this.pinch = pinch;
-        this.tipoMassa = tipoMassa;
-        this.tipoTemp = tipoTemp;
-        this.tipoPressao = tipoPressao;
-        this.tipoTempCond = tipoTempCond;
     }
 
-    public ModelLateral() {
-    }
-    
     public int getID() {
         return ID;
     }
@@ -135,37 +120,5 @@ public class ModelLateral implements Serializable{
 
     public void setPinch(double pinch) {
         this.pinch = pinch;
-    }
-
-    public String getTipoMassa() {
-        return tipoMassa;
-    }
-
-    public void setTipoMassa(String tipoMassa) {
-        this.tipoMassa = tipoMassa;
-    }
-
-    public String getTipoTemp() {
-        return tipoTemp;
-    }
-
-    public void setTipoTemp(String tipoTemp) {
-        this.tipoTemp = tipoTemp;
-    }
-
-    public String getTipoPressao() {
-        return tipoPressao;
-    }
-
-    public void setTipoPressao(String tipoPressao) {
-        this.tipoPressao = tipoPressao;
-    }
-
-    public String getTipoTempCond() {
-        return tipoTempCond;
-    }
-
-    public void setTipoTempCond(String tipoTempCond) {
-        this.tipoTempCond = tipoTempCond;
     }
 }
