@@ -80,25 +80,29 @@ public class ControlMMLiquido {
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelMMLiquido.class));//Sem isso aqui impossível de retornar
             List<ModelMMLiquido> MMs = consulta.list(); 
-            MM1 = MMs.get(0);
+            if(!MMs.isEmpty())
+                MM1 = MMs.get(0);
 
             consulta = this.session.createSQLQuery("select * from MM where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelMMLiquido.class));//Sem isso aqui impossível de retornar
-            MMs = consulta.list(); 
-            MM2 = MMs.get(0);
+            MMs = consulta.list();
+            if(!MMs.isEmpty())
+                MM2 = MMs.get(0);
 
             consulta = this.session.createSQLQuery("select * from MM where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelMMLiquido.class));//Sem isso aqui impossível de retornar
-            MMs = consulta.list(); 
-            MM3 = MMs.get(0);
+            MMs = consulta.list();
+            if(!MMs.isEmpty())
+                MM3 = MMs.get(0);
 
             consulta = this.session.createSQLQuery("select * from MM where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelMMLiquido.class));//Sem isso aqui impossível de retornar
-            MMs = consulta.list(); 
-            MM4 = MMs.get(0);
+            MMs = consulta.list();
+            if(!MMs.isEmpty())
+                MM4 = MMs.get(0);
         
             temperatura -= 1;
         }while(MM1 == null || MM2 == null || MM3 == null || MM4 == null);   

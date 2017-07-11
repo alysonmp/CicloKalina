@@ -45,7 +45,7 @@ public class ModelMD4MLiquido implements Serializable{
     @Column
     private double Vcl;
 
-    public ModelMD4MLiquido(double pressao, double temperatura, double kl, double Cpl, double Prl, double Mul, double Vcl) {
+    public ModelMD4MLiquido(double pressao, double temperatura, double Cpl, double Prl, double kl, double Mul, double Vcl) {
         this.pressao = pressao;
         this.temperatura = temperatura;
         this.kl = kl;

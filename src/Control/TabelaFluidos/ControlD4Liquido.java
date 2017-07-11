@@ -64,25 +64,29 @@ public class ControlD4Liquido {
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelD4Liquido.class));//Sem isso aqui impossível de retornar
             List<ModelD4Liquido> d4_liquido = consulta.list(); 
-            d4_liquido1 = d4_liquido.get(0);
+            if(!d4_liquido.isEmpty())
+                d4_liquido1 = d4_liquido.get(0);
 
             consulta = this.session.createSQLQuery("select * from d4_liquido where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelD4Liquido.class));//Sem isso aqui impossível de retornar
-            d4_liquido = consulta.list(); 
-            d4_liquido2 = d4_liquido.get(0);
+            d4_liquido = consulta.list();
+            if(!d4_liquido.isEmpty())
+                d4_liquido2 = d4_liquido.get(0);
 
             consulta = this.session.createSQLQuery("select * from d4_liquido where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelD4Liquido.class));//Sem isso aqui impossível de retornar
             d4_liquido = consulta.list(); 
-            d4_liquido3 = d4_liquido.get(0);
+            if(!d4_liquido.isEmpty())
+                d4_liquido3 = d4_liquido.get(0);
 
             consulta = this.session.createSQLQuery("select * from d4_liquido where pressao >= " +pressao+ " and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelD4Liquido.class));//Sem isso aqui impossível de retornar
             d4_liquido = consulta.list(); 
-            d4_liquido4 = d4_liquido.get(0);
+            if(!d4_liquido.isEmpty())
+                d4_liquido4 = d4_liquido.get(0);
             
             temperatura -= 1;
         }while(d4_liquido1 == null || d4_liquido2 == null || d4_liquido3 == null || d4_liquido4 == null);

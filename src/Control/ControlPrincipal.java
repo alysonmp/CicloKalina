@@ -1255,6 +1255,30 @@ public class ControlPrincipal {
             this.P1 = etapa.getPressao();
             this.T1 = etapa.getTemperatura();
         }
+        
+        cr = session.createCriteria(ModelTurbina.class);
+        results = cr.list();
+        
+        if(!results.isEmpty()){
+            ModelTurbina turbina = (ModelTurbina) results.get(0);
+            this.Teff = turbina.getEficiencia();
+        }
+        
+        cr = session.createCriteria(ModelBomba.class);
+        results = cr.list();
+        
+        if(!results.isEmpty()){
+            ModelBomba bomba = (ModelBomba) results.get(0);
+            this.Beff = bomba.getEficiencia();
+        }
+        
+        cr = session.createCriteria(ModelRegenerador.class);
+        results = cr.list();
+        
+        if(!results.isEmpty()){
+            ModelRegenerador regenerador = (ModelRegenerador) results.get(0);
+            this.eff = regenerador.getEfetividade();
+        }
     }
     
     public ViewPrincipal getViewPrincipal() {

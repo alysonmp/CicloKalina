@@ -77,25 +77,29 @@ public class ControlIsobutanGas {
             SQLQuery consulta = this.session.createSQLQuery("select * from isobutan_gas where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
             consulta.setResultTransformer(Transformers.aliasToBean(ModelIsobutanGas.class));
             List<ModelIsobutanGas> isobutan_gas = consulta.list();
-            isobutan_gas1 = isobutan_gas.get(0);
+            if(!isobutan_gas.isEmpty())
+                isobutan_gas1 = isobutan_gas.get(0);
 
             consulta = this.session.createSQLQuery("select * from isobutan_gas where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
             consulta.setResultTransformer(Transformers.aliasToBean(ModelIsobutanGas.class));
             isobutan_gas = consulta.list();
-            isobutan_gas2 = isobutan_gas.get(0);
+            if(!isobutan_gas.isEmpty())
+                isobutan_gas2 = isobutan_gas.get(0);
 
             consulta = this.session.createSQLQuery("select * from isobutan_gas where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
             consulta.setResultTransformer(Transformers.aliasToBean(ModelIsobutanGas.class));
             isobutan_gas = consulta.list();
-            isobutan_gas3 = isobutan_gas.get(0);
+            if(!isobutan_gas.isEmpty())
+                isobutan_gas3 = isobutan_gas.get(0);
 
             consulta = this.session.createSQLQuery("select * from isobutan_gas where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
             consulta.setResultTransformer(Transformers.aliasToBean(ModelIsobutanGas.class));
             isobutan_gas = consulta.list();
-            isobutan_gas4 = isobutan_gas.get(0);
+            if(!isobutan_gas.isEmpty())
+                isobutan_gas4 = isobutan_gas.get(0);
 
             temperatura += 1;
-        }while(isobutan_gas1 != null || isobutan_gas2 != null || isobutan_gas3 != null || isobutan_gas4 != null);
+        }while(isobutan_gas1 == null || isobutan_gas2 == null || isobutan_gas3 == null || isobutan_gas4 == null);
         
         double p = ((pressao - isobutan_gas1.getPRESSAO())/(isobutan_gas3.getPRESSAO() - isobutan_gas1.getPRESSAO()));
         double t1 = ((temperatura - isobutan_gas1.getTEMPERATURA())/(isobutan_gas2.getTEMPERATURA() - isobutan_gas1.getTEMPERATURA()));

@@ -86,28 +86,32 @@ public class ControlR12Gas {
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelR12Gas.class));//Sem isso aqui impossível de retornar
             List<ModelR12Gas> R12s = consulta.list(); 
-            R121 = R12s.get(0);
+            if(!R12s.isEmpty())
+                R121 = R12s.get(0);
 
             consulta = this.session.createSQLQuery("select * from R12_gas where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelR12Gas.class));//Sem isso aqui impossível de retornar
             R12s = consulta.list(); 
-            R122 = R12s.get(0);
+            if(!R12s.isEmpty())
+                R122 = R12s.get(0);
 
             consulta = this.session.createSQLQuery("select * from R12_gas where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelR12Gas.class));//Sem isso aqui impossível de retornar
             R12s = consulta.list(); 
-            R123 = R12s.get(0);
+            if(!R12s.isEmpty())
+                R123 = R12s.get(0);
 
             consulta = this.session.createSQLQuery("select * from R12_gas where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelR12Gas.class));//Sem isso aqui impossível de retornar
             R12s = consulta.list(); 
-            R124 = R12s.get(0);
+            if(!R12s.isEmpty())
+                R124 = R12s.get(0);
 
             temperatura += 1;
-        }while(R121 != null || R122 != null || R123 != null || R124 != null);
+        }while(R121 == null || R122 == null || R123 == null || R124 == null);
         
         cpv1 = R121.getCPV() + (R122.getCPV() - R121.getCPV()) * ((temperatura-R121.getTEMPERATURA())/(R122.getTEMPERATURA()-R121.getTEMPERATURA()));
         cpv2 = R123.getCPV() + (R124.getCPV() - R123.getCPV()) * ((temperatura-R123.getTEMPERATURA())/(R124.getTEMPERATURA()-R123.getTEMPERATURA()));

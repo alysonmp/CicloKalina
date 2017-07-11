@@ -77,25 +77,29 @@ public class ControlMD2MGas {
             SQLQuery consulta = this.session.createSQLQuery("select * from md2m_gas where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
             consulta.setResultTransformer(Transformers.aliasToBean(ModelMD2MGas.class));
             List<ModelMD2MGas> md2m_gas = consulta.list();
-            md2m_gas1 = md2m_gas.get(0);
+            if(!md2m_gas.isEmpty())
+                md2m_gas1 = md2m_gas.get(0);
 
             consulta = this.session.createSQLQuery("select * from md2m_gas where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
             consulta.setResultTransformer(Transformers.aliasToBean(ModelMD2MGas.class));
             md2m_gas = consulta.list();
-            md2m_gas2 = md2m_gas.get(0);
+            if(!md2m_gas.isEmpty())
+                md2m_gas2 = md2m_gas.get(0);
 
             consulta = this.session.createSQLQuery("select * from md2m_gas where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
             consulta.setResultTransformer(Transformers.aliasToBean(ModelMD2MGas.class));
             md2m_gas = consulta.list();
-            md2m_gas3 = md2m_gas.get(0);
+            if(!md2m_gas.isEmpty())
+                md2m_gas3 = md2m_gas.get(0);
 
             consulta = this.session.createSQLQuery("select * from md2m_gas where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
             consulta.setResultTransformer(Transformers.aliasToBean(ModelMD2MGas.class));
             md2m_gas = consulta.list();
-            md2m_gas4 = md2m_gas.get(0);
+            if(!md2m_gas.isEmpty())
+                md2m_gas4 = md2m_gas.get(0);
 
             temperatura += 1;
-        }while(md2m_gas2 != null || md2m_gas2 != null || md2m_gas3 != null || md2m_gas4 != null);
+        }while(md2m_gas2 == null || md2m_gas2 == null || md2m_gas3 == null || md2m_gas4 == null);
         
         double p = ((pressao - md2m_gas1.getPRESSAO())/(md2m_gas3.getPRESSAO() - md2m_gas1.getPRESSAO()));
         double t1 = ((temperatura - md2m_gas1.getTEMPERATURA())/(md2m_gas2.getTEMPERATURA() - md2m_gas1.getTEMPERATURA()));
