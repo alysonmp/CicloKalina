@@ -39,13 +39,13 @@ public class ControlInterpolacaoCompressor {
                 
             case 5:
                 gas = new ControlCompressor5(session);
-                ((ControlCompressor)gas).interpolacao(pressao, temp);
-                Cpv_g = ((ControlCompressor)gas).getCpv();
-                Prv_g = ((ControlCompressor)gas).getPrv();
-                kv_g = ((ControlCompressor)gas).getKv();
-                Muv_g = ((ControlCompressor)gas).getMuv();
-                Vcv_g = ((ControlCompressor)gas).getVcv();
-                Df_g = ((ControlCompressor)gas).getDf();
+                ((ControlCompressor5)gas).interpolacao(pressao, temp);
+                Cpv_g = ((ControlCompressor5)gas).getCpv();
+                Prv_g = ((ControlCompressor5)gas).getPrv();
+                kv_g = ((ControlCompressor5)gas).getKv();
+                Muv_g = ((ControlCompressor5)gas).getMuv();
+                Vcv_g = ((ControlCompressor5)gas).getVcv();
+                Df_g = ((ControlCompressor5)gas).getDf();
                 break;
         }
     }

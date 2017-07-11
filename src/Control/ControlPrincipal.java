@@ -786,7 +786,7 @@ public class ControlPrincipal {
                 results = cr.list();
                 br = new BufferedReader(new FileReader(csvFile));
                 while((line = br.readLine()) != null){
-                    double[] valoresV = new double[4];
+                    double[] valoresV = new double[8];
                     String[] table_c = line.split(csvSplitBy);
                     for(int i = 0; i < table_c.length; i++){
                         valoresV[i] = Double.parseDouble(table_c[i]);

@@ -106,7 +106,7 @@ public class ControlEvpeff {
         double Pr6 = intLiquido.getPrv_l();
         double Vc6 = intLiquido.getVcv_l();
         
-        ControlInterpolacaoCompressor intCompress = new ControlInterpolacaoCompressor(FON, Pf, Tf, session);
+        ControlInterpolacaoCompressor intCompress = new ControlInterpolacaoCompressor(compressor, Pf, Tf, session);
         double kf = intCompress.getKv_g();
         double Cpf = intCompress.getCpv_g();
         double MUf = intCompress.getMuv_g();
@@ -117,7 +117,7 @@ public class ControlEvpeff {
         ControlTSaida tSaida = new ControlTSaida(compressor, Qsup, Tf, session);
         double Tf1 = tSaida.getTfout();
         
-        intCompress = new ControlInterpolacaoCompressor(FON, Pf, Tf1, session);
+        intCompress = new ControlInterpolacaoCompressor(compressor, Pf, Tf1, session);
         double kf1 = intCompress.getKv_g();
         double Cpf1 = intCompress.getCpv_g();
         double MUf1 = intCompress.getMuv_g();
@@ -125,7 +125,7 @@ public class ControlEvpeff {
         double Vcf1 = intCompress.getVcv_g();
         double Df1 = intCompress.getDf_g();
         
-        intCompress = new ControlInterpolacaoCompressor(FON, Pf, Tf2, session);
+        intCompress = new ControlInterpolacaoCompressor(compressor, Pf, Tf2, session);
         double kf2 = intCompress.getKv_g();
         double Cpf2 = intCompress.getCpv_g();
         double MUf2 = intCompress.getMuv_g();
@@ -133,7 +133,7 @@ public class ControlEvpeff {
         double Vcf2 = intCompress.getVcv_g();
         double Df2 = intCompress.getDf_g();
         
-        intCompress = new ControlInterpolacaoCompressor(FON, Pf, Tfout, session);
+        intCompress = new ControlInterpolacaoCompressor(compressor, Pf, Tfout, session);
         double kfout = intCompress.getKv_g();
         double Cpfout = intCompress.getCpv_g();
         double MUfout = intCompress.getMuv_g();
