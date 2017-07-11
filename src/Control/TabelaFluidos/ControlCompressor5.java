@@ -27,7 +27,7 @@ import org.hibernate.transform.Transformers;
 public class ControlCompressor5 {
     
     Session session;
-    private double Cpv, Prv, kv, Muv, Vcv, Df;
+    private double Cpv, Prv, kv, Muv, Vcv, Dfv;
     private double cpv1, cpv2, Prv1, Prv2, kv1, kv2, Muv1, Muv2, Vcv1, Vcv2, Df1, Df2;
     
     private ModelCompressor5 compr1;
@@ -92,21 +92,21 @@ public class ControlCompressor5 {
 
             consulta = this.session.createSQLQuery("select * from compressor5 where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
 
-            consulta.setResultTransformer(Transformers.aliasToBean(ModelWaterGas.class));//Sem isso aqui impossível de retornar
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelCompressor5.class));//Sem isso aqui impossível de retornar
             compress = consulta.list(); 
             if(!compress.isEmpty())
                 compr2 = compress.get(0);
 
             consulta = this.session.createSQLQuery("select * from compressor5 where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
 
-            consulta.setResultTransformer(Transformers.aliasToBean(ModelWaterGas.class));//Sem isso aqui impossível de retornar
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelCompressor5.class));//Sem isso aqui impossível de retornar
             compress = consulta.list(); 
             if(!compress.isEmpty())
                 compr3 = compress.get(0);
 
             consulta = this.session.createSQLQuery("select * from compressor5 where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
 
-            consulta.setResultTransformer(Transformers.aliasToBean(ModelWaterGas.class));//Sem isso aqui impossível de retornar
+            consulta.setResultTransformer(Transformers.aliasToBean(ModelCompressor5.class));//Sem isso aqui impossível de retornar
             compress = consulta.list(); 
             if(!compress.isEmpty())
                 compr4 = compress.get(0);
@@ -136,7 +136,7 @@ public class ControlCompressor5 {
         
         Df1 = compr1.getDFV() + (compr2.getDFV() - compr1.getDFV()) * ((temperatura-compr1.getTEMPERATURA())/(compr2.getTEMPERATURA()-compr1.getTEMPERATURA()));
         Df2 = compr3.getDFV() + (compr4.getDFV() - compr3.getDFV()) * ((temperatura-compr3.getTEMPERATURA())/(compr4.getTEMPERATURA()-compr3.getTEMPERATURA()));
-        Df = Df1 + (Df2 - Df1) * ((pressao-compr1.getPRESSAO())/(compr3.getPRESSAO()-compr1.getPRESSAO()));
+        Dfv = Df1 + (Df2 - Df1) * ((pressao-compr1.getPRESSAO())/(compr3.getPRESSAO()-compr1.getPRESSAO()));
         
         System.out.println("cpv = "+Cpv);
         System.out.println("prv = "+Prv);
@@ -183,6 +183,14 @@ public class ControlCompressor5 {
 
     public void setVcv(double Vcv) {
         this.Vcv = Vcv;
+    }
+
+    public double getDf() {
+        return Dfv;
+    }
+
+    public void setDf(double Dfv) {
+        this.Dfv = Dfv;
     }
 
 }
