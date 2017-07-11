@@ -75,26 +75,30 @@ public class ControlDimetylbenzeneLiquido {
             SQLQuery consulta = this.session.createSQLQuery("select * from dimetylbenzene_liquido where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelDimetylbenzeneLiquido.class));//Sem isso aqui impossível de retornar
-            List<ModelDimetylbenzeneLiquido> dimetylbenzene_l = consulta.list(); 
-            dimetylbenzene_l1 = dimetylbenzene_l.get(0);
+            List<ModelDimetylbenzeneLiquido> dimetylbenzene_l = consulta.list();
+            if(!dimetylbenzene_l.isEmpty())
+                dimetylbenzene_l1 = dimetylbenzene_l.get(0);
 
             consulta = this.session.createSQLQuery("select * from dimetylbenzene_liquido where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelDimetylbenzeneLiquido.class));//Sem isso aqui impossível de retornar
             dimetylbenzene_l = consulta.list(); 
-            dimetylbenzene_l2 = dimetylbenzene_l.get(0);
+            if(!dimetylbenzene_l.isEmpty())
+                dimetylbenzene_l2 = dimetylbenzene_l.get(0);
 
             consulta = this.session.createSQLQuery("select * from dimetylbenzene_liquido where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelDimetylbenzeneLiquido.class));//Sem isso aqui impossível de retornar
             dimetylbenzene_l = consulta.list(); 
-            dimetylbenzene_l3 = dimetylbenzene_l.get(0);
+            if(!dimetylbenzene_l.isEmpty())
+                dimetylbenzene_l3 = dimetylbenzene_l.get(0);
 
             consulta = this.session.createSQLQuery("select * from dimetylbenzene_liquido where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelDimetylbenzeneLiquido.class));//Sem isso aqui impossível de retornar
             dimetylbenzene_l = consulta.list(); 
-            dimetylbenzene_l4 = dimetylbenzene_l.get(0);
+            if(!dimetylbenzene_l.isEmpty())
+                dimetylbenzene_l4 = dimetylbenzene_l.get(0);
             
             temperatura -= 1;
         }while(dimetylbenzene_l1 == null || dimetylbenzene_l2 == null || dimetylbenzene_l3 == null || dimetylbenzene_l4 == null);

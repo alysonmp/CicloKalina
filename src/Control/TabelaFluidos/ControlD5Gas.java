@@ -77,25 +77,29 @@ public class ControlD5Gas {
             SQLQuery consulta = this.session.createSQLQuery("select * from d5_gas where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
             consulta.setResultTransformer(Transformers.aliasToBean(ModelD5Gas.class));
             List<ModelD5Gas> d5_gas = consulta.list();
-            d5_gas1 = d5_gas.get(0);
+            if(!d5_gas.isEmpty())
+                d5_gas1 = d5_gas.get(0);
 
             consulta = this.session.createSQLQuery("select * from d5_gas where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
             consulta.setResultTransformer(Transformers.aliasToBean(ModelD5Gas.class));
             d5_gas = consulta.list();
-            d5_gas2 = d5_gas.get(0);
+            if(!d5_gas.isEmpty())
+                d5_gas2 = d5_gas.get(0);
 
             consulta = this.session.createSQLQuery("select * from d5_gas where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
             consulta.setResultTransformer(Transformers.aliasToBean(ModelD5Gas.class));
             d5_gas = consulta.list();
-            d5_gas3 = d5_gas.get(0);
+            if(!d5_gas.isEmpty())
+                d5_gas3 = d5_gas.get(0);
 
             consulta = this.session.createSQLQuery("select * from d5_gas where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
             consulta.setResultTransformer(Transformers.aliasToBean(ModelD5Gas.class));
             d5_gas = consulta.list();
-            d5_gas4 = d5_gas.get(0);
+            if(!d5_gas.isEmpty())
+                d5_gas4 = d5_gas.get(0);
 
             temperatura += 1;
-        }while(d5_gas1 != null || d5_gas2 != null || d5_gas3 != null || d5_gas4 != null);
+        }while(d5_gas1 == null || d5_gas2 == null || d5_gas3 == null || d5_gas4 == null);
         
         double p = ((pressao - d5_gas1.getPRESSAO())/(d5_gas3.getPRESSAO() - d5_gas1.getPRESSAO()));
         double t1 = ((temperatura - d5_gas1.getTEMPERATURA())/(d5_gas2.getTEMPERATURA() - d5_gas1.getTEMPERATURA()));

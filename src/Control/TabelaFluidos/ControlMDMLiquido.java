@@ -79,25 +79,29 @@ public class ControlMDMLiquido {
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelMDMLiquido.class));//Sem isso aqui impossível de retornar
             List<ModelMDMLiquido> MDMs = consulta.list(); 
-            MDM1 = MDMs.get(0);
+            if(!MDMs.isEmpty())
+                MDM1 = MDMs.get(0);
 
             consulta = this.session.createSQLQuery("select * from MDM where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelMDMLiquido.class));//Sem isso aqui impossível de retornar
             MDMs = consulta.list(); 
-            MDM2 = MDMs.get(0);
+            if(!MDMs.isEmpty())
+                MDM2 = MDMs.get(0);
 
             consulta = this.session.createSQLQuery("select * from MDM where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelMDMLiquido.class));//Sem isso aqui impossível de retornar
             MDMs = consulta.list(); 
-            MDM3 = MDMs.get(0);
+            if(!MDMs.isEmpty())
+                MDM3 = MDMs.get(0);
 
             consulta = this.session.createSQLQuery("select * from MDM where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelMDMLiquido.class));//Sem isso aqui impossível de retornar
-            MDMs = consulta.list(); 
-            MDM4 = MDMs.get(0);
+            MDMs = consulta.list();
+            if(!MDMs.isEmpty())
+                MDM4 = MDMs.get(0);
 
             temperatura -= 1;
         }while(MDM1 == null || MDM2 == null || MDM3 == null || MDM4 == null);

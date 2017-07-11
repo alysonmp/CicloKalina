@@ -76,25 +76,29 @@ public class ControlPropylbenzeneGas {
             SQLQuery consulta = this.session.createSQLQuery("select * from propylbenzene_gas where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
             consulta.setResultTransformer(Transformers.aliasToBean(ModelPropylbenzeneGas.class));
             List<ModelPropylbenzeneGas> propylbenzene_g = consulta.list();
-            propylbenzene_g1 = propylbenzene_g.get(0);
+            if(!propylbenzene_g.isEmpty())
+                propylbenzene_g1 = propylbenzene_g.get(0);
 
             consulta = this.session.createSQLQuery("select * from propylbenzene_gas where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
             consulta.setResultTransformer(Transformers.aliasToBean(ModelPropylbenzeneGas.class));
             propylbenzene_g = consulta.list();
-            propylbenzene_g2 = propylbenzene_g.get(0);
+            if(!propylbenzene_g.isEmpty())
+                propylbenzene_g2 = propylbenzene_g.get(0);
 
             consulta = this.session.createSQLQuery("select * from propylbenzene_gas where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
             consulta.setResultTransformer(Transformers.aliasToBean(ModelPropylbenzeneGas.class));
             propylbenzene_g = consulta.list();
-            propylbenzene_g3 = propylbenzene_g.get(0);
+            if(!propylbenzene_g.isEmpty())
+                propylbenzene_g3 = propylbenzene_g.get(0);
 
             consulta = this.session.createSQLQuery("select * from propylbenzene_gas where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
             consulta.setResultTransformer(Transformers.aliasToBean(ModelPropylbenzeneGas.class));
             propylbenzene_g = consulta.list();
-            propylbenzene_g4 = propylbenzene_g.get(0);
+            if(!propylbenzene_g.isEmpty())
+                propylbenzene_g4 = propylbenzene_g.get(0);
 
             temperatura += 1;
-        }while(propylbenzene_g1 != null || propylbenzene_g2 != null || propylbenzene_g3 != null || propylbenzene_g4 != null);
+        }while(propylbenzene_g1 == null || propylbenzene_g2 == null || propylbenzene_g3 == null || propylbenzene_g4 == null);
             
         double p = ((pressao - propylbenzene_g1.getPRESSAO())/(propylbenzene_g3.getPRESSAO() - propylbenzene_g1.getPRESSAO()));
         double t1 = ((temperatura - propylbenzene_g1.getTEMPERATURA())/(propylbenzene_g2.getTEMPERATURA() - propylbenzene_g1.getTEMPERATURA()));

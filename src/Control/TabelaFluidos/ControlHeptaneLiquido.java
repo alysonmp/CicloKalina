@@ -75,25 +75,29 @@ public class ControlHeptaneLiquido {
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelHeptaneLiquido.class));//Sem isso aqui impossível de retornar
             List<ModelHeptaneLiquido> heptane_liquido = consulta.list(); 
-            heptane_liquido1 = heptane_liquido.get(0);
+            if(!heptane_liquido.isEmpty())
+                heptane_liquido1 = heptane_liquido.get(0);
 
             consulta = this.session.createSQLQuery("select * from heptane_liquido where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelHeptaneLiquido.class));//Sem isso aqui impossível de retornar
             heptane_liquido = consulta.list(); 
-            heptane_liquido2 = heptane_liquido.get(0);
+            if(!heptane_liquido.isEmpty())
+                heptane_liquido2 = heptane_liquido.get(0);
 
             consulta = this.session.createSQLQuery("select * from heptane_liquido where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelHeptaneLiquido.class));//Sem isso aqui impossível de retornar
             heptane_liquido = consulta.list(); 
-            heptane_liquido3 = heptane_liquido.get(0);
+            if(!heptane_liquido.isEmpty())
+                heptane_liquido3 = heptane_liquido.get(0);
             
             consulta = this.session.createSQLQuery("select * from heptane_liquido where pressao >= " +pressao+ " and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelHeptaneLiquido.class));//Sem isso aqui impossível de retornar
-            heptane_liquido = consulta.list(); 
-            heptane_liquido4 = heptane_liquido.get(0);
+            heptane_liquido = consulta.list();
+            if(!heptane_liquido.isEmpty())
+                heptane_liquido4 = heptane_liquido.get(0);
         
            temperatura -= 1;
         }while(heptane_liquido1 == null || heptane_liquido2 == null || heptane_liquido3 == null || heptane_liquido4 == null);

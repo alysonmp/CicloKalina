@@ -86,28 +86,32 @@ public class ControlMD3MGas {
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelMD3MGas.class));//Sem isso aqui impossível de retornar
             List<ModelMD3MGas> MD3Ms = consulta.list(); 
-            MD3M1 = MD3Ms.get(0);
+            if(!MD3Ms.isEmpty())
+                MD3M1 = MD3Ms.get(0);
 
             consulta = this.session.createSQLQuery("select * from MD3M_gas where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelMD3MGas.class));//Sem isso aqui impossível de retornar
             MD3Ms = consulta.list(); 
-            MD3M2 = MD3Ms.get(0);
+            if(!MD3Ms.isEmpty())
+                MD3M2 = MD3Ms.get(0);
 
             consulta = this.session.createSQLQuery("select * from MD3M_gas where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelMD3MGas.class));//Sem isso aqui impossível de retornar
             MD3Ms = consulta.list(); 
-            MD3M3 = MD3Ms.get(0);
+            if(!MD3Ms.isEmpty())
+                MD3M3 = MD3Ms.get(0);
 
             consulta = this.session.createSQLQuery("select * from MD3M_gas where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelMD3MGas.class));//Sem isso aqui impossível de retornar
-            MD3Ms = consulta.list(); 
-            MD3M4 = MD3Ms.get(0);
+            MD3Ms = consulta.list();
+            if(!MD3Ms.isEmpty())
+                MD3M4 = MD3Ms.get(0);
 
             temperatura += 1;
-        }while(MD3M1 != null || MD3M2 != null || MD3M3 != null || MD3M4 != null);
+        }while(MD3M1 == null || MD3M2 == null || MD3M3 == null || MD3M4 == null);
         
         cpv1 = MD3M1.getCPV() + (MD3M2.getCPV() - MD3M1.getCPV()) * ((temperatura-MD3M1.getTEMPERATURA())/(MD3M2.getTEMPERATURA()-MD3M1.getTEMPERATURA()));
         cpv2 = MD3M3.getCPV() + (MD3M4.getCPV() - MD3M3.getCPV()) * ((temperatura-MD3M3.getTEMPERATURA())/(MD3M4.getTEMPERATURA()-MD3M3.getTEMPERATURA()));

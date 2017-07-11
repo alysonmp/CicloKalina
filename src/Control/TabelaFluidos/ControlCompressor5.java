@@ -87,28 +87,32 @@ public class ControlCompressor5 {
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelCompressor5.class));//Sem isso aqui impossível de retornar
             List<ModelCompressor5> compress = consulta.list(); 
-            compr1 = compress.get(0);
+            if(!compress.isEmpty())
+                compr1 = compress.get(0);
 
             consulta = this.session.createSQLQuery("select * from compressor5 where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelWaterGas.class));//Sem isso aqui impossível de retornar
             compress = consulta.list(); 
-            compr2 = compress.get(0);
+            if(!compress.isEmpty())
+                compr2 = compress.get(0);
 
             consulta = this.session.createSQLQuery("select * from compressor5 where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelWaterGas.class));//Sem isso aqui impossível de retornar
             compress = consulta.list(); 
-            compr3 = compress.get(0);
+            if(!compress.isEmpty())
+                compr3 = compress.get(0);
 
             consulta = this.session.createSQLQuery("select * from compressor5 where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelWaterGas.class));//Sem isso aqui impossível de retornar
             compress = consulta.list(); 
-            compr4 = compress.get(0);
+            if(!compress.isEmpty())
+                compr4 = compress.get(0);
 
             temperatura += 1;
-        }while(compr1 != null || compr2 != null || compr3 != null || compr4 != null);
+        }while(compr1 == null || compr2 == null || compr3 == null || compr4 == null);
         
         cpv1 = compr1.getCPV() + (compr2.getCPV() - compr1.getCPV()) * ((temperatura-compr1.getTEMPERATURA())/(compr2.getTEMPERATURA()-compr1.getTEMPERATURA()));
         cpv2 = compr3.getCPV() + (compr4.getCPV() - compr3.getCPV()) * ((temperatura-compr3.getTEMPERATURA())/(compr4.getTEMPERATURA()-compr3.getTEMPERATURA()));

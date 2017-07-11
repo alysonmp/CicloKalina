@@ -77,25 +77,29 @@ public class ControlDimetylbenzeneGas {
             SQLQuery consulta = this.session.createSQLQuery("select * from dimetylbenzene_gas where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
             consulta.setResultTransformer(Transformers.aliasToBean(ModelDimetylbenzeneGas.class));
             List<ModelDimetylbenzeneGas> dimetylbenzene_g = consulta.list();
-            dimetylbenzene_g1 = dimetylbenzene_g.get(0);
+            if(!dimetylbenzene_g.isEmpty())
+                dimetylbenzene_g1 = dimetylbenzene_g.get(0);
 
             consulta = this.session.createSQLQuery("select * from dimetylbenzene_gas where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
             consulta.setResultTransformer(Transformers.aliasToBean(ModelDimetylbenzeneGas.class));
             dimetylbenzene_g = consulta.list();
-            dimetylbenzene_g2 = dimetylbenzene_g.get(0);
+            if(!dimetylbenzene_g.isEmpty())
+                dimetylbenzene_g2 = dimetylbenzene_g.get(0);
 
             consulta = this.session.createSQLQuery("select * from dimetylbenzene_gas where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
             consulta.setResultTransformer(Transformers.aliasToBean(ModelDimetylbenzeneGas.class));
             dimetylbenzene_g = consulta.list();
-            dimetylbenzene_g3 = dimetylbenzene_g.get(0);
+            if(!dimetylbenzene_g.isEmpty())
+                dimetylbenzene_g3 = dimetylbenzene_g.get(0);
 
             consulta = this.session.createSQLQuery("select * from dimetylbenzene_gas where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
             consulta.setResultTransformer(Transformers.aliasToBean(ModelDimetylbenzeneGas.class));
             dimetylbenzene_g = consulta.list();
-            dimetylbenzene_g4 = dimetylbenzene_g.get(0);
+            if(!dimetylbenzene_g.isEmpty())
+                dimetylbenzene_g4 = dimetylbenzene_g.get(0);
 
             temperatura += 1;
-        }while(dimetylbenzene_g1 != null || dimetylbenzene_g2 != null || dimetylbenzene_g3 != null || dimetylbenzene_g4 != null);
+        }while(dimetylbenzene_g1 == null || dimetylbenzene_g2 == null || dimetylbenzene_g3 == null || dimetylbenzene_g4 == null);
         
         double p = ((pressao - dimetylbenzene_g1.getPRESSAO())/(dimetylbenzene_g3.getPRESSAO() - dimetylbenzene_g1.getPRESSAO()));
         double t1 = ((temperatura - dimetylbenzene_g1.getTEMPERATURA())/(dimetylbenzene_g2.getTEMPERATURA() - dimetylbenzene_g1.getTEMPERATURA()));

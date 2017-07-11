@@ -68,25 +68,29 @@ public class ControlD5Liquido {
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelD5Liquido.class));//Sem isso aqui impossível de retornar
             List<ModelD5Liquido> d5_liquido = consulta.list(); 
-            d5_liquido1 = d5_liquido.get(0);
+            if(!d5_liquido.isEmpty())
+                d5_liquido1 = d5_liquido.get(0);
 
             consulta = this.session.createSQLQuery("select * from d5_liquido where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelD5Liquido.class));//Sem isso aqui impossível de retornar
             d5_liquido = consulta.list(); 
-            d5_liquido2 = d5_liquido.get(0);
+            if(!d5_liquido.isEmpty())
+                d5_liquido2 = d5_liquido.get(0);
 
             consulta = this.session.createSQLQuery("select * from d5_liquido where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelD5Liquido.class));//Sem isso aqui impossível de retornar
             d5_liquido = consulta.list(); 
-            d5_liquido3 = d5_liquido.get(0);
+            if(!d5_liquido.isEmpty())
+                d5_liquido3 = d5_liquido.get(0);
 
             consulta = this.session.createSQLQuery("select * from d5_liquido where pressao >= " +pressao+ " and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelD5Liquido.class));//Sem isso aqui impossível de retornar
             d5_liquido = consulta.list(); 
-            d5_liquido4 = d5_liquido.get(0);
+            if(!d5_liquido.isEmpty())
+                d5_liquido4 = d5_liquido.get(0);
             
             temperatura -= 1;
         }while(d5_liquido1 == null || d5_liquido2 == null || d5_liquido3 == null || d5_liquido4 == null);

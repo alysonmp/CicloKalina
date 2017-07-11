@@ -85,29 +85,33 @@ public class ControlOctaneGas {
             SQLQuery consulta = this.session.createSQLQuery("select * from Octane_gas where pressao <= " +pressao+ "and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelOctaneGas.class));//Sem isso aqui impossível de retornar
-            List<ModelOctaneGas> Octanes = consulta.list(); 
-            Octane1 = Octanes.get(0);
+            List<ModelOctaneGas> Octanes = consulta.list();
+            if(!Octanes.isEmpty())
+                Octane1 = Octanes.get(0);
 
             consulta = this.session.createSQLQuery("select * from Octane_gas where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelOctaneGas.class));//Sem isso aqui impossível de retornar
             Octanes = consulta.list(); 
-            Octane2 = Octanes.get(0);
+            if(!Octanes.isEmpty())
+                Octane2 = Octanes.get(0);
 
             consulta = this.session.createSQLQuery("select * from Octane_gas where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelOctaneGas.class));//Sem isso aqui impossível de retornar
             Octanes = consulta.list(); 
-            Octane3 = Octanes.get(0);
+            if(!Octanes.isEmpty())
+                Octane3 = Octanes.get(0);
 
             consulta = this.session.createSQLQuery("select * from Octane_gas where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelOctaneGas.class));//Sem isso aqui impossível de retornar
             Octanes = consulta.list(); 
-            Octane4 = Octanes.get(0);
+            if(!Octanes.isEmpty())
+                Octane4 = Octanes.get(0);
 
             temperatura += 1;
-        }while(Octane1 != null || Octane2 != null || Octane3 != null || Octane4 != null);
+        }while(Octane1 == null || Octane2 == null || Octane3 == null || Octane4 == null);
         
         cpv1 = Octane1.getCPV() + (Octane2.getCPV() - Octane1.getCPV()) * ((temperatura-Octane1.getTEMPERATURA())/(Octane2.getTEMPERATURA()-Octane1.getTEMPERATURA()));
         cpv2 = Octane3.getCPV() + (Octane4.getCPV() - Octane3.getCPV()) * ((temperatura-Octane3.getTEMPERATURA())/(Octane4.getTEMPERATURA()-Octane3.getTEMPERATURA()));
