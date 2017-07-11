@@ -86,25 +86,29 @@ public class ControlR22Gas {
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelR22Gas.class));//Sem isso aqui impossível de retornar
             List<ModelR22Gas> R22s = consulta.list(); 
-            R221 = R22s.get(0);
+            if(!R22s.isEmpty())
+                R221 = R22s.get(0);
 
             consulta = this.session.createSQLQuery("select * from R22_gas where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelR22Gas.class));//Sem isso aqui impossível de retornar
             R22s = consulta.list(); 
-            R222 = R22s.get(0);
+            if(!R22s.isEmpty())
+                R222 = R22s.get(0);
 
             consulta = this.session.createSQLQuery("select * from R22_gas where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelR22Gas.class));//Sem isso aqui impossível de retornar
             R22s = consulta.list(); 
-            R223 = R22s.get(0);
+            if(!R22s.isEmpty())
+                R223 = R22s.get(0);
 
             consulta = this.session.createSQLQuery("select * from R22_gas where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelR22Gas.class));//Sem isso aqui impossível de retornar
             R22s = consulta.list(); 
-            R224 = R22s.get(0);
+            if(!R22s.isEmpty())
+                R224 = R22s.get(0);
 
             temperatura += 1;
         }while(R221 != null || R222 != null || R223 != null || R224 != null);

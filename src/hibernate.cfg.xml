@@ -219,6 +219,8 @@ Contributor(s):
     <mapping class="Model.TabelasFluidos.ModelR_1270Liquido"/>
     <mapping class="Model.TabelasFluidos.ModelR_40Gas"/>
     <mapping class="Model.TabelasFluidos.ModelR_40Liquido"/>
+    <mapping class="Model.TabelasFluidos.ModelCompressor"/>
+    <mapping class="Model.TabelasFluidos.ModelCompressor5"/>
     <mapping class="Model.ModelCore"/>
     <mapping class="Model.Ciclo2.ModelEtapa1"/>
   </session-factory>
