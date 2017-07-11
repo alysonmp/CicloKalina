@@ -233,6 +233,9 @@ public class Start {
         Acon = areas.getAcon();
         Aevp = areas.getAevp();
         Areg = areas.getAreg();
+        UASUP = areas.getUASUP();
+        UASEN = areas.getUASEN();
+        UALAT = areas.getUALAT();
         
         AT = Acon+Aevp+Areg;
         ecg = ec*100;

@@ -79,26 +79,30 @@ public class ControlR152ALiquido {
             SQLQuery consulta = this.session.createSQLQuery("select * from R152A where pressao <= " +pressao+ "and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelR152ALiquido.class));//Sem isso aqui impossível de retornar
-            List<ModelR152ALiquido> R152As = consulta.list(); 
-            R152A1 = R152As.get(0);
+            List<ModelR152ALiquido> R152As = consulta.list();
+            if(!R152As.isEmpty())
+                R152A1 = R152As.get(0);
 
             consulta = this.session.createSQLQuery("select * from R152A where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelR152ALiquido.class));//Sem isso aqui impossível de retornar
             R152As = consulta.list(); 
-            R152A2 = R152As.get(0);
+            if(!R152As.isEmpty())
+                R152A2 = R152As.get(0);
 
             consulta = this.session.createSQLQuery("select * from R152A where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelR152ALiquido.class));//Sem isso aqui impossível de retornar
             R152As = consulta.list(); 
-            R152A3 = R152As.get(0);
+            if(!R152As.isEmpty())
+                R152A3 = R152As.get(0);
 
             consulta = this.session.createSQLQuery("select * from R152A where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelR152ALiquido.class));//Sem isso aqui impossível de retornar
             R152As = consulta.list(); 
-            R152A4 = R152As.get(0);
+            if(!R152As.isEmpty())
+                R152A4 = R152As.get(0);
 
             temperatura -= 1;
         }while(R152A1 == null || R152A2 == null || R152A3 == null || R152A4 == null);

@@ -86,25 +86,29 @@ public class ControlTolueneGas {
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelTolueneGas.class));//Sem isso aqui impossível de retornar
             List<ModelTolueneGas> Toluenes = consulta.list(); 
-            Toluene1 = Toluenes.get(0);
+            if(!Toluenes.isEmpty())
+                Toluene1 = Toluenes.get(0);
 
             consulta = this.session.createSQLQuery("select * from Toluene_gas where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelTolueneGas.class));//Sem isso aqui impossível de retornar
             Toluenes = consulta.list(); 
-            Toluene2 = Toluenes.get(0);
+            if(!Toluenes.isEmpty())
+                Toluene2 = Toluenes.get(0);
 
             consulta = this.session.createSQLQuery("select * from Toluene_gas where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelTolueneGas.class));//Sem isso aqui impossível de retornar
             Toluenes = consulta.list(); 
-            Toluene3 = Toluenes.get(0);
+            if(!Toluenes.isEmpty())
+                Toluene3 = Toluenes.get(0);
 
             consulta = this.session.createSQLQuery("select * from Toluene_gas where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelTolueneGas.class));//Sem isso aqui impossível de retornar
             Toluenes = consulta.list(); 
-            Toluene4 = Toluenes.get(0);
+            if(!Toluenes.isEmpty())
+                Toluene4 = Toluenes.get(0);
 
             temperatura += 1;
         }while(Toluene1 != null || Toluene2 != null || Toluene3 != null || Toluene4 != null);

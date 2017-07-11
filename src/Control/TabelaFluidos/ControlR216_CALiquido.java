@@ -76,25 +76,29 @@ public class ControlR216_CALiquido {
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelR216_CALiquido.class));//Sem isso aqui impossível de retornar
             List<ModelR216_CALiquido> r216_ca_l = consulta.list(); 
-            r216_ca_l1 = r216_ca_l.get(0);
+            if(!r216_ca_l.isEmpty())
+                r216_ca_l1 = r216_ca_l.get(0);
 
             consulta = this.session.createSQLQuery("select * from r216_ca_liquido where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelR216_CALiquido.class));//Sem isso aqui impossível de retornar
             r216_ca_l = consulta.list(); 
-            r216_ca_l2 = r216_ca_l.get(0);
+            if(!r216_ca_l.isEmpty())
+                r216_ca_l2 = r216_ca_l.get(0);
 
             consulta = this.session.createSQLQuery("select * from r216_ca_liquido where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelR216_CALiquido.class));//Sem isso aqui impossível de retornar
             r216_ca_l = consulta.list(); 
-            r216_ca_l3 = r216_ca_l.get(0);
+            if(!r216_ca_l.isEmpty())
+                r216_ca_l3 = r216_ca_l.get(0);
 
             consulta = this.session.createSQLQuery("select * from r216_ca_liquido where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelR216_CALiquido.class));//Sem isso aqui impossível de retornar
             r216_ca_l = consulta.list(); 
-            r216_ca_l4 = r216_ca_l.get(0);
+            if(!r216_ca_l.isEmpty())
+                r216_ca_l4 = r216_ca_l.get(0);
 
             temperatura -= 1;
         }while(r216_ca_l1 == null || r216_ca_l2 == null || r216_ca_l3 == null || r216_ca_l4 == null);
