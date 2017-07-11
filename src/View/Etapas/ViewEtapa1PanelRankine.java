@@ -128,6 +128,7 @@ public class ViewEtapa1PanelRankine extends JPanel{
                 ctrlEtapa1Panel.getCtrlPrincipal().setP1(pdevapor.getPs2());
                 
                 fieldPressao.setSelectedItem(controlConverte.round(pdevapor.getPs2(), 2));
+                ctrlEtapa1Panel.atualizaPressao();
             }
         });
         
@@ -171,6 +172,7 @@ public class ViewEtapa1PanelRankine extends JPanel{
                 
                 ctrlEtapa1Panel.getCtrlPrincipal().setT1(T1);
                 fieldTemp.setSelectedItem(controlConverte.round(T1, 2));
+                ctrlEtapa1Panel.atualizaTemperatura();
             }
         });
         fieldPressao.getEditor().getEditorComponent().addKeyListener(new KeyListener() {

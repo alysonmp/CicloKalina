@@ -9,13 +9,8 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.transform.Transformers;
 
-/**
- *
- * @author leonardo
- */
 public class ControlD4Liquido {
     private Session session;
     

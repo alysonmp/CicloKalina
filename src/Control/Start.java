@@ -15,7 +15,6 @@ import Control.Ciclo2.ControlParametros;
 import Control.Ciclo2.ControlRegeff;
 import Control.Ciclo2.ControlRegenerador;
 import Control.Ciclo2.ControlSF;
-import Control.Ciclo2.ControlT_Ref;
 import Control.Ciclo2.ControlTurbina;
 import Util.DropdownComboBox;
 import org.hibernate.Session;
@@ -222,6 +221,15 @@ public class Start {
             mensagem = areas.getMensagem();
             return;
         }
+        
+        Ten = areas.getTen();
+        Pen = areas.getPen();
+        mH2O = areas.getmH2O();
+        Ten1 = areas.getTen1();
+        UACONs = areas.getUACONs();
+        UACONl = areas.getUACONl();
+        UAREG = areas.getUAREG();
+        Ts = areas.getTs();
         Acon = areas.getAcon();
         Aevp = areas.getAevp();
         Areg = areas.getAreg();

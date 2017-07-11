@@ -352,7 +352,6 @@ public class ViewLateral extends JPanel{
             checkSup.setSelected(false);
         }
 
-        
         fieldTemp.getEditor().getEditorComponent().addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
@@ -367,7 +366,7 @@ public class ViewLateral extends JPanel{
                     JOptionPane.showMessageDialog(null,"Valor da temperatura acima do permitido!");
                     fieldTemp.setSelectedItem("0.0");
                 }else{*/
-                    fieldTemp.setSelectedItem(controlConverte.round(Double.parseDouble(fieldTemp.getSelectedItem().toString()),precision));
+                    //fieldTemp.setSelectedItem(controlConverte.round(Double.parseDouble(fieldTemp.getSelectedItem().toString()),precision));
                     controlLateral.atualizaTemperatura();
                 //}
             }
@@ -399,7 +398,7 @@ public class ViewLateral extends JPanel{
                     JOptionPane.showMessageDialog(null,"Valor da pressão acima do permitido!");
                     fieldPressao.setSelectedItem("0.0");
                 }else{*/
-                    fieldPressao.setSelectedItem(controlConverte.round(Double.parseDouble(fieldPressao.getSelectedItem().toString()),precision));
+                    //fieldPressao.setSelectedItem(controlConverte.round(Double.parseDouble(fieldPressao.getSelectedItem().toString()),precision));
                     controlLateral.atualizaPressao();
                 //}
             }
@@ -418,7 +417,6 @@ public class ViewLateral extends JPanel{
             public void keyReleased(KeyEvent e) {
             }
         });
-        
         fieldMassa.getEditor().getEditorComponent().addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
@@ -428,7 +426,7 @@ public class ViewLateral extends JPanel{
 
             @Override
             public void focusLost(FocusEvent e) {
-                
+                controlLateral.atualizaMassa();
             }
         });
         fieldMassa.getEditor().getEditorComponent().addKeyListener(new KeyListener() {
@@ -445,7 +443,6 @@ public class ViewLateral extends JPanel{
             public void keyReleased(KeyEvent e) {
             }
         });
-        
         fieldTempCond.getEditor().getEditorComponent().addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
@@ -589,7 +586,18 @@ public class ViewLateral extends JPanel{
         
         botaoInicia.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) { 
+            public void actionPerformed(ActionEvent e) {
+                if(fieldTemp.getItemCount() == 0 || fieldTemp.getSelectedItem().equals("")){
+                    JOptionPane.showMessageDialog(null, "Campo Temperatura não preenchido\n");
+                    return;
+                }else if(fieldPressao.getItemCount() == 0 || fieldPressao.getSelectedItem().equals("")){
+                    JOptionPane.showMessageDialog(null, "Campo Pressão não preenchido\n");
+                    return;
+                }else if(fieldMassa.getItemCount() == 0 || fieldMassa.getSelectedItem().equals("")){
+                    JOptionPane.showMessageDialog(null, "Campo Massa não preenchido\n");
+                    return;
+                }
+                
                 Thread t1 = new Thread(new Runnable() {
                 @Override
                     public void run() {

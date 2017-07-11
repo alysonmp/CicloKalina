@@ -82,32 +82,36 @@ public class ControlPentaneGas {
         //cr = this.session.createCriteria(ModelPentaneGas.class);
         
         do{
-            SQLQuery consulta = this.session.createSQLQuery("select * from Pentane_gas where pressao <= " +pressao+ "and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
+            SQLQuery consulta = this.session.createSQLQuery("select * from Pentane_gas where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelPentaneGas.class));//Sem isso aqui impossível de retornar
             List<ModelPentaneGas> Pentanes = consulta.list(); 
-            Pentane1 = Pentanes.get(0);
+            if(!Pentanes.isEmpty())
+                Pentane1 = Pentanes.get(0);
 
             consulta = this.session.createSQLQuery("select * from Pentane_gas where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelPentaneGas.class));//Sem isso aqui impossível de retornar
             Pentanes = consulta.list(); 
-            Pentane2 = Pentanes.get(0);
+            if(!Pentanes.isEmpty())
+                Pentane2 = Pentanes.get(0);
 
             consulta = this.session.createSQLQuery("select * from Pentane_gas where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelPentaneGas.class));//Sem isso aqui impossível de retornar
             Pentanes = consulta.list(); 
-            Pentane3 = Pentanes.get(0);
-
+            if(!Pentanes.isEmpty())
+                Pentane3 = Pentanes.get(0); 
+                
             consulta = this.session.createSQLQuery("select * from Pentane_gas where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelPentaneGas.class));//Sem isso aqui impossível de retornar
             Pentanes = consulta.list(); 
-            Pentane4 = Pentanes.get(0);
+            if(!Pentanes.isEmpty())
+                Pentane4 = Pentanes.get(0);
 
             temperatura += 1;
-        }while(Pentane1 != null || Pentane2 != null || Pentane3 != null || Pentane4 != null);
+        }while(Pentane1 == null || Pentane2 == null || Pentane3 == null || Pentane4 == null);
         
         cpv1 = Pentane1.getCPV() + (Pentane2.getCPV() - Pentane1.getCPV()) * ((temperatura-Pentane1.getTEMPERATURA())/(Pentane2.getTEMPERATURA()-Pentane1.getTEMPERATURA()));
         cpv2 = Pentane3.getCPV() + (Pentane4.getCPV() - Pentane3.getCPV()) * ((temperatura-Pentane3.getTEMPERATURA())/(Pentane4.getTEMPERATURA()-Pentane3.getTEMPERATURA()));

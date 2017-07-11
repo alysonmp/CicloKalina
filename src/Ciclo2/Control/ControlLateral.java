@@ -7,7 +7,6 @@ package Ciclo2.Control;
 
 import Ciclo2.View.ViewLateral;
 import Control.ControlPrincipal;
-import Control.Conversao.ControlConverte;
 import Ciclo2.Model.ModelLateral;
 import java.util.Collections;
 import java.util.List;
@@ -42,12 +41,11 @@ public class ControlLateral {
     public void getValues(){
         Criteria cr = this.session.createCriteria((ModelLateral.class));
         List results = cr.list();
-        ControlConverte controlConverte = new ControlConverte();
         
         for(int i=0;i<results.size();i++){
             ModelLateral lateral = (ModelLateral)results.get(i);
             
-            //viewLateral.getFieldMassa().addItem(controlConverte.converte(lateral.getTipoMassa(),lateral.getMassa()));
+            viewLateral.getFieldMassa().addItem(lateral.getMassa());
             viewLateral.getFieldTemp().addItem(lateral.getTemperatura());
             viewLateral.getFieldPressao().addItem(lateral.getPressao());
             viewLateral.getFieldTempCond().addItem(lateral.getTempCond());
@@ -137,7 +135,6 @@ public class ControlLateral {
             ModelLateral lineDown = (ModelLateral)result.get(i);
             ModelLateral lineUp = (ModelLateral)result.get(i-1);
             lineDown.setTemperatura(lineUp.getTemperatura());
-            lineDown.setTipoTemp(lineUp.getTipoTemp());
             session.saveOrUpdate(lineDown);
             valores.add(lineDown.getTemperatura());
         }
@@ -146,7 +143,6 @@ public class ControlLateral {
             lateral = (ModelLateral)result.get(0);
         valores.add(valor);
         lateral.setTemperatura(valor);
-        lateral.setTipoTemp(tipo);
         session.saveOrUpdate(lateral);
         
         atualizaComboBox(valores, viewLateral.getFieldTemp());
@@ -187,7 +183,6 @@ public class ControlLateral {
             ModelLateral lineDown = (ModelLateral)result.get(i);
             ModelLateral lineUp = (ModelLateral)result.get(i-1);
             lineDown.setPressao(lineUp.getPressao());
-            lineDown.setTipoPressao(lineUp.getTipoPressao());
             session.saveOrUpdate(lineDown);
             valores.add(lineDown.getPressao());
         }
@@ -196,7 +191,6 @@ public class ControlLateral {
             lateral = (ModelLateral)result.get(0);
         valores.add(valor);
         lateral.setPressao(valor);
-        lateral.setTipoPressao(tipo);
         session.saveOrUpdate(lateral);
         
         atualizaComboBox(valores, viewLateral.getFieldPressao());
@@ -237,7 +231,6 @@ public class ControlLateral {
             ModelLateral lineDown = (ModelLateral)result.get(i);
             ModelLateral lineUp = (ModelLateral)result.get(i-1);
             lineDown.setTempCond(lineUp.getTempCond());
-            lineDown.setTipoTempCond(lineUp.getTipoTempCond());
             session.saveOrUpdate(lineDown);
             valores.add(lineDown.getTempCond());
         }
@@ -246,7 +239,6 @@ public class ControlLateral {
             lateral = (ModelLateral)result.get(0);
         valores.add(valor);
         lateral.setTempCond(valor);
-        lateral.setTipoTempCond(tipo);
         session.saveOrUpdate(lateral);
         
         atualizaComboBox(valores, viewLateral.getFieldTempCond());

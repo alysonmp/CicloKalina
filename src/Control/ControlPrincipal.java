@@ -73,6 +73,7 @@ import Control.TabelaFluidos.ControlTolueneLiquido;
 import Control.TabelaFluidos.ControlWaterGas;
 import Control.TabelaFluidos.ControlWaterLiquido;
 import Model.Ciclo2.ModelBomba;
+import Model.Ciclo2.ModelEtapa1;
 import Model.ModelCore;
 import Model.Ciclo2.ModelFluidos;
 import Model.Ciclo2.ModelMassa;
@@ -117,6 +118,7 @@ import View.Regenerador.ViewRegeneradorImage;
 import View.Regenerador.ViewRegeneradorPanelRankine;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -129,6 +131,8 @@ import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -142,9 +146,9 @@ import org.hibernate.criterion.Restrictions;
  */
 public class ControlPrincipal {
     private double PMax, TMax;
-    private double Beff = 0;
-    private double Teff = 0;
-    private double eff = 0;
+    private double Beff = 80;
+    private double Teff = 80;
+    private double eff = 0.8;
     private double T1;
     private double P1;
  
@@ -856,12 +860,24 @@ public class ControlPrincipal {
         viewLateral = new ViewLateral(this);
         viewPrincipal.getPainelEntrada().setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(1, Color.lightGray, Color.lightGray), "Dados de Entrada", 1, 2, new Font("Times New Roman", 1, 12), Color.darkGray));
         viewPrincipal.getPainelEntrada().add(viewLateral.getPainelDados());
+        viewPrincipal.getPainelMensagens().setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(1, Color.lightGray, Color.lightGray), "Mensagens", 1, 2, new Font("Times New Roman", 1, 12), Color.darkGray));
+        
+        /*Aonde colocar ? */
+        JTextArea textArea = new JTextArea(10, 20);
+        textArea.setEditable(false);
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        scrollPane.setPreferredSize(new Dimension(350,260));
+        
+        viewPrincipal.getPainelMensagens().add(scrollPane);
         viewPrincipal.getFramePrincipal().revalidate();
         viewPrincipal.getFramePrincipal().repaint();
         calculaLimites();
 
-        //this.inicializaEff();
-
+        this.inicializaVariaveis();
+        
+        /*Testando TextArea*/
+        textArea.append("Eficiencia da Turbina a 80%\n");
+        textArea.setFont(new Font("Serif", Font.ITALIC, 12));
     }
     
     //FUNÇÃO QUE EDITA OS JPANELS ONDE SERÃO MOSTRADOS OS CICLOS E OS INSERE NO PAINEL
@@ -1157,33 +1173,16 @@ public class ControlPrincipal {
                  (int)(this.getViewPrincipal().getFramePrincipal().getWidth()*0.03), (int)(this.getViewPrincipal().getFramePrincipal().getHeight()*0.065));
     }
     
-    public void inicializaEff(){
-        Criteria cr = session.createCriteria(ModelTurbina.class);
+    public void inicializaVariaveis(){
+        Criteria cr = session.createCriteria(ModelEtapa1.class);
         List results = cr.list();
-        ModelTurbina turbina = (ModelTurbina) results.get(0);
     
-        if(results.isEmpty())
-            this.Teff = 0;
-        else
-            this.Teff = turbina.getEficiencia();
+        if(!results.isEmpty()){
+            ModelEtapa1 etapa = (ModelEtapa1) results.get(0);
         
-        cr = session.createCriteria(ModelBomba.class);
-        results = cr.list();
-        ModelBomba bomba = (ModelBomba) results.get(0);
-        
-        if(results.isEmpty())
-            this.Beff = 0;
-        else  
-            this.Beff = bomba.getEficiencia();
-        
-        cr = session.createCriteria(ModelRegenerador.class);
-        results = cr.list();
-        ModelRegenerador regenerador = (ModelRegenerador) results.get(0);
-        
-        if(results.isEmpty())
-            this.eff = 0;
-        else
-            this.eff = regenerador.getEfetividade();
+            this.P1 = etapa.getPressao();
+            this.T1 = etapa.getTemperatura();
+        }
     }
     
     public ViewPrincipal getViewPrincipal() {
