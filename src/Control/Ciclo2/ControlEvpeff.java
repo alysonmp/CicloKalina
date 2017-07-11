@@ -275,12 +275,12 @@ public class ControlEvpeff {
         }
         
         cr = session.createCriteria(ModelCore.class);
-        cr.add(Restrictions.eq("cod", 13));
+        cr.add(Restrictions.eq("cod", ii));
         results = cr.list();
         ModelCore core = (ModelCore) results.get(0);
         
         //%%Dimensoes do Core 
-        double Dh1 = core.getDh();
+        double Dh1 = core.getDh()/1000;
         double alp1 = core.getAlp();
         double del1 = core.getDel();
         double gam1 = core.getGam();
@@ -292,7 +292,7 @@ public class ControlEvpeff {
         double por1 = core.getPor();
         
         cr = session.createCriteria(ModelCore.class);
-        cr.add(Restrictions.eq("cod", 13));
+        cr.add(Restrictions.eq("cod", ii));
         results = cr.list();
         core = (ModelCore) results.get(0);
         
