@@ -44,7 +44,6 @@ public class ControlCompressor5 {
         BufferedReader br = null;
         String line = "";
         String cvsSplitBy = ";";
-        this.session = session;
         
         try {
 
@@ -83,7 +82,7 @@ public class ControlCompressor5 {
         //cr = this.session.createCriteria(ModelwaterGas.class);
         
         do{
-            SQLQuery consulta = this.session.createSQLQuery("select * from compressor5 where pressao <= " +pressao+ "and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
+            SQLQuery consulta = this.session.createSQLQuery("select * from compressor5 where pressao <= " +pressao+ "and temperatura <= " +temperatura+ "ORDER BY ID ASC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelCompressor5.class));//Sem isso aqui impossível de retornar
             List<ModelCompressor5> compress = consulta.list(); 
@@ -104,7 +103,7 @@ public class ControlCompressor5 {
             if(!compress.isEmpty())
                 compr3 = compress.get(0);
 
-            consulta = this.session.createSQLQuery("select * from compressor5 where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
+            consulta = this.session.createSQLQuery("select * from compressor5 where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelCompressor5.class));//Sem isso aqui impossível de retornar
             compress = consulta.list(); 

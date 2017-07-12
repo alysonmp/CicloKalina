@@ -53,7 +53,7 @@ public class ControlEvpeff {
             DPfsen = 0.0*DPf;
         }
         
-        ControlConstantes constantes = new ControlConstantes(Tf, P1, ii, session);
+        ControlConstantes constantes = new ControlConstantes(T1, P1, ii, session);
         ControlZeta zeta = new ControlZeta(constantes.getBeta(), constantes.getEps(), constantes.getDelta());
         
         double Zv1 = zeta.getZv();
@@ -114,7 +114,7 @@ public class ControlEvpeff {
         double Vcf = intCompress.getVcv_g();
         double Df = intCompress.getDf_g();
         
-        ControlTSaida tSaida = new ControlTSaida(compressor, Qsup, Tf, session);
+        ControlTSaida tSaida = new ControlTSaida(compressor, Tf, Qsup, session);
         double Tf1 = tSaida.getTfout();
         
         intCompress = new ControlInterpolacaoCompressor(compressor, Pf, Tf1, session);
@@ -204,8 +204,8 @@ public class ControlEvpeff {
             eplat = 1-Math.exp(-NTUlat);
             Nhlat = 2*NTUlat/0.8;
             Nclat = 2*NTUlat/0.8;
-            Ghlat = Math.pow((((0.25)/((Math.pow(Prf1,(2/3)))*Nhlat))*(2*((Df1+Df2)/2)*DPflat)),0.5); //%kg/m2*s
-            Gclat=Math.pow((((0.25)/((Math.pow(Pr1s,(2/3)))*Nclat))*(2*((D1sv+D1sl)/2)*DPlat)),0.5); //%kg/m2*s
+            Ghlat = Math.pow((((0.25)/((Math.pow(Prf1,(0.66666667)))*Nhlat))*(2*((Df1+Df2)/2)*DPflat)),0.5); //%kg/m2*s
+            Gclat=Math.pow((((0.25)/((Math.pow(Pr1s,(0.66666667)))*Nclat))*(2*((D1sv+D1sl)/2)*DPlat)),0.5); //%kg/m2*s
             Acclat = (m*(pm.getValor()))/Gclat; //%m2
             Achlat = mf/Ghlat;  //%m2
 
@@ -216,12 +216,12 @@ public class ControlEvpeff {
             C = Csenmin/Csenmax;
             epsilonsen1 = (Chsen*(Tf2-Tfout))/(Csenmin*(Tf2-T6));
             NTUsen = (UASEN)/Csenmin;
-            epsilonsen2 = 1-Math.exp((Math.exp((Math.pow(-NTUsen,0.78))*C)-1)*(Math.pow(NTUsen,0.22)/C));
+            epsilonsen2 = 1-Math.exp((Math.exp((Math.pow(NTUsen,0.78))*(-C))-1)*(Math.pow(NTUsen,0.22)/C));
             epsen = Math.min(epsilonsen1,epsilonsen2);
             Nhsen = 1.1*NTUsen/0.8;
             Ncsen = 10*C*NTUsen/0.8;
-            Ghsen = Math.pow((((0.25)/(Math.pow(Prf2,(2/3))*Nhsen))*(2*((Df2+Dfout)/2)*DPfsen)),0.5);
-            Gcsen = Math.pow((((0.25)/(Math.pow(Pr1sl,(2/3))*Ncsen))*(2*((D6+D1sl)/2)*DPsen)),0.5);
+            Ghsen = Math.pow((((0.25)/(Math.pow(Prf2,(0.66666667))*Nhsen))*(2*((Df2+Dfout)/2)*DPfsen)),0.5);
+            Gcsen = Math.pow((((0.25)/(Math.pow(Pr1sl,(0.66666667))*Ncsen))*(2*((D6+D1sl)/2)*DPsen)),0.5);
             Accsen = (m*(pm.getValor()))/Gcsen;
             Achsen = mf/Ghsen; 
 
@@ -233,12 +233,12 @@ public class ControlEvpeff {
             C = Csupmin/Csupmax;
             epsilonsup1 = (Chsup*(Tf-Tf1))/(Csupmin*(Tf-T1s));
             NTUsup = (UASUP)/Csupmin;
-            epsilonsup2 = 1-Math.exp((Math.exp(Math.pow(-NTUsup,0.78)*C)-1)*(Math.pow(NTUsup,0.22)/C));
+            epsilonsup2 = 1-Math.exp((Math.exp(Math.pow(NTUsup,0.78)*(-C))-1)*(Math.pow(NTUsup,0.22)/C));
             epsup = Math.min(epsilonsup1,epsilonsup2);
             Nhsup = 2*NTUsup/0.8;
             Ncsup = 2*NTUsup/0.8;
-            Ghsup = Math.pow((((0.25)/(Math.pow(Prf,(2/3))*Nhsup))*(2*((Df1+Df)/2)*DPfsup)),0.5);
-            Gcsup = Math.pow((((0.25)/(Math.pow(Pr1,(2/3))*Ncsup))*(2*((D1sv+D1)/2)*DPsup)),0.5);
+            Ghsup = Math.pow((((0.25)/(Math.pow(Prf,(0.66666667))*Nhsup))*(2*((Df1+Df)/2)*DPfsup)),0.5);
+            Gcsup = Math.pow((((0.25)/(Math.pow(Pr1,(0.66666667))*Ncsup))*(2*((D1sv+D1)/2)*DPsup)),0.5);
             Accsup = (m*(pm.getValor()))/Gcsup;
             Achsup = mf/Ghsup; 
 
@@ -252,8 +252,8 @@ public class ControlEvpeff {
             eplat = 1-Math.exp(-NTUlat);
             Nhlat = 2*NTUlat/0.8;
             Nclat = 2*NTUlat/0.8;
-            Ghlat = Math.pow((((0.25)/(Math.pow(Prf1,(2/3))*Nhlat))*(2*((Df1+Df2)/2)*DPflat)),0.5);
-            Gclat = Math.pow((((0.25)/(Math.pow(Pr1s,(2/3))*Nclat))*(2*((D1sv+D1sl)/2)*DPlat)),0.5);
+            Ghlat = Math.pow((((0.25)/(Math.pow(Prf1,(0.66666667))*Nhlat))*(2*((Df1+Df2)/2)*DPflat)),0.5);
+            Gclat = Math.pow((((0.25)/(Math.pow(Pr1s,(0.66666667))*Nclat))*(2*((D1sv+D1sl)/2)*DPlat)),0.5);
             Acclat = (m*(pm.getValor()))/Gclat;
             Achlat = mf/Ghlat;
 
@@ -264,23 +264,23 @@ public class ControlEvpeff {
             C = Csenmin/Csenmax;
             epsilonsen1 = (Chsen*(Tf2-Tfout))/(Csupmin*(Tf2-T6));
             NTUsen = (UASEN)/Csenmin;
-            epsilonsen2 = 1-Math.exp((Math.exp(Math.pow(-NTUsen,0.78)*C)-1)*(Math.pow(NTUsen,0.22)/C));
+            epsilonsen2 = 1-Math.exp((Math.exp(Math.pow(NTUsen,0.78)*(-C))-1)*(Math.pow(NTUsen,0.22)/C));
             epsen = Math.min(epsilonsen1,epsilonsen2);
             Nhsen = 1.1*NTUsen/0.8;
             Ncsen = 10*C*NTUsen/0.8;
-            Ghsen = Math.pow((((0.25)/(Math.pow(Prf2,(2/3))*Nhsen))*(2*((Df2+Dfout)/2)*DPfsen)),0.5);
-            Gcsen = Math.pow((((0.25)/(Math.pow(Pr1sl,(2/3))*Ncsen))*(2*((D6+D1sl)/2)*DPsen)),0.5);
+            Ghsen = Math.pow((((0.25)/(Math.pow(Prf2,(0.66666667))*Nhsen))*(2*((Df2+Dfout)/2)*DPfsen)),0.5);
+            Gcsen = Math.pow((((0.25)/(Math.pow(Pr1sl,(0.66666667))*Ncsen))*(2*((D6+D1sl)/2)*DPsen)),0.5);
             Accsen = (m*(pm.getValor()))/Gcsen;
             Achsen = mf/Ghsen;
         }
         
         cr = session.createCriteria(ModelCore.class);
-        cr.add(Restrictions.eq("cod", 13));
+        cr.add(Restrictions.eq("cod", ii));
         results = cr.list();
         ModelCore core = (ModelCore) results.get(0);
         
         //%%Dimensoes do Core 
-        double Dh1 = core.getDh();
+        double Dh1 = core.getDh()/1000;
         double alp1 = core.getAlp();
         double del1 = core.getDel();
         double gam1 = core.getGam();
@@ -292,11 +292,11 @@ public class ControlEvpeff {
         double por1 = core.getPor();
         
         cr = session.createCriteria(ModelCore.class);
-        cr.add(Restrictions.eq("cod", 13));
+        cr.add(Restrictions.eq("cod", ii));
         results = cr.list();
         core = (ModelCore) results.get(0);
         
-        double Dh2 = core.getDh();
+        double Dh2 = core.getDh()/1000;
         double alp2 = core.getAlp();
         double del2 = core.getDel();
         double gam2 = core.getGam();
@@ -438,13 +438,13 @@ public class ControlEvpeff {
             //% Lcsen= (Dh2*(Pr1sl^(2/3))*Ncsen)/(4*jcsen);
 
             //%%%%%%%%%%%%%   (W/m2*K)   %%%%%%%%%%%%%%%%%%%%
-            hhsup = jhsup*Ghsup*((Cpf+Cpf1)/2)/Math.pow(Prf,(2/3)); //% Coeficiente de transferÍncia de calor lado quente
-            hhlat = jhlat*Ghlat*((Cpf2+Cpf1)/2)/Math.pow(Prf1,(2/3)); //% Coeficiente de transferÍncia de calor lado quente
-            hhsen = jhsen*Ghsen*((Cpf2+Cpfout)/2)/Math.pow(Prf2,(2/3)); //% Coeficiente de transferÍncia de calor lado quente
+            hhsup = jhsup*Ghsup*((Cpf+Cpf1)/2)/Math.pow(Prf,(0.66666667)); //% Coeficiente de transferÍncia de calor lado quente
+            hhlat = jhlat*Ghlat*((Cpf2+Cpf1)/2)/Math.pow(Prf1,(0.66666667)); //% Coeficiente de transferÍncia de calor lado quente
+            hhsen = jhsen*Ghsen*((Cpf2+Cpfout)/2)/Math.pow(Prf2,(0.66666667)); //% Coeficiente de transferÍncia de calor lado quente
 
-            hcsup = jcsup*Gcsup*((Cp1+Cp1s)/2)/Math.pow(Pr1,(2/3)); //% Coeficiente de transferÍncia de calor lado frio
-            hclat = jclat*Gclat*((Cp1s+Cp1s)/2)/Math.pow(Pr1s,(2/3)); //% Coeficiente de transferÍncia de calor lado frio
-            hcsen = jcsen*Gcsen*((Cp6+Cp1s)/2)/Math.pow(Pr1sl,(2/3)); //% Coeficiente de transferÍncia de calor lado frio
+            hcsup = jcsup*Gcsup*((Cp1+Cp1s)/2)/Math.pow(Pr1,(0.66666667)); //% Coeficiente de transferÍncia de calor lado frio
+            hclat = jclat*Gclat*((Cp1s+Cp1s)/2)/Math.pow(Pr1s,(0.66666667)); //% Coeficiente de transferÍncia de calor lado frio
+            hcsen = jcsen*Gcsen*((Cp6+Cp1s)/2)/Math.pow(Pr1sl,(0.66666667)); //% Coeficiente de transferÍncia de calor lado frio
 
             //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
