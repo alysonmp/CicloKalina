@@ -69,13 +69,6 @@ public class Start {
 
         double G = 1;
         
-        if(compressor == 5){
-            mf = 2.8400; //%kmol/s
-        }else{
-            mf = 1.5375; //%kmol/s
-        }
-        
-        P2 = Pconop;
         ii = flu;
         
         //ControlT_Ref TRef = new ControlT_Ref(P1, ii, session);

@@ -93,7 +93,7 @@ public class ViewEtapa1PanelRankine extends JPanel{
         g.weighty = 1;
         g.insets = new Insets(2, 5, 2, 0);
         g.anchor = GridBagConstraints.CENTER;
-        painelEntrada.add(btnAtualizaTemp,g);
+        painelEntrada.add(btnAtualizaPressao,g);
         
         g.gridx = 1;
         g.gridy = 0;
@@ -118,7 +118,7 @@ public class ViewEtapa1PanelRankine extends JPanel{
         g.gridwidth = 1;
         g.fill = GridBagConstraints.NONE;
         g.anchor = GridBagConstraints.CENTER;
-        painelEntrada.add(btnAtualizaPressao, g);
+        painelEntrada.add(btnAtualizaTemp, g);
 
         g.gridx = 1;
         g.gridy = 1;
@@ -271,6 +271,7 @@ public class ViewEtapa1PanelRankine extends JPanel{
                 ControlPdeVapor pdevapor = new ControlPdeVapor(Tee, flu, ctrlEtapa1Panel.getSession());
                 
                 ctrlEtapa1Panel.getCtrlPrincipal().setP1(pdevapor.getPs2());
+                ctrlEtapa1Panel.getCtrlPrincipal().setT1(Tee + Double.parseDouble(ctrlEtapa1Panel.getCtrlPrincipal().getViewLateral().getFieldSup().getSelectedItem().toString()));
                 
                 fieldPressao.setSelectedItem(controlConverte.round(pdevapor.getPs2(), 2));
                 ctrlEtapa1Panel.atualizaPressao();
@@ -312,6 +313,7 @@ public class ViewEtapa1PanelRankine extends JPanel{
                 double T1 = Tee + Double.parseDouble(ctrlEtapa1Panel.getCtrlPrincipal().getViewLateral().getFieldSup().getSelectedItem().toString());
                 
                 ctrlEtapa1Panel.getCtrlPrincipal().setT1(T1);
+                ctrlEtapa1Panel.getCtrlPrincipal().setP1(P1);
                 fieldTemp.setSelectedItem(controlConverte.round(T1, 2));
                 ctrlEtapa1Panel.atualizaTemperatura();
             }
