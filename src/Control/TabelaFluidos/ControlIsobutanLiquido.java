@@ -75,25 +75,29 @@ public class ControlIsobutanLiquido {
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelIsobutanLiquido.class));//Sem isso aqui impossível de retornar
             List<ModelIsobutanLiquido> isobutan_liquido = consulta.list(); 
-            isobutan_liquido1 = isobutan_liquido.get(0);
+            if(!isobutan_liquido.isEmpty())
+                isobutan_liquido1 = isobutan_liquido.get(0);
 
             consulta = this.session.createSQLQuery("select * from isobutan_liquido where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelIsobutanLiquido.class));//Sem isso aqui impossível de retornar
-            isobutan_liquido = consulta.list(); 
-            isobutan_liquido2 = isobutan_liquido.get(0);
+            isobutan_liquido = consulta.list();
+            if(!isobutan_liquido.isEmpty())
+                isobutan_liquido2 = isobutan_liquido.get(0);
 
             consulta = this.session.createSQLQuery("select * from isobutan_liquido where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelIsobutanLiquido.class));//Sem isso aqui impossível de retornar
             isobutan_liquido = consulta.list(); 
-            isobutan_liquido3 = isobutan_liquido.get(0);
+            if(!isobutan_liquido.isEmpty())
+                isobutan_liquido3 = isobutan_liquido.get(0);
 
             consulta = this.session.createSQLQuery("select * from isobutan_liquido where pressao >= " +pressao+ " and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelIsobutanLiquido.class));//Sem isso aqui impossível de retornar
             isobutan_liquido = consulta.list(); 
-            isobutan_liquido4 = isobutan_liquido.get(0);
+            if(!isobutan_liquido.isEmpty())
+                isobutan_liquido4 = isobutan_liquido.get(0);
          
             temperatura -= 1;
         }while(isobutan_liquido1 == null || isobutan_liquido2 == null || isobutan_liquido3 == null || isobutan_liquido4 == null);    

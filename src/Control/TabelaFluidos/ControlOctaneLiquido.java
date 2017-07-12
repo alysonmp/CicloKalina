@@ -78,26 +78,30 @@ public class ControlOctaneLiquido {
             SQLQuery consulta = this.session.createSQLQuery("select * from Octane where pressao <= " +pressao+ "and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelOctaneLiquido.class));//Sem isso aqui impossível de retornar
-            List<ModelOctaneLiquido> Octanes = consulta.list(); 
-            Octane1 = Octanes.get(0);
+            List<ModelOctaneLiquido> Octanes = consulta.list();
+            if(!Octanes.isEmpty())
+                Octane1 = Octanes.get(0);
 
             consulta = this.session.createSQLQuery("select * from Octane where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelOctaneLiquido.class));//Sem isso aqui impossível de retornar
             Octanes = consulta.list(); 
-            Octane2 = Octanes.get(0);
+            if(!Octanes.isEmpty())
+                Octane2 = Octanes.get(0);
 
             consulta = this.session.createSQLQuery("select * from Octane where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelOctaneLiquido.class));//Sem isso aqui impossível de retornar
             Octanes = consulta.list(); 
-            Octane3 = Octanes.get(0);
+            if(!Octanes.isEmpty())
+                Octane3 = Octanes.get(0);
 
             consulta = this.session.createSQLQuery("select * from Octane where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelOctaneLiquido.class));//Sem isso aqui impossível de retornar
             Octanes = consulta.list(); 
-            Octane4 = Octanes.get(0);
+            if(!Octanes.isEmpty())
+                Octane4 = Octanes.get(0);
 
             temperatura -= 1;
         }while(Octane1 == null || Octane2 == null || Octane3 == null || Octane4 == null);

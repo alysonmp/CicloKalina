@@ -77,25 +77,29 @@ public class ControlIpentaneGas {
             SQLQuery consulta = this.session.createSQLQuery("select * from ipentane_gas where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
             consulta.setResultTransformer(Transformers.aliasToBean(ModelIpentaneGas.class));
             List<ModelIpentaneGas> ipentane_gas = consulta.list();
-            ipentane_gas1 = ipentane_gas.get(0);
+            if(!ipentane_gas.isEmpty())
+                ipentane_gas1 = ipentane_gas.get(0);
 
             consulta = this.session.createSQLQuery("select * from ipentane_gas where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
             consulta.setResultTransformer(Transformers.aliasToBean(ModelIpentaneGas.class));
             ipentane_gas = consulta.list();
-            ipentane_gas2 = ipentane_gas.get(0);
+            if(!ipentane_gas.isEmpty())
+                ipentane_gas2 = ipentane_gas.get(0);
 
             consulta = this.session.createSQLQuery("select * from ipentane_gas where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
             consulta.setResultTransformer(Transformers.aliasToBean(ModelIpentaneGas.class));
             ipentane_gas = consulta.list();
-            ipentane_gas3 = ipentane_gas.get(0);
+            if(!ipentane_gas.isEmpty())
+                ipentane_gas3 = ipentane_gas.get(0);
 
             consulta = this.session.createSQLQuery("select * from ipentane_gas where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
             consulta.setResultTransformer(Transformers.aliasToBean(ModelIpentaneGas.class));
             ipentane_gas = consulta.list();
-            ipentane_gas4 = ipentane_gas.get(0);
+            if(!ipentane_gas.isEmpty())
+                ipentane_gas4 = ipentane_gas.get(0);
 
             temperatura += 1;
-        }while(ipentane_gas1 != null || ipentane_gas2 != null || ipentane_gas3 != null || ipentane_gas4 != null);
+        }while(ipentane_gas1 == null || ipentane_gas2 == null || ipentane_gas3 == null || ipentane_gas4 == null);
         
         double p = ((pressao - ipentane_gas1.getPRESSAO())/(ipentane_gas3.getPRESSAO() - ipentane_gas1.getPRESSAO()));
         double t1 = ((temperatura - ipentane_gas1.getTEMPERATURA())/(ipentane_gas2.getTEMPERATURA() - ipentane_gas1.getTEMPERATURA()));

@@ -74,26 +74,30 @@ public class ControlEthylbenzeneLiquido {
             SQLQuery consulta = this.session.createSQLQuery("select * from ethylbenzene_liquido where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelEthylbenzeneLiquido.class));//Sem isso aqui impossível de retornar
-            List<ModelEthylbenzeneLiquido> ethylbenzene_l = consulta.list(); 
-            ethylbenzene_l1 = ethylbenzene_l.get(0);
+            List<ModelEthylbenzeneLiquido> ethylbenzene_l = consulta.list();
+            if(!ethylbenzene_l.isEmpty())
+                ethylbenzene_l1 = ethylbenzene_l.get(0);
 
             consulta = this.session.createSQLQuery("select * from ethylbenzene_liquido where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelEthylbenzeneLiquido.class));//Sem isso aqui impossível de retornar
-            ethylbenzene_l = consulta.list(); 
-            ethylbenzene_l2 = ethylbenzene_l.get(0);
+            ethylbenzene_l = consulta.list();
+            if(!ethylbenzene_l.isEmpty())
+                ethylbenzene_l2 = ethylbenzene_l.get(0);
 
             consulta = this.session.createSQLQuery("select * from ethylbenzene_liquido where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelEthylbenzeneLiquido.class));//Sem isso aqui impossível de retornar
             ethylbenzene_l = consulta.list(); 
-            ethylbenzene_l3 = ethylbenzene_l.get(0);
+            if(!ethylbenzene_l.isEmpty())
+                ethylbenzene_l3 = ethylbenzene_l.get(0);
 
             consulta = this.session.createSQLQuery("select * from ethylbenzene_liquido where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelEthylbenzeneLiquido.class));//Sem isso aqui impossível de retornar
             ethylbenzene_l = consulta.list(); 
-            ethylbenzene_l4 = ethylbenzene_l.get(0);
+            if(!ethylbenzene_l.isEmpty())
+                ethylbenzene_l4 = ethylbenzene_l.get(0);
             
             temperatura -= 1;
         }while(ethylbenzene_l1 == null || ethylbenzene_l2 == null || ethylbenzene_l3 == null || ethylbenzene_l4 == null);

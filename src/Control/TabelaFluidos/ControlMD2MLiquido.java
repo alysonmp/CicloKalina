@@ -75,25 +75,29 @@ public class ControlMD2MLiquido {
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelMD2MLiquido.class));//Sem isso aqui impossível de retornar
             List<ModelMD2MLiquido> md2m_liquido = consulta.list(); 
-            md2m_liquido1 = md2m_liquido.get(0);
+            if(!md2m_liquido.isEmpty())
+                md2m_liquido1 = md2m_liquido.get(0);
 
             consulta = this.session.createSQLQuery("select * from md2m_liquido where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelMD2MLiquido.class));//Sem isso aqui impossível de retornar
             md2m_liquido = consulta.list(); 
-            md2m_liquido2 = md2m_liquido.get(0);
+            if(!md2m_liquido.isEmpty())
+                md2m_liquido2 = md2m_liquido.get(0);
 
             consulta = this.session.createSQLQuery("select * from md2m_liquido where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelMD2MLiquido.class));//Sem isso aqui impossível de retornar
             md2m_liquido = consulta.list(); 
-            md2m_liquido3 = md2m_liquido.get(0);
+            if(!md2m_liquido.isEmpty())
+                md2m_liquido3 = md2m_liquido.get(0);
 
             consulta = this.session.createSQLQuery("select * from md2m_liquido where pressao >= " +pressao+ " and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelMD2MLiquido.class));//Sem isso aqui impossível de retornar
             md2m_liquido = consulta.list(); 
-            md2m_liquido4 = md2m_liquido.get(0);
+            if(!md2m_liquido.isEmpty())
+                md2m_liquido4 = md2m_liquido.get(0);
 
             temperatura -= 1;
         }while(md2m_liquido1 == null || md2m_liquido2 == null || md2m_liquido3 == null || md2m_liquido4 == null);    

@@ -85,29 +85,33 @@ public class ControlMD4MGas {
             SQLQuery consulta = this.session.createSQLQuery("select * from MD4M_gas where pressao <= " +pressao+ "and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelMD4MGas.class));//Sem isso aqui impossível de retornar
-            List<ModelMD4MGas> MD4Ms = consulta.list(); 
-            MD4M1 = MD4Ms.get(0);
+            List<ModelMD4MGas> MD4Ms = consulta.list();
+            if(!MD4Ms.isEmpty())
+                MD4M1 = MD4Ms.get(0);
 
             consulta = this.session.createSQLQuery("select * from MD4M_gas where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelMD4MGas.class));//Sem isso aqui impossível de retornar
             MD4Ms = consulta.list(); 
-            MD4M2 = MD4Ms.get(0);
+            if(!MD4Ms.isEmpty())
+                MD4M2 = MD4Ms.get(0);
 
             consulta = this.session.createSQLQuery("select * from MD4M_gas where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelMD4MGas.class));//Sem isso aqui impossível de retornar
-            MD4Ms = consulta.list(); 
-            MD4M3 = MD4Ms.get(0);
+            MD4Ms = consulta.list();
+            if(!MD4Ms.isEmpty())
+                MD4M3 = MD4Ms.get(0);
 
             consulta = this.session.createSQLQuery("select * from MD4M_gas where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelMD4MGas.class));//Sem isso aqui impossível de retornar
-            MD4Ms = consulta.list(); 
-            MD4M4 = MD4Ms.get(0);
+            MD4Ms = consulta.list();
+            if(!MD4Ms.isEmpty())
+                MD4M4 = MD4Ms.get(0);
 
             temperatura += 1;
-        }while(MD4M1 != null || MD4M2 != null || MD4M3 != null || MD4M4 != null);
+        }while(MD4M1 == null || MD4M2 == null || MD4M3 == null || MD4M4 == null);
         
         cpv1 = MD4M1.getCPV() + (MD4M2.getCPV() - MD4M1.getCPV()) * ((temperatura-MD4M1.getTEMPERATURA())/(MD4M2.getTEMPERATURA()-MD4M1.getTEMPERATURA()));
         cpv2 = MD4M3.getCPV() + (MD4M4.getCPV() - MD4M3.getCPV()) * ((temperatura-MD4M3.getTEMPERATURA())/(MD4M4.getTEMPERATURA()-MD4M3.getTEMPERATURA()));

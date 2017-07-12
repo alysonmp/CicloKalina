@@ -75,26 +75,30 @@ public class ControlPropylbenzeneLiquido {
             SQLQuery consulta = this.session.createSQLQuery("select * from propylbenzene_liquido where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelPropylbenzeneLiquido.class));//Sem isso aqui impossível de retornar
-            List<ModelPropylbenzeneLiquido> propylbenze_l = consulta.list(); 
-            propylbenze_l1 = propylbenze_l.get(0);
+            List<ModelPropylbenzeneLiquido> propylbenze_l = consulta.list();
+            if(!propylbenze_l.isEmpty())
+                propylbenze_l1 = propylbenze_l.get(0);
 
             consulta = this.session.createSQLQuery("select * from propylbenzene_liquido where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelPropylbenzeneLiquido.class));//Sem isso aqui impossível de retornar
             propylbenze_l = consulta.list(); 
-            propylbenze_l2 = propylbenze_l.get(0);
+            if(!propylbenze_l.isEmpty())
+                propylbenze_l2 = propylbenze_l.get(0);
 
             consulta = this.session.createSQLQuery("select * from propylbenzene_liquido where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelPropylbenzeneLiquido.class));//Sem isso aqui impossível de retornar
             propylbenze_l = consulta.list(); 
-            propylbenze_l3 = propylbenze_l.get(0);
+            if(!propylbenze_l.isEmpty())
+                propylbenze_l3 = propylbenze_l.get(0);
 
             consulta = this.session.createSQLQuery("select * from propylbenzene_liquido where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelPropylbenzeneLiquido.class));//Sem isso aqui impossível de retornar
             propylbenze_l = consulta.list(); 
-            propylbenze_l4 = propylbenze_l.get(0);
+            if(!propylbenze_l.isEmpty())
+                propylbenze_l4 = propylbenze_l.get(0);
 
             temperatura -= 1;
         }while(propylbenze_l1 == null || propylbenze_l2 == null || propylbenze_l3 == null || propylbenze_l4 == null);

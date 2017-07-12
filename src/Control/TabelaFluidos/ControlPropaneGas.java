@@ -86,28 +86,32 @@ public class ControlPropaneGas {
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelPropaneGas.class));//Sem isso aqui impossível de retornar
             List<ModelPropaneGas> Propanes = consulta.list(); 
-            Propane1 = Propanes.get(0);
+            if(!Propanes.isEmpty())
+                Propane1 = Propanes.get(0);
 
             consulta = this.session.createSQLQuery("select * from Propane_gas where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelPropaneGas.class));//Sem isso aqui impossível de retornar
-            Propanes = consulta.list(); 
-            Propane2 = Propanes.get(0);
+            Propanes = consulta.list();
+            if(!Propanes.isEmpty())
+                Propane2 = Propanes.get(0);
 
             consulta = this.session.createSQLQuery("select * from Propane_gas where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelPropaneGas.class));//Sem isso aqui impossível de retornar
-            Propanes = consulta.list(); 
-            Propane3 = Propanes.get(0);
+            Propanes = consulta.list();
+            if(!Propanes.isEmpty())
+                Propane3 = Propanes.get(0);
 
             consulta = this.session.createSQLQuery("select * from Propane_gas where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelPropaneGas.class));//Sem isso aqui impossível de retornar
-            Propanes = consulta.list(); 
-            Propane4 = Propanes.get(0);
+            Propanes = consulta.list();
+            if(!Propanes.isEmpty())
+                Propane4 = Propanes.get(0);
 
             temperatura += 1;
-        }while(Propane1 != null || Propane2 != null || Propane3 != null || Propane4 != null);
+        }while(Propane1 == null || Propane2 == null || Propane3 == null || Propane4 == null);
         
         cpv1 = Propane1.getCPV() + (Propane2.getCPV() - Propane1.getCPV()) * ((temperatura-Propane1.getTEMPERATURA())/(Propane2.getTEMPERATURA()-Propane1.getTEMPERATURA()));
         cpv2 = Propane3.getCPV() + (Propane4.getCPV() - Propane3.getCPV()) * ((temperatura-Propane3.getTEMPERATURA())/(Propane4.getTEMPERATURA()-Propane3.getTEMPERATURA()));

@@ -79,25 +79,29 @@ public class ControlPropaneLiquido {
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelPropaneLiquido.class));//Sem isso aqui impossível de retornar
             List<ModelPropaneLiquido> Propanes = consulta.list(); 
-            Propane1 = Propanes.get(0);
+            if(!Propanes.isEmpty())
+                Propane1 = Propanes.get(0);
 
             consulta = this.session.createSQLQuery("select * from Propane where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelPropaneLiquido.class));//Sem isso aqui impossível de retornar
             Propanes = consulta.list(); 
-            Propane2 = Propanes.get(0);
+            if(!Propanes.isEmpty())
+                Propane2 = Propanes.get(0);
 
             consulta = this.session.createSQLQuery("select * from Propane where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelPropaneLiquido.class));//Sem isso aqui impossível de retornar
             Propanes = consulta.list(); 
-            Propane3 = Propanes.get(0);
+            if(!Propanes.isEmpty())
+                Propane3 = Propanes.get(0);
 
             consulta = this.session.createSQLQuery("select * from Propane where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelPropaneLiquido.class));//Sem isso aqui impossível de retornar
             Propanes = consulta.list(); 
-            Propane4 = Propanes.get(0);
+            if(!Propanes.isEmpty())
+                Propane4 = Propanes.get(0);
 
             temperatura -= 1;
         }while(Propane1 == null || Propane2 == null || Propane3 == null || Propane4 == null);

@@ -79,25 +79,29 @@ public class ControlR141BLiquido {
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelR141BLiquido.class));//Sem isso aqui impossível de retornar
             List<ModelR141BLiquido> R141Bs = consulta.list(); 
-            R141B1 = R141Bs.get(0);
+            if(!R141Bs.isEmpty())
+                R141B1 = R141Bs.get(0);
 
             consulta = this.session.createSQLQuery("select * from R141B where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelR141BLiquido.class));//Sem isso aqui impossível de retornar
             R141Bs = consulta.list(); 
-            R141B2 = R141Bs.get(0);
+            if(!R141Bs.isEmpty())
+                R141B2 = R141Bs.get(0);
 
             consulta = this.session.createSQLQuery("select * from R141B where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelR141BLiquido.class));//Sem isso aqui impossível de retornar
             R141Bs = consulta.list(); 
-            R141B3 = R141Bs.get(0);                
+            if(!R141Bs.isEmpty())
+                R141B3 = R141Bs.get(0);                
 
             consulta = this.session.createSQLQuery("select * from R141B where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelR141BLiquido.class));//Sem isso aqui impossível de retornar
             R141Bs = consulta.list(); 
-            R141B4 = R141Bs.get(0);
+            if(!R141Bs.isEmpty())
+                R141B4 = R141Bs.get(0);
 
             temperatura -= 1;
         }while(R141B1 == null || R141B2 == null || R141B3 == null || R141B4 == null);

@@ -77,25 +77,29 @@ public class ControlHeptaneGas {
             SQLQuery consulta = this.session.createSQLQuery("select * from heptane_gas where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
             consulta.setResultTransformer(Transformers.aliasToBean(ModelHeptaneGas.class));
             List<ModelHeptaneGas> heptane_gas = consulta.list();
-            heptane_gas1 = heptane_gas.get(0);
+            if(!heptane_gas.isEmpty())
+                heptane_gas1 = heptane_gas.get(0);
 
             consulta = this.session.createSQLQuery("select * from heptane_gas where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
             consulta.setResultTransformer(Transformers.aliasToBean(ModelHeptaneGas.class));
             heptane_gas = consulta.list();
-            heptane_gas2 = heptane_gas.get(0);
+            if(!heptane_gas.isEmpty())
+                heptane_gas2 = heptane_gas.get(0);
 
             consulta = this.session.createSQLQuery("select * from heptane_gas where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
             consulta.setResultTransformer(Transformers.aliasToBean(ModelHeptaneGas.class));
             heptane_gas = consulta.list();
-            heptane_gas3 = heptane_gas.get(0);
+            if(!heptane_gas.isEmpty())
+                heptane_gas3 = heptane_gas.get(0);
 
             consulta = this.session.createSQLQuery("select * from heptane_gas where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
             consulta.setResultTransformer(Transformers.aliasToBean(ModelHeptaneGas.class));
             heptane_gas = consulta.list();
-            heptane_gas4 = heptane_gas.get(0);
+            if(!heptane_gas.isEmpty())
+                heptane_gas4 = heptane_gas.get(0);
 
             temperatura += 1;
-        }while(heptane_gas1 != null || heptane_gas2 != null || heptane_gas3 != null || heptane_gas4 != null);
+        }while(heptane_gas1 == null || heptane_gas2 == null || heptane_gas3 == null || heptane_gas4 == null);
         
         double p = ((pressao - heptane_gas1.getPRESSAO())/(heptane_gas3.getPRESSAO() - heptane_gas1.getPRESSAO()));
         double t1 = ((temperatura - heptane_gas1.getTEMPERATURA())/(heptane_gas2.getTEMPERATURA() - heptane_gas1.getTEMPERATURA()));

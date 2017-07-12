@@ -86,28 +86,32 @@ public class ControlMMGas {
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelMMGas.class));//Sem isso aqui impossível de retornar
             List<ModelMMGas> MMs = consulta.list(); 
-            MM1 = MMs.get(0);
+            if(!MMs.isEmpty())
+                MM1 = MMs.get(0);
 
             consulta = this.session.createSQLQuery("select * from MM_gas where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelMMGas.class));//Sem isso aqui impossível de retornar
             MMs = consulta.list(); 
-            ModelMMGas MM2 = MMs.get(0);
+            if(!MMs.isEmpty())
+                MM2 = MMs.get(0);
 
             consulta = this.session.createSQLQuery("select * from MM_gas where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelMMGas.class));//Sem isso aqui impossível de retornar
-            MMs = consulta.list(); 
-            ModelMMGas MM3 = MMs.get(0);
+            MMs = consulta.list();
+            if(!MMs.isEmpty())
+                MM3 = MMs.get(0);
 
             consulta = this.session.createSQLQuery("select * from MM_gas where pressao >= " +pressao+ "and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelMMGas.class));//Sem isso aqui impossível de retornar
-            MMs = consulta.list(); 
-            ModelMMGas MM4 = MMs.get(0);
+            MMs = consulta.list();
+            if(!MMs.isEmpty())
+                MM4 = MMs.get(0);
 
             temperatura += 1;
-        }while(MM1 != null || MM2 != null || MM2 != null || MM2 != null);
+        }while(MM1 == null || MM2 == null || MM2 == null || MM2 == null);
         
         cpv1 = MM1.getCPV() + (MM2.getCPV() - MM1.getCPV()) * ((temperatura-MM1.getTEMPERATURA())/(MM2.getTEMPERATURA()-MM1.getTEMPERATURA()));
         cpv2 = MM3.getCPV() + (MM4.getCPV() - MM3.getCPV()) * ((temperatura-MM3.getTEMPERATURA())/(MM4.getTEMPERATURA()-MM3.getTEMPERATURA()));

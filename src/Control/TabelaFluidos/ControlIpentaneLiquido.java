@@ -75,25 +75,29 @@ public class ControlIpentaneLiquido {
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelIpentaneLiquido.class));//Sem isso aqui impossível de retornar
             List<ModelIpentaneLiquido> ipentane_liquido = consulta.list(); 
-            ipentane_liquido1 = ipentane_liquido.get(0);
+            if(!ipentane_liquido.isEmpty())
+                ipentane_liquido1 = ipentane_liquido.get(0);
 
             consulta = this.session.createSQLQuery("select * from ipentane_liquido where pressao <= "+pressao+" and temperatura >= "+temperatura+" ORDER BY PRESSAO DESC, TEMPERATURA ASC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelIpentaneLiquido.class));//Sem isso aqui impossível de retornar
             ipentane_liquido = consulta.list(); 
-            ipentane_liquido2 = ipentane_liquido.get(0);
+            if(!ipentane_liquido.isEmpty())
+                ipentane_liquido2 = ipentane_liquido.get(0);
 
             consulta = this.session.createSQLQuery("select * from ipentane_liquido where pressao >= "+pressao+" and temperatura <= "+temperatura+" ORDER BY PRESSAO ASC, TEMPERATURA DESC");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelIpentaneLiquido.class));//Sem isso aqui impossível de retornar
-            ipentane_liquido = consulta.list(); 
-            ipentane_liquido3 = ipentane_liquido.get(0);
+            ipentane_liquido = consulta.list();
+            if(!ipentane_liquido.isEmpty())
+                ipentane_liquido3 = ipentane_liquido.get(0);
 
             consulta = this.session.createSQLQuery("select * from ipentane_liquido where pressao >= " +pressao+ " and temperatura >= " +temperatura+ " FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelIpentaneLiquido.class));//Sem isso aqui impossível de retornar
-            ipentane_liquido = consulta.list(); 
-            ipentane_liquido4 = ipentane_liquido.get(0);
+            ipentane_liquido = consulta.list();
+            if(!ipentane_liquido.isEmpty())
+                ipentane_liquido4 = ipentane_liquido.get(0);
      
             temperatura -= 1;
         }while(ipentane_liquido1 == null || ipentane_liquido2 == null || ipentane_liquido3 == null || ipentane_liquido4 == null);
