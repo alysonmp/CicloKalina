@@ -30,8 +30,8 @@ public class ControlConeff {
         Criteria cr = session.createCriteria(ModelCriticasKCSMat_PM.class);
         List results = cr.list();
         
-        ModelCriticasKCSMat_PM PMii = (ModelCriticasKCSMat_PM)results.get(ii);
-        ModelCriticasKCSMat_PM PM1 = (ModelCriticasKCSMat_PM)results.get(1);
+        ModelCriticasKCSMat_PM PMii = (ModelCriticasKCSMat_PM)results.get(ii-1);
+        ModelCriticasKCSMat_PM PM1 = (ModelCriticasKCSMat_PM)results.get(0);
         double DP4 = P4*1000*4/100;
         double DPCONs = 0.3*DP4;
         double DPCONl = 0.7*DP4;
@@ -120,8 +120,8 @@ public class ControlConeff {
             epCONl=1-Math.exp(-NTUlat);
             NcCONl=2*NTUlat/0.8;
             NhCONl=2*NTUlat/0.8;
-            Ghlat=Math.pow((((0.25)/(Math.pow(Pr4,(2/3))*NhCONl))*(2*((D4+D4v)/2)*DPCONl)),0.5);
-            Gclat=Math.pow((((0.25)/(Math.pow(Pren,(2/3))*NcCONl))*(2*((De1+De)/2)*DPenlat)),0.5);
+            Ghlat=Math.pow((((0.25)/(Math.pow(Pr4,(0.66666667))*NhCONl))*(2*((D4+D4v)/2)*DPCONl)),0.5);
+            Gclat=Math.pow((((0.25)/(Math.pow(Pren,(0.66666667))*NcCONl))*(2*((De1+De)/2)*DPenlat)),0.5);
             Acclat=(mH2O*PM1.getValor())/Gclat;
             Achlat=m/Ghlat; 
             
@@ -134,12 +134,12 @@ public class ControlConeff {
             C= Csupmin/Csupmax;
             double epsilonsup1=(Chsup*(T3-T4))/(Csupmin*(T3-Ten1));
             NTUsup=(UACONs)/Csupmin;
-            double epsilonsup2=1-Math.exp((Math.exp(Math.pow(-NTUsup,0.78)*C)-1)*(Math.pow(NTUsup,0.22)/C));
+            double epsilonsup2=1-Math.exp((Math.exp(Math.pow(NTUsup,0.78)*(-C))-1)*(Math.pow(NTUsup,0.22)/C));
             epCONs=Double.min(epsilonsup1,epsilonsup2);
             double NcCONs=2*NTUsup/0.8;
             double NhCONs=2*NTUsup/0.8;
-            Ghsup=Math.pow((((0.25)/(Math.pow(Pr3,(2/3))*NhCONs))*(2*((D3+D4v)/2)*DPCONs)),0.5);
-            Gcsup=Math.pow((((0.25)/(Math.pow(Pren1,(2/3))*NcCONs))*(2*((De1+Des)/2)*DPensup)),0.5);
+            Ghsup=Math.pow((((0.25)/(Math.pow(Pr3,(0.666666667))*NhCONs))*(2*((D3+D4v)/2)*DPCONs)),0.5);
+            Gcsup=Math.pow((((0.25)/(Math.pow(Pren1,(0.6666666667))*NcCONs))*(2*((De1+Des)/2)*DPensup)),0.5);
             Accsup=(mH2O*PM1.getValor())/Gcsup;
             Achsup=m/Ghsup; 
 
@@ -152,8 +152,8 @@ public class ControlConeff {
             epCONl=1-Math.exp(-NTUlat);
             NcCONl=2*NTUlat/0.8;
             NhCONl=2*NTUlat/0.8;
-            Ghlat=Math.pow((((0.25)/(Math.pow(Pr4,(2/3))*NhCONl))*(2*((D4+D4v)/2)*DPCONl)),0.5);
-            Gclat=Math.pow((((0.25)/(Math.pow(Pren,(2/3))*NcCONl))*(2*((De1+De)/2)*DPenlat)),0.5);
+            Ghlat=Math.pow((((0.25)/(Math.pow(Pr4,(0.66666667))*NhCONl))*(2*((D4+D4v)/2)*DPCONl)),0.5);
+            Gclat=Math.pow((((0.25)/(Math.pow(Pren,(0.666666667))*NcCONl))*(2*((De1+De)/2)*DPenlat)),0.5);
             Acclat=(mH2O*PM1.getValor())/Gclat;
             Achlat=m/Ghlat; 
         }
@@ -163,7 +163,7 @@ public class ControlConeff {
         results = cr.list();
         ModelCore core = (ModelCore) results.get(0);
         
-        double Dh1 = core.getDh();
+        double Dh1 = core.getDh()/1000;
         double alp1 = core.getAlp();
         double del1 = core.getDel();
         double gam1 = core.getGam();
@@ -179,7 +179,7 @@ public class ControlConeff {
         results = cr.list();
         core = (ModelCore) results.get(0);
         
-        double Dh2 = core.getDh();
+        double Dh2 = core.getDh()/1000;
         double alp2 = core.getAlp();
         double del2 = core.getDel();
         double gam2 = core.getGam();
@@ -215,11 +215,11 @@ public class ControlConeff {
             jcsup= (0.6522*Math.pow(Recsup,-0.5403)*Math.pow(alp2,-0.1541)*Math.pow(del2,0.1499)*Math.pow(gam2,-0.0678))*Math.pow((1+(5.269e-5*Math.pow(Recsup,1.340)*Math.pow(alp2,0.504)*Math.pow(del2,0.456)*Math.pow(gam2,-1.055))),0.1);
             jclat= (0.6522*Math.pow(Reclat,-0.5403)*Math.pow(alp2,-0.1541)*Math.pow(del2,0.1499)*Math.pow(gam2,-0.0678))*Math.pow((1+(5.269e-5*Math.pow(Reclat,1.340)*Math.pow(alp2,0.504)*Math.pow(del2,0.456)*Math.pow(gam2,-1.055))),0.1);
 
-            hhsup= jhsup*Ghsup*((Cp3+Cp4v)/2)/Math.pow(Pr3,(2/3)); 
-            hhlat= jhlat*Ghlat*((Cp4+Cp4v)/2)/Math.pow(Pr4v,(2/3)); 
+            hhsup= jhsup*Ghsup*((Cp3+Cp4v)/2)/Math.pow(Pr3,(0.666666667)); 
+            hhlat= jhlat*Ghlat*((Cp4+Cp4v)/2)/Math.pow(Pr4v,(0.6666666667)); 
 
-            hcsup= jcsup*Gcsup*((Cpen1+Cps)/2)/Math.pow(Prs,(2/3)); 
-            hclat= jclat*Gclat*((Cpen+Cpen1)/2)/Math.pow(Pren1,(2/3)); 
+            hcsup= jcsup*Gcsup*((Cpen1+Cps)/2)/Math.pow(Prs,(0.666666667)); 
+            hclat= jclat*Gclat*((Cpen+Cpen1)/2)/Math.pow(Pren1,(0.6666666667)); 
             
             m1sup= Math.pow((((2*hhsup)/(km*t1))*(1+(t1/l1))),0.5);
             m1lat= Math.pow((((2*hhlat)/(km*t1))*(1+(t1/l1))),0.5);
