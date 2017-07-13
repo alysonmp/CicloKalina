@@ -69,8 +69,9 @@ public class ControlIsobutanLiquido {
     
     public void interpolacao(double pressao, double temperatura){
         Criteria cr = this.session.createCriteria(ModelIsobutanLiquido.class);
-        
+        temperatura += 1;
         do{
+            temperatura -= 1;
             SQLQuery consulta = this.session.createSQLQuery("select * from isobutan_liquido where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelIsobutanLiquido.class));//Sem isso aqui impossível de retornar
@@ -99,7 +100,6 @@ public class ControlIsobutanLiquido {
             if(!isobutan_liquido.isEmpty())
                 isobutan_liquido4 = isobutan_liquido.get(0);
          
-            temperatura -= 1;
         }while(isobutan_liquido1 == null || isobutan_liquido2 == null || isobutan_liquido3 == null || isobutan_liquido4 == null);    
             
         double p  = ((pressao - isobutan_liquido1.getPRESSAO())/(isobutan_liquido3.getPRESSAO() - isobutan_liquido1.getPRESSAO()));
