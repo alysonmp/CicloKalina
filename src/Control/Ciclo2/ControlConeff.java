@@ -25,7 +25,7 @@ public class ControlConeff {
         
         double iUsup, Ugsup,iUlat,Uglat,Ahsup,Ahlat,Ahosup,Aholat,Acsup,
                     Aclat,Acosup,Acolat,Lcsup,Lclat,Lhsup,Lhlat,DPhsup,DPhlat,
-                    DPh,DPcsup,DPclat,DPc, Afrh,Afrc,Csupmin;
+                    DPcsup,DPclat, Afrh,Afrc,Csupmin;
         
         Criteria cr = session.createCriteria(ModelCriticasKCSMat_PM.class);
         List results = cr.list();
@@ -274,13 +274,13 @@ public class ControlConeff {
 
             DPhsup= (2*Math.pow(Ghsup,2)*Lhsup*fhsup)/(Dh1*((D3+D4v)/2));
             DPhlat= (2*Math.pow(Ghlat,2)*Lhlat*fhlat)/(Dh1*((D4v+D4)/2));
-            DPh=DPhsup+DPhlat;
-            erro1=DPh-DP4;
+            Dph=DPhsup+DPhlat;
+            erro1=Dph-DP4;
 
             DPcsup= (2*Math.pow(Gcsup,2)*Lcsup*fcsup)/(Dh2*((De1+Des)/2));
             DPclat= (2*Math.pow(Gclat,2)*Lclat*fclat)/(Dh2*((De+De1)/2));
-            DPc=DPcsup+DPclat;
-            erro2=DPc-DPen;
+            Dpc=DPcsup+DPclat;
+            erro2=Dpc-DPen;
 
             Afrh=Aho/cf1;
             Afrc=Aco/cf2;
