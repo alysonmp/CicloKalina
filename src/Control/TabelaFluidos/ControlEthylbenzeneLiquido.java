@@ -70,7 +70,10 @@ public class ControlEthylbenzeneLiquido {
     
     public void interpolacao(double pressao, double temperatura){
         Criteria cr = this.session.createCriteria(ModelEthylbenzeneLiquido.class);
+        
+        temperatura += 1;
         do{
+            temperatura -= 1;
             SQLQuery consulta = this.session.createSQLQuery("select * from ethylbenzene_liquido where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelEthylbenzeneLiquido.class));//Sem isso aqui impossível de retornar
@@ -99,7 +102,6 @@ public class ControlEthylbenzeneLiquido {
             if(!ethylbenzene_l.isEmpty())
                 ethylbenzene_l4 = ethylbenzene_l.get(0);
             
-            temperatura -= 1;
         }while(ethylbenzene_l1 == null || ethylbenzene_l2 == null || ethylbenzene_l3 == null || ethylbenzene_l4 == null);
         
         double p  = ((pressao - ethylbenzene_l1.getPRESSAO())/(ethylbenzene_l3.getPRESSAO() - ethylbenzene_l1.getPRESSAO()));

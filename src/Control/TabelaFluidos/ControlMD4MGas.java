@@ -80,8 +80,10 @@ public class ControlMD4MGas {
     public void interpolacao(double pressao, double temperatura){
         Criteria cr = this.session.createCriteria(ModelMD4MGas.class);
         //cr = this.session.createCriteria(ModelMD4MGas.class);
+        temperatura -= 1;
         
         do{
+            temperatura += 1;
             SQLQuery consulta = this.session.createSQLQuery("select * from MD4M_gas where pressao <= " +pressao+ "and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelMD4MGas.class));//Sem isso aqui impossível de retornar

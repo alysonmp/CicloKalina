@@ -69,8 +69,9 @@ public class ControlHeptaneLiquido {
     
     public void interpolacao(double pressao, double temperatura){
         Criteria cr = this.session.createCriteria(ModelHeptaneLiquido.class);
-        
+        temperatura += 1;
         do{
+            temperatura -= 1;
             SQLQuery consulta = this.session.createSQLQuery("select * from heptane_liquido where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelHeptaneLiquido.class));//Sem isso aqui impossível de retornar
@@ -99,7 +100,6 @@ public class ControlHeptaneLiquido {
             if(!heptane_liquido.isEmpty())
                 heptane_liquido4 = heptane_liquido.get(0);
         
-           temperatura -= 1;
         }while(heptane_liquido1 == null || heptane_liquido2 == null || heptane_liquido3 == null || heptane_liquido4 == null);
      
         double p  = ((pressao - heptane_liquido1.getPRESSAO())/(heptane_liquido3.getPRESSAO() - heptane_liquido1.getPRESSAO()));

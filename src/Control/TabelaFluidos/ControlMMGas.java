@@ -80,8 +80,9 @@ public class ControlMMGas {
     public void interpolacao(double pressao, double temperatura){
         Criteria cr = this.session.createCriteria(ModelMMGas.class);
         //cr = this.session.createCriteria(ModelMMGas.class);
-        
+        temperatura -= 1;
         do{
+            temperatura += 1;
             SQLQuery consulta = this.session.createSQLQuery("select * from MM_gas where pressao <= " +pressao+ "and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelMMGas.class));//Sem isso aqui impossível de retornar
@@ -110,7 +111,6 @@ public class ControlMMGas {
             if(!MMs.isEmpty())
                 MM4 = MMs.get(0);
 
-            temperatura += 1;
         }while(MM1 == null || MM2 == null || MM2 == null || MM2 == null);
         
         cpv1 = MM1.getCPV() + (MM2.getCPV() - MM1.getCPV()) * ((temperatura-MM1.getTEMPERATURA())/(MM2.getTEMPERATURA()-MM1.getTEMPERATURA()));

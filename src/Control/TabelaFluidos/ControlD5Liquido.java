@@ -63,7 +63,9 @@ public class ControlD5Liquido {
     
     public void interpolacao(double pressao, double temperatura){
         Criteria cr = this.session.createCriteria(ModelD5Liquido.class);
+        temperatura += 1;
         do{
+            temperatura -= 1;
             SQLQuery consulta = this.session.createSQLQuery("select * from d5_liquido where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelD5Liquido.class));//Sem isso aqui impossível de retornar
@@ -92,7 +94,6 @@ public class ControlD5Liquido {
             if(!d5_liquido.isEmpty())
                 d5_liquido4 = d5_liquido.get(0);
             
-            temperatura -= 1;
         }while(d5_liquido1 == null || d5_liquido2 == null || d5_liquido3 == null || d5_liquido4 == null);
                 
         double p = ((pressao - d5_liquido1.getPRESSAO())/(d5_liquido3.getPRESSAO() - d5_liquido1.getPRESSAO()));

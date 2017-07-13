@@ -78,8 +78,9 @@ public class ControlHexaneGas {
     
     public void interpolacao(double pressao, double temperatura){
         Criteria cr = this.session.createCriteria(ModelHexaneGas.class);
-        
+        temperatura -= 1;
         do{
+            temperatura += 1;
             SQLQuery consulta = this.session.createSQLQuery("select * from Hexane_gas where pressao <= " +pressao+ " and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelHexaneGas.class));
@@ -108,7 +109,6 @@ public class ControlHexaneGas {
             if(!hexanes.isEmpty())
                 hexane4 = hexanes.get(0);
 
-            temperatura += 1;
         }while(hexane1 == null || hexane2 == null || hexane3 == null || hexane4 == null);
         
         cpv1 = hexane1.getCPV() + (hexane2.getCPV() - hexane1.getCPV()) * ((temperatura-hexane1.getTEMPERATURA())/(hexane2.getTEMPERATURA()-hexane1.getTEMPERATURA()));
