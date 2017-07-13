@@ -72,8 +72,9 @@ public class ControlIpentaneGas {
     
     public void interpolacao(double pressao,double temperatura){
         Criteria cr = this.session.createCriteria(ModelIpentaneGas.class);
-        
+        temperatura -= 1;
         do{
+            temperatura += 1;
             SQLQuery consulta = this.session.createSQLQuery("select * from ipentane_gas where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
             consulta.setResultTransformer(Transformers.aliasToBean(ModelIpentaneGas.class));
             List<ModelIpentaneGas> ipentane_gas = consulta.list();
@@ -98,7 +99,6 @@ public class ControlIpentaneGas {
             if(!ipentane_gas.isEmpty())
                 ipentane_gas4 = ipentane_gas.get(0);
 
-            temperatura += 1;
         }while(ipentane_gas1 == null || ipentane_gas2 == null || ipentane_gas3 == null || ipentane_gas4 == null);
         
         double p = ((pressao - ipentane_gas1.getPRESSAO())/(ipentane_gas3.getPRESSAO() - ipentane_gas1.getPRESSAO()));

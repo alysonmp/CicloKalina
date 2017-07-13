@@ -71,7 +71,10 @@ public class ControlDimetylbenzeneLiquido {
     
     public void interpolacao(double pressao, double temperatura){
         Criteria cr = this.session.createCriteria(ModelDimetylbenzeneLiquido.class);
+        
+        temperatura += 1;
         do{
+            temperatura -= 1;
             SQLQuery consulta = this.session.createSQLQuery("select * from dimetylbenzene_liquido where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelDimetylbenzeneLiquido.class));//Sem isso aqui impossível de retornar
@@ -100,7 +103,6 @@ public class ControlDimetylbenzeneLiquido {
             if(!dimetylbenzene_l.isEmpty())
                 dimetylbenzene_l4 = dimetylbenzene_l.get(0);
             
-            temperatura -= 1;
         }while(dimetylbenzene_l1 == null || dimetylbenzene_l2 == null || dimetylbenzene_l3 == null || dimetylbenzene_l4 == null);
         
         double p  = ((pressao - dimetylbenzene_l1.getPRESSAO())/(dimetylbenzene_l3.getPRESSAO() - dimetylbenzene_l1.getPRESSAO()));

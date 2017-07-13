@@ -69,8 +69,9 @@ public class ControlMD2MLiquido {
     
     public void interpolacao(double pressao, double temperatura){
         Criteria cr = this.session.createCriteria(ModelMD2MLiquido.class);
-        
+        temperatura += 1;
         do{
+            temperatura -= 1;
             SQLQuery consulta = this.session.createSQLQuery("select * from md2m_liquido where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelMD2MLiquido.class));//Sem isso aqui impossível de retornar
@@ -99,7 +100,6 @@ public class ControlMD2MLiquido {
             if(!md2m_liquido.isEmpty())
                 md2m_liquido4 = md2m_liquido.get(0);
 
-            temperatura -= 1;
         }while(md2m_liquido1 == null || md2m_liquido2 == null || md2m_liquido3 == null || md2m_liquido4 == null);    
             
         double p  = ((pressao - md2m_liquido1.getPRESSAO())/(md2m_liquido3.getPRESSAO() - md2m_liquido1.getPRESSAO()));

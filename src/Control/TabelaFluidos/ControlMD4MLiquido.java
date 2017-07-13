@@ -74,7 +74,9 @@ public class ControlMD4MLiquido {
     public void interpolacao(double pressao, double temperatura){
         Criteria cr = this.session.createCriteria(ModelMD4MLiquido.class);
         //cr = this.session.createCriteria(ModelMD4MLiquido.class);
+        temperatura += 1;
         do{
+            temperatura -= 1;
             SQLQuery consulta = this.session.createSQLQuery("select * from MD4M where pressao <= " +pressao+ "and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelMD4MLiquido.class));//Sem isso aqui impossível de retornar
@@ -103,7 +105,6 @@ public class ControlMD4MLiquido {
             if(!MD4Ms.isEmpty())
                 MD4M4 = MD4Ms.get(0);
 
-            temperatura -= 1;
         }while(MD4M1 == null || MD4M2 == null || MD4M3 == null || MD4M4 == null);
         
         double p  = ((pressao - MD4M1.getPRESSAO())/(MD4M3.getPRESSAO() - MD4M1.getPRESSAO()));

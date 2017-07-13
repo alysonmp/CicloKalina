@@ -72,8 +72,9 @@ public class ControlIsobutanGas {
     
     public void interpolacao(double pressao,double temperatura){
         Criteria cr = this.session.createCriteria(ModelIsobutanGas.class);
-        
+        temperatura -= 1;
         do{
+            temperatura += 1;
             SQLQuery consulta = this.session.createSQLQuery("select * from isobutan_gas where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
             consulta.setResultTransformer(Transformers.aliasToBean(ModelIsobutanGas.class));
             List<ModelIsobutanGas> isobutan_gas = consulta.list();
@@ -98,7 +99,6 @@ public class ControlIsobutanGas {
             if(!isobutan_gas.isEmpty())
                 isobutan_gas4 = isobutan_gas.get(0);
 
-            temperatura += 1;
         }while(isobutan_gas1 == null || isobutan_gas2 == null || isobutan_gas3 == null || isobutan_gas4 == null);
         
         double p = ((pressao - isobutan_gas1.getPRESSAO())/(isobutan_gas3.getPRESSAO() - isobutan_gas1.getPRESSAO()));

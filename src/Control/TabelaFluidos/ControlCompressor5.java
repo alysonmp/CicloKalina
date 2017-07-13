@@ -80,8 +80,9 @@ public class ControlCompressor5 {
     public void interpolacao(double pressao, double temperatura){
         Criteria cr = this.session.createCriteria(ModelCompressor5.class);
         //cr = this.session.createCriteria(ModelwaterGas.class);
-        
+        temperatura -= 1;
         do{
+            temperatura += 1;
             SQLQuery consulta = this.session.createSQLQuery("select * from compressor5 where pressao <= " +pressao+ "and temperatura <= " +temperatura+ "ORDER BY ID ASC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelCompressor5.class));//Sem isso aqui impossível de retornar
@@ -110,7 +111,6 @@ public class ControlCompressor5 {
             if(!compress.isEmpty())
                 compr4 = compress.get(0);
 
-            temperatura += 1;
         }while(compr1 == null || compr2 == null || compr3 == null || compr4 == null);
         
         cpv1 = compr1.getCPV() + (compr2.getCPV() - compr1.getCPV()) * ((temperatura-compr1.getTEMPERATURA())/(compr2.getTEMPERATURA()-compr1.getTEMPERATURA()));
