@@ -38,7 +38,7 @@ public class ControlAreas {
         }
         
         Ten = 25+273.15;
-        Pen = 101.325;
+        Pen = 110;
         Ten1 = T4-7;
         double Ps = 110;
         

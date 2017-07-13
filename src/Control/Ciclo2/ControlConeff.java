@@ -40,7 +40,7 @@ public class ControlConeff {
         double DPensup=0.2*DPen;
         double DPenlat=0.8*DPen;
         
-        ControlConstantes constantes = new ControlConstantes(T4, m, ii, session);
+        ControlConstantes constantes = new ControlConstantes(T4, P4, ii, session);
         ControlZeta zeta = new ControlZeta(constantes.getBeta(), constantes.getEps(), constantes.getDelta());
         double D4 = 1/(((zeta.getZl()*constantes.getR()*T4)/P4)/PMii.getValor());
         double D4v=1/(((zeta.getZv()*constantes.getR()*T4)/P4)/PMii.getValor()); 
@@ -79,7 +79,7 @@ public class ControlConeff {
         double Pr3 = propV.getPrv_g();
         double Vc3 = propV.getVcv_g();
        
-        propL = new ControlInterpolacaoLiquido(ii, Pen, Ten, session);
+        propL = new ControlInterpolacaoLiquido(1, Pen, Ten, session);
         double ken = propL.getKv_l();
         double Cpen = propL.getCpv_l();
         double MUen = propL.getMuv_l();
@@ -93,7 +93,7 @@ public class ControlConeff {
         double Pren1 = propL.getPrv_l();
         double Vcen1 = propL.getVcv_l();
         
-        propL = new ControlInterpolacaoLiquido(ii, Pen, Ts, session);
+        propL = new ControlInterpolacaoLiquido(1, Pen, Ts, session);
         double ks = propL.getKv_l();
         double Cps = propL.getCpv_l();
         double MUs = propL.getMuv_l();
@@ -144,7 +144,7 @@ public class ControlConeff {
             Achsup=m/Ghsup; 
 
             Cclat=(mH2O*PM1.getValor()*((Cpen1+Cpen)/2))/1000;
-            Chlat=(m*PM1.getValor()*((Cp4+Cp4v)/2))/1000;
+            Chlat=(m*PMii.getValor()*((Cp4+Cp4v)/2))/1000;
             Clatmin= Double.min(Chlat,Cclat);
             Clatmax= Double.max(Chlat,Cclat);
             C = Clatmin/Clatmax;

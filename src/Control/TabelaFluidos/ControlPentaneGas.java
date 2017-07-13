@@ -80,8 +80,9 @@ public class ControlPentaneGas {
     public void interpolacao(double pressao, double temperatura){
         Criteria cr = this.session.createCriteria(ModelPentaneGas.class);
         //cr = this.session.createCriteria(ModelPentaneGas.class);
-        
+        temperatura -= 1;
         do{
+            temperatura += 1;
             SQLQuery consulta = this.session.createSQLQuery("select * from Pentane_gas where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelPentaneGas.class));//Sem isso aqui impossível de retornar
@@ -110,7 +111,6 @@ public class ControlPentaneGas {
             if(!Pentanes.isEmpty())
                 Pentane4 = Pentanes.get(0);
 
-            temperatura += 1;
         }while(Pentane1 == null || Pentane2 == null || Pentane3 == null || Pentane4 == null);
         
         cpv1 = Pentane1.getCPV() + (Pentane2.getCPV() - Pentane1.getCPV()) * ((temperatura-Pentane1.getTEMPERATURA())/(Pentane2.getTEMPERATURA()-Pentane1.getTEMPERATURA()));

@@ -72,7 +72,9 @@ public class ControlR_1270Gas {
     public void interpolacao(double pressao,double temperatura){
         Criteria cr = this.session.createCriteria(ModelR_1270Gas.class);
         
+        temperatura -= 1;
         do{
+            temperatura += 1;
             SQLQuery consulta = this.session.createSQLQuery("select * from r_1270_gas where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
             consulta.setResultTransformer(Transformers.aliasToBean(ModelR_1270Gas.class));
             List<ModelR_1270Gas> r_1270_g = consulta.list();
@@ -97,7 +99,6 @@ public class ControlR_1270Gas {
             if(!r_1270_g.isEmpty())
                 r_1270_g4 = r_1270_g.get(0);
 
-            temperatura += 1;
         }while(r_1270_g1 != null || r_1270_g2 != null || r_1270_g3 != null || r_1270_g4 != null);
         
         double p = ((pressao - r_1270_g1.getPRESSAO())/(r_1270_g3.getPRESSAO() - r_1270_g1.getPRESSAO()));

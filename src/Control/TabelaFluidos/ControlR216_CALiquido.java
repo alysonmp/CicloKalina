@@ -71,7 +71,9 @@ public class ControlR216_CALiquido {
     
     public void interpolacao(double pressao, double temperatura){
         Criteria cr = this.session.createCriteria(ModelR216_CALiquido.class);
+        temperatura += 1;
         do{
+            temperatura -= 1;
             SQLQuery consulta = this.session.createSQLQuery("select * from r216_ca_liquido where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelR216_CALiquido.class));//Sem isso aqui impossível de retornar
@@ -100,7 +102,6 @@ public class ControlR216_CALiquido {
             if(!r216_ca_l.isEmpty())
                 r216_ca_l4 = r216_ca_l.get(0);
 
-            temperatura -= 1;
         }while(r216_ca_l1 == null || r216_ca_l2 == null || r216_ca_l3 == null || r216_ca_l4 == null);
         
         double p  = ((pressao - r216_ca_l1.getPRESSAO())/(r216_ca_l3.getPRESSAO() - r216_ca_l1.getPRESSAO()));
