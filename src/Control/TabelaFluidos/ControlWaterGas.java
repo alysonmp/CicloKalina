@@ -81,7 +81,9 @@ public class ControlWaterGas {
         Criteria cr = this.session.createCriteria(ModelWaterGas.class);
         //cr = this.session.createCriteria(ModelwaterGas.class);
         
+        temperatura -= 1;
         do{
+            temperatura += 1;
             SQLQuery consulta = this.session.createSQLQuery("select * from water_gas where pressao <= " +pressao+ "and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelWaterGas.class));//Sem isso aqui impossível de retornar
@@ -110,7 +112,6 @@ public class ControlWaterGas {
             if(!waters.isEmpty())
                 water4 = waters.get(0);
 
-            temperatura += 1;
         }while(water1 == null || water2 == null || water3 == null || water4 == null);
         
         cpv1 = water1.getCPV() + (water2.getCPV() - water1.getCPV()) * ((temperatura-water1.getTEMPERATURA())/(water2.getTEMPERATURA()-water1.getTEMPERATURA()));

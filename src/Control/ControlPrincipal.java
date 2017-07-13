@@ -334,9 +334,13 @@ public class ControlPrincipal {
             tx.commit();
         }
         
+        Transaction tx = session.beginTransaction();
+        new ControlWaterLiquido(session).criaTabelaWaterLiquido();
+        tx.commit();
+        
         cr = this.session.createCriteria(ModelCore.class);
         results = cr.list();
-        Transaction tx = session.beginTransaction();
+         tx = session.beginTransaction();
         
         if(results.isEmpty()){
             String csvFile = "src/Csv/Core.csv";

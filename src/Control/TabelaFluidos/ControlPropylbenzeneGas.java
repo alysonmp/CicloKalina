@@ -72,7 +72,9 @@ public class ControlPropylbenzeneGas {
     public void interpolacao(double pressao,double temperatura){
         Criteria cr = this.session.createCriteria(ModelPropylbenzeneGas.class);
         
+        temperatura -= 1;
         do{
+            temperatura += 1;
             SQLQuery consulta = this.session.createSQLQuery("select * from propylbenzene_gas where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
             consulta.setResultTransformer(Transformers.aliasToBean(ModelPropylbenzeneGas.class));
             List<ModelPropylbenzeneGas> propylbenzene_g = consulta.list();
@@ -97,7 +99,6 @@ public class ControlPropylbenzeneGas {
             if(!propylbenzene_g.isEmpty())
                 propylbenzene_g4 = propylbenzene_g.get(0);
 
-            temperatura += 1;
         }while(propylbenzene_g1 == null || propylbenzene_g2 == null || propylbenzene_g3 == null || propylbenzene_g4 == null);
             
         double p = ((pressao - propylbenzene_g1.getPRESSAO())/(propylbenzene_g3.getPRESSAO() - propylbenzene_g1.getPRESSAO()));

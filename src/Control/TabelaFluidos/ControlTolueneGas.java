@@ -81,7 +81,10 @@ public class ControlTolueneGas {
         Criteria cr = this.session.createCriteria(ModelTolueneGas.class);
         //cr = this.session.createCriteria(ModelTolueneGas.class);
         
+        temperatura -= 1;
+        
         do{
+            temperatura += 1;
             SQLQuery consulta = this.session.createSQLQuery("select * from Toluene_gas where pressao <= " +pressao+ "and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelTolueneGas.class));//Sem isso aqui impossível de retornar
@@ -110,7 +113,6 @@ public class ControlTolueneGas {
             if(!Toluenes.isEmpty())
                 Toluene4 = Toluenes.get(0);
 
-            temperatura += 1;
         }while(Toluene1 != null || Toluene2 != null || Toluene3 != null || Toluene4 != null);
         
         cpv1 = Toluene1.getCPV() + (Toluene2.getCPV() - Toluene1.getCPV()) * ((temperatura-Toluene1.getTEMPERATURA())/(Toluene2.getTEMPERATURA()-Toluene1.getTEMPERATURA()));

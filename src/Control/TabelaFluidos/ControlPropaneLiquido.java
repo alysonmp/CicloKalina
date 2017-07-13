@@ -74,7 +74,9 @@ public class ControlPropaneLiquido {
     public void interpolacao(double pressao, double temperatura){
         Criteria cr = this.session.createCriteria(ModelPropaneLiquido.class);
         //cr = this.session.createCriteria(ModelPropaneLiquido.class);
+        temperatura += 1;
         do{
+            temperatura -= 1;
             SQLQuery consulta = this.session.createSQLQuery("select * from Propane where pressao <= " +pressao+ "and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelPropaneLiquido.class));//Sem isso aqui impossível de retornar
@@ -103,7 +105,6 @@ public class ControlPropaneLiquido {
             if(!Propanes.isEmpty())
                 Propane4 = Propanes.get(0);
 
-            temperatura -= 1;
         }while(Propane1 == null || Propane2 == null || Propane3 == null || Propane4 == null);
         
         double p  = ((pressao - Propane1.getPRESSAO())/(Propane3.getPRESSAO() - Propane1.getPRESSAO()));

@@ -71,7 +71,10 @@ public class ControlR_40Liquido {
     
     public void interpolacao(double pressao, double temperatura){
         Criteria cr = this.session.createCriteria(ModelR_40Liquido.class);
+        temperatura += 1;
         do{
+            temperatura -= 1;
+            
             SQLQuery consulta = this.session.createSQLQuery("select * from r_40_liquido where pressao <= " +pressao+ " and temperatura <= " +temperatura+ " ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelR_40Liquido.class));//Sem isso aqui impossível de retornar
@@ -99,8 +102,7 @@ public class ControlR_40Liquido {
             r_40_l = consulta.list(); 
             if(!r_40_l.isEmpty())
                 r_40_l4 = r_40_l.get(0);
-
-            temperatura -= 1;
+            
         }while(r_40_l1 == null || r_40_l2 == null || r_40_l3 == null || r_40_l4 == null);
         
         double p  = ((pressao - r_40_l1.getPRESSAO())/(r_40_l3.getPRESSAO() - r_40_l1.getPRESSAO()));

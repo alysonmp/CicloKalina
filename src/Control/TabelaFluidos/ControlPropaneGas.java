@@ -80,8 +80,9 @@ public class ControlPropaneGas {
     public void interpolacao(double pressao, double temperatura){
         Criteria cr = this.session.createCriteria(ModelPropaneGas.class);
         //cr = this.session.createCriteria(ModelPropaneGas.class);
-        
+        temperatura -= 1;
         do{
+            temperatura += 1;
             SQLQuery consulta = this.session.createSQLQuery("select * from Propane_gas where pressao <= " +pressao+ "and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelPropaneGas.class));//Sem isso aqui impossível de retornar
@@ -110,7 +111,6 @@ public class ControlPropaneGas {
             if(!Propanes.isEmpty())
                 Propane4 = Propanes.get(0);
 
-            temperatura += 1;
         }while(Propane1 == null || Propane2 == null || Propane3 == null || Propane4 == null);
         
         cpv1 = Propane1.getCPV() + (Propane2.getCPV() - Propane1.getCPV()) * ((temperatura-Propane1.getTEMPERATURA())/(Propane2.getTEMPERATURA()-Propane1.getTEMPERATURA()));

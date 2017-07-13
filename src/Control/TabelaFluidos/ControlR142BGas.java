@@ -81,7 +81,9 @@ public class ControlR142BGas {
         Criteria cr = this.session.createCriteria(ModelR142BGas.class);
         //cr = this.session.createCriteria(ModelR142BGas.class);
         
+        temperatura -= 1;
         do{
+            temperatura += 1;
             SQLQuery consulta = this.session.createSQLQuery("select * from R142B_gas where pressao <= " +pressao+ "and temperatura <= " +temperatura+ "ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
 
             consulta.setResultTransformer(Transformers.aliasToBean(ModelR142BGas.class));//Sem isso aqui impossível de retornar
@@ -110,7 +112,6 @@ public class ControlR142BGas {
             if(!R142Bs.isEmpty())
                 R142B4 = R142Bs.get(0);
 
-            temperatura += 1;
         }while(R142B1 == null || R142B2 == null || R142B3 == null || R142B4 == null);
         
         cpv1 = R142B1.getCPV() + (R142B2.getCPV() - R142B1.getCPV()) * ((temperatura-R142B1.getTEMPERATURA())/(R142B2.getTEMPERATURA()-R142B1.getTEMPERATURA()));
